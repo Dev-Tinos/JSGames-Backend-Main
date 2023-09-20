@@ -1,0 +1,11 @@
+#Server?? Base Url ??
+server:
+  servlet:
+    context-path: /api/
+
+springDoc:
+  api-docs:
+    enabled: true
+    path: /api-docs
+  swagger-ui:
+    path: /swagger

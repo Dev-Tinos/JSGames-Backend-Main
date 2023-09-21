@@ -1,8 +1,7 @@
-package com.example.jsgamesbackendmain.Bean.SmallBean;
+package com.example.jsgamesbackendmain.Bean.SmallBean.UserBean;
 
 import com.example.jsgamesbackendmain.Controller.ExceptionControll.ResourceNotFoundException;
 import com.example.jsgamesbackendmain.Model.DAO.UserDAO;
-import com.example.jsgamesbackendmain.Model.DTO.UserDTO;
 import com.example.jsgamesbackendmain.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

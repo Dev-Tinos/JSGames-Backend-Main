@@ -1,8 +1,8 @@
-package com.example.jsgamesbackendmain.Bean;
+package com.example.jsgamesbackendmain.Bean.UserBean;
 
-import com.example.jsgamesbackendmain.Bean.SmallBean.UserGetBean;
+import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserGetBean;
 import com.example.jsgamesbackendmain.Model.DAO.UserDAO;
-import com.example.jsgamesbackendmain.Model.DTO.UserDTO;
+import com.example.jsgamesbackendmain.Model.DTO.User.UserDTO;
 import com.example.jsgamesbackendmain.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

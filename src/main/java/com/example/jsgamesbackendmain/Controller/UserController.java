@@ -1,6 +1,7 @@
 package com.example.jsgamesbackendmain.Controller;
 
-import com.example.jsgamesbackendmain.Model.DTO.UserDTO;
+import com.example.jsgamesbackendmain.Model.DTO.User.UserDTO;
+import com.example.jsgamesbackendmain.Model.DTO.User.UserSignUpDTO;
 import com.example.jsgamesbackendmain.Service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -26,11 +27,10 @@ public class UserController {
         return ResponseEntity.ok(userService.getUser(userId));
     }
 
-
-//    @Operation(summary = "SignUp User")
+    @Operation(summary = "SignUp User")
     @PostMapping("/user")
-    public String postUser() {
-        return "Hello, User!";
+    public UserDTO signUpUser(@RequestBody UserSignUpDTO userSignUpDTO) {
+        return userService.signUpUser(userSignUpDTO);
     }
 
     @Operation(summary = "Update User")

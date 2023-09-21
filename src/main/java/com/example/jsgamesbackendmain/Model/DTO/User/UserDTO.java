@@ -1,4 +1,4 @@
-package com.example.jsgamesbackendmain.Model.DTO;
+package com.example.jsgamesbackendmain.Model.DTO.User;
 
 
 import com.example.jsgamesbackendmain.Model.DAO.UserDAO;

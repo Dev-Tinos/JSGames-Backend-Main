@@ -1,4 +1,4 @@
-package com.example.jsgamesbackendmain.Model;
+package com.example.jsgamesbackendmain.Model.DAO;
 
 import org.hibernate.annotations.CreationTimestamp;
 

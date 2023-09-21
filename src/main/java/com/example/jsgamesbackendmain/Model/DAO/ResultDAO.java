@@ -1,4 +1,4 @@
-package com.example.jsgamesbackendmain.Model;
+package com.example.jsgamesbackendmain.Model.DAO;
 
 import javax.persistence.*;
 

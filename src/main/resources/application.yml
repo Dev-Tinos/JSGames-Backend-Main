@@ -1,4 +1,5 @@
-#Server?? Base Url ??
+
+
 server:
   servlet:
     context-path: /api/
@@ -9,3 +10,25 @@ springDoc:
     path: /api-docs
   swagger-ui:
     path: /swagger
+
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  datasource:
+    driver-class-name: ${DB_DRIVER}
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+
+logging:
+  level:
+    org.springframework.web: DEBUG
+    org.hibernate.sql: DEBUG
+    org.hibernate.type: TRACE
+    org.hibernate.type.descriptor.sql : trace

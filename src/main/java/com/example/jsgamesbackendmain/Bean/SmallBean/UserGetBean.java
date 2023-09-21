@@ -1,4 +1,4 @@
-package com.example.jsgamesbackendmain.Bean;
+package com.example.jsgamesbackendmain.Bean.SmallBean;
 
 import com.example.jsgamesbackendmain.Controller.ExceptionControll.ResourceNotFoundException;
 import com.example.jsgamesbackendmain.Model.DAO.UserDAO;
@@ -15,13 +15,13 @@ public class UserGetBean {
     @Autowired
     private UserRepository userRepository;
 
-    public UserDTO getUser(Long userId) {
+    public UserDAO getUser(Long userId) {
         Optional<UserDAO> optional = userRepository.findById(userId);
         //optional이 비어있는지 확인
         if (!optional.isPresent()) {
             throw new ResourceNotFoundException("User not found for this id :: " + userId);
         }
-        return UserDTO.of(optional.get());
+        return optional.get();
     }
 }
 

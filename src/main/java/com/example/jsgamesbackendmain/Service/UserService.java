@@ -18,11 +18,18 @@ public class UserService {
     @Autowired
     private UserUpdateBean userUpdateBean;
 
+    @Autowired
+    private UserDeleteBean userDeleteBean;
+
     public UserDTO getUser(Long userId) {
         return UserDTO.of(userGetBean.getUser(userId));
     }
 
     public UserDTO updateUser(UserDTO userDTO) {
         return userUpdateBean.updateUser(userDTO);
+    }
+
+    public Map<String,String> deleteUser(Long userId) {
+        return userDeleteBean.deleteUser(userId);
     }
 }

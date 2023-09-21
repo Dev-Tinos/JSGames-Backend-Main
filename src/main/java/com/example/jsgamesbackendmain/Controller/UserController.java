@@ -40,8 +40,12 @@ public class UserController {
     }
 
 
-    @DeleteMapping("/user")
-    public String deleteUser() {
-        return "Hello, User!";
+    @Operation(summary = "Delete User")
+    @ApiResponse(responseCode = "200", description = "successful operation",
+        content = @Content(examples =
+            @ExampleObject(value = "{'message': 'Success'}")))
+    @DeleteMapping("/user/{userId}")
+    public Map<String,String> deleteUser(@PathVariable Long userId) {
+        return userService.deleteUser(userId);
     }
 }

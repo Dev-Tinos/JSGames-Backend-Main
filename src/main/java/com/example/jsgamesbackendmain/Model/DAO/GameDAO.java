@@ -1,9 +1,13 @@
 package com.example.jsgamesbackendmain.Model.DAO;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "games")
+@Getter @Setter
 public class GameDAO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

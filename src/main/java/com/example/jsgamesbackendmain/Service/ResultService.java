@@ -7,6 +7,8 @@ import com.example.jsgamesbackendmain.Model.DTO.Result.ResultPostDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ResultService {
 
@@ -21,5 +23,9 @@ public class ResultService {
 
     public ResultDTO postResult(ResultPostDTO resultPostDTO) {
         return resultPostBean.postResult(resultPostDTO);
+    }
+
+    public List<ResultDTO> getResultByGameId(Long gameId) {
+        return resultGetBean.getResultByGameId(gameId);
     }
 }

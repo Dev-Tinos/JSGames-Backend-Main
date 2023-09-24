@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.Optional;
 
 @Component
-public class UserEmailValidation {
+public class UserEmailValidationSmallBean {
 
     @Autowired
     private UserRepository userRepository;

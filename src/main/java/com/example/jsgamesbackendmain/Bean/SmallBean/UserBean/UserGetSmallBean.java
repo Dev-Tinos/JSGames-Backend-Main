@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.util.Optional;
 
 @Component
-public class UserGetBean {
+public class UserGetSmallBean {
 
     @Autowired
     private UserRepository userRepository;

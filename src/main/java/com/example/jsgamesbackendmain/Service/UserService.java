@@ -1,6 +1,6 @@
 package com.example.jsgamesbackendmain.Service;
 
-import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserGetBean;
+import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserGetSmallBean;
 import com.example.jsgamesbackendmain.Bean.UserBean.UserDeleteBean;
 import com.example.jsgamesbackendmain.Bean.UserBean.UserSignUpBean;
 import com.example.jsgamesbackendmain.Bean.UserBean.UserUpdateBean;
@@ -18,7 +18,7 @@ import java.util.Map;
 public class UserService {
 
     @Autowired
-    private UserGetBean userGetBean;
+    private UserGetSmallBean userGetSmallBean;
 
     @Autowired
     private UserUpdateBean userUpdateBean;
@@ -30,7 +30,7 @@ public class UserService {
     private UserSignUpBean userSignUpBean;
 
     public UserGetResponseDTO getUser(Long userId) {
-        return UserGetResponseDTO.of(userGetBean.getUser(userId));
+        return UserGetResponseDTO.of(userGetSmallBean.getUser(userId));
     }
 
     public UserUpdateResponseDTO updateUser(UserUpdateRequestDTO userUpdateRequestDTO) {

@@ -1,6 +1,6 @@
 package com.example.jsgamesbackendmain.Bean.UserBean;
 
-import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserGetBean;
+import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserGetSmallBean;
 import com.example.jsgamesbackendmain.Model.DAO.UserDAO;
 import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserUpdateResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.User.UserUpdateRequestDTO;
@@ -15,10 +15,10 @@ public class UserUpdateBean {
     private UserRepository userRepository;
 
     @Autowired
-    private UserGetBean userGetBean;
+    private UserGetSmallBean userGetSmallBean;
 
     public UserUpdateResponseDTO updateUser(UserUpdateRequestDTO userUpdateRequestDTO) {
-        UserDAO user = userGetBean.getUser(userUpdateRequestDTO.getUserId());
+        UserDAO user = userGetSmallBean.getUser(userUpdateRequestDTO.getUserId());
         user.setNickname(userUpdateRequestDTO.getNickname());
         user.setEmail(userUpdateRequestDTO.getEmail());
         user.setPassword(userUpdateRequestDTO.getPassword());

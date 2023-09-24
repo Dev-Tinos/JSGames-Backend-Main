@@ -2,6 +2,9 @@ package com.example.jsgamesbackendmain.Service;
 
 import com.example.jsgamesbackendmain.Bean.ResultBean.ResultPostBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.ResultBean.ResultGetBean;
+import com.example.jsgamesbackendmain.Model.DTO.Result.Request.ResultPostRequestDTO;
+import com.example.jsgamesbackendmain.Model.DTO.Result.Response.ResultGetResponseDTO;
+import com.example.jsgamesbackendmain.Model.DTO.Result.Response.ResultPostResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Result.ResultDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Result.ResultPostDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +24,11 @@ public class ResultService {
 //        return resultGetBean.getResult(gameId);
 //    }
 
-    public ResultDTO postResult(ResultPostDTO resultPostDTO) {
-        return resultPostBean.postResult(resultPostDTO);
+    public ResultPostResponseDTO postResult(ResultPostRequestDTO resultPostRequestDTO) {
+        return resultPostBean.postResult(resultPostRequestDTO);
     }
 
-    public List<ResultDTO> getResultByGameId(Long gameId) {
+    public List<ResultGetResponseDTO> getResultByGameId(Long gameId) {
         return resultGetBean.getResultByGameId(gameId);
     }
 }

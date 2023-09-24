@@ -1,5 +1,8 @@
 package com.example.jsgamesbackendmain.Controller;
 
+import com.example.jsgamesbackendmain.Model.DTO.Result.Request.ResultPostRequestDTO;
+import com.example.jsgamesbackendmain.Model.DTO.Result.Response.ResultGetResponseDTO;
+import com.example.jsgamesbackendmain.Model.DTO.Result.Response.ResultPostResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Result.ResultDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Result.ResultPostDTO;
 import com.example.jsgamesbackendmain.Service.ResultService;
@@ -15,13 +18,13 @@ public class ResultController {
     private ResultService resultService;
 
     @GetMapping("/results/game/{gameId}")
-    public List<ResultDTO> getResult(@PathVariable Long gameId) {
+    public List<ResultGetResponseDTO> getResult(@PathVariable Long gameId) {
         return resultService.getResultByGameId(gameId);
     }
 
     @PostMapping("/result")
-    public ResultDTO postResult(@RequestBody ResultPostDTO resultPostDTO) {
-        return resultService.postResult(resultPostDTO);
+    public ResultPostResponseDTO postResult(@RequestBody ResultPostRequestDTO resultPostRequestDTO) {
+        return resultService.postResult(resultPostRequestDTO);
     }
 
 }

@@ -3,8 +3,6 @@ package com.example.jsgamesbackendmain.Controller;
 import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserGetResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserSignUpResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserUpdateResponseDTO;
-import com.example.jsgamesbackendmain.Model.DTO.User.UserDTO;
-import com.example.jsgamesbackendmain.Model.DTO.User.UserSignUpDTO;
 import com.example.jsgamesbackendmain.Model.DTO.User.UserSignUpRequestDTO;
 import com.example.jsgamesbackendmain.Model.DTO.User.UserUpdateRequestDTO;
 import com.example.jsgamesbackendmain.Service.UserService;

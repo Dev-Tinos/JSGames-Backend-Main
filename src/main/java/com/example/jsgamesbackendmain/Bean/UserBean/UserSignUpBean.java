@@ -4,8 +4,6 @@ import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserEmailValidatio
 import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserPasswordValidation;
 import com.example.jsgamesbackendmain.Controller.ExceptionControll.DuplicatesException;
 import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserSignUpResponseDTO;
-import com.example.jsgamesbackendmain.Model.DTO.User.UserDTO;
-import com.example.jsgamesbackendmain.Model.DTO.User.UserSignUpDTO;
 import com.example.jsgamesbackendmain.Model.DTO.User.UserSignUpRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

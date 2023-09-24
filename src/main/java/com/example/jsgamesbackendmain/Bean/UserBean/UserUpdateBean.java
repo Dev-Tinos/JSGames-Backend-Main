@@ -3,7 +3,6 @@ package com.example.jsgamesbackendmain.Bean.UserBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserGetBean;
 import com.example.jsgamesbackendmain.Model.DAO.UserDAO;
 import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserUpdateResponseDTO;
-import com.example.jsgamesbackendmain.Model.DTO.User.UserDTO;
 import com.example.jsgamesbackendmain.Model.DTO.User.UserUpdateRequestDTO;
 import com.example.jsgamesbackendmain.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

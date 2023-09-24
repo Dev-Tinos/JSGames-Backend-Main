@@ -1,7 +1,6 @@
 package com.example.jsgamesbackendmain.Bean.UserBean;
 
 import com.example.jsgamesbackendmain.Model.DAO.UserDAO;
-import com.example.jsgamesbackendmain.Model.DTO.User.UserSignUpDTO;
 import com.example.jsgamesbackendmain.Model.DTO.User.UserSignUpRequestDTO;
 import com.example.jsgamesbackendmain.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

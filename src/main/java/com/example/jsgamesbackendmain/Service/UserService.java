@@ -4,6 +4,7 @@ import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserGetBean;
 import com.example.jsgamesbackendmain.Bean.UserBean.UserDeleteBean;
 import com.example.jsgamesbackendmain.Bean.UserBean.UserSignUpBean;
 import com.example.jsgamesbackendmain.Bean.UserBean.UserUpdateBean;
+import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserGetResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.User.UserDTO;
 import com.example.jsgamesbackendmain.Model.DTO.User.UserSignUpDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,8 @@ public class UserService {
     @Autowired
     private UserSignUpBean userSignUpBean;
 
-    public UserDTO getUser(Long userId) {
-        return UserDTO.of(userGetBean.getUser(userId));
+    public UserGetResponseDTO getUser(Long userId) {
+        return UserGetResponseDTO.of(userGetBean.getUser(userId));
     }
 
     public UserDTO updateUser(UserDTO userDTO) {

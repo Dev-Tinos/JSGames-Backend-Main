@@ -1,5 +1,6 @@
 package com.example.jsgamesbackendmain.Controller;
 
+import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserGetResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.User.UserDTO;
 import com.example.jsgamesbackendmain.Model.DTO.User.UserSignUpDTO;
 import com.example.jsgamesbackendmain.Service.UserService;
@@ -23,7 +24,7 @@ public class UserController {
     // 특정 유저 조회
     @Operation(summary = "Get User")
     @GetMapping("/user/{userId}")
-    public ResponseEntity<UserDTO> getUser(@PathVariable Long userId) {
+    public ResponseEntity<UserGetResponseDTO> getUser(@PathVariable Long userId) {
         return ResponseEntity.ok(userService.getUser(userId));
     }
 

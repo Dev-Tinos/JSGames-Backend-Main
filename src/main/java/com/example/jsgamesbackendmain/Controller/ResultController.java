@@ -3,8 +3,6 @@ package com.example.jsgamesbackendmain.Controller;
 import com.example.jsgamesbackendmain.Model.DTO.Result.Request.ResultPostRequestDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Result.Response.ResultGetResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Result.Response.ResultPostResponseDTO;
-import com.example.jsgamesbackendmain.Model.DTO.Result.ResultDTO;
-import com.example.jsgamesbackendmain.Model.DTO.Result.ResultPostDTO;
 import com.example.jsgamesbackendmain.Service.ResultService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

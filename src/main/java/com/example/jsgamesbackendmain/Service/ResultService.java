@@ -5,8 +5,6 @@ import com.example.jsgamesbackendmain.Bean.SmallBean.ResultBean.ResultGetBean;
 import com.example.jsgamesbackendmain.Model.DTO.Result.Request.ResultPostRequestDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Result.Response.ResultGetResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Result.Response.ResultPostResponseDTO;
-import com.example.jsgamesbackendmain.Model.DTO.Result.ResultDTO;
-import com.example.jsgamesbackendmain.Model.DTO.Result.ResultPostDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +18,7 @@ public class ResultService {
     @Autowired
     private ResultPostBean resultPostBean;
 
-//    public ResultDTO getResult(Long gameId) {
+//    public  getResult(Long gameId) {
 //        return resultGetBean.getResult(gameId);
 //    }
 

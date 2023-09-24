@@ -5,8 +5,6 @@ import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserGetSmallBean;
 import com.example.jsgamesbackendmain.Model.DAO.ResultDAO;
 import com.example.jsgamesbackendmain.Model.DTO.Result.Request.ResultPostRequestDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Result.Response.ResultPostResponseDTO;
-import com.example.jsgamesbackendmain.Model.DTO.Result.ResultDTO;
-import com.example.jsgamesbackendmain.Model.DTO.Result.ResultPostDTO;
 import com.example.jsgamesbackendmain.Repository.ResultRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

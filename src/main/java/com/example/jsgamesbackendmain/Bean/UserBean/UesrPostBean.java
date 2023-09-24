@@ -2,6 +2,7 @@ package com.example.jsgamesbackendmain.Bean.UserBean;
 
 import com.example.jsgamesbackendmain.Model.DAO.UserDAO;
 import com.example.jsgamesbackendmain.Model.DTO.User.UserSignUpDTO;
+import com.example.jsgamesbackendmain.Model.DTO.User.UserSignUpRequestDTO;
 import com.example.jsgamesbackendmain.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -11,12 +12,12 @@ public class UesrPostBean {
     @Autowired
     private UserRepository userRepository;
 
-    public UserDAO postUser(UserSignUpDTO userSignUpDTO) {
+    public UserDAO postUser(UserSignUpRequestDTO userSignUpRequestDTO) {
         UserDAO userDAO = new UserDAO();
-        userDAO.setNickname(userSignUpDTO.getNickname());
-        userDAO.setEmail(userSignUpDTO.getEmail());
-        userDAO.setPassword(userSignUpDTO.getPassword());
-        userDAO.setMajor(userSignUpDTO.getMajor());
+        userDAO.setNickname(userSignUpRequestDTO.getNickname());
+        userDAO.setEmail(userSignUpRequestDTO.getEmail());
+        userDAO.setPassword(userSignUpRequestDTO.getPassword());
+        userDAO.setMajor(userSignUpRequestDTO.getMajor());
 
         return userRepository.save(userDAO);
     }

@@ -1,8 +1,12 @@
 package com.example.jsgamesbackendmain.Controller;
 
 import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserGetResponseDTO;
+import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserSignUpResponseDTO;
+import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserUpdateResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.User.UserDTO;
 import com.example.jsgamesbackendmain.Model.DTO.User.UserSignUpDTO;
+import com.example.jsgamesbackendmain.Model.DTO.User.UserSignUpRequestDTO;
+import com.example.jsgamesbackendmain.Model.DTO.User.UserUpdateRequestDTO;
 import com.example.jsgamesbackendmain.Service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -30,14 +34,14 @@ public class UserController {
 
     @Operation(summary = "SignUp User")
     @PostMapping("/user")
-    public UserDTO signUpUser(@RequestBody UserSignUpDTO userSignUpDTO) {
-        return userService.signUpUser(userSignUpDTO);
+    public UserSignUpResponseDTO signUpUser(@RequestBody UserSignUpRequestDTO userSignUpRequestDTO) {
+        return userService.signUpUser(userSignUpRequestDTO);
     }
 
     @Operation(summary = "Update User")
     @PutMapping("/user")
-    public UserDTO updateUser(@RequestBody UserDTO userDTO) {
-        return userService.updateUser(userDTO);
+    public UserUpdateResponseDTO updateUser(@RequestBody UserUpdateRequestDTO userUpdateRequestDTO) {
+        return userService.updateUser(userUpdateRequestDTO);
     }
 
 

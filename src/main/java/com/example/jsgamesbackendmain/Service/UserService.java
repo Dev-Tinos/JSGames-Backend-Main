@@ -5,8 +5,12 @@ import com.example.jsgamesbackendmain.Bean.UserBean.UserDeleteBean;
 import com.example.jsgamesbackendmain.Bean.UserBean.UserSignUpBean;
 import com.example.jsgamesbackendmain.Bean.UserBean.UserUpdateBean;
 import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserGetResponseDTO;
+import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserSignUpResponseDTO;
+import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserUpdateResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.User.UserDTO;
 import com.example.jsgamesbackendmain.Model.DTO.User.UserSignUpDTO;
+import com.example.jsgamesbackendmain.Model.DTO.User.UserSignUpRequestDTO;
+import com.example.jsgamesbackendmain.Model.DTO.User.UserUpdateRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,15 +35,15 @@ public class UserService {
         return UserGetResponseDTO.of(userGetBean.getUser(userId));
     }
 
-    public UserDTO updateUser(UserDTO userDTO) {
-        return userUpdateBean.updateUser(userDTO);
+    public UserUpdateResponseDTO updateUser(UserUpdateRequestDTO userUpdateRequestDTO) {
+        return userUpdateBean.updateUser(userUpdateRequestDTO);
     }
 
     public Map<String,String> deleteUser(Long userId) {
         return userDeleteBean.deleteUser(userId);
     }
 
-    public UserDTO signUpUser(UserSignUpDTO userSignUpDTO) {
+    public UserSignUpResponseDTO signUpUser(UserSignUpRequestDTO userSignUpDTO) {
         return userSignUpBean.signUpUser(userSignUpDTO);
     }
 }

@@ -1,7 +1,7 @@
 package com.example.jsgamesbackendmain.Service;
 
 import com.example.jsgamesbackendmain.Bean.ResultBean.ResultPostBean;
-import com.example.jsgamesbackendmain.Bean.SmallBean.ResultBean.ResultGetBean;
+import com.example.jsgamesbackendmain.Bean.SmallBean.ResultBean.ResultGetSmallBean;
 import com.example.jsgamesbackendmain.Model.DTO.Result.Request.ResultPostRequestDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Result.Response.ResultGetResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Result.Response.ResultPostResponseDTO;
@@ -14,7 +14,7 @@ import java.util.List;
 public class ResultService {
 
     @Autowired
-    private ResultGetBean resultGetBean;
+    private ResultGetSmallBean resultGetSmallBean;
     @Autowired
     private ResultPostBean resultPostBean;
 
@@ -27,6 +27,6 @@ public class ResultService {
     }
 
     public List<ResultGetResponseDTO> getResultByGameId(Long gameId) {
-        return resultGetBean.getResultByGameId(gameId);
+        return resultGetSmallBean.getResultByGameId(gameId);
     }
 }

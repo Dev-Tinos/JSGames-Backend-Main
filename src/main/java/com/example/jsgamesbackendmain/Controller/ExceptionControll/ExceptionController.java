@@ -14,8 +14,8 @@ public class ExceptionController {
         return exceptionHandler(e);
     }
 
-    @ExceptionHandler(DuplicatesException.class)
-    public ResponseEntity<Map<String, String>> duplicatesException(DuplicatesException e) {
+    @ExceptionHandler(DuplicateException.class)
+    public ResponseEntity<Map<String, String>> duplicatesException(DuplicateException e) {
         return exceptionHandler(e);
     }
 

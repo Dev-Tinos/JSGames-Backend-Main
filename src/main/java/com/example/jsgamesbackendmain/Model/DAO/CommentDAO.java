@@ -1,5 +1,7 @@
 package com.example.jsgamesbackendmain.Model.DAO;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -7,6 +9,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "comments")
+@Getter @Setter
 public class CommentDAO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

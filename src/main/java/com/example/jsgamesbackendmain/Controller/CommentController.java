@@ -1,6 +1,11 @@
 package com.example.jsgamesbackendmain.Controller;
 
-import com.example.jsgamesbackendmain.Model.DTO.Comment.*;
+import com.example.jsgamesbackendmain.Model.DTO.Comment.Request.CommentCreateRequestDTO;
+import com.example.jsgamesbackendmain.Model.DTO.Comment.Request.CommentUpdateRequestDTO;
+import com.example.jsgamesbackendmain.Model.DTO.Comment.Response.CommentCreateResponseDTO;
+import com.example.jsgamesbackendmain.Model.DTO.Comment.Response.CommentDeleteResponseDTO;
+import com.example.jsgamesbackendmain.Model.DTO.Comment.Response.CommentListResponseDTO;
+import com.example.jsgamesbackendmain.Model.DTO.Comment.Response.CommentUpdateResponseDTO;
 import com.example.jsgamesbackendmain.Service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

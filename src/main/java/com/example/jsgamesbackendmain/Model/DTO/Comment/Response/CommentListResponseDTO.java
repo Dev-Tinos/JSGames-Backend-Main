@@ -1,6 +1,7 @@
-package com.example.jsgamesbackendmain.Model.DTO.Comment;
+package com.example.jsgamesbackendmain.Model.DTO.Comment.Response;
 
 import com.example.jsgamesbackendmain.Model.DAO.CommentDAO;
+import com.example.jsgamesbackendmain.Model.DTO.Comment.CommentDTO;
 import lombok.Getter;
 import lombok.Setter;
 

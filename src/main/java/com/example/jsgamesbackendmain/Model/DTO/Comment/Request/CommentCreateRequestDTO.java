@@ -1,4 +1,4 @@
-package com.example.jsgamesbackendmain.Model.DTO.Comment;
+package com.example.jsgamesbackendmain.Model.DTO.Comment.Request;
 
 import com.example.jsgamesbackendmain.Model.DAO.CommentDAO;
 import lombok.Getter;

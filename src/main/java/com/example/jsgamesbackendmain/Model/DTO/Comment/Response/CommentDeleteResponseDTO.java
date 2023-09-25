@@ -1,4 +1,4 @@
-package com.example.jsgamesbackendmain.Model.DTO.Comment;
+package com.example.jsgamesbackendmain.Model.DTO.Comment.Response;
 
 import lombok.Getter;
 import lombok.Setter;

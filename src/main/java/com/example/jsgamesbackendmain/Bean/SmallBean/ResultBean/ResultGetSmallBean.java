@@ -15,7 +15,7 @@ public class ResultGetSmallBean {
     @Autowired
     private ResultRepository resultRepository;
 
-    public List<ResultGetResponseDTO> getResultByGameId(Long gameId) {
+    public List<ResultGetResponseDTO> getResultsByGameId(Long gameId) {
 
         List<ResultDAO> results = resultRepository.findByGameId(gameId);
 

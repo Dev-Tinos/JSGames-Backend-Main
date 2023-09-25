@@ -16,8 +16,8 @@ public class ResultController {
     private ResultService resultService;
 
     @GetMapping("/results/game/{gameId}")
-    public List<ResultGetResponseDTO> getResult(@PathVariable Long gameId) {
-        return resultService.getResultByGameId(gameId);
+    public List<ResultGetResponseDTO> getResultsByGameId(@PathVariable Long gameId) {
+        return resultService.getResultsByGameId(gameId);
     }
 
     @PostMapping("/result")

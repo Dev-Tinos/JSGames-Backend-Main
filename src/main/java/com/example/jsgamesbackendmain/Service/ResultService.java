@@ -26,7 +26,7 @@ public class ResultService {
         return resultPostBean.postResult(resultPostRequestDTO);
     }
 
-    public List<ResultGetResponseDTO> getResultByGameId(Long gameId) {
-        return resultGetSmallBean.getResultByGameId(gameId);
+    public List<ResultGetResponseDTO> getResultsByGameId(Long gameId) {
+        return resultGetSmallBean.getResultsByGameId(gameId);
     }
 }

@@ -1,8 +1,10 @@
 package com.example.jsgamesbackendmain.Bean.UserBean;
 
-import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserGetBean;
+import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserEmailDuplicateSmallBean;
+import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserGetSmallBean;
 import com.example.jsgamesbackendmain.Model.DAO.UserDAO;
-import com.example.jsgamesbackendmain.Model.DTO.User.UserDTO;
+import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserUpdateResponseDTO;
+import com.example.jsgamesbackendmain.Model.DTO.User.UserUpdateRequestDTO;
 import com.example.jsgamesbackendmain.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -14,14 +16,20 @@ public class UserUpdateBean {
     private UserRepository userRepository;
 
     @Autowired
-    private UserGetBean userGetBean;
+    private UserGetSmallBean userGetSmallBean;
 
-    public UserDTO updateUser(UserDTO userDTO) {
-        UserDAO user = userGetBean.getUser(userDTO.getUserId());
-        user.setNickname(userDTO.getNickname());
-        user.setEmail(userDTO.getEmail());
-        user.setPassword(userDTO.getPassword());
-        user.setMajor(userDTO.getMajor());
-        return UserDTO.of(userRepository.save(user));
+    @Autowired
+    private UserEmailDuplicateSmallBean userEmailDuplicateSmallBean;
+
+    public UserUpdateResponseDTO updateUser(UserUpdateRequestDTO userUpdateRequestDTO) {
+        userEmailDuplicateSmallBean.isEmailExist(userUpdateRequestDTO.getEmail());
+
+        UserDAO user = userGetSmallBean.getUser(userUpdateRequestDTO.getUserId());
+        user.setNickname(userUpdateRequestDTO.getNickname());
+        user.setEmail(userUpdateRequestDTO.getEmail());
+        user.setPassword(userUpdateRequestDTO.getPassword());
+        user.setMajor(userUpdateRequestDTO.getMajor());
+
+        return UserUpdateResponseDTO.of(userRepository.save(user));
     }
 }

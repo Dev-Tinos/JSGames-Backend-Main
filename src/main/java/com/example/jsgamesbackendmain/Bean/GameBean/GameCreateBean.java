@@ -13,7 +13,7 @@ public class GameCreateBean {
     private GameRepository gameRepository;
 
     public GameDTO exec(GameCreateRequestDTO gameCreateRequestDTO) {
-        GameDAO savedGame = gameRepository.save(GameCreateRequestDTO.toGameDAO(gameCreateRequestDTO));
+        GameDAO savedGame = gameRepository.save(GameCreateRequestDTO.toDAO(gameCreateRequestDTO));
 
         return GameDTO.of(savedGame);
     }

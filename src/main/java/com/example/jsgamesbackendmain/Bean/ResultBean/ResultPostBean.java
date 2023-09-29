@@ -1,6 +1,6 @@
 package com.example.jsgamesbackendmain.Bean.ResultBean;
 
-import com.example.jsgamesbackendmain.Bean.SmallBean.GameBean.GameGetBean;
+import com.example.jsgamesbackendmain.Bean.SmallBean.GameBean.GameGetSmallBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserGetBean;
 import com.example.jsgamesbackendmain.Model.DAO.ResultDAO;
 import com.example.jsgamesbackendmain.Model.DTO.Result.ResultDTO;
@@ -18,7 +18,7 @@ public class ResultPostBean {
     private UserGetBean userGetBean;
 
     @Autowired
-    private GameGetBean gameGetBean;
+    private GameGetSmallBean gameGetBean;
 
     public ResultDTO postResult(ResultPostDTO resultPostDTO) {
         // game found

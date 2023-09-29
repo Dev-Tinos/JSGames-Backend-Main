@@ -19,6 +19,6 @@ public class GameListBean {
         List<GameDAO> gameList = gameRepository.findAll();
         List<GameDTO> dtoList = gameList.stream().map(GameDTO::of).collect(Collectors.toList());
 
-        return GameListResponseDTO.of(dtoList, "SUCCESS");
+        return GameListResponseDTO.of(dtoList);
     }
 }

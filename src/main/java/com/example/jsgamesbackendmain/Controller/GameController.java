@@ -14,8 +14,8 @@ public class GameController {
 
     // 게임 추가 API
     @PostMapping("/game")
-    public GameCreateResponseDTO addGame(@RequestBody GameCreateRequestDTO gameCreateRequestDTO) {
-        return  gameService.addGame(gameCreateRequestDTO);
+    public GameDTO createGame(@RequestBody GameCreateRequestDTO gameCreateRequestDTO) {
+        return gameService.createGame(gameCreateRequestDTO);
     }
 
     // 게임 목록 조회 API
@@ -26,7 +26,7 @@ public class GameController {
 
     // 특정 게임 조회 API
     @GetMapping("/game/{gameId}")
-    public GameDetailResponseDTO getGame(@PathVariable Long gameId) {
+    public GameDTO getGame(@PathVariable Long gameId) {
         return gameService.getGame(gameId);
     }
 }

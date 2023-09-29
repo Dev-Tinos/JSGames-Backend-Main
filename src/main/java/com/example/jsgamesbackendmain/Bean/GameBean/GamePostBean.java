@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class GameCreateBean {
+public class GamePostBean {
     @Autowired
     private GameRepository gameRepository;
 

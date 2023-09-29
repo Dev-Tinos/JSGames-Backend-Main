@@ -1,6 +1,6 @@
 package com.example.jsgamesbackendmain.Service;
 
-import com.example.jsgamesbackendmain.Bean.GameBean.GameCreateBean;
+import com.example.jsgamesbackendmain.Bean.GameBean.GamePostBean;
 import com.example.jsgamesbackendmain.Bean.GameBean.GameListBean;
 import com.example.jsgamesbackendmain.Bean.GameBean.GameGetBean;
 import com.example.jsgamesbackendmain.Model.DTO.Game.*;
@@ -10,15 +10,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class GameService {
     @Autowired
-    private GameCreateBean game1Bean;
+    private GamePostBean gamePostBean;
     @Autowired
-    private GameListBean game2Bean;
+    private GameListBean gameListBean;
     @Autowired
-    private GameGetBean game3Bean;
+    private GameGetBean gameGetBean;
 
-    public GameDTO createGame(GameCreateRequestDTO gameCreateRequestDTO) { return game1Bean.exec(gameCreateRequestDTO); }
+    public GameDTO postGame(GameCreateRequestDTO gameCreateRequestDTO) { return gamePostBean.exec(gameCreateRequestDTO); }
 
-    public GameListResponseDTO listGames() { return game2Bean.exec(); }
+    public GameListResponseDTO listGames() { return gameListBean.exec(); }
 
-    public GameDTO getGame(Long gameId) { return game3Bean.exec(gameId); }
+    public GameDTO getGame(Long gameId) { return gameGetBean.exec(gameId); }
 }

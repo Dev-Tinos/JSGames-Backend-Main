@@ -15,7 +15,7 @@ public class ResultPostBean {
     private ResultRepository resultRepository;
 
     @Autowired
-    private UserGetBean userGetBean;
+    private UserGetSmallBean userGetSmallBean;
 
     @Autowired
     private GameGetSmallBean gameGetBean;
@@ -24,7 +24,7 @@ public class ResultPostBean {
         // game found
         gameGetBean.getGame(resultPostDTO.getGameId());
         // user found
-        userGetBean.getUser(resultPostDTO.getUserId());
+        userGetSmallBean.getUser(resultPostDTO.getUserId());
 
         ResultDAO resultDAO = ResultPostDTO.toDAO(resultPostDTO);
 

@@ -1,10 +1,8 @@
 package com.example.jsgamesbackendmain.Bean.UserBean;
 
-import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserEmailValidation;
-import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserPasswordValidation;
-import com.example.jsgamesbackendmain.Controller.ExceptionControll.DuplicatesException;
-import com.example.jsgamesbackendmain.Model.DTO.User.UserDTO;
-import com.example.jsgamesbackendmain.Model.DTO.User.UserSignUpDTO;
+import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserEmailDuplicateSmallBean;
+import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserSignUpResponseDTO;
+import com.example.jsgamesbackendmain.Model.DTO.User.UserSignUpRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,19 +10,14 @@ import org.springframework.stereotype.Component;
 public class UserSignUpBean {
 
     @Autowired
-    private UserEmailValidation userEmailValidation;
+    private UserEmailDuplicateSmallBean userEmailDuplicateSmallBean;
 
     @Autowired
-    private UserPasswordValidation userPasswordValidation;
+    private UesrCreateBean uesrCreateBean;
 
-    @Autowired
-    private UesrPostBean uesrPostBean;
+    public UserSignUpResponseDTO signUpUser(UserSignUpRequestDTO userSignUpRequestDTO) {
+        userEmailDuplicateSmallBean.isEmailExist(userSignUpRequestDTO.getEmail());
 
-    public UserDTO signUpUser(UserSignUpDTO userSignUpDTO) {
-        boolean emailValid = userEmailValidation.isEmailValid(userSignUpDTO.getEmail());
-        if(emailValid){
-            throw new DuplicatesException("이미 존재하는 이메일입니다.");
-        }
-        return UserDTO.of(uesrPostBean.postUser(userSignUpDTO));
+        return UserSignUpResponseDTO.of(uesrCreateBean.postUser(userSignUpRequestDTO));
     }
 }

@@ -1,7 +1,9 @@
 package com.example.jsgamesbackendmain.Controller;
 
-import com.example.jsgamesbackendmain.Model.DTO.Result.ResultDTO;
-import com.example.jsgamesbackendmain.Model.DTO.Result.ResultPostDTO;
+import com.example.jsgamesbackendmain.Model.DTO.Result.Request.ResultPostRequestDTO;
+import com.example.jsgamesbackendmain.Model.DTO.Result.Response.ResultGetByUserIdResponseDTO;
+import com.example.jsgamesbackendmain.Model.DTO.Result.Response.ResultGetResponseDTO;
+import com.example.jsgamesbackendmain.Model.DTO.Result.Response.ResultPostResponseDTO;
 import com.example.jsgamesbackendmain.Service.ResultService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,14 +16,21 @@ public class ResultController {
     @Autowired
     private ResultService resultService;
 
+    //랭킹 조회 API
     @GetMapping("/results/game/{gameId}")
-    public List<ResultDTO> getResult(@PathVariable Long gameId) {
-        return resultService.getResultByGameId(gameId);
+    public List<ResultGetResponseDTO> getResultsByGameId(@PathVariable Long gameId) {
+        return resultService.getResultsByGameId(gameId);
     }
 
+    //게임 결과 저장 API
     @PostMapping("/result")
-    public ResultDTO postResult(@RequestBody ResultPostDTO resultPostDTO) {
-        return resultService.postResult(resultPostDTO);
+    public ResultPostResponseDTO postResult(@RequestBody ResultPostRequestDTO resultPostRequestDTO) {
+        return resultService.postResult(resultPostRequestDTO);
     }
 
+    //유저의 게임 결과 로그 조회 API
+    @GetMapping("/results/user/{userId}")
+    public List<ResultGetByUserIdResponseDTO> getResultsByUserId(@PathVariable Long userId) {
+        return resultService.getResultsByUserId(userId);
+    }
 }

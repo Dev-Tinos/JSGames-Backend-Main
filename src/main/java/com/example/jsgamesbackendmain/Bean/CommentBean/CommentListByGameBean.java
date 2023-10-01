@@ -14,7 +14,7 @@ public class CommentListByGameBean {
     @Autowired
     private CommentRepository commentRepository;
 
-    public CommentListResponseDTO getByGame(Long gameId) {
+    public CommentListResponseDTO exec(Long gameId) {
         List<CommentDAO> comments = commentRepository.findAllByGameId(gameId);
         return CommentListResponseDTO.of(comments);
     }

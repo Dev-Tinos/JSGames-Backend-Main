@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.util.Optional;
 
 @Component
-public class GameGetBean {
+public class GameGetSmallBean {
     @Autowired
     private GameRepository gameRepository;
 

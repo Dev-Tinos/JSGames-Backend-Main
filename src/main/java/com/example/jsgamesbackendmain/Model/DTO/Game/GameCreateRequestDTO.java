@@ -13,7 +13,7 @@ public class GameCreateRequestDTO {
     private String gameUrl;
     private String description;
 
-    public static GameDAO toGameDAO(GameCreateRequestDTO dto) {
+    public static GameDAO toDAO(GameCreateRequestDTO dto) {
         GameDAO gameDAO = new GameDAO();
         gameDAO.setGameName(dto.getGameName());
         gameDAO.setUserId(dto.getUserId());

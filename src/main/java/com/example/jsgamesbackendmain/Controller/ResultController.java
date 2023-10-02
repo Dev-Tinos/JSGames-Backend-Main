@@ -31,7 +31,7 @@ public class ResultController {
 
     //유저의 게임 결과 로그 조회 API
     @GetMapping("/results/user/{userId}")
-    public List<ResultGetByUserIdResponseDTO> getResultsByUserId(@PathVariable Long userId) {
-        return resultService.getResultsByUserId(userId);
+    public List<ResultGetByUserIdResponseDTO> getResultsByUserId(@PathVariable Long userId, @Parameter Long page, @Parameter Long size) {
+        return resultService.getResultsByUserId(userId,page, size);
     }
 }

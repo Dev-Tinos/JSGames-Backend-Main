@@ -15,8 +15,10 @@ public class ResultGetByUserIdBean {
 
     @Autowired
     private UserGetSmallBean userGetSmallBean;
-    public List<ResultGetByUserIdResponseDTO> getResultsByUserId(Long userId) {
+    public List<ResultGetByUserIdResponseDTO> getResultsByUserId(Long userId, Long page, Long size) {
+        //userId 유효성 확인
         userGetSmallBean.getUser(userId);
-        return resultGetByUserIdSmallBean.getResultsByUserId(userId);
+
+        return resultGetByUserIdSmallBean.getResultsByUserId(userId, page, size);
     }
 }

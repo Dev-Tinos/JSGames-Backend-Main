@@ -15,5 +15,10 @@ public interface ResultRepository extends JpaRepository<ResultDAO, Long> {
     List<ResultDAO> findByGameId(Long gameId);
 
     List<ResultGetByUserIdResponseDTO> findByUserId(Long userId);
+
+    // GameId로 페이징후 가져오기
     Page<ResultDAO> findByGameIdOrderByGameScoreDesc(Long gameId, Pageable pageable);
+
+    // UserId로 페이징후 가져오기
+    Page<ResultDAO> findByUserIdOrderByGameScoreDesc(Long userId, Pageable pageable);
 }

@@ -2,7 +2,6 @@ package com.example.jsgamesbackendmain.Service;
 
 import com.example.jsgamesbackendmain.Bean.ResultBean.ResultGetByUserIdBean;
 import com.example.jsgamesbackendmain.Bean.ResultBean.ResultPostBean;
-import com.example.jsgamesbackendmain.Bean.SmallBean.ResultBean.ResultGetByUserIdSmallBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.ResultBean.ResultGetSmallBean;
 import com.example.jsgamesbackendmain.Model.DTO.Result.Request.ResultPostRequestDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Result.Response.ResultGetByUserIdResponseDTO;
@@ -35,7 +34,7 @@ public class ResultService {
         return resultGetSmallBean.getResultsByGameId(gameId, page, size);
     }
 
-    public List<ResultGetByUserIdResponseDTO> getResultsByUserId(Long userId) {
-        return resultGetByUserIdBean.getResultsByUserId(userId);
+    public List<ResultGetByUserIdResponseDTO> getResultsByUserId(Long userId, Long page, Long size) {
+        return resultGetByUserIdBean.getResultsByUserId(userId, page, size);
     }
 }

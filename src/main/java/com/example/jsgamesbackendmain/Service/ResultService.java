@@ -31,8 +31,8 @@ public class ResultService {
         return resultPostBean.postResult(resultPostRequestDTO);
     }
 
-    public List<ResultGetResponseDTO> getResultsByGameId(Long gameId) {
-        return resultGetSmallBean.getResultsByGameId(gameId);
+    public List<ResultGetResponseDTO> getResultsByGameId(Long gameId, Long page, Long size) {
+        return resultGetSmallBean.getResultsByGameId(gameId, page, size);
     }
 
     public List<ResultGetByUserIdResponseDTO> getResultsByUserId(Long userId) {

@@ -5,6 +5,7 @@ import com.example.jsgamesbackendmain.Model.DTO.Result.Response.ResultGetByUserI
 import com.example.jsgamesbackendmain.Model.DTO.Result.Response.ResultGetResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Result.Response.ResultPostResponseDTO;
 import com.example.jsgamesbackendmain.Service.ResultService;
+import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,8 +19,8 @@ public class ResultController {
 
     //랭킹 조회 API
     @GetMapping("/results/game/{gameId}")
-    public List<ResultGetResponseDTO> getResultsByGameId(@PathVariable Long gameId) {
-        return resultService.getResultsByGameId(gameId);
+    public List<ResultGetResponseDTO> getResultsByGameId(@PathVariable Long gameId, @Parameter Long page, @Parameter Long size) {
+        return resultService.getResultsByGameId(gameId, page, size);
     }
 
     //게임 결과 저장 API

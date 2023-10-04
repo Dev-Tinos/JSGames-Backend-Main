@@ -1,15 +1,15 @@
 
 
-server:
-  servlet:
-    context-path: /api/
+#server:
+#  servlet:
+#    context-path: /api/
 
 springDoc:
   api-docs:
     enabled: true
-    path: /api-docs
+    path: /api/api-docs
   swagger-ui:
-    path: /swagger
+    path: /api/swagger
 
 
 spring:

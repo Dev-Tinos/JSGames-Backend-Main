@@ -17,5 +17,6 @@ public class GameDAO {
     private Long userId;
     private String imageUrl;
     private String gameUrl;
+    private Long targetScore;
     private String description;
 }

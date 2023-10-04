@@ -11,14 +11,16 @@ public class GameCreateRequestDTO {
     private Long userId;
     private String imageUrl;
     private String gameUrl;
+    private Long targetScore;
     private String description;
 
-    public static GameDAO toGameDAO(GameCreateRequestDTO dto) {
+    public static GameDAO toDAO(GameCreateRequestDTO dto) {
         GameDAO gameDAO = new GameDAO();
         gameDAO.setGameName(dto.getGameName());
         gameDAO.setUserId(dto.getUserId());
         gameDAO.setImageUrl(dto.getImageUrl());
         gameDAO.setGameUrl(dto.getGameUrl());
+        gameDAO.setTargetScore(dto.getTargetScore());
         gameDAO.setDescription(dto.getDescription());
         return gameDAO;
     }

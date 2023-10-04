@@ -1,10 +1,10 @@
 package com.example.jsgamesbackendmain.Bean.ResultBean;
 
-import com.example.jsgamesbackendmain.Bean.SmallBean.GameBean.GameGetBean;
+import com.example.jsgamesbackendmain.Bean.SmallBean.GameBean.GameGetSmallBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserGetSmallBean;
 import com.example.jsgamesbackendmain.Model.DAO.ResultDAO;
-import com.example.jsgamesbackendmain.Model.DTO.Result.ResultDTO;
-import com.example.jsgamesbackendmain.Model.DTO.Result.ResultPostDTO;
+import com.example.jsgamesbackendmain.Model.DTO.Result.Request.ResultPostRequestDTO;
+import com.example.jsgamesbackendmain.Model.DTO.Result.Response.ResultPostResponseDTO;
 import com.example.jsgamesbackendmain.Repository.ResultRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -18,17 +18,17 @@ public class ResultPostBean {
     private UserGetSmallBean userGetSmallBean;
 
     @Autowired
-    private GameGetBean gameGetBean;
+    private GameGetSmallBean gameGetSmallBean;
 
-    public ResultDTO postResult(ResultPostDTO resultPostDTO) {
+    public ResultPostResponseDTO postResult(ResultPostRequestDTO resultPostRequestDTO) {
         // game found
-        gameGetBean.getGame(resultPostDTO.getGameId());
+        gameGetSmallBean.getGame(resultPostRequestDTO.getGameId());
         // user found
-        userGetSmallBean.getUser(resultPostDTO.getUserId());
+        userGetSmallBean.getUser(resultPostRequestDTO.getUserId());
 
-        ResultDAO resultDAO = ResultPostDTO.toDAO(resultPostDTO);
+        ResultDAO resultDAO = resultPostRequestDTO.toDAO();
 
-        return ResultDTO.of(resultRepository.save(resultDAO));
+        return ResultPostResponseDTO.of(resultRepository.save(resultDAO));
     }
 
 }

@@ -15,11 +15,11 @@ public class SwaggerConfig {
     @Bean
     public OpenAPI customOpenAPI() {
         List<Server> objects = new ArrayList<>();
-        objects.add(new Server().url("/api/"));
+        objects.add(new Server().url("/"));
         return new OpenAPI().servers(objects)
                 .info(new Info()
                         .title("DevHive API")
                         .version("1.0")
-                        .description("Base URL: /api/"));
+                        .description("Base URL: /"));
     }
 }

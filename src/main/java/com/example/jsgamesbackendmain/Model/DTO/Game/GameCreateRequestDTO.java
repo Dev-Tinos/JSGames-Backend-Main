@@ -5,6 +5,8 @@ import com.example.jsgamesbackendmain.Model.ENUM.ScoreType;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotNull;
+
 @Getter
 @Setter
 public class GameCreateRequestDTO {
@@ -12,8 +14,11 @@ public class GameCreateRequestDTO {
     private Long userId;
     private String imageUrl;
     private String gameUrl;
-    private Double targetScore;
+    private Double targetScore = 0.0;
+
+    @NotNull(message = "ScoreType는 필수 입력값 입니다.")
     private ScoreType scoreType;
+
     private String description;
 
     public static GameDAO toDAO(GameCreateRequestDTO dto) {

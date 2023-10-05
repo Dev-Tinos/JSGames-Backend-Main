@@ -11,13 +11,12 @@ import java.util.Optional;
 @Component
 public class GameGetSmallBean {
     @Autowired
-    private GameRepository gameRepository;
+    private GameValidationSmallBean gameValidationSmallBean;
 
     public GameDTO getGame(Long gameId) {
-        Optional<GameDAO> optional = gameRepository.findById(gameId);
-        if(!optional.isPresent()) {
-            throw new RuntimeException("Game not found for this id :: " + gameId);
-        }
+
+        Optional<GameDAO> optional = gameValidationSmallBean.exec(gameId);
+
         return GameDTO.of(optional.get());
     }
 }

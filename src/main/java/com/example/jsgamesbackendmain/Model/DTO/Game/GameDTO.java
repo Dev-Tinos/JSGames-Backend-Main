@@ -1,6 +1,7 @@
 package com.example.jsgamesbackendmain.Model.DTO.Game;
 
 import com.example.jsgamesbackendmain.Model.DAO.GameDAO;
+import com.example.jsgamesbackendmain.Model.ENUM.ScoreType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,6 +14,7 @@ public class GameDTO {
     private String imageUrl;
     private String gameUrl;
     private Long targetScore;
+    private ScoreType scoreType;
     private String description;
 
         public static GameDTO of(GameDAO gameDAO) {
@@ -23,6 +25,7 @@ public class GameDTO {
             gameDTO.setImageUrl(gameDAO.getImageUrl());
             gameDTO.setGameUrl(gameDAO.getGameUrl());
             gameDTO.setTargetScore(gameDAO.getTargetScore());
+            gameDTO.setScoreType(gameDAO.getScoreType());
             gameDTO.setDescription(gameDAO.getDescription());
 
             return gameDTO;

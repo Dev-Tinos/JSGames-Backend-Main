@@ -12,6 +12,6 @@ public class GameGetBean {
     private GameGetSmallBean gameGetSmallBean;
 
     public GameDTO exec(Long gameId) {
-        return gameGetSmallBean.getGame(gameId);
+        return GameDTO.of(gameGetSmallBean.exec(gameId));
     }
 }

@@ -1,6 +1,7 @@
 package com.example.jsgamesbackendmain.Bean.SmallBean.ResultBean;
 
 
+import com.example.jsgamesbackendmain.Model.DAO.GameDAO;
 import com.example.jsgamesbackendmain.Model.DAO.ResultDAO;
 import com.example.jsgamesbackendmain.Model.DTO.Result.Response.ResultGetByGameIdResponseDTO;
 import com.example.jsgamesbackendmain.Repository.ResultRepository;
@@ -18,10 +19,21 @@ public class ResultGetByGameIdSmallBean {
     @Autowired
     private ResultRepository resultRepository;
 
-    public List<ResultGetByGameIdResponseDTO> exec(Long gameId, Long page, Long size) {
+
+    // INFINITE
+    public List<ResultGetByGameIdResponseDTO> exec(GameDAO gameDAO, Long page, Long size) {
         Pageable pageable = PageRequest.of(page.intValue(), size.intValue());
 
-        Page<ResultDAO> order = resultRepository.findByGameIdOrderByGameScoreDesc(gameId, pageable);
+        Page<ResultDAO> order = null;
+
+        switch (gameDAO.getScoreType()) {
+            case INFINITE:
+                order = resultRepository.findByGameIdOrderByGameScoreDesc(gameDAO.getGameId(), pageable);
+                break;
+            case GOAL:
+                order = resultRepository.findByGameIdOrderByGameScoreWithTargetScore(gameDAO.getGameId(),gameDAO.getTargetScore(), pageable);
+                break;
+        }
 
         List<ResultDAO> results = order.toList();
 

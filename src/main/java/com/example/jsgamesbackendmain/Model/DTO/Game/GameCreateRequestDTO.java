@@ -12,7 +12,7 @@ public class GameCreateRequestDTO {
     private Long userId;
     private String imageUrl;
     private String gameUrl;
-    private Long targetScore;
+    private Double targetScore;
     private ScoreType scoreType;
     private String description;
 

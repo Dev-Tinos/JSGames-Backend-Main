@@ -13,10 +13,10 @@ public class GameGetSmallBean {
     @Autowired
     private GameValidationSmallBean gameValidationSmallBean;
 
-    public GameDTO getGame(Long gameId) {
+    public GameDAO exec(Long gameId) {
 
         Optional<GameDAO> optional = gameValidationSmallBean.exec(gameId);
 
-        return GameDTO.of(optional.get());
+        return optional.get();
     }
 }

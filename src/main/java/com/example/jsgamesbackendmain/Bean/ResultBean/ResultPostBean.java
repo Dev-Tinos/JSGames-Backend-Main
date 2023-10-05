@@ -22,7 +22,7 @@ public class ResultPostBean {
 
     public ResultPostResponseDTO postResult(ResultPostRequestDTO resultPostRequestDTO) {
         // game found
-        gameGetSmallBean.getGame(resultPostRequestDTO.getGameId());
+        gameGetSmallBean.exec(resultPostRequestDTO.getGameId());
 
         // user found
         userValidationSmallBean.exec(resultPostRequestDTO.getUserId());

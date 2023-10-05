@@ -9,15 +9,17 @@ import org.springframework.stereotype.Component;
 import java.util.Optional;
 
 @Component
-public class UserGetSmallBean {
+public class UserValidationSmallBean {
+
     @Autowired
-    private UserValidationSmallBean userValidationSmallBean;
+    private UserRepository userRepository;
 
-    public UserDAO getUser(Long userId) {
+    public Optional<UserDAO> exec(Long userId) {
 
-        Optional<UserDAO> optional = userValidationSmallBean.exec(userId);
-
-        return optional.get();
+        Optional<UserDAO> optional = userRepository.findById(userId);
+        if(!optional.isPresent()) {
+             throw new ResourceNotFoundException("User not found for this id :: " + userId);
+        }
+        return optional;
     }
 }
-

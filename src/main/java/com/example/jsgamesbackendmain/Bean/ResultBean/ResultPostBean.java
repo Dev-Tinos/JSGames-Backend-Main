@@ -1,7 +1,7 @@
 package com.example.jsgamesbackendmain.Bean.ResultBean;
 
 import com.example.jsgamesbackendmain.Bean.SmallBean.GameBean.GameGetSmallBean;
-import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserGetSmallBean;
+import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserValidationSmallBean;
 import com.example.jsgamesbackendmain.Model.DAO.ResultDAO;
 import com.example.jsgamesbackendmain.Model.DTO.Result.Request.ResultPostRequestDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Result.Response.ResultPostResponseDTO;
@@ -15,7 +15,7 @@ public class ResultPostBean {
     private ResultRepository resultRepository;
 
     @Autowired
-    private UserGetSmallBean userGetSmallBean;
+    private UserValidationSmallBean userValidationSmallBean;
 
     @Autowired
     private GameGetSmallBean gameGetSmallBean;
@@ -23,8 +23,9 @@ public class ResultPostBean {
     public ResultPostResponseDTO postResult(ResultPostRequestDTO resultPostRequestDTO) {
         // game found
         gameGetSmallBean.getGame(resultPostRequestDTO.getGameId());
+
         // user found
-        userGetSmallBean.getUser(resultPostRequestDTO.getUserId());
+        userValidationSmallBean.exec(resultPostRequestDTO.getUserId());
 
         ResultDAO resultDAO = resultPostRequestDTO.toDAO();
 

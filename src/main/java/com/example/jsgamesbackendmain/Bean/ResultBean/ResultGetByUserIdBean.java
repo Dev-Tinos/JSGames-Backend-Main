@@ -15,11 +15,11 @@ public class ResultGetByUserIdBean {
 
     @Autowired
     private UserValidationSmallBean userValidationSmallBean;
-    public List<ResultGetByUserIdResponseDTO> getResultsByUserId(Long userId, Long page, Long size) {
+    public List<ResultGetByUserIdResponseDTO> exec(Long userId, Long page, Long size) {
 
         //userId 유효성 확인
         userValidationSmallBean.exec(userId);
 
-        return resultGetByUserIdSmallBean.getResultsByUserId(userId, page, size);
+        return resultGetByUserIdSmallBean.exec(userId, page, size);
     }
 }

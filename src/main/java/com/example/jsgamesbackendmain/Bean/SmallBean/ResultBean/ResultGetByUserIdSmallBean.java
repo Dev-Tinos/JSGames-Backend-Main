@@ -17,8 +17,9 @@ public class ResultGetByUserIdSmallBean {
     @Autowired
     private ResultRepository resultRepository;
 
-    public List<ResultGetByUserIdResponseDTO> getResultsByUserId(Long userId, Long page, Long size) {
+    public List<ResultGetByUserIdResponseDTO> exec(Long userId, Long page, Long size) {
         Pageable pageable = PageRequest.of(page.intValue(), size.intValue());
+
         Page<ResultDAO> order = resultRepository.findByUserIdOrderByGameScoreDesc(userId, pageable);
 
         List<ResultDAO> results = order.toList();

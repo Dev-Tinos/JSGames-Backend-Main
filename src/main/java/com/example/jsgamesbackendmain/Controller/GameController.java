@@ -6,6 +6,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api")
 @CrossOrigin("*")
@@ -17,7 +19,7 @@ public class GameController {
     // 게임 추가 API
     @Operation(summary = "Post Game")
     @PostMapping("/game")
-    public GameDTO postGame(@RequestBody GameCreateRequestDTO gameCreateRequestDTO) {
+    public GameDTO postGame(@Valid @RequestBody GameCreateRequestDTO gameCreateRequestDTO) {
         return gameService.postGame(gameCreateRequestDTO);
     }
 

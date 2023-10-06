@@ -1,8 +1,8 @@
 package com.example.jsgamesbackendmain.Controller;
 
 import com.example.jsgamesbackendmain.Model.DTO.Result.Request.ResultPostRequestDTO;
+import com.example.jsgamesbackendmain.Model.DTO.Result.Response.ResultGetByGameIdResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Result.Response.ResultGetByUserIdResponseDTO;
-import com.example.jsgamesbackendmain.Model.DTO.Result.Response.ResultGetResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Result.Response.ResultPostResponseDTO;
 import com.example.jsgamesbackendmain.Service.ResultService;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -21,7 +21,7 @@ public class ResultController {
 
     //랭킹 조회 API
     @GetMapping("/results/game/{gameId}")
-    public List<ResultGetResponseDTO> getResultsByGameId(@PathVariable Long gameId, @Parameter Long page, @Parameter Long size) {
+    public List<ResultGetByGameIdResponseDTO> getResultsByGameId(@PathVariable Long gameId, @Parameter Long page, @Parameter Long size) {
         return resultService.getResultsByGameId(gameId, page, size);
     }
 

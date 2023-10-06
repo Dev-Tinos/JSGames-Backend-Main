@@ -9,13 +9,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class GameGetBean {
     @Autowired
-    private GameGetSmallBean gameGetBean;
+    private GameGetSmallBean gameGetSmallBean;
 
     public GameDTO exec(Long gameId) {
-        GameDTO gameDTO = gameGetBean.getGame(gameId);
-        if (gameDTO == null) {
-            throw new ResourceNotFoundException("Game not found for this id :: " + gameId);
-        }
-        return gameDTO;
+        return GameDTO.of(gameGetSmallBean.exec(gameId));
     }
 }

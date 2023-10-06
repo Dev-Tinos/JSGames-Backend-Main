@@ -1,11 +1,11 @@
 package com.example.jsgamesbackendmain.Service;
 
+import com.example.jsgamesbackendmain.Bean.ResultBean.ResultGetByGameIdBean;
 import com.example.jsgamesbackendmain.Bean.ResultBean.ResultGetByUserIdBean;
 import com.example.jsgamesbackendmain.Bean.ResultBean.ResultPostBean;
-import com.example.jsgamesbackendmain.Bean.SmallBean.ResultBean.ResultGetSmallBean;
 import com.example.jsgamesbackendmain.Model.DTO.Result.Request.ResultPostRequestDTO;
+import com.example.jsgamesbackendmain.Model.DTO.Result.Response.ResultGetByGameIdResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Result.Response.ResultGetByUserIdResponseDTO;
-import com.example.jsgamesbackendmain.Model.DTO.Result.Response.ResultGetResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Result.Response.ResultPostResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ import java.util.List;
 public class ResultService {
 
     @Autowired
-    private ResultGetSmallBean resultGetSmallBean;
+    private ResultGetByGameIdBean resultGetByGameIdBean;
     @Autowired
     private ResultGetByUserIdBean resultGetByUserIdBean;
     @Autowired
@@ -30,11 +30,11 @@ public class ResultService {
         return resultPostBean.postResult(resultPostRequestDTO);
     }
 
-    public List<ResultGetResponseDTO> getResultsByGameId(Long gameId, Long page, Long size) {
-        return resultGetSmallBean.getResultsByGameId(gameId, page, size);
+    public List<ResultGetByGameIdResponseDTO> getResultsByGameId(Long gameId, Long page, Long size) {
+        return resultGetByGameIdBean.exec(gameId, page, size);
     }
 
     public List<ResultGetByUserIdResponseDTO> getResultsByUserId(Long userId, Long page, Long size) {
-        return resultGetByUserIdBean.getResultsByUserId(userId, page, size);
+        return resultGetByUserIdBean.exec(userId, page, size);
     }
 }

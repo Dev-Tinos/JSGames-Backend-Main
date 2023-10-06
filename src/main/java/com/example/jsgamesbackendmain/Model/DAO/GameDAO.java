@@ -1,5 +1,6 @@
 package com.example.jsgamesbackendmain.Model.DAO;
 
+import com.example.jsgamesbackendmain.Model.ENUM.ScoreType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,6 +18,7 @@ public class GameDAO {
     private Long userId;
     private String imageUrl;
     private String gameUrl;
-    private Long targetScore;
+    private Double targetScore;
+    private ScoreType scoreType;
     private String description;
 }

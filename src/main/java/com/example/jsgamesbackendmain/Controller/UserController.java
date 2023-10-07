@@ -25,26 +25,26 @@ public class UserController {
     private UserService userService;
 
     // 특정 유저 조회
-    @Operation(summary = "Get User")
+    @Operation(summary = "UserId로 유저 조회")
     @GetMapping("/user/{userId}")
     public ResponseEntity<UserGetResponseDTO> getUser(@PathVariable Long userId) {
         return ResponseEntity.ok(userService.getUser(userId));
     }
 
-    @Operation(summary = "SignUp User")
+    @Operation(summary = "유저 회원가입")
     @PostMapping("/user")
     public UserSignUpResponseDTO signUpUser(@RequestBody UserSignUpRequestDTO userSignUpRequestDTO) {
         return userService.signUpUser(userSignUpRequestDTO);
     }
 
-    @Operation(summary = "Update User")
+    @Operation(summary = "유저 정보 수정")
     @PutMapping("/user")
     public UserUpdateResponseDTO updateUser(@RequestBody UserUpdateRequestDTO userUpdateRequestDTO) {
         return userService.updateUser(userUpdateRequestDTO);
     }
 
 
-    @Operation(summary = "Delete User")
+    @Operation(summary = "유저 삭제")
     @ApiResponse(responseCode = "200", description = "successful operation",
         content = @Content(examples =
             @ExampleObject(value = "{'message': 'Success'}")))

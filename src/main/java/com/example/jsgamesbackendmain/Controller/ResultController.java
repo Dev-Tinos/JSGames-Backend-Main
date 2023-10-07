@@ -5,6 +5,7 @@ import com.example.jsgamesbackendmain.Model.DTO.Result.Response.ResultGetByGameI
 import com.example.jsgamesbackendmain.Model.DTO.Result.Response.ResultGetByUserIdResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Result.Response.ResultPostResponseDTO;
 import com.example.jsgamesbackendmain.Service.ResultService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,18 +21,26 @@ public class ResultController {
     private ResultService resultService;
 
     //랭킹 조회 API
+    @Operation(summary = "랭킹 조회", description =
+            "## scoreType이 INFINITE인 경우 result 조회시 점수 내림차순  \n\n" +
+            "## scoreType이 GOAL인 경우 result 조회시 targetScore와 가장 가까운 점수 내림차순"
+    )
     @GetMapping("/results/game/{gameId}")
     public List<ResultGetByGameIdResponseDTO> getResultsByGameId(@PathVariable Long gameId, @Parameter Long page, @Parameter Long size) {
         return resultService.getResultsByGameId(gameId, page, size);
     }
 
     //게임 결과 저장 API
+    @Operation(summary = "랭킹 저장")
     @PostMapping("/result")
     public ResultPostResponseDTO postResult(@RequestBody ResultPostRequestDTO resultPostRequestDTO) {
         return resultService.postResult(resultPostRequestDTO);
     }
 
     //유저의 게임 결과 로그 조회 API
+    @Operation(summary = "UserId로 랭킹 조회", description =
+        "# 아직 구현되지 않았음"
+    )
     @GetMapping("/results/user/{userId}")
     public List<ResultGetByUserIdResponseDTO> getResultsByUserId(@PathVariable Long userId, @Parameter Long page, @Parameter Long size) {
         return resultService.getResultsByUserId(userId,page, size);

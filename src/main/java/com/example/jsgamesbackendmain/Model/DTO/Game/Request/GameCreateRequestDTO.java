@@ -1,4 +1,4 @@
-package com.example.jsgamesbackendmain.Model.DTO.Game;
+package com.example.jsgamesbackendmain.Model.DTO.Game.Request;
 
 import com.example.jsgamesbackendmain.Model.DAO.GameDAO;
 import com.example.jsgamesbackendmain.Model.ENUM.ScoreType;

@@ -2,6 +2,7 @@ package com.example.jsgamesbackendmain.Controller;
 
 import com.example.jsgamesbackendmain.Model.DTO.Game.*;
 import com.example.jsgamesbackendmain.Model.DTO.Game.Request.GameCreateRequestDTO;
+import com.example.jsgamesbackendmain.Model.DTO.Game.Response.GameGetByGameIdResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Game.Response.GameListResponseDTO;
 import com.example.jsgamesbackendmain.Service.GameService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -40,7 +41,7 @@ public class GameController {
     // 특정 게임 조회 API
     @Operation(summary = "GameId로 게임 조회")
     @GetMapping("/game/{gameId}")
-    public GameDTO getGame(@PathVariable Long gameId) {
+    public GameGetByGameIdResponseDTO getGame(@PathVariable Long gameId) {
         return gameService.getGame(gameId);
     }
 }

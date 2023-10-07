@@ -32,14 +32,18 @@ public class GameController {
     }
 
     // 게임 목록 조회 API
-    @Operation(summary = "게임 목록 페이징으로 조회")
+    @Operation(summary = "게임 목록 페이징으로 조회", description =
+        "# 조회수 순으로 내림차순 정렬됩니다."
+    )
     @GetMapping("/games")
     public List<GameListResponseDTO> listGames(@Parameter Long page, @Parameter Long size) {
         return gameService.listGames(page, size);
     }
 
     // 특정 게임 조회 API
-    @Operation(summary = "GameId로 게임 조회")
+    @Operation(summary = "GameId로 게임 조회", description =
+        "# GameId로 게임 조회시 조회수가 1 증가합니다."
+    )
     @GetMapping("/game/{gameId}")
     public GameGetByGameIdResponseDTO getGame(@PathVariable Long gameId) {
         return gameService.getGame(gameId);

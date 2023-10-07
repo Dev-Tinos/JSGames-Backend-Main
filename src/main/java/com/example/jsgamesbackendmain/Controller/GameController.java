@@ -18,21 +18,25 @@ public class GameController {
     private GameService gameService;
 
     // 게임 추가 API
-    @Operation(summary = "Post Game")
+    @Operation(summary = "게임 추가", description =
+            "# scoreType은 `INFINITE`, `GOAL` 둘 중 하나여야 합니다.  \n" +
+            "scoreType이 GOAL인 경우 targetScore는 따로 지정하지 않으면 0입니다.  \n\n" +
+            "- scoreType이 INFINITE인 경우 result 조회시 점수 내림차순  \n" +
+            "- scoreType이 GOAL인 경우 result 조회시 targetScore와 가장 가까운 점수 내림차순")
     @PostMapping("/game")
     public GameDTO postGame(@Valid @RequestBody GameCreateRequestDTO gameCreateRequestDTO) {
         return gameService.postGame(gameCreateRequestDTO);
     }
 
     // 게임 목록 조회 API
-    @Operation(summary = "Get List Game")
+    @Operation(summary = "게임 목록 페이징으로 조회")
     @GetMapping("/games")
     public GameListResponseDTO listGames(@Parameter Long page, @Parameter Long size) {
         return gameService.listGames(page, size);
     }
 
     // 특정 게임 조회 API
-    @Operation(summary = "Get Game")
+    @Operation(summary = "GameId로 게임 조회")
     @GetMapping("/game/{gameId}")
     public GameDTO getGame(@PathVariable Long gameId) {
         return gameService.getGame(gameId);

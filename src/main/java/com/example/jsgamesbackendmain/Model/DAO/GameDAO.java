@@ -21,4 +21,7 @@ public class GameDAO {
     private Double targetScore;
     private ScoreType scoreType;
     private String description;
+
+    //조회수
+    private Long viewCount = 0L;
 }

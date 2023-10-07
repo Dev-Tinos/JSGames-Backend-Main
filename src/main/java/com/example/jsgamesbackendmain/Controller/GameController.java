@@ -1,6 +1,8 @@
 package com.example.jsgamesbackendmain.Controller;
 
 import com.example.jsgamesbackendmain.Model.DTO.Game.*;
+import com.example.jsgamesbackendmain.Model.DTO.Game.Request.GameCreateRequestDTO;
+import com.example.jsgamesbackendmain.Model.DTO.Game.Response.GameListResponseDTO;
 import com.example.jsgamesbackendmain.Service.GameService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -30,7 +33,7 @@ public class GameController {
     // 게임 목록 조회 API
     @Operation(summary = "게임 목록 페이징으로 조회")
     @GetMapping("/games")
-    public GameListResponseDTO listGames(@Parameter Long page, @Parameter Long size) {
+    public List<GameListResponseDTO> listGames(@Parameter Long page, @Parameter Long size) {
         return gameService.listGames(page, size);
     }
 

@@ -5,6 +5,9 @@ import com.example.jsgamesbackendmain.Model.DTO.Game.GameDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Game.GameListResponseDTO;
 import com.example.jsgamesbackendmain.Repository.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -18,6 +21,16 @@ public class GameListBean {
     public GameListResponseDTO exec() {
         List<GameDAO> gameList = gameRepository.findAll();
         List<GameDTO> dtoList = gameList.stream().map(GameDTO::of).collect(Collectors.toList());
+
+        return GameListResponseDTO.of(dtoList);
+    }
+
+    public GameListResponseDTO exec(Long page, Long size) {
+        PageRequest pageRequest = PageRequest.of(page.intValue(), size.intValue());
+
+        Page<GameDAO> all = gameRepository.findAll(pageRequest);
+
+        List<GameDTO> dtoList = all.toList().stream().map(GameDTO::of).collect(Collectors.toList());
 
         return GameListResponseDTO.of(dtoList);
     }

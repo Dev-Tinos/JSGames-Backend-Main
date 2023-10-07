@@ -18,7 +18,7 @@ public class GameService {
 
     public GameDTO postGame(GameCreateRequestDTO gameCreateRequestDTO) { return gamePostBean.exec(gameCreateRequestDTO); }
 
-    public GameListResponseDTO listGames() { return gameListBean.exec(); }
+    public GameListResponseDTO listGames(Long page,Long size) { return gameListBean.exec(page, size); }
 
     public GameDTO getGame(Long gameId) { return gameGetBean.exec(gameId); }
 }

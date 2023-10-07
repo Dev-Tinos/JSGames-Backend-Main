@@ -20,7 +20,7 @@ public class CommentListByGameBean {
     public List<CommentGetByGameIdResponseDTO> exec(Long gameId, Long page, Long size) {
         PageRequest pageRequest = PageRequest.of(page.intValue(), size.intValue());
 
-        Page<CommentDAO> all = commentRepository.findByGameIdOrderByDateTimeDesc(gameId, pageRequest);
+        Page<CommentDAO> all = commentRepository.findByGameIdOrderByDateTimeAsc(gameId, pageRequest);
 
         return all.toList().stream().map(CommentGetByGameIdResponseDTO::of).collect(Collectors.toList());
     }

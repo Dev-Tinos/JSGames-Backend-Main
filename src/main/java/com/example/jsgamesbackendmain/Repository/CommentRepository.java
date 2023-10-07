@@ -10,5 +10,5 @@ import java.util.List;
 
 @Repository
 public interface CommentRepository extends JpaRepository<CommentDAO, Long> {
-    Page<CommentDAO> findByGameIdOrderByDateTimeDesc(Long gameId, Pageable pageable);
+    Page<CommentDAO> findByGameIdOrderByDateTimeAsc(Long gameId, Pageable pageable);
 }

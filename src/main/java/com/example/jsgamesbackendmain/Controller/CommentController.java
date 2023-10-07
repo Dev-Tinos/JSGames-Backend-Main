@@ -28,7 +28,10 @@ public class CommentController {
     }
 
     // 게임 별 댓글 조회 API
-    @Operation(summary = "댓글 조회")
+    @Operation(summary = "댓글 조회", description =
+            "# 게임 별 댓글 조회  \n" +
+            "먼저 작성된 댓글 -> 나중에 작성된 댓글 순서대로 정렬됨"
+    )
     @GetMapping("/comments/game/{gameId}")
     public List<CommentGetByGameIdResponseDTO> listCommentsByGame(@PathVariable Long gameId, @Parameter Long page, @Parameter Long size) {
         return commentService.listCommentsByGame(gameId, page, size);

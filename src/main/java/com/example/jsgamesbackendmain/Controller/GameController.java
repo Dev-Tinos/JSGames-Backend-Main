@@ -20,9 +20,8 @@ public class GameController {
     // 게임 추가 API
     @Operation(summary = "게임 추가", description =
             "# scoreType은 `INFINITE`, `GOAL` 둘 중 하나여야 합니다.  \n" +
-            "scoreType이 GOAL인 경우 targetScore는 따로 지정하지 않으면 0입니다.  \n\n" +
-            "- scoreType이 INFINITE인 경우 result 조회시 점수 내림차순  \n" +
-            "- scoreType이 GOAL인 경우 result 조회시 targetScore와 가장 가까운 점수 내림차순")
+            "scoreType이 GOAL인 경우 targetScore는 따로 지정하지 않으면 0입니다."
+    )
     @PostMapping("/game")
     public GameDTO postGame(@Valid @RequestBody GameCreateRequestDTO gameCreateRequestDTO) {
         return gameService.postGame(gameCreateRequestDTO);

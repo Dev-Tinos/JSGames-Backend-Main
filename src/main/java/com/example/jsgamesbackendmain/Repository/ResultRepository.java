@@ -14,10 +14,6 @@ import java.util.Optional;
 @Repository
 public interface ResultRepository extends JpaRepository<ResultDAO, Long> {
 
-    List<ResultDAO> findByGameId(Long gameId);
-
-    List<ResultGetByUserIdResponseDTO> findByUserId(Long userId);
-
     // INFINITE GameId로 페이징후 가져오기
     Page<ResultDAO> findByGameIdOrderByGameScoreDesc(Long gameId, Pageable pageable);
 

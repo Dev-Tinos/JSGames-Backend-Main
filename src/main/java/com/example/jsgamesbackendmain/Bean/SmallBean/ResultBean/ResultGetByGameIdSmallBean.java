@@ -21,7 +21,7 @@ public class ResultGetByGameIdSmallBean {
 
 
     // INFINITE
-    public List<ResultGetByGameIdResponseDTO> exec(GameDAO gameDAO, Long page, Long size) {
+    public List<ResultDAO> exec(GameDAO gameDAO, Long page, Long size) {
         Pageable pageable = PageRequest.of(page.intValue(), size.intValue());
 
         Page<ResultDAO> order = null;
@@ -35,8 +35,6 @@ public class ResultGetByGameIdSmallBean {
                 break;
         }
 
-        List<ResultDAO> results = order.toList();
-
-        return results.stream().map(ResultGetByGameIdResponseDTO::of).collect(Collectors.toList());
+        return order.toList();
     }
 }

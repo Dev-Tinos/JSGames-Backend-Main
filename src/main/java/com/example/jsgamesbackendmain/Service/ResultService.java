@@ -4,6 +4,7 @@ import com.example.jsgamesbackendmain.Bean.ResultBean.ResultGetByGamIdUserIdBean
 import com.example.jsgamesbackendmain.Bean.ResultBean.ResultGetByGameIdBean;
 import com.example.jsgamesbackendmain.Bean.ResultBean.ResultGetByUserIdBean;
 import com.example.jsgamesbackendmain.Bean.ResultBean.ResultPostBean;
+import com.example.jsgamesbackendmain.Model.DAO.ResultDAO;
 import com.example.jsgamesbackendmain.Model.DTO.Result.Request.ResultPostRequestDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Result.Response.ResultGetByGameIdResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Result.Response.ResultGetByGameIdUserIdResponseDTO;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ResultService {
@@ -31,7 +33,8 @@ public class ResultService {
     }
 
     public List<ResultGetByGameIdResponseDTO> getResultsByGameId(Long gameId, Long page, Long size) {
-        return resultGetByGameIdBean.exec(gameId, page, size);
+        List<ResultDAO> daoList = resultGetByGameIdBean.exec(gameId, page, size);
+        return daoList.stream().map(ResultGetByGameIdResponseDTO::of).collect(Collectors.toList());
     }
 
     public List<ResultGetByUserIdResponseDTO> getResultsByUserId(Long userId, Long page, Long size) {

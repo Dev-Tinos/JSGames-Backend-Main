@@ -16,4 +16,11 @@ public class UserTop100DAO {
     private Long userId;
 
     private Long score;
+
+    public static UserTop100DAO of(Long userId, Long score) {
+        UserTop100DAO userTop100DAO = new UserTop100DAO();
+        userTop100DAO.setUserId(userId);
+        userTop100DAO.setScore(score);
+        return userTop100DAO;
+    }
 }

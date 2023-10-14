@@ -32,8 +32,9 @@ public class GameController {
     }
 
     // 게임 목록 조회 API
-    @Operation(summary = "게임 목록 페이징으로 조회", description =
-        "# 조회수 순으로 내림차순 정렬됩니다."
+    @Operation(summary = "게임 랭킹 조회 (페이징) ", description =
+        "# 게임 랭킹 조회  \n"+
+        "## 조회수 순으로 내림차순 정렬됩니다."
     )
     @GetMapping("/games")
     public List<GameListResponseDTO> listGames(@Parameter Long page, @Parameter Long size) {

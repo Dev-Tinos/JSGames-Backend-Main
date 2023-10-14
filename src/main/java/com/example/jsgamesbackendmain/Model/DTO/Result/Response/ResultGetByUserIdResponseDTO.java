@@ -5,18 +5,15 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class ResultGetByUserIdResponseDTO {
-    private Long resultId;
+public class ResultGetByUserIdResponseDTO extends ResultGetResponse {
     private Long userId;
-    private Long gameId;
-    private Double gameScore;
 
     public static ResultGetByUserIdResponseDTO of(ResultDAO resultDAO) {
         ResultGetByUserIdResponseDTO resultGetByUserIdResponseDTO = new ResultGetByUserIdResponseDTO();
-        resultGetByUserIdResponseDTO.setResultId(resultDAO.getResultId());
+
+        ResultGetResponse.mapFromDAO(resultGetByUserIdResponseDTO, resultDAO);
+
         resultGetByUserIdResponseDTO.setUserId(resultDAO.getUserId());
-        resultGetByUserIdResponseDTO.setGameId(resultDAO.getGameId());
-        resultGetByUserIdResponseDTO.setGameScore(resultDAO.getGameScore());
 
         return resultGetByUserIdResponseDTO;
     }

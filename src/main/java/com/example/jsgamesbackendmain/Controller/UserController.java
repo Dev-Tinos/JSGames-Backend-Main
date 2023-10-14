@@ -1,6 +1,7 @@
 package com.example.jsgamesbackendmain.Controller;
 
 import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserGetResponseDTO;
+import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserGetTop100Response;
 import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserSignUpResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserUpdateResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.User.UserSignUpRequestDTO;
@@ -14,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @RequestMapping("/api")
@@ -46,10 +49,17 @@ public class UserController {
 
     @Operation(summary = "유저 삭제")
     @ApiResponse(responseCode = "200", description = "successful operation",
-        content = @Content(examples =
+            content = @Content(examples =
             @ExampleObject(value = "{'message': 'Success'}")))
     @DeleteMapping("/user/{userId}")
-    public Map<String,String> deleteUser(@PathVariable Long userId) {
+    public Map<String, String> deleteUser(@PathVariable Long userId) {
         return userService.deleteUser(userId);
+    }
+
+    // 전체 Game의 Top100 유저 조회
+    @Operation(summary = "Top100 유저 조회")
+    @GetMapping("/users/top100")
+    public ResponseEntity<List<UserGetTop100Response>> getTop100Users(@RequestParam Long page, @RequestParam Long size) {
+        return ResponseEntity.ok(new ArrayList<UserGetTop100Response>());
     }
 }

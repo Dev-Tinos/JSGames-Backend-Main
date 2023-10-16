@@ -21,13 +21,15 @@ spring:
       hibernate:
         format_sql: true
   datasource:
-    driver-class-name: ${DB_DRIVER}
-    url: ${DB_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    driverClassName: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://127.0.0.1:3306/tinos
+    username: root
+    password: 1234
   mail:
     host: smtp.gmail.com
     port: 587
+    username: tukorea.tino.project@gmail.com
+    password: lghajqjvhcgmhtwa
     protocol: smtp
     default-encoding: UTF-8
     properties:
@@ -35,7 +37,8 @@ spring:
         smtp:
           auth: true
           starttls:
-            enable: true  # TLS를 사용하려면 true
+            enable: true
+            required: true
 
 logging:
   level:
@@ -43,14 +46,3 @@ logging:
     org.hibernate.sql: DEBUG
     org.hibernate.type: TRACE
     org.hibernate.type.descriptor.sql : trace
-
-mail:
-  sender1:
-    username: email1@example.com
-    password: your_password_for_email1
-  sender2:
-    username: email2@example.com
-    password: your_password_for_email2
-  sender3:
-    username: email3@example.com
-    password: your_password_for_email3

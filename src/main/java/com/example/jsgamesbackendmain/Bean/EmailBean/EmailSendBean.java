@@ -6,12 +6,16 @@ import com.example.jsgamesbackendmain.Model.DTO.Email.EmailSendRequestDTO;
 import com.example.jsgamesbackendmain.Repository.EmailAccountRepository;
 import com.example.jsgamesbackendmain.Repository.EmailCodeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Component;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import java.time.LocalDateTime;
 import java.util.Random;
+
+// ... other imports ...
 
 @Component
 public class EmailSendBean {
@@ -22,88 +26,64 @@ public class EmailSendBean {
     @Autowired
     private EmailCodeRepository emailCodeRepository;
 
+    @Autowired
+    private JavaMailSender emailSender; // 자동 설정된 빈을 주입
+
     private static final String DOMAIN = "@tukorea.ac.kr";
-    private static final int EMAIL_LIMIT = 500;
-
-    @Value("${mail.sender1.username}")
-    private String email1;
-
-    @Value("${mail.sender2.username}")
-    private String email2;
-
-    @Value("${mail.sender3.username}")
-    private String email3;
-
-    @Value("${mail.sender1.password}")
-    private String email1Password;
-
-    @Value("${mail.sender2.password}")
-    private String email2Password;
-
-    @Value("${mail.sender3.password}")
-    private String email3Password;
+    private static final int CODE_EXPIRATION_DURATION_MINUTES = 60; // 예시로 코드 만료 시간을 60분으로 설정
 
     public String exec(EmailSendRequestDTO emailSendRequestDTO) {
-        String email = emailSendRequestDTO.getEmail();
-        if (!email.endsWith(DOMAIN)) {
+        // 이메일 도메인 검증
+        String recipientEmail = emailSendRequestDTO.getEmail();
+        if (!recipientEmail.endsWith(DOMAIN)) {
             return "Invalid email domain";
         }
 
-        String code = String.format("%06d", new Random().nextInt(999999));
-        saveCode(email, code);
+        // 인증 코드 생성
+        String verificationCode = generateVerificationCode();
 
-        EmailAccountDAO account = getOrCreateEmailAccount();
+        // 인증 코드 저장 (데이터베이스)
+        EmailCodeDAO newCode = new EmailCodeDAO();
+        newCode.setEmail(recipientEmail);
+        newCode.setCode(verificationCode);
+        newCode.setExpiryDate(LocalDateTime.now().plusMinutes(CODE_EXPIRATION_DURATION_MINUTES));
+        emailCodeRepository.save(newCode);
 
-        String currentEmail, currentPassword;
-        Long sentMails = account.getSentEmails();
-        if (sentMails < EMAIL_LIMIT) {
-            currentEmail = email1;
-            currentPassword = email1Password;
-        } else if (sentMails < EMAIL_LIMIT * 2) {
-            currentEmail = email2;
-            currentPassword = email2Password;
-        } else if (sentMails < EMAIL_LIMIT * 3) {
-            currentEmail = email3;
-            currentPassword = email3Password;
-        } else {
-            return "All email send limits exceeded";
+        // 이메일 발송
+        try {
+            sendVerificationEmail(recipientEmail, verificationCode);
+        } catch (MessagingException e) {
+            // 이메일 전송 중 문제 발생 시 로깅 또는 예외 처리
+            return "Failed to send the email";
         }
 
-        sendEmail(email, "Verification Code", "Your code is: " + code, currentEmail, currentPassword);
-        account.setSentEmails(account.getSentEmails() + 1);
+        // sentEmails 카운트 업데이트
+        EmailAccountDAO account = emailAccountRepository.findById(0L).orElse(null);
+        if (account == null) {
+            account = new EmailAccountDAO();
+            account.setId(0L);
+            account.setSentEmails(1L); // 처음 이메일을 보내므로 1로 설정
+        } else {
+            account.setSentEmails(account.getSentEmails() + 1);
+        }
         emailAccountRepository.save(account);
 
         return "Code sent";
     }
 
-    // ... (생략)
-
-    private EmailAccountDAO getOrCreateEmailAccount() {
-        EmailAccountDAO account = emailAccountRepository.findById(0L).orElse(new EmailAccountDAO());
-        if (account.getId() == null) {
-            account.setId(0L);
-            emailAccountRepository.save(account);
-        }
-        return account;
+    private String generateVerificationCode() {
+        return String.format("%06d", new Random().nextInt(999999));
     }
 
-    private void saveCode(String email, String code) {
-        EmailCodeDAO verification = new EmailCodeDAO();
-        verification.setEmail(email);
-        verification.setCode(code);
-        emailCodeRepository.save(verification);
-    }
+    private void sendVerificationEmail(String to, String code) throws MessagingException {
+        MimeMessage message = emailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
-    private void sendEmail(String to, String subject, String body, String username, String password) {
-        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-        mailSender.setUsername(username);
-        mailSender.setPassword(password);
-        // Other mail sender configurations if necessary
+        helper.setFrom("tukorea.tino.project@gmail.com"); // 발신자의 Gmail 주소
+        helper.setTo(to);
+        helper.setSubject("Verification Code");
+        helper.setText("Your verification code is: " + code);
 
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(to);
-        message.setSubject(subject);
-        message.setText(body);
-        mailSender.send(message);
+        emailSender.send(message);
     }
 }

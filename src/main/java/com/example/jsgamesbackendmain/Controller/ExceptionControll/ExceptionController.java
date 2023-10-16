@@ -19,6 +19,22 @@ public class ExceptionController {
         return exceptionHandler(e);
     }
 
+    @ExceptionHandler(ExceededException.class)
+    public ResponseEntity<Map<String, String>> exceededException(ExceededException e) {
+        return exceptionHandler(e);
+    }
+
+    @ExceptionHandler(FailException.class)
+    public ResponseEntity<Map<String, String>> failException(FailException e) {
+        return exceptionHandler(e);
+    }
+
+    @ExceptionHandler(InvalidException.class)
+    public ResponseEntity<Map<String, String>> invalidException(InvalidException e) {
+        return exceptionHandler(e);
+    }
+
+
     private ResponseEntity<Map<String, String>> exceptionHandler(Exception e) {
         HashMap<String, String> map = new HashMap<>();
         map.put("message", e.getMessage());

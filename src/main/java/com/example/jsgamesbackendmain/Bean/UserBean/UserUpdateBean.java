@@ -22,7 +22,7 @@ public class UserUpdateBean {
     private UserEmailDuplicateSmallBean userEmailDuplicateSmallBean;
 
     public UserUpdateResponseDTO updateUser(UserUpdateRequestDTO userUpdateRequestDTO) {
-        userEmailDuplicateSmallBean.isEmailExist(userUpdateRequestDTO.getEmail());
+        userEmailDuplicateSmallBean.exec(userUpdateRequestDTO.getEmail());
 
         UserDAO user = userGetSmallBean.getUser(userUpdateRequestDTO.getUserId());
         user.setNickname(userUpdateRequestDTO.getNickname());

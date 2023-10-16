@@ -18,6 +18,4 @@ public class EmailService {
         return emailSendBean.exec(emailSendRequestDTO);
     }
 
-    public String checkCode(EmailCodeRequestDTO emailCodeRequestDTO){ return emailCodeCheckBean.exec(emailCodeRequestDTO); }
-
 }

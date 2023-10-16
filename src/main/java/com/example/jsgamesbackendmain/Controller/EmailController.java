@@ -18,9 +18,4 @@ public class EmailController {
     public String sendEmail(@RequestBody EmailSendRequestDTO emailRequestDTO) {
         return emailService.sendEmail(emailRequestDTO);
     }
-
-    @PostMapping("/email/check")
-    public String checkCode(@RequestBody EmailCodeRequestDTO emailCodeRequestDTO) {
-        return emailService.checkCode(emailCodeRequestDTO);
-    }
 }

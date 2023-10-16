@@ -21,15 +21,15 @@ spring:
       hibernate:
         format_sql: true
   datasource:
-    driverClassName: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://127.0.0.1:3306/tinos
-    username: root
-    password: 1234
+    driver-class-name: ${DB_DRIVER}
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
   mail:
     host: smtp.gmail.com
     port: 587
     username: tukorea.tino.project@gmail.com
-    password: lghajqjvhcgmhtwa
+    password: ${MAIL_PASSWORD}
     protocol: smtp
     default-encoding: UTF-8
     properties:

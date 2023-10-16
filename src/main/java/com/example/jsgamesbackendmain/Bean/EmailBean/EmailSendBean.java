@@ -1,5 +1,7 @@
 package com.example.jsgamesbackendmain.Bean.EmailBean;
 
+import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserEmailDuplicateSmallBean;
+import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserValidationSmallBean;
 import com.example.jsgamesbackendmain.Model.DAO.EmailAccountDAO;
 import com.example.jsgamesbackendmain.Model.DAO.EmailCodeDAO;
 import com.example.jsgamesbackendmain.Model.DTO.Email.EmailSendRequestDTO;
@@ -27,12 +29,22 @@ public class EmailSendBean {
     private EmailCodeRepository emailCodeRepository;
 
     @Autowired
+    private UserEmailDuplicateSmallBean userEmailDuplicateSmallBean;
+
+    @Autowired
     private JavaMailSender emailSender; // 자동 설정된 빈을 주입
 
     private static final String DOMAIN = "@tukorea.ac.kr";
-    private static final int CODE_EXPIRATION_DURATION_MINUTES = 60; // 예시로 코드 만료 시간을 60분으로 설정
+    private static final int MAX_MAIL = 500;
 
     public String exec(EmailSendRequestDTO emailSendRequestDTO) {
+        EmailAccountDAO account = emailAccountRepository.findById(0L).orElse(null);
+        if(account.getSentEmails()>=MAX_MAIL){
+            return "Max send mail";
+        }
+        // 이메일 중복 검사
+        userEmailDuplicateSmallBean.isEmailExist(emailSendRequestDTO.getEmail());
+
         // 이메일 도메인 검증
         String recipientEmail = emailSendRequestDTO.getEmail();
         if (!recipientEmail.endsWith(DOMAIN)) {
@@ -42,13 +54,6 @@ public class EmailSendBean {
         // 인증 코드 생성
         String verificationCode = generateVerificationCode();
 
-        // 인증 코드 저장 (데이터베이스)
-        EmailCodeDAO newCode = new EmailCodeDAO();
-        newCode.setEmail(recipientEmail);
-        newCode.setCode(verificationCode);
-        newCode.setExpiryDate(LocalDateTime.now().plusMinutes(CODE_EXPIRATION_DURATION_MINUTES));
-        emailCodeRepository.save(newCode);
-
         // 이메일 발송
         try {
             sendVerificationEmail(recipientEmail, verificationCode);
@@ -57,8 +62,14 @@ public class EmailSendBean {
             return "Failed to send the email";
         }
 
+        // 인증 코드 저장 (데이터베이스)
+        EmailCodeDAO newCode = new EmailCodeDAO();
+        newCode.setEmail(recipientEmail);
+        newCode.setCode(verificationCode);
+        newCode.setExpiryDate(LocalDateTime.now());
+        emailCodeRepository.save(newCode);
+
         // sentEmails 카운트 업데이트
-        EmailAccountDAO account = emailAccountRepository.findById(0L).orElse(null);
         if (account == null) {
             account = new EmailAccountDAO();
             account.setId(0L);

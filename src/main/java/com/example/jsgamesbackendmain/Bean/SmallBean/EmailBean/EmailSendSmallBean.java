@@ -16,7 +16,7 @@ public class EmailSendSmallBean {
     @Autowired
     private JavaMailSender emailSender; // 자동 설정된 빈을 주입
 
-    @Value("${mail.username}")
+    @Value("${spring.mail.username}")
     private String myEmail;
 
     public void exec(String to, String code){

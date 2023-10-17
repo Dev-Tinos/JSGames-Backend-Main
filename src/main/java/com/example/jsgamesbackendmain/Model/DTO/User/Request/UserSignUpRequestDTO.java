@@ -10,4 +10,5 @@ public class UserSignUpRequestDTO {
     private String password;
     private String nickname;
     private String major;
+    private String code;
 }

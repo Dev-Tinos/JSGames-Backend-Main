@@ -15,7 +15,7 @@ public class UserEmailDuplicateSmallBean {
     private UserRepository userRepository;
 
     //이메일 중복 검사
-    public void isEmailExist(String email) {
+    public void exec(String email) {
         Optional<UserDAO> optional = userRepository.findByEmail(email);
         if(optional.isPresent()){
             throw new DuplicateException("이미 존재하는 이메일입니다.");

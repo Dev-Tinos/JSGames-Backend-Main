@@ -10,6 +10,7 @@ import java.util.Optional;
 
 @Repository
 public interface EmailCodeRepository extends JpaRepository<EmailCodeDAO, Long> {
-    @Query(value = "SELECT e FROM EmailCodeDAO e WHERE e.email = :email ORDER BY e.expiryDate DESC")
-    List<EmailCodeDAO> findAllCodesByEmailOrderByExpiryDateDesc(String email);
+    Optional<EmailCodeDAO> findByEmail(String email);
+
+    boolean existsByEmail(String email);
 }

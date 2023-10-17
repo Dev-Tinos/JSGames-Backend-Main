@@ -33,7 +33,8 @@ public class UserController {
         return ResponseEntity.ok(userService.getUser(userId));
     }
 
-    @Operation(summary = "유저 회원가입")
+    @Operation(summary = "유저 회원가입", description = "# 이메일로 받은 코드도 같이 전송해야함" +
+            "## 이메일 기입창 -> 회원가입창(안에 코드기입창이 있어야함)")
     @PostMapping("/user")
     public UserSignUpResponseDTO signUpUser(@RequestBody UserSignUpRequestDTO userSignUpRequestDTO) {
         return userService.signUpUser(userSignUpRequestDTO);

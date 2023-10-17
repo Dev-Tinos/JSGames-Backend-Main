@@ -16,7 +16,7 @@ public class EmailCodeDAO {
     private String email;
     private String code;
 
-    private LocalDateTime expiryDate;
+    private LocalDateTime expiryDate = LocalDateTime.now();
 
     // ... getters & setters
 }

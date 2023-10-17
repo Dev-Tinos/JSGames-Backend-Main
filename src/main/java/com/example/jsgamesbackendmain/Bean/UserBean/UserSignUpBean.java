@@ -22,7 +22,7 @@ public class UserSignUpBean {
     private UesrCreateBean uesrCreateBean;
 
     public UserSignUpResponseDTO signUpUser(UserSignUpRequestDTO userSignUpRequestDTO) {
-        userEmailDuplicateSmallBean.isEmailExist(userSignUpRequestDTO.getEmail());
+        userEmailDuplicateSmallBean.exec(userSignUpRequestDTO.getEmail());
 
         EmailCodeRequestDTO emailCodeRequestDTO = new EmailCodeRequestDTO();
         emailCodeRequestDTO.setEmail(userSignUpRequestDTO.getEmail());

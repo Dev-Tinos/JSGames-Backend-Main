@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "email_code")
 @Getter @Setter
 public class EmailCodeDAO {
 

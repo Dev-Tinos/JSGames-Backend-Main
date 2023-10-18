@@ -43,6 +43,7 @@ public class EmailSendBean {
         EmailAccountDAO account = emailAccountRepository.findById(0L).orElse(null);
         String Email = emailSendRequestDTO.getEmail();
 
+        System.out.println("account = " + account);
 
         // 이메일 최대 개수 검사
         emailMaxCheckSmallBean.exec(account);
@@ -65,13 +66,7 @@ public class EmailSendBean {
         emailCodeRepository.save(newCode);
 
         // sentEmails 카운트 업데이트
-        if (account == null) {
-            account = new EmailAccountDAO();
-            account.setId(0L);
-            account.setSentEmails(1L);
-        } else {
-            account.setSentEmails(account.getSentEmails() + 1);
-        }
+        account.setSentEmails(account.getSentEmails() + 1);
         emailAccountRepository.save(account);
 
         return "Code sent";

@@ -6,12 +6,13 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "email_account")
 @Getter @Setter
 public class EmailAccountDAO {
 
     @Id
-    private Long id = 0L;
-    private Long sentEmails = 0L;
+    private Long id;
+    private Long sentEmails;
 
     // ... getters & setters
 }

@@ -1,5 +1,6 @@
 package com.example.jsgamesbackendmain.Bean.EmailBean;
 
+import com.example.jsgamesbackendmain.Model.DAO.EmailAccountDAO;
 import com.example.jsgamesbackendmain.Repository.EmailAccountRepository;
 import com.example.jsgamesbackendmain.Repository.EmailCodeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,5 +17,9 @@ public class EmailClearBean {
     public void exec(){
         emailAccountRepository.deleteAll();
         emailCodeRepository.deleteAll();
+        EmailAccountDAO emailAccountDAO = new EmailAccountDAO();
+        emailAccountDAO.setSentEmails(0L);
+        emailAccountDAO.setId(0L);
+        emailAccountRepository.save(emailAccountDAO);
     }
 }

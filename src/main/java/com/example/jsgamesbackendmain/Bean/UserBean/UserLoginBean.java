@@ -21,7 +21,7 @@ public class UserLoginBean {
     public UserLoginResponseDTO exec(UserLoginRequestDTO userLoginRequestDTO){
         Optional<UserDAO> userDAO = userRepository.findByEmail(userLoginRequestDTO.getEmail());
 
-        if(userDAO.isPresent()){
+        if(!userDAO.isPresent()){
             throw new InvalidException("가입되지 않은 이메일입니다.");
         }
 

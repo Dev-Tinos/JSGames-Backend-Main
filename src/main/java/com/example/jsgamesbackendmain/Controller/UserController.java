@@ -1,9 +1,7 @@
 package com.example.jsgamesbackendmain.Controller;
 
-import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserGetResponseDTO;
-import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserGetTop100ResponseDTO;
-import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserSignUpResponseDTO;
-import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserUpdateResponseDTO;
+import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.*;
+import com.example.jsgamesbackendmain.Model.DTO.User.Request.UserLoginRequestDTO;
 import com.example.jsgamesbackendmain.Model.DTO.User.UserSignUpRequestDTO;
 import com.example.jsgamesbackendmain.Model.DTO.User.UserUpdateRequestDTO;
 import com.example.jsgamesbackendmain.Service.UserService;
@@ -39,6 +37,13 @@ public class UserController {
     public UserSignUpResponseDTO signUpUser(@RequestBody UserSignUpRequestDTO userSignUpRequestDTO) {
         return userService.signUpUser(userSignUpRequestDTO);
     }
+
+    @Operation(summary = "유저 로그인")
+    @PostMapping("/user/login")
+    public UserLoginResponseDTO loginUser(@RequestBody UserLoginRequestDTO userLoginRequestDTO){
+        return userService.loginUser(userLoginRequestDTO);
+    }
+
 
     @Operation(summary = "유저 정보 수정")
     @PutMapping("/user")

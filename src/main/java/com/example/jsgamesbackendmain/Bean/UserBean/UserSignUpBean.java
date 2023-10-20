@@ -27,9 +27,7 @@ public class UserSignUpBean {
         EmailCodeRequestDTO emailCodeRequestDTO = new EmailCodeRequestDTO();
         emailCodeRequestDTO.setEmail(userSignUpRequestDTO.getEmail());
         emailCodeRequestDTO.setCode(userSignUpRequestDTO.getCode());
-        if(!emailCodeCheckBean.exec(emailCodeRequestDTO)){
-            throw new DuplicateException("코드가 맞지 않습니다.");
-        }
+        emailCodeCheckBean.exec(emailCodeRequestDTO);
 
         return UserSignUpResponseDTO.of(uesrCreateBean.postUser(userSignUpRequestDTO));
     }

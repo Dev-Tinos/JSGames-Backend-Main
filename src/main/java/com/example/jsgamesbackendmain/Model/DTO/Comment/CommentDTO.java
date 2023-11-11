@@ -3,11 +3,13 @@ package com.example.jsgamesbackendmain.Model.DTO.Comment;
 import com.example.jsgamesbackendmain.Model.DAO.CommentDAO;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
+@ToString
 public class CommentDTO {
     private Long commentId;
     private Long userId;

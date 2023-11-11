@@ -79,7 +79,7 @@ class JsGamesBackendMainApplicationTests {
     void MockMvc_Test_예시코드() throws Exception {
         // MockMvc를 사용하여 테스트 코드 작성
         String s = mockMvc.perform(
-                        MockMvcRequestBuilders.get("/api/user/1")
+                        MockMvcRequestBuilders.get("/api/user/0")
                                 .contentType("application/json")
                 )
                 // 응답 코드가 404인지 확인
@@ -98,7 +98,7 @@ class JsGamesBackendMainApplicationTests {
         assertTrue(map.containsKey("message"));
 
         // Map의 message가 "User not found for this id :: 1"인지 확인
-        assertEquals(map.get("message"), "User not found for this id :: 1");
+        assertEquals(map.get("message"), "User not found for this id :: 0");
     }
 
     @Test

@@ -1,5 +1,6 @@
 package com.example.jsgamesbackendmain.Model.DAO;
 
+import com.example.jsgamesbackendmain.Model.ENUM.Major;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,5 +16,5 @@ public class UserDAO {
     private String nickname;
     private String email;
     private String password;
-    private String major;
+    private Major major;
 }

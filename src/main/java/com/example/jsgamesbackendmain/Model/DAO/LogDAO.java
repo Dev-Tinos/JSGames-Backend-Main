@@ -6,12 +6,12 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "results")
+@Table(name = "Logs")
 @Getter @Setter
-public class ResultDAO {
+public class LogDAO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long resultId;
+    private Long logId;
 
     private Long userId;
     private Long gameId;

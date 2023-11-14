@@ -6,7 +6,7 @@ import com.example.jsgamesbackendmain.Model.DTO.Review.ReviewDTO;
 import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserGetResponseDTO;
 import com.example.jsgamesbackendmain.Repository.ReviewRepository;
 import com.example.jsgamesbackendmain.Repository.GameRepository;
-import com.example.jsgamesbackendmain.Repository.ResultRepository;
+import com.example.jsgamesbackendmain.Repository.LogRepository;
 import com.example.jsgamesbackendmain.Repository.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -38,7 +38,7 @@ class JsGamesBackendMainApplicationTests {
     private UserRepository userRepository;
 
     @Autowired
-    private ResultRepository resultRepository;
+    private LogRepository logRepository;
 
     @Autowired
     private ReviewRepository reviewRepository;

@@ -3,6 +3,7 @@ package com.example.jsgamesbackendmain.Bean.SmallBean.LogBean;
 import com.example.jsgamesbackendmain.Model.DAO.LogDAO;
 import com.example.jsgamesbackendmain.Model.DTO.Log.Response.LogGetByUserIdResponseDTO;
 import com.example.jsgamesbackendmain.Repository.LogRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,6 +18,8 @@ public class LogGetByUserIdSmallBean {
     @Autowired
     private LogRepository logRepository;
 
+    ObjectMapper objectMapper = new ObjectMapper();
+
     public List<LogGetByUserIdResponseDTO> exec(Long userId, Long page, Long size) {
         Pageable pageable = PageRequest.of(page.intValue(), size.intValue());
 
@@ -24,6 +27,6 @@ public class LogGetByUserIdSmallBean {
 
         List<LogDAO> logs = order.toList();
 
-        return logs.stream().map(LogGetByUserIdResponseDTO::of).collect(Collectors.toList());
+        return logs.stream().map(l -> objectMapper.convertValue(l,LogGetByUserIdResponseDTO.class)).collect(Collectors.toList());
     }
 }

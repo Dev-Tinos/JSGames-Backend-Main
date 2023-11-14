@@ -11,10 +11,4 @@ public class LogGetResponse {
     private Long logId;
     private Long gameId;
     private Double gameScore;
-
-    public static void mapFromDAO(LogGetResponse logGetResponse, LogDAO logDAO) {
-        logGetResponse.setLogId(logDAO.getLogId());
-        logGetResponse.setGameId(logDAO.getGameId());
-        logGetResponse.setGameScore(logDAO.getGameScore());
-    }
 }

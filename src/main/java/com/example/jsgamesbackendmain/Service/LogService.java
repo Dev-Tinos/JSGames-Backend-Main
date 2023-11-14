@@ -10,6 +10,7 @@ import com.example.jsgamesbackendmain.Model.DTO.Log.Response.LogGetByGameIdRespo
 import com.example.jsgamesbackendmain.Model.DTO.Log.Response.LogGetByGameIdUserIdResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Log.Response.LogGetByUserIdResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Log.Response.LogPostResponseDTO;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,13 +29,15 @@ public class LogService {
     @Autowired
     private LogPostBean logPostBean;
 
+    ObjectMapper objectMapper = new ObjectMapper();
+
     public LogPostResponseDTO postLog(LogPostRequestDTO logPostRequestDTO) {
         return logPostBean.postLog(logPostRequestDTO);
     }
 
     public List<LogGetByGameIdResponseDTO> getLogsByGameId(Long gameId, Long page, Long size) {
         List<LogDAO> daoList = logGetByGameIdBean.exec(gameId, page, size);
-        return daoList.stream().map(LogGetByGameIdResponseDTO::of).collect(Collectors.toList());
+        return daoList.stream().map(l -> objectMapper.convertValue(l, LogGetByGameIdResponseDTO.class)).collect(Collectors.toList());
     }
 
     public List<LogGetByUserIdResponseDTO> getLogsByUserId(Long userId, Long page, Long size) {

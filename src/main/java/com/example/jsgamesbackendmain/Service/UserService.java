@@ -4,8 +4,8 @@ import com.example.jsgamesbackendmain.Bean.UserBean.*;
 import com.example.jsgamesbackendmain.Model.DAO.UserTop100DAO;
 import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.*;
 import com.example.jsgamesbackendmain.Model.DTO.User.Request.UserLoginRequestDTO;
-import com.example.jsgamesbackendmain.Model.DTO.User.UserSignUpRequestDTO;
-import com.example.jsgamesbackendmain.Model.DTO.User.UserUpdateRequestDTO;
+import com.example.jsgamesbackendmain.Model.DTO.User.Request.UserSignUpRequestDTO;
+import com.example.jsgamesbackendmain.Model.DTO.User.Request.UserUpdateRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

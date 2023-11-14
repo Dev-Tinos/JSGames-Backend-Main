@@ -2,8 +2,8 @@ package com.example.jsgamesbackendmain.Controller;
 
 import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.*;
 import com.example.jsgamesbackendmain.Model.DTO.User.Request.UserLoginRequestDTO;
-import com.example.jsgamesbackendmain.Model.DTO.User.UserSignUpRequestDTO;
-import com.example.jsgamesbackendmain.Model.DTO.User.UserUpdateRequestDTO;
+import com.example.jsgamesbackendmain.Model.DTO.User.Request.UserSignUpRequestDTO;
+import com.example.jsgamesbackendmain.Model.DTO.User.Request.UserUpdateRequestDTO;
 import com.example.jsgamesbackendmain.Service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;

@@ -4,7 +4,7 @@ import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserEmailDuplicate
 import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserGetSmallBean;
 import com.example.jsgamesbackendmain.Model.DAO.UserDAO;
 import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserUpdateResponseDTO;
-import com.example.jsgamesbackendmain.Model.DTO.User.UserUpdateRequestDTO;
+import com.example.jsgamesbackendmain.Model.DTO.User.Request.UserUpdateRequestDTO;
 import com.example.jsgamesbackendmain.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

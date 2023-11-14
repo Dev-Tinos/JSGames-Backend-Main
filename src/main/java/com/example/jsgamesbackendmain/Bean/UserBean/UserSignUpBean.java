@@ -5,7 +5,7 @@ import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserEmailDuplicate
 import com.example.jsgamesbackendmain.Controller.ExceptionControll.DuplicateException;
 import com.example.jsgamesbackendmain.Model.DTO.Email.EmailCodeRequestDTO;
 import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserSignUpResponseDTO;
-import com.example.jsgamesbackendmain.Model.DTO.User.UserSignUpRequestDTO;
+import com.example.jsgamesbackendmain.Model.DTO.User.Request.UserSignUpRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

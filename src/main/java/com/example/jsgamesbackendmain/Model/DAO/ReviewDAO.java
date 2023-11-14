@@ -9,17 +9,23 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "comments")
+@Table(name = "reviews")
 @Getter @Setter
 @ToString
-public class CommentDAO {
+public class ReviewDAO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long commentId;
+    private Long reviewId;
 
     private Long userId;
     private Long gameId;
-    private String commentContent;
+    private String reviewContent;
+
+    // 별점
+    private Float star;
+
+    // helpful
+    private Float helpful;
 
     @CreationTimestamp
     @Column(updatable = false)

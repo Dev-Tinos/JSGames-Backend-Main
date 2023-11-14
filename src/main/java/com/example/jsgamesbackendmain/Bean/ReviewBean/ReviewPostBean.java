@@ -1,5 +1,6 @@
 package com.example.jsgamesbackendmain.Bean.ReviewBean;
 
+import com.example.jsgamesbackendmain.Model.DAO.ReviewDAO;
 import com.example.jsgamesbackendmain.Model.DTO.Review.Request.ReviewCreateRequestDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Review.ReviewDTO;
 import com.example.jsgamesbackendmain.Repository.ReviewRepository;
@@ -16,10 +17,10 @@ public class ReviewPostBean {
     ObjectMapper objectMapper = new ObjectMapper();
 
     public ReviewDTO exec(ReviewCreateRequestDTO requestDTO) {
-//        ReviewDAO comment = ReviewCreateRequestDTO.toDAO(requestDTO);
-//        ReviewDAO savedComment = reviewRepository.save(comment);
-//
-//        return ReviewDTO.of(savedComment);
-        return null;
+        ReviewDAO dao = objectMapper.convertValue(requestDTO, ReviewDAO.class);
+
+        ReviewDAO savedDao = reviewRepository.save(dao);
+
+        return objectMapper.convertValue(savedDao, ReviewDTO.class);
     }
 }

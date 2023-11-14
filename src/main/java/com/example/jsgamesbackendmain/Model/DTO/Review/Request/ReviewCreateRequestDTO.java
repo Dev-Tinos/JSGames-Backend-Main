@@ -13,12 +13,4 @@ public class ReviewCreateRequestDTO {
     private Float star;
     // helpful
     private Float helpful;
-
-//    public static CommentDAO toDAO(CommentCreateRequestDTO requestDTO) {
-//        CommentDAO comment = new CommentDAO();
-//        comment.setUserId(requestDTO.getUserId());
-//        comment.setGameId(requestDTO.getGameId());
-//        comment.setCommentContent(requestDTO.getCommentContent());
-//        return comment;
-//    }
 }

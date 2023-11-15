@@ -28,7 +28,7 @@ public class GameListBean {
     public List<GameListResponseDTO> exec(Long page, Long size) {
         PageRequest pageRequest = PageRequest.of(page.intValue(), size.intValue());
 
-        Page<GameDAO> all = gameRepository.findAllByOrderByViewCountDesc(pageRequest);
+        Page<GameDAO> all = gameRepository.findAllByOrderByViewCountDescGameIdAsc(pageRequest);
 
         List<GameListResponseDTO> list = all.toList().stream().map(game -> mapperBean.to(game, GameListResponseDTO.class)).collect(Collectors.toList());
 

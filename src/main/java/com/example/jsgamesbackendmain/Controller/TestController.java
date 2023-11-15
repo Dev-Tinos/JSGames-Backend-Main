@@ -1,7 +1,6 @@
 package com.example.jsgamesbackendmain.Controller;
 
-import com.example.jsgamesbackendmain.Service.EmailService;
-import com.example.jsgamesbackendmain.Service.UserService;
+import com.example.jsgamesbackendmain.Service.TestService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
@@ -18,17 +17,14 @@ import java.util.Map;
 public class TestController {
 
     @Autowired
-    private EmailService emailService;
-
-    @Autowired
-    private UserService userService;
+    private TestService testService;
 
     @Operation(summary = "이메일 코드 테이블 데이터 삭제", description =
             "## 또한 자동으로 오후 11시 55분 마다 자동으로 실행됨"
     )
     @PostMapping("/email/clear")
     public String emailClear(){
-        return emailService.emailClear();
+        return testService.emailClear();
     }
     @Operation(summary = "Top100 테이블에 유저 세팅 (여러번 금지)", description =
             "# 여러번금지! (서버 과부하 걸릴수도)  \n" +
@@ -46,6 +42,6 @@ public class TestController {
             @ExampleObject(value = "{'result': 'success'}")))
     @PostMapping("/users/top100/set")
     public Map<String,String> setTop100Users() {
-        return userService.setTop100User();
+        return testService.setTop100User();
     }
 }

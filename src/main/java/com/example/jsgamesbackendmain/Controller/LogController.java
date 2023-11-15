@@ -51,11 +51,11 @@ public class LogController {
     }
 
     //유저의 게임 결과 로그 조회 API
-    @Operation(summary = "UserId로 Log 조회", description =
-        "# 특정 게임의 모든 user log 내림차순 조회"
-    )
-    @GetMapping("/logs/user/{userId}")
-    public List<LogGetByUserIdResponseDTO> getLogsByUserId(@PathVariable Long userId, @Parameter Long page, @Parameter Long size) {
-        return logService.getLogsByUserId(userId,page, size);
-    }
+//    @Operation(summary = "UserId로 Log 조회", description =
+//        "# 특정 게임의 모든 user log 내림차순 조회"
+//    )
+//    @GetMapping("/logs/user/{userId}")
+//    public List<LogGetByUserIdResponseDTO> getLogsByUserId(@PathVariable Long userId, @Parameter Long page, @Parameter Long size) {
+//        return logService.getLogsByUserId(userId,page, size);
+//    }
 }

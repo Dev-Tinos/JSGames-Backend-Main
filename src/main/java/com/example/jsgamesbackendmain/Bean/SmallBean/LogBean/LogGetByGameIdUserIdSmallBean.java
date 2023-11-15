@@ -11,10 +11,24 @@ import java.util.Optional;
 public class LogGetByGameIdUserIdSmallBean {
     @Autowired
     private LogValidationSmallBean logValidationSmallBean;
+    @Autowired
+    private LogGetOrderInfiniteScoreSmallBean logGetOrderInfiniteScoreSmallBean;
+    @Autowired
+    private LogGetOrderTargetSmallBean logGetOrderTargetSmallBean;
 
     public LogDAO exec(GameDAO gameDAO, Long userId) {
 
-        Optional<LogDAO> optional = logValidationSmallBean.exec(gameDAO, userId);
+        Optional<LogDAO> optional = logValidationSmallBean.exec(gameDAO, userId);;
+
+        switch (gameDAO.getScoreType()) {
+            case INFINITE:
+                optional = logGetOrderInfiniteScoreSmallBean.exec(gameDAO.getGameId(), userId);
+                break;
+            case GOAL:
+                optional = logGetOrderTargetSmallBean.exec(gameDAO.getGameId(), userId, gameDAO.getTargetScore());
+                break;
+        }
+
         return optional.get();
     }
 }

@@ -1,8 +1,13 @@
 package com.example.jsgamesbackendmain.Bean.SmallBean.LogBean;
 
 
+import com.example.jsgamesbackendmain.Bean.MapperBean.MapperBean;
+import com.example.jsgamesbackendmain.Bean.UserBean.UserGetBean;
 import com.example.jsgamesbackendmain.Model.DAO.GameDAO;
 import com.example.jsgamesbackendmain.Model.DAO.LogDAO;
+import com.example.jsgamesbackendmain.Model.DTO.Log.Response.LogGetByGameIdResponseDTO;
+import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserGetResponseDTO;
+import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserLogResponseDTO;
 import com.example.jsgamesbackendmain.Repository.LogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,15 +16,20 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class LogGetByGameIdSmallBean {
     @Autowired
     private LogRepository logRepository;
+    @Autowired
+    private UserGetBean userGetBean;
+    @Autowired
+    private MapperBean mapperBean;
 
 
     // INFINITE
-    public List<LogDAO> exec(GameDAO gameDAO, Long page, Long size) {
+    public List<LogGetByGameIdResponseDTO> exec(GameDAO gameDAO, Long page, Long size) {
         Pageable pageable = PageRequest.of(page.intValue(), size.intValue());
 
         Page<LogDAO> order = null;
@@ -33,6 +43,11 @@ public class LogGetByGameIdSmallBean {
                 break;
         }
 
-        return order.toList();
+        return order.toList().stream().map(logDAO -> {
+            LogGetByGameIdResponseDTO dto = mapperBean.to(logDAO, LogGetByGameIdResponseDTO.class);
+            UserGetResponseDTO user = userGetBean.getUser(logDAO.getUserId());
+            dto.setUser(mapperBean.to(user, UserLogResponseDTO.class));
+            return dto;
+        }).collect(Collectors.toList());
     }
 }

@@ -1,7 +1,10 @@
 package com.example.jsgamesbackendmain.Bean.SmallBean.LogBean;
 
+import com.example.jsgamesbackendmain.Bean.MapperBean.MapperBean;
 import com.example.jsgamesbackendmain.Model.DAO.LogDAO;
+import com.example.jsgamesbackendmain.Model.DAO.UserDAO;
 import com.example.jsgamesbackendmain.Model.DTO.Log.Response.LogGetByUserIdResponseDTO;
+import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserLogResponseDTO;
 import com.example.jsgamesbackendmain.Repository.LogRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,15 +21,21 @@ public class LogGetByUserIdSmallBean {
     @Autowired
     private LogRepository logRepository;
 
-    ObjectMapper objectMapper = new ObjectMapper();
+    @Autowired
+    private MapperBean mapperBean;
 
-    public List<LogGetByUserIdResponseDTO> exec(Long userId, Long page, Long size) {
+
+    public List<LogGetByUserIdResponseDTO> exec(UserDAO user, Long page, Long size) {
         Pageable pageable = PageRequest.of(page.intValue(), size.intValue());
 
-        Page<LogDAO> order = logRepository.findByUserIdOrderByGameScoreDesc(userId, pageable);
+        Page<LogDAO> order = logRepository.findByUserIdOrderByGameScoreDesc(user.getUserId(), pageable);
 
-        List<LogDAO> logs = order.toList();
+        UserLogResponseDTO userResponseDTO = mapperBean.to(user, UserLogResponseDTO.class);
 
-        return logs.stream().map(l -> objectMapper.convertValue(l,LogGetByUserIdResponseDTO.class)).collect(Collectors.toList());
+        return order.stream().map(l -> {
+            LogGetByUserIdResponseDTO dto = mapperBean.to(l, LogGetByUserIdResponseDTO.class);
+            dto.setUser(userResponseDTO);
+            return dto;
+        }).collect(Collectors.toList());
     }
 }

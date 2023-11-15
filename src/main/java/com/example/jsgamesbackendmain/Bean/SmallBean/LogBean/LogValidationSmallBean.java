@@ -16,19 +16,13 @@ public class LogValidationSmallBean {
     @Autowired
     private LogRepository logRepository;
     public Optional<LogDAO> exec(GameDAO gameDAO, Long userId) {
-        Optional<LogDAO> optional = Optional.empty();
-        switch (gameDAO.getScoreType()) {
-            case INFINITE:
-                optional = logRepository.findFirstByGameIdAndUserIdOrderByGameScoreDesc(gameDAO.getGameId(), userId);
-                break;
-            case GOAL:
-                List<LogDAO> list = logRepository.findFirstByGameIdAndUserIdOrderByGameScoreWithTargetScore(gameDAO.getGameId(), userId, gameDAO.getTargetScore(), PageRequest.of(0, 1));
-                if (list.isEmpty()) {
-                    optional = Optional.empty();
-                } else
-                    optional = Optional.of(list.get(0));
-                break;
-        }
+
+        List<LogDAO> list = logRepository.findByGameIdAndUserId(
+                gameDAO.getGameId(), userId
+                ,PageRequest.of(0,1)
+        ).toList();
+
+        Optional<LogDAO> optional = list.stream().findAny();
 
         if (!optional.isPresent()) {
             throw new ResourceNotFoundException("Log not found for this GameId And UserId :: " + gameDAO.getGameId() + " And " + gameDAO.getUserId());

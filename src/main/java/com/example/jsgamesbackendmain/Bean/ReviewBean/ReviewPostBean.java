@@ -1,7 +1,11 @@
 package com.example.jsgamesbackendmain.Bean.ReviewBean;
 
+import com.example.jsgamesbackendmain.Bean.MapperBean.MajorMapperBean;
+import com.example.jsgamesbackendmain.Bean.MapperBean.MapperBean;
+import com.example.jsgamesbackendmain.Bean.SmallBean.ReviewBean.ReviewSaveSmallBean;
 import com.example.jsgamesbackendmain.Model.DAO.ReviewDAO;
 import com.example.jsgamesbackendmain.Model.DTO.Review.Request.ReviewCreateRequestDTO;
+import com.example.jsgamesbackendmain.Model.DTO.Review.Response.ReviewCreateResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Review.ReviewDTO;
 import com.example.jsgamesbackendmain.Repository.ReviewRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -12,15 +16,16 @@ import org.springframework.stereotype.Component;
 public class ReviewPostBean {
 
     @Autowired
-    private ReviewRepository reviewRepository;
-
-    ObjectMapper objectMapper = new ObjectMapper();
+    private ReviewSaveSmallBean reviewSaveSmallBean;
+    @Autowired
+    private MapperBean mapperBean;
 
     public ReviewDTO exec(ReviewCreateRequestDTO requestDTO) {
-        ReviewDAO dao = objectMapper.convertValue(requestDTO, ReviewDAO.class);
 
-        ReviewDAO savedDao = reviewRepository.save(dao);
+        ReviewDAO dao = mapperBean.to(requestDTO, ReviewDAO.class);
 
-        return objectMapper.convertValue(savedDao, ReviewDTO.class);
+        ReviewDAO savedDao = reviewSaveSmallBean.exec(dao);
+
+        return mapperBean.to(savedDao, ReviewCreateResponseDTO.class);
     }
 }

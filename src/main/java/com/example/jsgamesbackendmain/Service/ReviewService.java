@@ -6,6 +6,7 @@ import com.example.jsgamesbackendmain.Bean.ReviewBean.ReviewUpdateBean;
 import com.example.jsgamesbackendmain.Model.DTO.Review.Request.ReviewCreateRequestDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Review.Request.ReviewUpdateRequestDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Review.Response.ReviewGetByGameIdResponseDTO;
+import com.example.jsgamesbackendmain.Model.DTO.Review.Response.ReviewUpdateResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Review.ReviewDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,7 +36,7 @@ public class ReviewService {
     }
 
     // 댓글 수정
-    public ReviewDTO updateReview(Long reviewId, ReviewUpdateRequestDTO requestDTO) {
+    public ReviewUpdateResponseDTO updateReview(Long reviewId, ReviewUpdateRequestDTO requestDTO) {
         return reviewUpdateBean.exec(reviewId, requestDTO);
     }
 }

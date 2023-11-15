@@ -10,15 +10,7 @@ import org.springframework.stereotype.Service;
 public class EmailService {
     @Autowired
     private EmailSendBean emailSendBean;
-    @Autowired
-    private EmailClearBean emailClearBean;
-
     public String sendEmail(EmailSendRequestDTO emailSendRequestDTO){
         return emailSendBean.exec(emailSendRequestDTO);
-    }
-
-    public String emailClear(){
-        emailClearBean.exec();
-        return "success";
     }
 }

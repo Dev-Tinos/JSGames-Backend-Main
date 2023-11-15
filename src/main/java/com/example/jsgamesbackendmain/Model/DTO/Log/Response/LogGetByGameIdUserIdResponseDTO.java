@@ -11,4 +11,6 @@ import lombok.ToString;
 public class LogGetByGameIdUserIdResponseDTO extends LogGetResponse {
 
     private UserLogResponseDTO user;
+
+    private Long ranking;
 }

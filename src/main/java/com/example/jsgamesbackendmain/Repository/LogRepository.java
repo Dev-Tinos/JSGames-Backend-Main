@@ -32,5 +32,10 @@ public interface LogRepository extends JpaRepository<LogDAO, Long> {
 
     // GameId UserId 중 targetScore와 gameScore의 차이가 가장 적은 튜플 가져오기
     @Query("SELECT r FROM LogDAO r WHERE r.gameId = ?1 AND r.userId = ?2 ORDER BY ABS(r.gameScore - ?3)")
-    List<LogDAO> findFirstByGameIdAndUserIdOrderByGameScoreWithTargetScore(Long gameId, Long userId, Double targetScore);
+    Page<LogDAO> findFirstByGameIdAndUserIdOrderByGameScoreWithTargetScore(Long gameId, Long userId, Double targetScore, Pageable pageable);
+    @Query("select count(r) from LogDAO r where r.gameScore >= ?1 and r.gameId = ?2")
+    Long getRankInfinite(Double gameScore, Long gameId);
+
+    @Query("select count(r) from LogDAO r where abs(?1 - r.gameScore) <= abs(?1 - ?2) and r.gameId = ?3")
+    Long getRankGoal(Double targetScore, Double gameScore, Long gameId);
 }

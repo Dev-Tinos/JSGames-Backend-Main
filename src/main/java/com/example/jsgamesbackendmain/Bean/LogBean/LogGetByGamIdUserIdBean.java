@@ -3,6 +3,7 @@ package com.example.jsgamesbackendmain.Bean.LogBean;
 import com.example.jsgamesbackendmain.Bean.MapperBean.MapperBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.GameBean.GameGetSmallBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.LogBean.LogGetByGameIdUserIdSmallBean;
+import com.example.jsgamesbackendmain.Bean.SmallBean.LogBean.LogGetRankSmallBean;
 import com.example.jsgamesbackendmain.Bean.UserBean.UserGetBean;
 import com.example.jsgamesbackendmain.Model.DAO.GameDAO;
 import com.example.jsgamesbackendmain.Model.DAO.LogDAO;
@@ -19,6 +20,8 @@ public class LogGetByGamIdUserIdBean {
     private LogGetByGameIdUserIdSmallBean logGetByGameIdUserIdSmallBean;
     @Autowired
     private UserGetBean userGetBean;
+    @Autowired
+    private LogGetRankSmallBean logGetRankSmallBean;
 
     @Autowired
     private MapperBean mapperBean;
@@ -33,13 +36,17 @@ public class LogGetByGamIdUserIdBean {
         UserLogResponseDTO userDTO = mapperBean.to(userGetBean.getUser(userId), UserLogResponseDTO.class);
 
         // LogDAO 조회
-        LogDAO dao = logGetByGameIdUserIdSmallBean.exec(gameDAO, userId);
+        LogDAO logDAO = logGetByGameIdUserIdSmallBean.exec(gameDAO, userId);
+
+        // rank 조회
+        Long rank = logGetRankSmallBean.exec(gameDAO, logDAO);
 
         // LogDAO -> LogGetByGameIdUserIdResponseDTO 변환
-        LogGetByGameIdUserIdResponseDTO dto = mapperBean.to(dao, LogGetByGameIdUserIdResponseDTO.class);
+        LogGetByGameIdUserIdResponseDTO dto = mapperBean.to(logDAO, LogGetByGameIdUserIdResponseDTO.class);
 
-        // UserDTO 삽입
+        // UserDTO, rank 삽입
         dto.setUser(userDTO);
+        dto.setRanking(rank);
 
         return dto;
     }

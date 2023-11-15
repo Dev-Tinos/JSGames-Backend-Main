@@ -15,6 +15,7 @@ import com.example.jsgamesbackendmain.Repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -201,5 +202,62 @@ class LogBeanTest {
 
         //then
         assertEquals(logDAO.getGameId(), exec.getGameId());
+    }
+
+    @Test
+    void GetRankTest() {
+        //given
+        UserDAO user = UserDAO.createTest(0);
+        userRepository.save(user);
+
+        GameDAO game1 = GameDAO.createTest(0);
+        game1.setScoreType(ScoreType.INFINITE);
+        game1.setUserId(user.getUserId());
+        gameRepository.save(game1);
+
+        GameDAO game2 = GameDAO.createTest(3);
+        game2.setUserId(user.getUserId());
+        game2.setScoreType(ScoreType.GOAL);
+        game2.setTargetScore(((double) 5));
+        gameRepository.save(game2);
+
+        for (int i = 0; i < 12; i++) {
+            LogDAO log1 = LogDAO.createTest(i);
+            log1.setGameId(game1.getGameId());
+            log1.setUserId(user.getUserId());
+            logRepository.save(log1);
+
+            LogDAO log2 = LogDAO.createTest(i);
+            log2.setGameId(game2.getGameId());
+            log2.setUserId(user.getUserId());
+            logRepository.save(log2);
+        }
+
+        List<LogDAO> expect1 = logRepository.findAll().stream().filter(logDAO -> logDAO.getGameId() == game1.getGameId())
+                .sorted(Comparator.comparing(LogDAO::getGameScore).reversed().thenComparing(LogDAO::getLogId))
+                .collect(Collectors.toList());
+
+        List<LogDAO> expect2 = logRepository.findAll().stream().filter(logDAO -> logDAO.getGameId() == game2.getGameId())
+                .sorted((o1, o2) -> {
+                    double g1 = game2.getTargetScore() - o1.getGameScore();
+                    double g2 = game2.getTargetScore() - o2.getGameScore();
+                    if (g1 == g2)
+                        return Long.compare(o1.getLogId(), o2.getLogId());
+                    return Double.compare(Math.abs(g1), Math.abs(g2));
+                }).collect(Collectors.toList());
+
+
+        LogDAO findDAO1 = logRepository.findFirstByGameIdAndUserIdOrderByGameScoreDesc(game1.getGameId(), user.getUserId()).get();
+        LogDAO findDAO2 = logRepository.findByGameIdOrderByGameScoreWithTargetScore(game2.getGameId(), game2.getTargetScore(), PageRequest.of(0, 1)).stream().findAny().get();
+
+        Long rank1 = logRepository.getRankInfinite(findDAO1.getGameScore(), findDAO1.getGameId());
+        Long rank2 = logRepository.getRankGoal(game2.getTargetScore(), findDAO2.getGameScore(), game2.getGameId());
+
+        long cnt1 = expect1.stream().filter(logDAO -> logDAO.getGameScore() >= findDAO1.getGameScore()).count();
+        long cnt2 = expect2.stream().filter(logDAO -> Math.abs(game2.getTargetScore() - logDAO.getGameScore()) <= Math.abs(game2.getTargetScore() - findDAO2.getGameScore())).count();
+
+
+        assertEquals(cnt1, rank1);
+        assertEquals(cnt2, rank2);
     }
 }

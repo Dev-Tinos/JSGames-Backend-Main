@@ -25,7 +25,7 @@ public class LogValidationSmallBean {
         Optional<LogDAO> optional = list.stream().findAny();
 
         if (!optional.isPresent()) {
-            throw new ResourceNotFoundException("Log not found for this GameId And UserId :: " + gameDAO.getGameId() + " And " + gameDAO.getUserId());
+            throw new ResourceNotFoundException("Log not found for this GameId And UserId :: " + gameDAO.getGameId() + " And " + userId);
         } else {
             return optional;
         }

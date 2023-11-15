@@ -14,7 +14,7 @@ public class LogGetOrderTargetSmallBean {
     private LogRepository logRepository;
     public Optional<LogDAO> exec(Long gameId, Long userId, Double targetScore) {
         return logRepository.findFirstByGameIdAndUserIdOrderByGameScoreWithTargetScore(
-                gameId,userId, targetScore
+                gameId, userId, targetScore, PageRequest.of(0, 1)
         ).stream().findAny();
     }
 }

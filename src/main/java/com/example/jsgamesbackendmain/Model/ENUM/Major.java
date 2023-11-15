@@ -1,7 +1,6 @@
 package com.example.jsgamesbackendmain.Model.ENUM;
 
 public enum Major {
-    교양기초교육원,
     소프트웨어학과,//컴퓨터공학부
     컴퓨터공학과,//컴퓨터공학부
     인공지능학과,

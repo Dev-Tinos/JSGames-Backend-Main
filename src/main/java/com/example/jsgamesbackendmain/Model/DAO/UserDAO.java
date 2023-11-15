@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "users")
 @Getter @Setter
-public class  UserDAO {
+public class UserDAO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String userId;
@@ -18,6 +18,8 @@ public class  UserDAO {
     private String email;
     private String password;
     private String imageUrl;
+    @Enumerated(EnumType.STRING)
     private ParentMajor parentMajor;
+    @Enumerated(EnumType.STRING)
     private Major major;
 }

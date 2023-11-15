@@ -1,11 +1,11 @@
 package com.example.jsgamesbackendmain.SetTestData;
 
+import com.example.jsgamesbackendmain.Bean.MapperBean.MajorMapperBean;
 import com.example.jsgamesbackendmain.Model.DAO.GameDAO;
 import com.example.jsgamesbackendmain.Model.DAO.LogDAO;
 import com.example.jsgamesbackendmain.Model.DAO.ReviewDAO;
 import com.example.jsgamesbackendmain.Model.DAO.UserDAO;
 import com.example.jsgamesbackendmain.Model.ENUM.Major;
-import com.example.jsgamesbackendmain.Model.ENUM.ParentMajor;
 import com.example.jsgamesbackendmain.Model.ENUM.ScoreType;
 import com.example.jsgamesbackendmain.Repository.GameRepository;
 import com.example.jsgamesbackendmain.Repository.LogRepository;
@@ -37,6 +37,9 @@ public class SetTestData {
     @Autowired
     private ReviewRepository reviewRepository;
 
+    @Autowired
+    private MajorMapperBean parentMajors;
+
     private List<UserDAO> userDAOList = new ArrayList<>();
 
     private List<GameDAO> gameDAOList = new ArrayList<>();
@@ -46,8 +49,6 @@ public class SetTestData {
     private List<LogDAO> logDAOList = new ArrayList<>();
 
     private Major[] majors = Major.values();
-
-    private ParentMajor[] parentMajors = ParentMajor.values();
 
     private ScoreType[] scoreTypes = ScoreType.values();
 
@@ -67,8 +68,10 @@ public class SetTestData {
             dao.setEmail("test" + i + "@test.com");
             dao.setNickname("nick " + i);
             dao.setPassword("password " + i);
-            dao.setMajor(majors[i % majors.length]);
-            dao.setParentMajor(parentMajors[i % parentMajors.length]);
+            // 각 과에 맞는 학부로 세팅되게 변경
+            Major major = majors[i % majors.length];
+            dao.setMajor(major);
+            dao.setParentMajor(parentMajors.getParentMajor(major));
             userDAOList.add(dao);
             userRepository.save(dao);
 

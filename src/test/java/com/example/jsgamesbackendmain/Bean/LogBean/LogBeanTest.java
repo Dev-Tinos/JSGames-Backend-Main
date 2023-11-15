@@ -1,8 +1,5 @@
-package com.example.jsgamesbackendmain.Bean.SmallBean.LogBean;
+package com.example.jsgamesbackendmain.Bean.LogBean;
 
-import com.example.jsgamesbackendmain.Bean.LogBean.LogGetByGamIdUserIdBean;
-import com.example.jsgamesbackendmain.Bean.LogBean.LogGetByGameIdBean;
-import com.example.jsgamesbackendmain.Bean.LogBean.LogPostBean;
 import com.example.jsgamesbackendmain.Bean.MapperBean.MapperBean;
 import com.example.jsgamesbackendmain.Model.DAO.GameDAO;
 import com.example.jsgamesbackendmain.Model.DAO.LogDAO;

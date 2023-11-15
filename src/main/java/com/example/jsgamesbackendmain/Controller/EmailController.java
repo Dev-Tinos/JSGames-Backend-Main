@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api")
 @CrossOrigin("*")
 public class EmailController {
 
@@ -26,13 +25,5 @@ public class EmailController {
     @PostMapping("/email")
     public String sendEmail(@RequestBody EmailSendRequestDTO emailRequestDTO) {
         return emailService.sendEmail(emailRequestDTO);
-    }
-
-    @Operation(summary = "이메일 코드 테이블 데이터 삭제", description =
-                    "## 또한 자동으로 오후 11시 55분 마다 자동으로 실행됨"
-    )
-    @PostMapping("/email/clear")
-    public String emailClear(){
-        return emailService.emailClear();
     }
 }

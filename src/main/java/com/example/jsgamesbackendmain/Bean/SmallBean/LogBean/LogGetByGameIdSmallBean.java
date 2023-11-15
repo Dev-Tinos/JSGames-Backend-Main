@@ -29,8 +29,8 @@ public class LogGetByGameIdSmallBean {
 
 
     // INFINITE
-    public List<LogGetByGameIdResponseDTO> exec(GameDAO gameDAO, Long page, Long size) {
-        Pageable pageable = PageRequest.of(page.intValue(), size.intValue());
+    public List<LogGetByGameIdResponseDTO> exec(GameDAO gameDAO, Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
 
         Page<LogDAO> order = null;
 

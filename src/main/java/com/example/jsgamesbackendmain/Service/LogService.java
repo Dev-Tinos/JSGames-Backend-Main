@@ -35,7 +35,7 @@ public class LogService {
         return logPostBean.exec(logPostRequestDTO);
     }
 
-    public List<LogGetByGameIdResponseDTO> getLogsByGameId(Long gameId, Long page, Long size) {
+    public List<LogGetByGameIdResponseDTO> getLogsByGameId(Long gameId, Integer page, Integer size) {
         return logGetByGameIdBean.exec(gameId, page, size);
     }
 

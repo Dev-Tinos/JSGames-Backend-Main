@@ -21,7 +21,7 @@ public class LogGetByGameIdBean {
     @Autowired
     private MapperBean mapperBean;
 
-    public List<LogGetByGameIdResponseDTO> exec(Long gameId, Long page, Long size) {
+    public List<LogGetByGameIdResponseDTO> exec(Long gameId, Integer page, Integer size) {
 
         GameDAO gameDAO = gameGetSmallBean.exec(gameId);
 

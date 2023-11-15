@@ -21,13 +21,13 @@ public class LogController {
     private LogService logService;
 
     //랭킹 조회 API
-    @Operation(summary = "특정 게임 유저 랭킹 조회", description =
+    @Operation(summary = "특정 게임 유저 순위 조회", description =
             "# Game의 Log 조회 api  \n\n" +
             "## scoreType이 `INFINITE`인 경우 Log 조회시 점수 내림차순  \n\n" +
             "## scoreType이 `GOAL`인 경우 Log 조회시 targetScore와 가장 가까운 점수 순서대로 조회"
     )
     @GetMapping("/logs/game/{gameId}")
-    public List<LogGetByGameIdResponseDTO> getLogsByGameId(@PathVariable Long gameId, @Parameter Long page, @Parameter Long size) {
+    public List<LogGetByGameIdResponseDTO> getLogsByGameId(@PathVariable Long gameId, @Parameter Integer page, @Parameter Integer size) {
         return logService.getLogsByGameId(gameId, page, size);
     }
 

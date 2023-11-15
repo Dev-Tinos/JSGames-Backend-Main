@@ -90,8 +90,8 @@ class LogBeanTest {
                 .collect(Collectors.toList());
 
         //when
-        List<LogGetByGameIdResponseDTO> exec1 = logGetByGameIdBean.exec(game1.getGameId(), 0L, 10L);
-        List<LogGetByGameIdResponseDTO> exec2 = logGetByGameIdBean.exec(game2.getGameId(), 0L, 10L);
+        List<LogGetByGameIdResponseDTO> exec1 = logGetByGameIdBean.exec(game1.getGameId(), 0, 10);
+        List<LogGetByGameIdResponseDTO> exec2 = logGetByGameIdBean.exec(game2.getGameId(), 0, 10);
         //then
 
         assertEquals(game1List.size(), exec1.size());

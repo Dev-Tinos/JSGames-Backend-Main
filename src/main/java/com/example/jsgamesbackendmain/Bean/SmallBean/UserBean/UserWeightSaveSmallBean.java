@@ -21,7 +21,7 @@ public class UserWeightSaveSmallBean {
     public void exec(List<GameDAO> gameDAOList) {
         for(GameDAO gameDAO : gameDAOList) {
             // 각 Game에 대해서 Top100 Log 들을 조회
-            List<LogGetByGameIdResponseDTO> logList = logGetByGameIdSmallBean.exec(gameDAO, 0L, 100L);
+            List<LogGetByGameIdResponseDTO> logList = logGetByGameIdSmallBean.exec(gameDAO, 0, 100);
 
             // 각 User들에게 가중치를 부여
             for(int rank = 1; rank <= logList.size(); rank++) {

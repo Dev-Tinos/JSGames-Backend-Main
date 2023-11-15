@@ -84,6 +84,7 @@ public class SetTestData {
             gameDAO.setUserId(userDAOList.get(i % userDAOList.size()).getUserId());
             gameDAO.setImageUrl("imageUrl " + i);
             gameDAO.setGameUrl("gameUrl " + i);
+            gameDAO.setViewCount(((long) i));
             ScoreType scoreType = scoreTypes[i % scoreTypes.length];
             gameDAO.setScoreType(scoreType);
             if (scoreType == ScoreType.GOAL) {
@@ -107,7 +108,7 @@ public class SetTestData {
             reviewDAO.setStar((float) (j % 5) + 1);
             LocalDateTime now = LocalDateTime.now();
             reviewDAO.setDateTime(now.plusDays(1));
-            reviewDAO.setHelpful((float) j);
+            reviewDAO.setHelpful((long) j);
 
             reviewDAOList.add(reviewDAO);
             reviewRepository.save(reviewDAO);

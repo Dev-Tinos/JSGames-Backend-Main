@@ -2,6 +2,7 @@ package com.example.jsgamesbackendmain.Model.DTO.Game.Request;
 
 import com.example.jsgamesbackendmain.Model.DAO.GameDAO;
 import com.example.jsgamesbackendmain.Model.ENUM.ScoreType;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,6 +10,7 @@ import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class GameCreateRequestDTO {
     private String gameName;
     private Long userId;

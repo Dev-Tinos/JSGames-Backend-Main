@@ -54,15 +54,10 @@ class JsGamesBackendMainApplicationTests {
 
     @Test
     void ObjectMapper_예시코드() throws Exception {
-        ReviewDTO dto = new ReviewDTO();
-        dto.setGameId(1L);
-        UserGetResponseDTO userDTO = new UserGetResponseDTO();
-        dto.setUser(userDTO);
-        dto.setReviewContent("test");
-        dto.setDateTime(LocalDateTime.now());
+        ReviewDAO dao = ReviewDAO.createTest(0);
 
         // DTO를 JSON 직렬화
-        String s = objectMapper.writeValueAsString(dto);
+        String s = objectMapper.writeValueAsString(dao);
 
         System.out.println(s);
 
@@ -70,9 +65,9 @@ class JsGamesBackendMainApplicationTests {
         ReviewDTO dto2 = objectMapper.readValue(s, ReviewDTO.class);
 
         // DTO를 DAO로 변환
-        ReviewDAO dao = objectMapper.convertValue(dto2, ReviewDAO.class);
+        ReviewDAO reviewDAO = objectMapper.convertValue(dto2, ReviewDAO.class);
 
-        System.out.println(dao);
+        System.out.println(reviewDAO);
 
         System.out.println(dto2);
     }

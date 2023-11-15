@@ -1,5 +1,6 @@
 package com.example.jsgamesbackendmain.Model.DAO;
 
+import com.example.jsgamesbackendmain.Bean.MapperBean.MajorMapperBean;
 import com.example.jsgamesbackendmain.Model.ENUM.Major;
 import com.example.jsgamesbackendmain.Model.ENUM.ParentMajor;
 import lombok.Getter;
@@ -22,4 +23,19 @@ public class UserDAO {
     private ParentMajor parentMajor;
     @Enumerated(EnumType.STRING)
     private Major major;
+
+    public static UserDAO createTest(int i) {
+        Major[] majors = Major.values();
+        MajorMapperBean mapperBean = new MajorMapperBean();
+
+        String s = String.valueOf(i);
+        UserDAO dao = new UserDAO();
+        dao.setNickname(s);
+        dao.setMajor(majors[i % majors.length]);
+        dao.setParentMajor(mapperBean.getParentMajor(dao.getMajor()));
+        dao.setEmail(s);
+        dao.setPassword(s);
+
+        return dao;
+    }
 }

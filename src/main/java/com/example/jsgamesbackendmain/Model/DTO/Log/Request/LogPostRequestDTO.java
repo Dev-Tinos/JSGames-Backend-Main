@@ -1,10 +1,12 @@
 package com.example.jsgamesbackendmain.Model.DTO.Log.Request;
 
 import com.example.jsgamesbackendmain.Model.DAO.LogDAO;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class LogPostRequestDTO {
 
     private Long userId;

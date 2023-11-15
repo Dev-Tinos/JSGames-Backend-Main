@@ -12,13 +12,12 @@ import java.time.LocalDateTime;
 @ToString
 public class ReviewDTO {
     private Long reviewId;
-    private UserGetResponseDTO user;
-    private Long gameId;
+
     private String reviewContent;
     // 별점
     private Float star;
     // helpful
-    private Float helpful;
+    private Long helpful;
 
     private LocalDateTime dateTime;
 }

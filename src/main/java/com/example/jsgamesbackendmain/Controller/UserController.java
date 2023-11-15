@@ -3,7 +3,7 @@ package com.example.jsgamesbackendmain.Controller;
 import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.*;
 import com.example.jsgamesbackendmain.Model.DTO.User.Request.UserLoginRequestDTO;
 import com.example.jsgamesbackendmain.Model.DTO.User.UserSignUpRequestDTO;
-import com.example.jsgamesbackendmain.Model.DTO.User.UserUpdateRequestDTO;
+import com.example.jsgamesbackendmain.Model.DTO.User.Request.UserUpdateRequestDTO;
 import com.example.jsgamesbackendmain.Service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Map;
 
 

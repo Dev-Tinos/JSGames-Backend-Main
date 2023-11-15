@@ -1,9 +1,9 @@
 package com.example.jsgamesbackendmain.Bean.ReviewBean;
 
+import com.example.jsgamesbackendmain.Bean.MapperBean.MapperBean;
 import com.example.jsgamesbackendmain.Model.DAO.ReviewDAO;
 import com.example.jsgamesbackendmain.Model.DTO.Review.Response.ReviewGetByGameIdResponseDTO;
 import com.example.jsgamesbackendmain.Repository.ReviewRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,7 +18,8 @@ public class ReviewListByGameBean {
     @Autowired
     private ReviewRepository reviewRepository;
 
-    ObjectMapper objectMapper = new ObjectMapper();
+    @Autowired
+    private MapperBean mapperBean;
 
 
     public List<ReviewGetByGameIdResponseDTO> exec(Long gameId, Long page, Long size) {
@@ -26,6 +27,6 @@ public class ReviewListByGameBean {
 
         Page<ReviewDAO> all = reviewRepository.findByGameIdOrderByDateTimeAsc(gameId, pageRequest);
 
-        return all.toList().stream().map(dao -> objectMapper.convertValue(dao , ReviewGetByGameIdResponseDTO.class)).collect(Collectors.toList());
+        return all.toList().stream().map(dao -> mapperBean.to(dao , ReviewGetByGameIdResponseDTO.class)).collect(Collectors.toList());
     }
 }

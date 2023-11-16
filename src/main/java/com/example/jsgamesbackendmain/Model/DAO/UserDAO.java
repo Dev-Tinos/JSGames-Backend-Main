@@ -10,10 +10,10 @@ import javax.persistence.*;
 @Entity
 @Table(name = "users")
 @Getter @Setter
-public class UserDAO {
+public class  UserDAO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+    private String userId;
     private String nickname;
     private String email;
     private String password;

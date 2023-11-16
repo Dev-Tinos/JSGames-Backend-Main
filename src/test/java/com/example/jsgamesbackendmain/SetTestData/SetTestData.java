@@ -70,10 +70,9 @@ public class SetTestData {
         int userSize = 50;
         int gameSize = 50;
         int reviewSize = 200;
-        int logSize = 500;
+        int logSize = 2000;
 
 
-        // Create 30 users
         for (int i = 0; i < userSize; i++) {
             UserDAO dao = new UserDAO();
             dao.setEmail("test" + i + "@test.com");
@@ -88,7 +87,6 @@ public class SetTestData {
 
         }
 
-        // Create 90 games
         for (int i = 0; i < gameSize; i++) {
             GameDAO gameDAO = new GameDAO();
             gameDAO.setGameName("name " + i);
@@ -110,7 +108,6 @@ public class SetTestData {
             gameRepository.save(gameDAO);
         }
 
-        // Create 360 reviews
         for (int j = 0; j < reviewSize; j++) {
             ReviewDAO reviewDAO = new ReviewDAO();
             reviewDAO.setGameId(gameDAOList.get((int)(Math.random() * gameSize)).getGameId());
@@ -118,7 +115,7 @@ public class SetTestData {
             reviewDAO.setReviewContent("reviewContent " + j);
             reviewDAO.setStar((float) (j % 5) + 1);
             LocalDateTime now = LocalDateTime.now();
-            reviewDAO.setDateTime(now.plusDays(1));
+            reviewDAO.setDateTime(now.minusDays(j));
             reviewDAO.setHelpful((long) j);
 
             reviewDAOList.add(reviewDAO);
@@ -133,7 +130,6 @@ public class SetTestData {
             dao.setUserId(userDAOList.get((int)(Math.random() * userSize)).getUserId());
             dao.setGameScore((double) ((int)(Math.random() * 100)));
 
-            logDAOList.add(dao);
             logRepository.save(dao);
         }
     }

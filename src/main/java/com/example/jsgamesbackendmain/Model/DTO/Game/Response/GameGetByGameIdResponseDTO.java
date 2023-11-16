@@ -17,21 +17,5 @@ public class GameGetByGameIdResponseDTO {
     private ScoreType scoreType;
     private String description;
     private Long viewCount;
-
-    public static GameGetByGameIdResponseDTO of(GameDAO gameDAO) {
-        GameGetByGameIdResponseDTO gameGetByGameIdResponseDTO = new GameGetByGameIdResponseDTO();
-        gameGetByGameIdResponseDTO.setGameId(gameDAO.getGameId());
-        gameGetByGameIdResponseDTO.setGameName(gameDAO.getGameName());
-        gameGetByGameIdResponseDTO.setUserId(gameDAO.getUserId());
-        gameGetByGameIdResponseDTO.setImageUrl(gameDAO.getImageUrl());
-        gameGetByGameIdResponseDTO.setGameUrl(gameDAO.getGameUrl());
-        gameGetByGameIdResponseDTO.setTargetScore(gameDAO.getTargetScore());
-        gameGetByGameIdResponseDTO.setScoreType(gameDAO.getScoreType());
-        gameGetByGameIdResponseDTO.setDescription(gameDAO.getDescription());
-        gameGetByGameIdResponseDTO.setViewCount(gameDAO.getViewCount());
-
-        return gameGetByGameIdResponseDTO;
-    }
-
 }
 

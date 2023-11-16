@@ -1,5 +1,6 @@
 package com.example.jsgamesbackendmain.Bean.UserBean;
 
+import com.example.jsgamesbackendmain.Bean.MapperBean.MapperBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserEmailDuplicateSmallBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserGetSmallBean;
 import com.example.jsgamesbackendmain.Model.DAO.UserDAO;
@@ -21,6 +22,9 @@ public class UserUpdateBean {
     @Autowired
     private UserEmailDuplicateSmallBean userEmailDuplicateSmallBean;
 
+    @Autowired
+    private MapperBean mapperBean;
+
     public UserUpdateResponseDTO updateUser(UserUpdateRequestDTO userUpdateRequestDTO) {
         userEmailDuplicateSmallBean.exec(userUpdateRequestDTO.getEmail());
 
@@ -30,6 +34,6 @@ public class UserUpdateBean {
         user.setPassword(userUpdateRequestDTO.getPassword());
         user.setMajor(userUpdateRequestDTO.getMajor());
 
-        return UserUpdateResponseDTO.of(userRepository.save(user));
+        return mapperBean.to(userRepository.save(user), UserUpdateResponseDTO.class);
     }
 }

@@ -1,5 +1,6 @@
 package com.example.jsgamesbackendmain.Bean.UserBean;
 
+import com.example.jsgamesbackendmain.Bean.MapperBean.MapperBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserGetSmallBean;
 import com.example.jsgamesbackendmain.Controller.ExceptionControll.DuplicateException;
 import com.example.jsgamesbackendmain.Controller.ExceptionControll.InvalidException;
@@ -18,6 +19,9 @@ public class UserLoginBean {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private MapperBean mapperBean;
+
     public UserLoginResponseDTO exec(UserLoginRequestDTO userLoginRequestDTO){
         Optional<UserDAO> userDAO = userRepository.findByEmail(userLoginRequestDTO.getEmail());
 
@@ -29,6 +33,6 @@ public class UserLoginBean {
             throw new InvalidException("잘못된 비밀번호입니다.");
         }
 
-        return  UserLoginResponseDTO.of(userDAO.get());
+        return  mapperBean.to(userDAO.get(), UserLoginResponseDTO.class);
     }
 }

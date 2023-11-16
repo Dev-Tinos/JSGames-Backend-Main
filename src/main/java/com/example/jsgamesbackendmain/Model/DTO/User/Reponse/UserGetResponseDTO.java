@@ -13,13 +13,4 @@ public class UserGetResponseDTO {
     private String email;
     private ParentMajor parentMajor;
     private Major major;
-    public static UserGetResponseDTO of(UserDAO userDAO) {
-        UserGetResponseDTO userGetResponseDTO = new UserGetResponseDTO();
-        userGetResponseDTO.setUserId(userDAO.getUserId());
-        userGetResponseDTO.setNickname(userDAO.getNickname());
-        userGetResponseDTO.setEmail(userDAO.getEmail());
-        userGetResponseDTO.setParentMajor(userDAO.getParentMajor());
-        userGetResponseDTO.setMajor(userDAO.getMajor());
-        return userGetResponseDTO;
-    }
 }

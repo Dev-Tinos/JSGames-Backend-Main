@@ -15,14 +15,4 @@ public class UserUpdateResponseDTO {
     private String password;
     private ParentMajor parentMajor;
     private Major major;
-    public static UserUpdateResponseDTO of(UserDAO userDAO) {
-        UserUpdateResponseDTO userUpdateResponseDTO = new UserUpdateResponseDTO();
-        userUpdateResponseDTO.setUserId(userDAO.getUserId());
-        userUpdateResponseDTO.setNickname(userDAO.getNickname());
-        userUpdateResponseDTO.setEmail(userDAO.getEmail());
-        userUpdateResponseDTO.setPassword(userDAO.getPassword());
-        userUpdateResponseDTO.setParentMajor(userDAO.getParentMajor());
-        userUpdateResponseDTO.setMajor(userDAO.getMajor());
-        return userUpdateResponseDTO;
-    }
 }

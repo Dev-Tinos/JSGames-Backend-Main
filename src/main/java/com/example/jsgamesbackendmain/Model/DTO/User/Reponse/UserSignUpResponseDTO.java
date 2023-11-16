@@ -13,13 +13,4 @@ public class UserSignUpResponseDTO {
     private String email;
     private ParentMajor parentMajor;
     private Major major;
-    public static UserSignUpResponseDTO of(UserDAO userDAO) {
-        UserSignUpResponseDTO userSignUpResponseDTO = new UserSignUpResponseDTO();
-        userSignUpResponseDTO.setUserId(userDAO.getUserId());
-        userSignUpResponseDTO.setNickname(userDAO.getNickname());
-        userSignUpResponseDTO.setEmail(userDAO.getEmail());
-        userSignUpResponseDTO.setParentMajor(userDAO.getParentMajor());
-        userSignUpResponseDTO.setMajor(userDAO.getMajor());
-        return userSignUpResponseDTO;
-    }
 }

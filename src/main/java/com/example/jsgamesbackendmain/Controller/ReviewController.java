@@ -29,7 +29,7 @@ public class ReviewController {
     // 게임 별 리뷰 조회 API
     @Operation(summary = "리뷰 조회", description =
             "# 게임 별 리뷰 조회  \n" +
-            "먼저 작성된 리뷰 -> 나중에 작성된 리뷰 순서대로 정렬됨"
+            "최신 리뷰 -> 이전 리뷰 순서대로 정렬됨"
     )
     @GetMapping("/review/game/{gameId}")
     public List<ReviewGetByGameIdResponseDTO> listReviewsByGame(@PathVariable Long gameId, @Parameter Long page, @Parameter Long size) {

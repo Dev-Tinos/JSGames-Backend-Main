@@ -18,7 +18,7 @@ public class UserDAO {
     private String nickname;
     private String email;
     private String password;
-    private String imageUrl = "default image url";
+    private String imageUrl = "https://pbs.twimg.com/media/EA9UJBjU4AAdkCm.jpg";
     @Enumerated(EnumType.STRING)
     private ParentMajor parentMajor;
     @Enumerated(EnumType.STRING)

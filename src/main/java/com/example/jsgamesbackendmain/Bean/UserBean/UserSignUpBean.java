@@ -27,7 +27,7 @@ public class UserSignUpBean {
 
     public UserSignUpResponseDTO signUpUser(UserSignUpRequestDTO userSignUpRequestDTO) {
         userEmailDuplicateSmallBean.exec(userSignUpRequestDTO.getEmail());
-        emailCodeCheckBean.exec(mapperBean.to(userSignUpRequestDTO, EmailCodeRequestDTO.class)));
+        emailCodeCheckBean.exec(mapperBean.to(userSignUpRequestDTO, EmailCodeRequestDTO.class));
 
         return mapperBean.to(uesrCreateBean.postUser(userSignUpRequestDTO), UserSignUpResponseDTO.class);
     }

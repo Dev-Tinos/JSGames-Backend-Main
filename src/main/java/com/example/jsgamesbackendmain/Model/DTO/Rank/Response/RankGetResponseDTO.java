@@ -9,7 +9,6 @@ import java.util.List;
 
 @Getter
 @Setter
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class RankGetResponseDTO {
     private LocalDateTime lastUpdated = LocalDateTime.now();
     private List<RankTop100UserResponseDTO> rankList;

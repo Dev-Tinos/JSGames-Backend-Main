@@ -7,7 +7,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Getter @Setter
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class LogGetByGameIdUserIdResponseDTO extends LogGetResponse {
 
     private UserLogResponseDTO user;

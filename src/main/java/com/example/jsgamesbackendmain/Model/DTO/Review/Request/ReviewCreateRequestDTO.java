@@ -6,7 +6,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class ReviewCreateRequestDTO {
     private String userId;
     private Long gameId;

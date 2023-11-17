@@ -10,7 +10,6 @@ import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class GameCreateRequestDTO {
     private String gameName;
     private String userId;

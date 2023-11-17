@@ -9,7 +9,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class UserUpdateResponseDTO {
     private String userId;
     private String nickname;

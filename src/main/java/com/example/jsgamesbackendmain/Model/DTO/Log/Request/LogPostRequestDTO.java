@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class LogPostRequestDTO {
 
     private String userId;

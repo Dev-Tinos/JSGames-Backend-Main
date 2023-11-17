@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class UserLoginRequestDTO {
     private String email;
     private String password;

@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class ReviewGetByGameIdResponseDTO extends ReviewDTO {
 
     private UserGetResponseDTO user;

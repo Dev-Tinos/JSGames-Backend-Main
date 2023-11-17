@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class RankTop100UserResponseDTO {
     private Long rankId ;
     private UserLogResponseDTO user;

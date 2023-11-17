@@ -15,7 +15,7 @@ import java.util.Optional;
 public class LogValidationSmallBean {
     @Autowired
     private LogRepository logRepository;
-    public Optional<LogDAO> exec(GameDAO gameDAO, Long userId) {
+    public Optional<LogDAO> exec(GameDAO gameDAO, String userId) {
 
         List<LogDAO> list = logRepository.findByGameIdAndUserId(
                 gameDAO.getGameId(), userId

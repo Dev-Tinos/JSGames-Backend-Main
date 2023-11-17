@@ -38,7 +38,7 @@ public class LogController {
             "## Game의 scoreType이 `GOAL`인 경우 조회시 targetScore와 가장 가까운 점수 조회"
     )
     @GetMapping("/log/game/{gameId}/user/{userId}")
-    public LogGetByGameIdUserIdResponseDTO getLogByGameIdAndUserId(@PathVariable Long gameId, @PathVariable Long userId) {
+    public LogGetByGameIdUserIdResponseDTO getLogByGameIdAndUserId(@PathVariable Long gameId, @PathVariable String userId) {
         return logService.getLogByGameIdUserId(gameId, userId);
     }
 
@@ -54,7 +54,7 @@ public class LogController {
 //        "# 특정 게임의 모든 user log 내림차순 조회"
 //    )
 //    @GetMapping("/logs/user/{userId}")
-//    public List<LogGetByUserIdResponseDTO> getLogsByUserId(@PathVariable Long userId, @Parameter Long page, @Parameter Long size) {
+//    public List<LogGetByUserIdResponseDTO> getLogsByUserId(@PathVariable String userId, @Parameter Long page, @Parameter Long size) {
 //        return logService.getLogsByUserId(userId,page, size);
 //    }
 }

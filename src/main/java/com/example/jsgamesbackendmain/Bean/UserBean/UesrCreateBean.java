@@ -24,7 +24,7 @@ public class UesrCreateBean {
         userDAO.setUserId(generateVersion5UUID("namespace", "name").toString());
         return userRepository.save(userDAO);
     }
-    private static UUID generateVersion5UUID(String namespace, String name) {
+    public static UUID generateVersion5UUID(String namespace, String name) {
         try {
             MessageDigest salt = MessageDigest.getInstance("SHA-1");
             salt.update(namespace.getBytes(StandardCharsets.UTF_8));

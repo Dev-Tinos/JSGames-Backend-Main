@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GameCreateRequestDTO {
     private String gameName;
-    private Long userId;
+    private String userId;
     private String imageUrl;
     private String gameUrl;
     private Double targetScore = 0.0;

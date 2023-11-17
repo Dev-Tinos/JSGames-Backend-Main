@@ -29,7 +29,7 @@ public class UserController {
     // 특정 유저 조회
     @Operation(summary = "UserId로 유저 조회")
     @GetMapping("/user/{userId}")
-    public ResponseEntity<UserGetResponseDTO> getUser(@PathVariable Long userId) {
+    public ResponseEntity<UserGetResponseDTO> getUser(@PathVariable String userId) {
         return ResponseEntity.ok(userService.getUser(userId));
     }
 
@@ -57,7 +57,7 @@ public class UserController {
             content = @Content(examples =
             @ExampleObject(value = "{'message': 'Success'}")))
     @DeleteMapping("/user/{userId}")
-    public Map<String, String> deleteUser(@PathVariable Long userId) {
+    public Map<String, String> deleteUser(@PathVariable String userId) {
         return userService.deleteUser(userId);
     }
 }

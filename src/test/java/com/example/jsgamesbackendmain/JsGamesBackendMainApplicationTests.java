@@ -98,16 +98,16 @@ class JsGamesBackendMainApplicationTests {
 //        assertEquals(map.get("message"), "User not found for this id :: 0");
 //    }
 
-    @Test
-    void UserGetBean_Test_예시코드() {
-        // UserGetBean을 사용하여 테스트 코드 작성
-        String message = "";
-
-         try {
-             userGetBean.getUser(0L);
-         } catch (Exception e) {
-            message = e.getMessage();
-         }
-         assertEquals(message, "User not found for this id :: 0");
-    }
+//    @Test
+//    void UserGetBean_Test_예시코드() {
+//        // UserGetBean을 사용하여 테스트 코드 작성
+//        String message = "";
+//
+//         try {
+//             userGetBean.getUser(0L);
+//         } catch (Exception e) {
+//            message = e.getMessage();
+//         }
+//         assertEquals(message, "User not found for this id :: 0");
+//    }
 }

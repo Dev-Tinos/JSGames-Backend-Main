@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserLogResponseDTO {
-    private Long userId;
+    private String userId;
     private String nickname;
     private String email;
     private String imageUrl;

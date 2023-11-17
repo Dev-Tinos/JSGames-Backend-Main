@@ -15,7 +15,7 @@ public class LogDAO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long logId;
 
-    private Long userId;
+    private String userId;
     private Long gameId;
     private Double gameScore;
 

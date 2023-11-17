@@ -15,7 +15,7 @@ public class RankTop100DAO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long rankId;
 
-    private Long userId;
+    private String userId;
 
     private Long score;
 }

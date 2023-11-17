@@ -12,7 +12,7 @@ import java.util.Optional;
 public class LogGetOrderTargetSmallBean {
     @Autowired
     private LogRepository logRepository;
-    public Optional<LogDAO> exec(Long gameId, Long userId, Double targetScore) {
+    public Optional<LogDAO> exec(Long gameId, String userId, Double targetScore) {
         return logRepository.findFirstByGameIdAndUserIdOrderByGameScoreWithTargetScore(
                 gameId, userId, targetScore, PageRequest.of(0, 1)
         ).stream().findAny();

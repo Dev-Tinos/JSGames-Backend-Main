@@ -16,7 +16,7 @@ public class LogGetByGameIdUserIdSmallBean {
     @Autowired
     private LogGetOrderTargetSmallBean logGetOrderTargetSmallBean;
 
-    public LogDAO exec(GameDAO gameDAO, Long userId) {
+    public LogDAO exec(GameDAO gameDAO, String userId) {
 
         Optional<LogDAO> optional = logValidationSmallBean.exec(gameDAO, userId);;
 

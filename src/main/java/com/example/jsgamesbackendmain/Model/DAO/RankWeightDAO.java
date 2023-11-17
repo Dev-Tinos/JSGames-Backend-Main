@@ -16,7 +16,7 @@ public class RankWeightDAO {
 
     private int rank;
 
-    private Long userId;
+    private String userId;
 
     private Long gameId;
 

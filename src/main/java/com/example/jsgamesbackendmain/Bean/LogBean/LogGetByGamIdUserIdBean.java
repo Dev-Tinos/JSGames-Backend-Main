@@ -27,7 +27,7 @@ public class LogGetByGamIdUserIdBean {
     private MapperBean mapperBean;
 
 
-    public LogGetByGameIdUserIdResponseDTO exec(Long gameId, Long userId) {
+    public LogGetByGameIdUserIdResponseDTO exec(Long gameId, String userId) {
 
         // GameId 유효성 검사 및 GameDAO 조회
         GameDAO gameDAO = gameGetSmallBean.exec(gameId);

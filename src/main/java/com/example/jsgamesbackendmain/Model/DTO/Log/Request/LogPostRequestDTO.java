@@ -9,7 +9,7 @@ import lombok.Setter;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class LogPostRequestDTO {
 
-    private Long userId;
+    private String userId;
     private Long gameId;
     private Double gameScore;
 

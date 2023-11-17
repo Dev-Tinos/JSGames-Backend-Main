@@ -67,7 +67,7 @@ class ReviewBeanTest {
 
         List<ReviewDAO> expect = list.stream()
                 .filter(reviewDAO -> reviewDAO.getGameId() == gameId)
-                .sorted(Comparator.comparing(ReviewDAO::getDateTime))
+                .sorted(Comparator.comparing(ReviewDAO::getDateTime).reversed())
                 .limit(10)
                 .collect(Collectors.toList());
 

@@ -9,6 +9,6 @@ import lombok.Setter;
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ReviewUpdateResponseDTO extends ReviewDTO {
-    private Long userId;
+    private String userId;
     private Long gameId;
 }

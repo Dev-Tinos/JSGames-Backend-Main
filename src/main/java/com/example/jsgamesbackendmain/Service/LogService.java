@@ -39,11 +39,11 @@ public class LogService {
         return logGetByGameIdBean.exec(gameId, page, size);
     }
 
-    public List<LogGetByUserIdResponseDTO> getLogsByUserId(Long userId, Long page, Long size) {
+    public List<LogGetByUserIdResponseDTO> getLogsByUserId(String userId, Long page, Long size) {
         return logGetByUserIdBean.exec(userId, page, size);
     }
 
-    public LogGetByGameIdUserIdResponseDTO getLogByGameIdUserId(Long gameId, Long userId) {
+    public LogGetByGameIdUserIdResponseDTO getLogByGameIdUserId(Long gameId, String userId) {
         return logGetByGamIdUserIdBean.exec(gameId, userId);
     }
 }

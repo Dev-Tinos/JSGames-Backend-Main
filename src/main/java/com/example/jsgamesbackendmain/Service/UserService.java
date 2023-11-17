@@ -28,7 +28,7 @@ public class UserService {
     @Autowired
     private UserLoginBean userLoginBean;
 
-    public UserGetResponseDTO getUser(Long userId) {
+    public UserGetResponseDTO getUser(String userId) {
         return userGetBean.getUser(userId);
     }
 
@@ -36,7 +36,7 @@ public class UserService {
         return userUpdateBean.updateUser(userUpdateRequestDTO);
     }
 
-    public Map<String,String> deleteUser(Long userId) {
+    public Map<String,String> deleteUser(String userId) {
         return userDeleteBean.deleteUser(userId);
     }
 

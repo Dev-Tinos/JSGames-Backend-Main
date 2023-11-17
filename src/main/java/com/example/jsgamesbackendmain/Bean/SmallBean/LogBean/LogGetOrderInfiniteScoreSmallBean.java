@@ -13,7 +13,7 @@ public class LogGetOrderInfiniteScoreSmallBean {
     @Autowired
     private LogRepository logRepository;
 
-    public Optional<LogDAO> exec(Long gameId, Long userId) {
+    public Optional<LogDAO> exec(Long gameId, String userId) {
         return logRepository.findFirstByGameIdAndUserIdOrderByGameScoreDesc(gameId, userId);
     }
 }

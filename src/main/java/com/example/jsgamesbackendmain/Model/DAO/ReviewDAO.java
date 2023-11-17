@@ -18,7 +18,7 @@ public class ReviewDAO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reviewId;
 
-    private Long userId;
+    private String userId;
     private Long gameId;
     private String reviewContent;
 
@@ -36,7 +36,7 @@ public class ReviewDAO {
     public static ReviewDAO createTest(int i){
         String s = String.valueOf(i);
         ReviewDAO dao = new ReviewDAO();
-        dao.setUserId((long) i);
+        dao.setUserId(""+ i);
         dao.setGameId((long) i);
         dao.setReviewContent(s);
         dao.setStar((float) i % 5 + 1);

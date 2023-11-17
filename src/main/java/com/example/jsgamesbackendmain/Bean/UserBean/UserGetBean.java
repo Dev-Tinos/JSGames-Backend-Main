@@ -14,7 +14,7 @@ public class UserGetBean {
     @Autowired
     private MapperBean mapperBean;
 
-    public UserGetResponseDTO getUser(Long userId) {
+    public UserGetResponseDTO getUser(String userId) {
         return mapperBean.to(userGetSmallBean.getUser(userId), UserGetResponseDTO.class);
     }
 }

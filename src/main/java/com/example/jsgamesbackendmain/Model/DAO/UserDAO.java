@@ -1,6 +1,7 @@
 package com.example.jsgamesbackendmain.Model.DAO;
 
 import com.example.jsgamesbackendmain.Bean.MapperBean.MajorMapperBean;
+import com.example.jsgamesbackendmain.Bean.UserBean.UesrCreateBean;
 import com.example.jsgamesbackendmain.Model.ENUM.Major;
 import com.example.jsgamesbackendmain.Model.ENUM.ParentMajor;
 import lombok.Getter;
@@ -13,7 +14,6 @@ import javax.persistence.*;
 @Getter @Setter
 public class UserDAO {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String userId;
     private String nickname;
     private String email;
@@ -27,9 +27,10 @@ public class UserDAO {
     public static UserDAO createTest(int i) {
         Major[] majors = Major.values();
         MajorMapperBean mapperBean = new MajorMapperBean();
-
+        String id = UesrCreateBean.generateVersion5UUID("namespace", "name").toString();
         String s = String.valueOf(i);
         UserDAO dao = new UserDAO();
+        dao.setUserId(id);
         dao.setNickname(s);
         dao.setMajor(majors[i % majors.length]);
         dao.setParentMajor(mapperBean.getParentMajor(dao.getMajor()));

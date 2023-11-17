@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserGetResponseDTO {
-    private Long userId;
+    private String userId;
     private String nickname;
     private String email;
     private ParentMajor parentMajor;

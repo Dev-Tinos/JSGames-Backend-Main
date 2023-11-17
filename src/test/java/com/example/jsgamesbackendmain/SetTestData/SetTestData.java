@@ -54,12 +54,9 @@ public class SetTestData {
     private ScoreType[] scoreTypes = ScoreType.values();
     private ObjectMapper objectMapper = new ObjectMapper();
 
-    @Test
-    void t() throws Exception {
-    }
 
-    @Test
-    @Rollback(value = false)
+//    @Test
+//    @Rollback(value = false)
     void Test_데이터_넣기() {
         // all delete
 //        logRepository.deleteAll();

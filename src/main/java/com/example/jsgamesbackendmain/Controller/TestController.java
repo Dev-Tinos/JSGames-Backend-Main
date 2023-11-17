@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +15,7 @@ import java.util.Map;
 
 @RestController
 @CrossOrigin("*")
+@Tag(name = "Test", description = "테스트용 API")
 public class TestController {
 
     @Autowired
@@ -42,6 +44,6 @@ public class TestController {
             @ExampleObject(value = "{'result': 'success'}")))
     @PostMapping("/users/top100/set")
     public Map<String,String> setTop100Users() {
-        return testService.setTop100User();
+        return testService.setRank();
     }
 }

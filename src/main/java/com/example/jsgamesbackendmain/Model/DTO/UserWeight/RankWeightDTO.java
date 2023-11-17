@@ -6,7 +6,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class UserWeightDTO {
+public class RankWeightDTO {
     private Long userId;
 
     private Long weightSum;

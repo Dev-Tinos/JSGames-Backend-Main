@@ -1,7 +1,7 @@
 package com.example.jsgamesbackendmain.Controller;
 
 import com.example.jsgamesbackendmain.Model.DTO.Game.Response.GameListResponseDTO;
-import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserGetTop100ResponseDTO;
+import com.example.jsgamesbackendmain.Model.DTO.Rank.Response.RankGetResponseDTO;
 import com.example.jsgamesbackendmain.Service.RankService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -20,7 +20,7 @@ public class RankController {
     private RankService rankService;
 
     // 전체 Game의 Top100 유저 조회
-    @Operation(summary = "Top100 유저 조회", description =
+    @Operation(summary = "Top100 유저 랭크 조회", description =
             "# Top100 테이블에 있는 유저들을 조회합니다. \n" +
                     "### 각 Game마다 1~100등까지 결과들에 점수를 매겨 전체 게임 유저 랭킹을 조회 \n" +
                     "- 게임마다 100등부터 51등까지는 (50명)  \n" +
@@ -30,9 +30,9 @@ public class RankController {
                     "- 게임마다 10등 부터 1등까지 20의 배수로 증가 (10명)  \n" +
                     "    (10등)270점 ~ (1등)450점"
     )
-    @GetMapping("/users/top100")
-    public List<UserGetTop100ResponseDTO> getTop100Users(@RequestParam Long page, @RequestParam Long size) {
-        return rankService.getTop100User(page, size);
+    @GetMapping("/rank/users")
+    public RankGetResponseDTO getRank(@RequestParam Long page, @RequestParam Long size) {
+        return rankService.rankGet(page, size);
     }
 
 

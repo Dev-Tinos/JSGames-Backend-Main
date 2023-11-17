@@ -1,7 +1,7 @@
 package com.example.jsgamesbackendmain.Service;
 
 import com.example.jsgamesbackendmain.Bean.EmailBean.EmailClearBean;
-import com.example.jsgamesbackendmain.Bean.UserBean.UserSetTop100Bean;
+import com.example.jsgamesbackendmain.Bean.RankBean.RankSetTop100UserBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,14 +14,14 @@ public class TestService {
     private EmailClearBean emailClearBean;
 
     @Autowired
-    private UserSetTop100Bean userSetTop100Bean;
+    private RankSetTop100UserBean rankSetTop100UserBean;
 
     public String emailClear(){
         emailClearBean.exec();
         return "success";
     }
-    public Map<String ,String > setTop100User() {
-        userSetTop100Bean.exec();
+    public Map<String ,String > setRank() {
+        rankSetTop100UserBean.exec();
         HashMap<String , String> map = new HashMap<>();
         map.put("result", "success");
         return map;

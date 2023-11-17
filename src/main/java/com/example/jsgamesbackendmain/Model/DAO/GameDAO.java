@@ -16,7 +16,7 @@ public class GameDAO {
 
     private String gameName;
     private String userId;
-    private String imageUrl;
+    private String gameImage = "https://pbs.twimg.com/media/EA9UJBjU4AAdkCm.jpg";
     private String gameUrl;
     private Double targetScore;
     private ScoreType scoreType;
@@ -30,7 +30,7 @@ public class GameDAO {
         String s = String.valueOf(i);
         GameDAO dao = new GameDAO();
         dao.setGameName(s);
-        dao.setImageUrl(s);
+        dao.setGameImage(s);
         dao.setGameUrl(s);
         dao.setTargetScore((double) (i * 3 % 100));
         dao.setScoreType(types[i % types.length]);

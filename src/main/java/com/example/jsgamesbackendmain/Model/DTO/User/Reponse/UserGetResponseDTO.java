@@ -12,6 +12,7 @@ public class UserGetResponseDTO {
     private String userId;
     private String nickname;
     private String email;
+    private String profileImage;
     private ParentMajor parentMajor;
     private Major major;
 }

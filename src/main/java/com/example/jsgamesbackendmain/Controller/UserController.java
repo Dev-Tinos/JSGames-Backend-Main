@@ -29,8 +29,8 @@ public class UserController {
     // 특정 유저 조회
     @Operation(summary = "UserId로 유저 조회")
     @GetMapping("/user/{userId}")
-    public ResponseEntity<UserGetResponseDTO> getUser(@PathVariable String userId) {
-        return ResponseEntity.ok(userService.getUser(userId));
+    public UserGetResponseDTO getUser(@PathVariable String userId) {
+        return userService.getUser(userId);
     }
 
     @Operation(summary = "유저 회원가입", description = "# 이메일로 받은 코드도 같이 전송해야함" +

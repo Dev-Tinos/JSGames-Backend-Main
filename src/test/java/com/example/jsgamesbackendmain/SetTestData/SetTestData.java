@@ -72,6 +72,7 @@ public class SetTestData {
 
         for (int i = 0; i < userSize; i++) {
             UserDAO dao = new UserDAO();
+            dao.setUserId(String.valueOf(i));
             dao.setEmail("test" + i + "@test.com");
             dao.setNickname("nick " + i);
             dao.setPassword("password " + i);
@@ -88,7 +89,6 @@ public class SetTestData {
             GameDAO gameDAO = new GameDAO();
             gameDAO.setGameName("name " + i);
             gameDAO.setUserId(userDAOList.get((int)(Math.random() * userSize)).getUserId());
-            gameDAO.setImageUrl("imageUrl " + i);
             gameDAO.setGameUrl("gameUrl " + i);
             gameDAO.setViewCount(((long) i));
             ScoreType scoreType = scoreTypes[i % scoreTypes.length];

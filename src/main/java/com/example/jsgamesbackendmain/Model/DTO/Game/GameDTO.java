@@ -22,7 +22,7 @@ public class GameDTO {
             gameDTO.setGameId(gameDAO.getGameId());
             gameDTO.setGameName(gameDAO.getGameName());
             gameDTO.setUserId(gameDAO.getUserId());
-            gameDTO.setImageUrl(gameDAO.getImageUrl());
+            gameDTO.setImageUrl(gameDAO.getGameImage());
             gameDTO.setGameUrl(gameDAO.getGameUrl());
             gameDTO.setTargetScore(gameDAO.getTargetScore());
             gameDTO.setScoreType(gameDAO.getScoreType());

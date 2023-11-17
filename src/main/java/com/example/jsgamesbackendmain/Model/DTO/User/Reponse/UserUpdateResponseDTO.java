@@ -13,6 +13,7 @@ public class UserUpdateResponseDTO {
     private String nickname;
     private String email;
     private String password;
+    private String imageUrl;
     private ParentMajor parentMajor;
     private Major major;
 }

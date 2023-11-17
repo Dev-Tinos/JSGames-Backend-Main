@@ -25,7 +25,7 @@ public interface LogRepository extends JpaRepository<LogDAO, Long> {
     Page<LogDAO> findByGameIdOrderByGameScoreWithTargetScore(Long gameId, Double targetScore, Pageable pageable);
 
     // UserId로 페이징후 가져오기
-    Page<LogDAO> findByUserIdOrderByGameScoreDesc(Long userId, Pageable pageable);
+    Page<LogDAO> findByUserIdOrderByGameScoreDesc(String userId, Pageable pageable);
 
     // GameId UserId 중 gameScore가 가장큰 튜플 가져오기
     Optional<LogDAO> findFirstByGameIdAndUserIdOrderByGameScoreDesc(Long gameId, Long userId);

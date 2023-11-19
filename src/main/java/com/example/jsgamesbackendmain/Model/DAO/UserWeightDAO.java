@@ -20,7 +20,7 @@ public class UserWeightDAO {
 
     private Long gameId;
 
-    private Long resultId;
+    private Long logId;
 
     private Long userWeight;
 }

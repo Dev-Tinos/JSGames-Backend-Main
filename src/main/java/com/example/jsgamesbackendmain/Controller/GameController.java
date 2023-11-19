@@ -14,7 +14,6 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
 @CrossOrigin("*")
 public class GameController {
 
@@ -29,16 +28,6 @@ public class GameController {
     @PostMapping("/game")
     public GameDTO postGame(@Valid @RequestBody GameCreateRequestDTO gameCreateRequestDTO) {
         return gameService.postGame(gameCreateRequestDTO);
-    }
-
-    // 게임 목록 조회 API
-    @Operation(summary = "게임 랭킹 조회 (페이징) ", description =
-        "# 게임 랭킹 조회  \n"+
-        "## 조회수 순으로 내림차순 정렬됩니다."
-    )
-    @GetMapping("/games")
-    public List<GameListResponseDTO> listGames(@Parameter Long page, @Parameter Long size) {
-        return gameService.listGames(page, size);
     }
 
     // 특정 게임 조회 API

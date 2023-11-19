@@ -1,11 +1,12 @@
 package com.example.jsgamesbackendmain;
 
 import com.example.jsgamesbackendmain.Bean.UserBean.UserGetBean;
-import com.example.jsgamesbackendmain.Model.DAO.CommentDAO;
-import com.example.jsgamesbackendmain.Model.DTO.Comment.CommentDTO;
-import com.example.jsgamesbackendmain.Repository.CommentRepository;
+import com.example.jsgamesbackendmain.Model.DAO.ReviewDAO;
+import com.example.jsgamesbackendmain.Model.DTO.Review.ReviewDTO;
+import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserGetResponseDTO;
+import com.example.jsgamesbackendmain.Repository.ReviewRepository;
 import com.example.jsgamesbackendmain.Repository.GameRepository;
-import com.example.jsgamesbackendmain.Repository.ResultRepository;
+import com.example.jsgamesbackendmain.Repository.LogRepository;
 import com.example.jsgamesbackendmain.Repository.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -37,10 +38,10 @@ class JsGamesBackendMainApplicationTests {
     private UserRepository userRepository;
 
     @Autowired
-    private ResultRepository resultRepository;
+    private LogRepository logRepository;
 
     @Autowired
-    private CommentRepository commentRepository;
+    private ReviewRepository reviewRepository;
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -53,10 +54,11 @@ class JsGamesBackendMainApplicationTests {
 
     @Test
     void ObjectMapper_예시코드() throws Exception {
-        CommentDTO dto = new CommentDTO();
+        ReviewDTO dto = new ReviewDTO();
         dto.setGameId(1L);
-        dto.setUserId(1L);
-        dto.setCommentContent("test");
+        UserGetResponseDTO userDTO = new UserGetResponseDTO();
+        dto.setUser(userDTO);
+        dto.setReviewContent("test");
         dto.setDateTime(LocalDateTime.now());
 
         // DTO를 JSON 직렬화
@@ -65,10 +67,10 @@ class JsGamesBackendMainApplicationTests {
         System.out.println(s);
 
         // JSON을 DTO 역직렬화
-        CommentDTO dto2 = objectMapper.readValue(s, CommentDTO.class);
+        ReviewDTO dto2 = objectMapper.readValue(s, ReviewDTO.class);
 
         // DTO를 DAO로 변환
-        CommentDAO dao = objectMapper.convertValue(dto2, CommentDAO.class);
+        ReviewDAO dao = objectMapper.convertValue(dto2, ReviewDAO.class);
 
         System.out.println(dao);
 

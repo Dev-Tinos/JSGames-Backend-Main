@@ -1,8 +1,8 @@
 package com.example.jsgamesbackendmain.Bean.SmallBean.UserBean;
 
-import com.example.jsgamesbackendmain.Bean.SmallBean.ResultBean.ResultGetByGameIdSmallBean;
+import com.example.jsgamesbackendmain.Bean.SmallBean.LogBean.LogGetByGameIdSmallBean;
 import com.example.jsgamesbackendmain.Model.DAO.GameDAO;
-import com.example.jsgamesbackendmain.Model.DAO.ResultDAO;
+import com.example.jsgamesbackendmain.Model.DAO.LogDAO;
 import com.example.jsgamesbackendmain.Model.DAO.UserWeightDAO;
 import com.example.jsgamesbackendmain.Repository.UserWeightRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,19 +15,19 @@ public class UserWeightSaveSmallBean {
     @Autowired
     private UserWeightRepository userWeightRepository;
     @Autowired
-    private ResultGetByGameIdSmallBean resultGetByGameIdSmallBean;
+    private LogGetByGameIdSmallBean logGetByGameIdSmallBean;
 
     public void exec(List<GameDAO> gameDAOList) {
         for(GameDAO gameDAO : gameDAOList) {
-            // 각 Game에 대해서 Top100 Result 들을 조회
-            List<ResultDAO> resultList = resultGetByGameIdSmallBean.exec(gameDAO, 0L, 100L);
+            // 각 Game에 대해서 Top100 Log 들을 조회
+            List<LogDAO> logList = logGetByGameIdSmallBean.exec(gameDAO, 0L, 100L);
 
             // 각 User들에게 가중치를 부여
-            for(int rank = 1; rank <= resultList.size(); rank++) {
-                // i번째 User의 Result를 조회
-                ResultDAO resultDAO = resultList.get(rank - 1);
+            for(int rank = 1; rank <= logList.size(); rank++) {
+                // i번째 User의 Log를 조회
+                LogDAO logDAO = logList.get(rank - 1);
 
-                UserWeightDAO weightDAO = new UserWeightDAO(null, rank, resultDAO.getUserId(), resultDAO.getGameId(), resultDAO.getResultId(), getWeight(rank));
+                UserWeightDAO weightDAO = new UserWeightDAO(null, rank, logDAO.getUserId(), logDAO.getGameId(), logDAO.getLogId(), getWeight(rank));
                 userWeightRepository.save(weightDAO);
             }
         }

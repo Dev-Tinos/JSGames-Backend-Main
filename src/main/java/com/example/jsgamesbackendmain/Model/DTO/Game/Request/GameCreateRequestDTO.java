@@ -21,15 +21,4 @@ public class GameCreateRequestDTO {
 
     private String description;
 
-    public static GameDAO toDAO(GameCreateRequestDTO dto) {
-        GameDAO gameDAO = new GameDAO();
-        gameDAO.setGameName(dto.getGameName());
-        gameDAO.setUserId(dto.getUserId());
-        gameDAO.setImageUrl(dto.getImageUrl());
-        gameDAO.setGameUrl(dto.getGameUrl());
-        gameDAO.setTargetScore(dto.getTargetScore());
-        gameDAO.setScoreType(dto.getScoreType());
-        gameDAO.setDescription(dto.getDescription());
-        return gameDAO;
-    }
 }

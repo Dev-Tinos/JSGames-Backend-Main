@@ -1,32 +1,28 @@
 package com.example.jsgamesbackendmain.Bean.SmallBean.RankBean;
 
+import com.example.jsgamesbackendmain.Bean.MapperBean.MapperBean;
 import com.example.jsgamesbackendmain.Model.DAO.RankTop100DAO;
-import com.example.jsgamesbackendmain.Model.DTO.UserWeight.RankWeightDTO;
+import com.example.jsgamesbackendmain.Model.DTO.Rank.Request.RankGetRequestDTO;
 import com.example.jsgamesbackendmain.Repository.RankRepository;
-import com.example.jsgamesbackendmain.Repository.RankWeightRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class RankSaveSmallBean {
     @Autowired
-    private RankWeightRepository rankWeightRepository;
+    private MapperBean mapperBean;
     @Autowired
     private RankRepository rankRepository;
-    @Autowired
-    private RankLastUpdatedSmallBean rankLastUpdatedSmallBean;
     public void exec() {
-        rankLastUpdatedSmallBean.setLastUpdated();
+        List<RankTop100DAO> list =
+                rankRepository.findAllByOrderByRankWeightDesc(100, 0)
+                        .stream()
+                        .map(map -> mapperBean.to(map, RankGetRequestDTO.class).toDAO())
+                        .collect(Collectors.toList());
 
-        List<RankWeightDTO> weightDTOList = rankWeightRepository.findRankWeightSum(PageRequest.of(0, 100)).toList();
-        for (RankWeightDTO weightDTO : weightDTOList) {
-            RankTop100DAO dao = new RankTop100DAO();
-            dao.setUserId(weightDTO.getUserId());
-            dao.setScore(weightDTO.getWeightSum());
-            rankRepository.save(dao);
-        }
+        rankRepository.saveAll(list);
     }
 }

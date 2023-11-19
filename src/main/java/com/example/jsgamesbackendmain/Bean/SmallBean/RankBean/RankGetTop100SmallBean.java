@@ -24,10 +24,15 @@ public class RankGetTop100SmallBean {
 
     public List<RankTop100UserResponseDTO> exec(Long page, Long size) {
         PageRequest pageRequest = PageRequest.of(page.intValue(), size.intValue());
-        List<RankTop100DAO> list = rankRepository.findAllByOrderByScoreDesc(pageRequest).toList();
+        List<RankTop100DAO> list = rankRepository.findAllByOrderByTotalRankAsc(pageRequest).toList();
         return list.stream()
                 .map(rankTop100DAO -> {
-                    RankTop100UserResponseDTO dto = mapperBean.to(rankTop100DAO, RankTop100UserResponseDTO.class);
+                    RankTop100UserResponseDTO dto = new RankTop100UserResponseDTO();
+                    dto.setRankId(rankTop100DAO.getRankId());
+                    dto.setRankWeight(rankTop100DAO.getRankWeight());
+                    dto.setTotalRank(rankTop100DAO.getTotalRank());
+
+
                     UserLogResponseDTO user = mapperBean.to(userGetBean.getUser(rankTop100DAO.getUserId()), UserLogResponseDTO.class);
                     dto.setUser(user);
                     return dto;

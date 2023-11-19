@@ -14,7 +14,7 @@ public class UserValidationSmallBean {
     @Autowired
     private UserRepository userRepository;
 
-    public Optional<UserDAO> exec(Long userId) {
+    public Optional<UserDAO> exec(String userId) {
 
         Optional<UserDAO> optional = userRepository.findById(userId);
         if(!optional.isPresent()) {

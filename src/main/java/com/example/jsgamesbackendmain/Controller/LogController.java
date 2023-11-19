@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
 @CrossOrigin("*")
 public class LogController {
 
@@ -22,13 +21,13 @@ public class LogController {
     private LogService logService;
 
     //랭킹 조회 API
-    @Operation(summary = "특정 게임 유저 랭킹 조회", description =
+    @Operation(summary = "특정 게임 유저 순위 조회", description =
             "# Game의 Log 조회 api  \n\n" +
             "## scoreType이 `INFINITE`인 경우 Log 조회시 점수 내림차순  \n\n" +
             "## scoreType이 `GOAL`인 경우 Log 조회시 targetScore와 가장 가까운 점수 순서대로 조회"
     )
     @GetMapping("/logs/game/{gameId}")
-    public List<LogGetByGameIdResponseDTO> getLogsByGameId(@PathVariable Long gameId, @Parameter Long page, @Parameter Long size) {
+    public List<LogGetByGameIdResponseDTO> getLogsByGameId(@PathVariable Long gameId, @Parameter Integer page, @Parameter Integer size) {
         return logService.getLogsByGameId(gameId, page, size);
     }
 
@@ -39,7 +38,7 @@ public class LogController {
             "## Game의 scoreType이 `GOAL`인 경우 조회시 targetScore와 가장 가까운 점수 조회"
     )
     @GetMapping("/log/game/{gameId}/user/{userId}")
-    public LogGetByGameIdUserIdResponseDTO getLogByGameIdAndUserId(@PathVariable Long gameId, @PathVariable Long userId) {
+    public LogGetByGameIdUserIdResponseDTO getLogByGameIdAndUserId(@PathVariable Long gameId, @PathVariable String userId) {
         return logService.getLogByGameIdUserId(gameId, userId);
     }
 
@@ -51,11 +50,11 @@ public class LogController {
     }
 
     //유저의 게임 결과 로그 조회 API
-    @Operation(summary = "UserId로 Log 조회", description =
-        "# 특정 게임의 모든 user log 내림차순 조회"
-    )
-    @GetMapping("/logs/user/{userId}")
-    public List<LogGetByUserIdResponseDTO> getLogsByUserId(@PathVariable Long userId, @Parameter Long page, @Parameter Long size) {
-        return logService.getLogsByUserId(userId,page, size);
-    }
+//    @Operation(summary = "UserId로 Log 조회", description =
+//        "# 특정 게임의 모든 user log 내림차순 조회"
+//    )
+//    @GetMapping("/logs/user/{userId}")
+//    public List<LogGetByUserIdResponseDTO> getLogsByUserId(@PathVariable String userId, @Parameter Long page, @Parameter Long size) {
+//        return logService.getLogsByUserId(userId,page, size);
+//    }
 }

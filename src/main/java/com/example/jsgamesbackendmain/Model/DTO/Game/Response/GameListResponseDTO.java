@@ -10,7 +10,7 @@ import lombok.Setter;
 public class GameListResponseDTO {
     private Long gameId;
     private String gameName;
-    private Long userId;
+    private String userId;
     private String imageUrl;
     private String gameUrl;
     private Double targetScore;

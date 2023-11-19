@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 public interface GameRepository extends JpaRepository<GameDAO, Long> {
 
     // 게임 조회수 순으로 정렬
-    Page<GameDAO> findAllByOrderByViewCountDesc(Pageable pageable);
+    Page<GameDAO> findAllByOrderByViewCountDescGameIdAsc(Pageable pageable);
 
     // 게임 전체 페이징 조회
     Page<GameDAO> findAll(Pageable pageable);

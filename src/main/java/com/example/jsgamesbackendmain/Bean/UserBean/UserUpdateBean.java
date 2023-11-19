@@ -31,7 +31,6 @@ public class UserUpdateBean {
         UserDAO user = userGetSmallBean.getUser(userUpdateRequestDTO.getUserId());
         user.setNickname(userUpdateRequestDTO.getNickname());
         user.setEmail(userUpdateRequestDTO.getEmail());
-        user.setPassword(userUpdateRequestDTO.getPassword());
         user.setMajor(userUpdateRequestDTO.getMajor());
 
         return mapperBean.to(userRepository.save(user), UserUpdateResponseDTO.class);

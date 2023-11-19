@@ -10,7 +10,7 @@ public class GameDTO {
 
     private Long gameId;
     private String gameName;
-    private Long userId;
+    private String userId;
     private String imageUrl;
     private String gameUrl;
     private Double targetScore;
@@ -22,7 +22,7 @@ public class GameDTO {
             gameDTO.setGameId(gameDAO.getGameId());
             gameDTO.setGameName(gameDAO.getGameName());
             gameDTO.setUserId(gameDAO.getUserId());
-            gameDTO.setImageUrl(gameDAO.getImageUrl());
+            gameDTO.setImageUrl(gameDAO.getGameImage());
             gameDTO.setGameUrl(gameDAO.getGameUrl());
             gameDTO.setTargetScore(gameDAO.getTargetScore());
             gameDTO.setScoreType(gameDAO.getScoreType());

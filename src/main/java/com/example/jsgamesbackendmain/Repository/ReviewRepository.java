@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ReviewRepository extends JpaRepository<ReviewDAO, Long> {
-    Page<ReviewDAO> findByGameIdOrderByDateTimeAsc(Long gameId, Pageable pageable);
+    Page<ReviewDAO> findByGameIdOrderByDateTimeDesc(Long gameId, Pageable pageable);
 }

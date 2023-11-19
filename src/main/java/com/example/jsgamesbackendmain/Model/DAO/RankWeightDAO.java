@@ -8,19 +8,19 @@ import javax.persistence.*;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "user_weight")
-public class UserWeightDAO {
+@Table(name = "rank_weight")
+public class RankWeightDAO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userWeightId;
+    private Long rankWeightId;
 
     private int rank;
 
-    private Long userId;
+    private String userId;
 
     private Long gameId;
 
     private Long logId;
 
-    private Long userWeight;
+    private Long weight;
 }

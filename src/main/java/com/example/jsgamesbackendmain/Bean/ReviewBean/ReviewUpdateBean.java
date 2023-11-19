@@ -1,11 +1,11 @@
 package com.example.jsgamesbackendmain.Bean.ReviewBean;
 
-import com.example.jsgamesbackendmain.Controller.ExceptionControll.ResourceNotFoundException;
+import com.example.jsgamesbackendmain.Bean.MapperBean.MapperBean;
+import com.example.jsgamesbackendmain.Bean.SmallBean.ReviewBean.ReviewGetByIdSmallBean;
+import com.example.jsgamesbackendmain.Bean.SmallBean.ReviewBean.ReviewSaveSmallBean;
 import com.example.jsgamesbackendmain.Model.DAO.ReviewDAO;
 import com.example.jsgamesbackendmain.Model.DTO.Review.Request.ReviewUpdateRequestDTO;
-import com.example.jsgamesbackendmain.Model.DTO.Review.ReviewDTO;
-import com.example.jsgamesbackendmain.Repository.ReviewRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.example.jsgamesbackendmain.Model.DTO.Review.Response.ReviewUpdateResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,20 +13,21 @@ import org.springframework.stereotype.Component;
 public class ReviewUpdateBean {
 
     @Autowired
-    private ReviewRepository reviewRepository;
+    private ReviewGetByIdSmallBean reviewGetByIdSmallBean;
 
-    ObjectMapper objectMapper = new ObjectMapper();
+    @Autowired
+    private ReviewSaveSmallBean reviewSaveSmallBean;
 
-    public ReviewDTO exec(Long reviewId, ReviewUpdateRequestDTO requestDTO) {
+    @Autowired
+    private MapperBean mapperBean;
 
-        ReviewDAO dao = reviewRepository.findById(reviewId).orElseThrow(() ->
-                new ResourceNotFoundException("Comment not found for this id :: " + reviewId)
-        );
+    public ReviewUpdateResponseDTO exec(Long reviewId, ReviewUpdateRequestDTO requestDTO) {
 
-        dao.setReviewContent(requestDTO.getReviewContent());
+        ReviewDAO dao = reviewGetByIdSmallBean.exec(reviewId);
 
-        ReviewDAO savedDao = reviewRepository.save(dao);
+        dao = reviewSaveSmallBean.exec(dao);
 
-        return objectMapper.convertValue(savedDao, ReviewDTO.class);
+        return mapperBean.to(dao, ReviewUpdateResponseDTO.class);
     }
 }
+

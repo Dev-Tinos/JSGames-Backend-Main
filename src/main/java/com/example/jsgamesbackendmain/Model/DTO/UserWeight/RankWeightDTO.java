@@ -6,8 +6,8 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class UserWeightDTO {
-    private Long userId;
+public class RankWeightDTO {
+    private String userId;
 
     private Long weightSum;
 }

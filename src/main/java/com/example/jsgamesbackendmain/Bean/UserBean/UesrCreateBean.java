@@ -1,5 +1,6 @@
 package com.example.jsgamesbackendmain.Bean.UserBean;
 
+import com.example.jsgamesbackendmain.Bean.MapperBean.MajorMapperBean;
 import com.example.jsgamesbackendmain.Bean.MapperBean.MapperBean;
 import com.example.jsgamesbackendmain.Model.DAO.UserDAO;
 import com.example.jsgamesbackendmain.Model.DTO.User.Request.UserSignUpRequestDTO;
@@ -19,12 +20,17 @@ public class UesrCreateBean {
     private UserRepository userRepository;
     @Autowired
     private MapperBean mapperBean;
+    @Autowired
+    private MajorMapperBean majorMapperBean;
     public UserDAO postUser(UserSignUpRequestDTO userSignUpRequestDTO) {
         UserDAO userDAO = mapperBean.to(userSignUpRequestDTO, UserDAO.class);
+        //ParentMajor set
+        userDAO.setParentMajor(majorMapperBean.getParentMajor(userSignUpRequestDTO.getMajor()));
+        //UUID set
         userDAO.setUserId(generateVersion5UUID("namespace", "name").toString());
         return userRepository.save(userDAO);
     }
-    private static UUID generateVersion5UUID(String namespace, String name) {
+    public static UUID generateVersion5UUID(String namespace, String name) {
         try {
             MessageDigest salt = MessageDigest.getInstance("SHA-1");
             salt.update(namespace.getBytes(StandardCharsets.UTF_8));

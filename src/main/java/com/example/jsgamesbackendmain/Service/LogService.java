@@ -32,19 +32,18 @@ public class LogService {
     ObjectMapper objectMapper = new ObjectMapper();
 
     public LogPostResponseDTO postLog(LogPostRequestDTO logPostRequestDTO) {
-        return logPostBean.postLog(logPostRequestDTO);
+        return logPostBean.exec(logPostRequestDTO);
     }
 
-    public List<LogGetByGameIdResponseDTO> getLogsByGameId(Long gameId, Long page, Long size) {
-        List<LogDAO> daoList = logGetByGameIdBean.exec(gameId, page, size);
-        return daoList.stream().map(l -> objectMapper.convertValue(l, LogGetByGameIdResponseDTO.class)).collect(Collectors.toList());
+    public List<LogGetByGameIdResponseDTO> getLogsByGameId(Long gameId, Integer page, Integer size) {
+        return logGetByGameIdBean.exec(gameId, page, size);
     }
 
-    public List<LogGetByUserIdResponseDTO> getLogsByUserId(Long userId, Long page, Long size) {
+    public List<LogGetByUserIdResponseDTO> getLogsByUserId(String userId, Long page, Long size) {
         return logGetByUserIdBean.exec(userId, page, size);
     }
 
-    public LogGetByGameIdUserIdResponseDTO getLogByGameIdUserId(Long gameId, Long userId) {
+    public LogGetByGameIdUserIdResponseDTO getLogByGameIdUserId(Long gameId, String userId) {
         return logGetByGamIdUserIdBean.exec(gameId, userId);
     }
 }

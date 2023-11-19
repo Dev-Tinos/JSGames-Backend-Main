@@ -1,9 +1,10 @@
 package com.example.jsgamesbackendmain.Bean.LogBean;
 
+import com.example.jsgamesbackendmain.Bean.MapperBean.MapperBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.GameBean.GameGetSmallBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.LogBean.LogGetByGameIdSmallBean;
 import com.example.jsgamesbackendmain.Model.DAO.GameDAO;
-import com.example.jsgamesbackendmain.Model.DAO.LogDAO;
+import com.example.jsgamesbackendmain.Model.DTO.Log.Response.LogGetByGameIdResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +18,10 @@ public class LogGetByGameIdBean {
     @Autowired
     private GameGetSmallBean gameGetSmallBean;
 
-    public List<LogDAO> exec(Long gameId, Long page, Long size) {
+    @Autowired
+    private MapperBean mapperBean;
+
+    public List<LogGetByGameIdResponseDTO> exec(Long gameId, Integer page, Integer size) {
 
         GameDAO gameDAO = gameGetSmallBean.exec(gameId);
 

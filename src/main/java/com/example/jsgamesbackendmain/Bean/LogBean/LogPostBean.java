@@ -1,6 +1,8 @@
 package com.example.jsgamesbackendmain.Bean.LogBean;
 
+import com.example.jsgamesbackendmain.Bean.MapperBean.MapperBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.GameBean.GameGetSmallBean;
+import com.example.jsgamesbackendmain.Bean.SmallBean.LogBean.LogSaveSmallBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserValidationSmallBean;
 import com.example.jsgamesbackendmain.Model.DAO.LogDAO;
 import com.example.jsgamesbackendmain.Model.DTO.Log.Request.LogPostRequestDTO;
@@ -13,28 +15,26 @@ import org.springframework.stereotype.Component;
 @Component
 public class LogPostBean {
     @Autowired
-    private LogRepository logRepository;
-
+    private LogSaveSmallBean logSaveSmallBean;
     @Autowired
     private UserValidationSmallBean userValidationSmallBean;
-
     @Autowired
     private GameGetSmallBean gameGetSmallBean;
+    @Autowired
+    private MapperBean mapperBean;
 
 
-    ObjectMapper objectMapper = new ObjectMapper();
 
-    public LogPostResponseDTO postLog(LogPostRequestDTO logPostRequestDTO) {
+    public LogPostResponseDTO exec(LogPostRequestDTO logPostRequestDTO) {
         // game found
         gameGetSmallBean.exec(logPostRequestDTO.getGameId());
 
         // user found
         userValidationSmallBean.exec(logPostRequestDTO.getUserId());
 
-        LogDAO logDAO = logPostRequestDTO.toDAO();
-        LogDAO dao = logRepository.save(logDAO);
+        LogDAO savedLogDAO = logSaveSmallBean.exec(logPostRequestDTO.toDAO());
 
-        return objectMapper.convertValue(dao, LogPostResponseDTO.class);
+        return mapperBean.to(savedLogDAO, LogPostResponseDTO.class);
     }
 
 }

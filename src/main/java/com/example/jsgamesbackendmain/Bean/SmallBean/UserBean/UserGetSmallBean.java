@@ -13,7 +13,7 @@ public class UserGetSmallBean {
     @Autowired
     private UserValidationSmallBean userValidationSmallBean;
 
-    public UserDAO getUser(Long userId) {
+    public UserDAO getUser(String userId) {
 
         Optional<UserDAO> optional = userValidationSmallBean.exec(userId);
 

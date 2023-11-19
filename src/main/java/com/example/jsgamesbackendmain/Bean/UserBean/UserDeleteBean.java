@@ -18,7 +18,7 @@ public class UserDeleteBean {
     @Autowired
     private UserRepository userRepository;
 
-    public Map<String, String> deleteUser(Long userId) {
+    public Map<String, String> deleteUser(String userId) {
         UserDAO user = userGetSmallBean.getUser(userId);
         userRepository.delete(user);
         HashMap<String,String> map = new HashMap<>();

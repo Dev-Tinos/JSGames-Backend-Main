@@ -1,20 +1,34 @@
 package com.example.jsgamesbackendmain;
 
-import com.example.jsgamesbackendmain.Model.DAO.CommentDAO;
-import com.example.jsgamesbackendmain.Model.DAO.GameDAO;
-import com.example.jsgamesbackendmain.Model.DAO.ResultDAO;
-import com.example.jsgamesbackendmain.Model.DAO.UserDAO;
-import com.example.jsgamesbackendmain.Model.ENUM.ScoreType;
-import com.example.jsgamesbackendmain.Repository.CommentRepository;
+import com.example.jsgamesbackendmain.Bean.UserBean.UserGetBean;
+import com.example.jsgamesbackendmain.Model.DAO.ReviewDAO;
+import com.example.jsgamesbackendmain.Model.DTO.Review.ReviewDTO;
+import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserGetResponseDTO;
+import com.example.jsgamesbackendmain.Repository.ReviewRepository;
 import com.example.jsgamesbackendmain.Repository.GameRepository;
-import com.example.jsgamesbackendmain.Repository.ResultRepository;
+import com.example.jsgamesbackendmain.Repository.LogRepository;
 import com.example.jsgamesbackendmain.Repository.UserRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
+import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
+// MockMvc를 사용하기 위한 어노테이션
+@AutoConfigureMockMvc
+// 테스트 코드가 끝나면 롤백을 해줌
+@Transactional
 class JsGamesBackendMainApplicationTests {
 
     @Autowired
@@ -24,91 +38,76 @@ class JsGamesBackendMainApplicationTests {
     private UserRepository userRepository;
 
     @Autowired
-    private ResultRepository resultRepository;
+    private LogRepository logRepository;
 
     @Autowired
-    private CommentRepository commentRepository;
+    private ReviewRepository reviewRepository;
 
-    @Test
-    @Rollback(value = false)
-    void contextLoads() {
+    @Autowired
+    private ObjectMapper objectMapper;
 
+    @Autowired
+    private MockMvc mockMvc;
 
-//        GameDAO dao1 = new GameDAO();
-//        dao1.setDescription("총알 피하기 게임입니다.");
-//        dao1.setGameName("총알 피하기");
-//        dao1.setGameUrl("https://jsgames-backend-main.herokuapp.com/game/dodge");
-//        dao1.setImageUrl("https://jsgames-backend-main.herokuapp.com/game/dodge/img");
-//        dao1.setScoreType(ScoreType.INFINITE);
-//        dao1.setUserId(1L);
+    @Autowired
+    private UserGetBean userGetBean;
+
+//    @Test
+//    void ObjectMapper_예시코드() throws Exception {
+//        ReviewDAO dao = ReviewDAO.createTest(0);
 //
-//        GameDAO dao2 = new GameDAO();
-//        dao2.setDescription("적을 처치하는 게임입니다.");
-//        dao2.setGameName("Kill the Enemy");
-//        dao2.setGameUrl("https://jsgames-backend-main.herokuapp.com/game/kill");
-//        dao2.setImageUrl("https://jsgames-backend-main.herokuapp.com/game/kill/img");
-//        dao2.setScoreType(ScoreType.INFINITE);
-//        dao2.setUserId(2L);
+//        // DTO를 JSON 직렬화
+//        String s = objectMapper.writeValueAsString(dao);
 //
-//        GameDAO dao3 = new GameDAO();
-//        dao3.setDescription("반응속도 테스트 게임입니다.");
-//        dao3.setGameName("반응속도!");
-//        dao3.setGameUrl("https://jsgames-backend-main.herokuapp.com/game/reaction");
-//        dao3.setImageUrl("https://jsgames-backend-main.herokuapp.com/game/reaction/img");
-//        dao3.setScoreType(ScoreType.GOAL);
-//        dao3.setTargetScore(0.0);
-//        dao3.setUserId(3L);
+//        System.out.println(s);
 //
-//        gameRepository.save(dao1);
-//        gameRepository.save(dao2);
-//        gameRepository.save(dao3);
+//        // JSON을 DTO 역직렬화
+//        ReviewDTO dto2 = objectMapper.readValue(s, ReviewDTO.class);
 //
-//        UserDAO userdao1 = new UserDAO();
-//        userdao1.setNickname("동현쿤");
-//        userdao1.setEmail("one@tukorea.ac.kr");
-//        userdao1.setPassword("1234");
-//        userdao1.setMajor("컴퓨터공학과");
+//        // DTO를 DAO로 변환
+//        ReviewDAO reviewDAO = objectMapper.convertValue(dto2, ReviewDAO.class);
 //
+//        System.out.println(reviewDAO);
 //
-//        UserDAO userdao2 = new UserDAO();
-//        userdao2.setNickname("짜파게티");
-//        userdao2.setEmail("two@tukorea.ac.kr");
-//        userdao2.setPassword("1234");
-//        userdao2.setMajor("소프트웨어공학과");
+//        System.out.println(dto2);
+//    }
+
+//    @Test
+//    void MockMvc_Test_예시코드() throws Exception {
+//        // MockMvc를 사용하여 테스트 코드 작성
+//        String s = mockMvc.perform(
+//                        MockMvcRequestBuilders.get("/api/user/0")
+//                                .contentType("application/json")
+//                )
+//                // 응답 코드가 404인지 확인
+//                .andExpect(MockMvcResultMatchers.status().is(404))
+//                // 응답 본문을 받아서 String으로 변환
+//                .andReturn().getResponse().getContentAsString();
 //
-//        UserDAO userdao3 = new UserDAO();
-//        userdao3.setNickname("피자");
-//        userdao3.setEmail("three@tukorea.ac.kr");
-//        userdao3.setPassword("1234");
-//        userdao3.setMajor("전자공학과");
+//        System.out.println(s);
 //
-//        userRepository.save(userdao1);
-//        userRepository.save(userdao2);
-//        userRepository.save(userdao3);
+//        // String을 Map으로 변환
+//        Map<String ,String > map  = objectMapper.readValue(s, Map.class);
 //
-//        for (int j = 1; j <= 3; j++) {
-//            for (int k = 1; k <= 3; k++) {
-//                for (int i = 1; i <= 5; i++) {
-//                    ResultDAO dao = new ResultDAO();
-//                    dao.setGameScore((double)i * k + j);
-//                    dao.setUserId((long) k);
-//                    dao.setGameId((long) j);
-//                    resultRepository.save(dao);
-//                }
-//            }
-//        }
+//        System.out.println(map);
 //
-//        for (int j = 1; j <= 3; j++) {
-//            for (int k = 1; k <= 3; k++) {
-//                for (int i = 1; i <= 5; i++) {
-//                    CommentDAO dao = new CommentDAO();
-//                    dao.setGameId((long) j);
-//                    dao.setUserId((long) k);
-//                    dao.setCommentContent("댓글" + i + j + k);
-//                    commentRepository.save(dao);
+//        // Map의 key가 message인지 확인
+//        assertTrue(map.containsKey("message"));
 //
-//                }
-//            }
-//        }
-    }
+//        // Map의 message가 "User not found for this id :: 1"인지 확인
+//        assertEquals(map.get("message"), "User not found for this id :: 0");
+//    }
+
+//    @Test
+//    void UserGetBean_Test_예시코드() {
+//        // UserGetBean을 사용하여 테스트 코드 작성
+//        String message = "";
+//
+//         try {
+//             userGetBean.getUser(0L);
+//         } catch (Exception e) {
+//            message = e.getMessage();
+//         }
+//         assertEquals(message, "User not found for this id :: 0");
+//    }
 }

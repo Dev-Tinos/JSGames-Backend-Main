@@ -15,8 +15,8 @@ public class GameDAO {
     private Long gameId;
 
     private String gameName;
-    private Long userId;
-    private String imageUrl;
+    private String userId;
+    private String gameImage = "https://pbs.twimg.com/media/EA9UJBjU4AAdkCm.jpg";
     private String gameUrl;
     private Double targetScore;
     private ScoreType scoreType;
@@ -24,4 +24,18 @@ public class GameDAO {
 
     //조회수
     private Long viewCount = 0L;
+
+    public static GameDAO createTest(int i) {
+        ScoreType[] types = ScoreType.values();
+        String s = String.valueOf(i);
+        GameDAO dao = new GameDAO();
+        dao.setGameName(s);
+        dao.setGameImage(s);
+        dao.setGameUrl(s);
+        dao.setTargetScore((double) (i * 3 % 100));
+        dao.setScoreType(types[i % types.length]);
+        dao.setDescription(s);
+        dao.setViewCount(((long) i));
+        return dao;
+    }
 }

@@ -6,11 +6,5 @@ import lombok.Setter;
 
 @Getter @Setter
 public class UserLoginResponseDTO {
-    private Long userId;
-
-    public static UserLoginResponseDTO of(UserDAO userDAO) {
-        UserLoginResponseDTO userLoginResponseDTO = new UserLoginResponseDTO();
-        userLoginResponseDTO.setUserId(userDAO.getUserId());
-        return userLoginResponseDTO;
-    }
+    private String userId;
 }

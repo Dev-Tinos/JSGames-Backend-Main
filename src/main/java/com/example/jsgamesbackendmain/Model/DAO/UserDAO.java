@@ -14,6 +14,7 @@ import javax.persistence.*;
 @Getter @Setter
 public class UserDAO {
     @Id
+    @Column(name = "user_id", length = 50)
     private String userId;
     private String nickname;
     private String email;

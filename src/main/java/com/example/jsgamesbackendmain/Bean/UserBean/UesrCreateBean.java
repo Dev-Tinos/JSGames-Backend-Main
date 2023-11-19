@@ -40,8 +40,8 @@ public class UesrCreateBean {
             long high = buffer.getLong();
             long low = buffer.getLong();
 
-            high = (high & 0xffffffffffff0fffL) | 0x0000000000005000L; // Set version to 5
-            low = (low & 0x3fffffffffffffffL) | 0x8000000000000000L;  // Set variant to IETF
+            high = (high & 0xffff0fffL) | 0x00005000L; // Set version to 5
+            low = (low & 0x3fffffffL) | 0x80000000L;  // Set variant to IETF
 
             return new UUID(high, low);
         } catch (NoSuchAlgorithmException e) {

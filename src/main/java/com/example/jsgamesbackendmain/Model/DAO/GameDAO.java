@@ -19,6 +19,7 @@ public class GameDAO {
     private String gameImage = "https://pbs.twimg.com/media/EA9UJBjU4AAdkCm.jpg";
     private String gameUrl;
     private Double targetScore;
+    @Enumerated(EnumType.STRING)
     private ScoreType scoreType;
     private String description;
 

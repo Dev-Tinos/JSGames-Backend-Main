@@ -32,11 +32,13 @@ public class RankSetTop100UserBean {
     //게임의 1등 부터 100등까지 가중치를 주어 게임마다 Top100유저들에게 가중치를 부여 하여 연산
     @Scheduled(cron = "0 50 23 * * *")
     public void exec() {
-        // RankTop100DAO를 모두 삭제, RankWeightDAO를 모두 삭제
+        // RankTop100DAO를 모두 삭제
         rankTop100ClearSmallBean.exec();
 
+        // 각 게임의 1등부터 100등까지의 가중치를 더한 것을 저장
         rankSaveSmallBean.exec();
 
+        // lastUpdated를 현재 시간으로 설정
         rankLastUpdatedSmallBean.setLastUpdated();
     }
 }

@@ -18,7 +18,7 @@ public class RankSaveSmallBean {
     private RankRepository rankRepository;
     public void exec() {
         List<RankTop100DAO> list =
-                rankRepository.findAllByOrderByRankWeightDesc(100, 0)
+                rankRepository.findAllByOrderByRankWeightDesc()
                         .stream()
                         .map(map -> mapperBean.to(map, RankGetRequestDTO.class).toDAO())
                         .collect(Collectors.toList());

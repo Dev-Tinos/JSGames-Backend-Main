@@ -19,7 +19,7 @@ public class UserDAO {
     private String nickname;
     private String email;
     private String password;
-    private String profileImage = "https://pbs.twimg.com/media/EA9UJBjU4AAdkCm.jpg";
+    private String profileImageURL = "https://tinos-images-storage.s3.ap-northeast-2.amazonaws.com/default_user_image.png";
     @Enumerated(EnumType.STRING)
     private ParentMajor parentMajor;
     @Enumerated(EnumType.STRING)
@@ -33,7 +33,7 @@ public class UserDAO {
         UserDAO dao = new UserDAO();
         dao.setUserId(id);
         dao.setNickname(s);
-        dao.setProfileImage(s);
+        dao.setProfileImageURL(s);
         dao.setMajor(majors[i % majors.length]);
         dao.setParentMajor(mapperBean.getParentMajor(dao.getMajor()));
         dao.setEmail(s);

@@ -17,6 +17,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
@@ -46,6 +48,8 @@ public class UserBeanTest {
             //then
             // InvalidException 발생시 통과
             a = 0;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
         assertEquals(0, a);
     }
@@ -111,7 +115,7 @@ public class UserBeanTest {
     private UserUpdateBean userUpdateBean;
 
     @Test
-    void UserUpdateBeanTest() {
+    void UserUpdateBeanTest() throws IOException {
         //given
         UserDAO user = UserDAO.createTest(0);
         userRepository.save(user);

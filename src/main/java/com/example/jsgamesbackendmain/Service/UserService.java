@@ -8,6 +8,7 @@ import com.example.jsgamesbackendmain.Model.DTO.User.Request.UserUpdateRequestDT
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.Map;
 
 @Service
@@ -32,7 +33,7 @@ public class UserService {
         return userGetBean.getUser(userId);
     }
 
-    public UserUpdateResponseDTO updateUser(UserUpdateRequestDTO userUpdateRequestDTO) {
+    public UserUpdateResponseDTO updateUser(UserUpdateRequestDTO userUpdateRequestDTO) throws IOException {
         return userUpdateBean.updateUser(userUpdateRequestDTO);
     }
 
@@ -40,7 +41,7 @@ public class UserService {
         return userDeleteBean.deleteUser(userId);
     }
 
-    public UserSignUpResponseDTO signUpUser(UserSignUpRequestDTO userSignUpRequestDTO) {
+    public UserSignUpResponseDTO signUpUser(UserSignUpRequestDTO userSignUpRequestDTO) throws IOException {
         return userSignUpBean.signUpUser(userSignUpRequestDTO);
     }
 

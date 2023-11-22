@@ -2,12 +2,14 @@ package com.example.jsgamesbackendmain.Bean.UserBean;
 
 import com.example.jsgamesbackendmain.Bean.MapperBean.MajorMapperBean;
 import com.example.jsgamesbackendmain.Bean.MapperBean.MapperBean;
+import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserImageUploadSmallBean;
 import com.example.jsgamesbackendmain.Model.DAO.UserDAO;
 import com.example.jsgamesbackendmain.Model.DTO.User.Request.UserSignUpRequestDTO;
 import com.example.jsgamesbackendmain.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -22,10 +24,16 @@ public class UesrCreateBean {
     private MapperBean mapperBean;
     @Autowired
     private MajorMapperBean majorMapperBean;
-    public UserDAO postUser(UserSignUpRequestDTO userSignUpRequestDTO) {
+    @Autowired
+    private UserImageUploadSmallBean userImageUploadSmallBean;
+    public UserDAO postUser(UserSignUpRequestDTO userSignUpRequestDTO) throws IOException {
         UserDAO userDAO = mapperBean.to(userSignUpRequestDTO, UserDAO.class);
         //ParentMajor set
         userDAO.setParentMajor(majorMapperBean.getParentMajor(userSignUpRequestDTO.getMajor()));
+        //ProfileImageURL set
+        if(userSignUpRequestDTO.getImage() != null){
+            userDAO.setProfileImageURL(userImageUploadSmallBean.exec(userSignUpRequestDTO.getEmail(), userSignUpRequestDTO.getImage()));
+        }
         //UUID set
         userDAO.setUserId(generateVersion5UUID("namespace", "name").toString());
         return userRepository.save(userDAO);

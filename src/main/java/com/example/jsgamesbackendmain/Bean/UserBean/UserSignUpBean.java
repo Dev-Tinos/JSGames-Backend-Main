@@ -10,6 +10,8 @@ import com.example.jsgamesbackendmain.Model.DTO.User.Request.UserSignUpRequestDT
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
+
 @Component
 public class UserSignUpBean {
 
@@ -25,7 +27,7 @@ public class UserSignUpBean {
     @Autowired
     private MapperBean mapperBean;
 
-    public UserSignUpResponseDTO signUpUser(UserSignUpRequestDTO userSignUpRequestDTO) {
+    public UserSignUpResponseDTO signUpUser(UserSignUpRequestDTO userSignUpRequestDTO) throws IOException {
         userEmailDuplicateSmallBean.exec(userSignUpRequestDTO.getEmail());
         emailCodeCheckBean.exec(mapperBean.to(userSignUpRequestDTO, EmailCodeRequestDTO.class));
 

@@ -1,5 +1,6 @@
 package com.example.jsgamesbackendmain.Bean.HelpfulBean;
 
+import com.example.jsgamesbackendmain.Controller.ExceptionControll.DuplicateException;
 import com.example.jsgamesbackendmain.Model.DAO.HelpfulDAO;
 import com.example.jsgamesbackendmain.Model.DAO.ReviewDAO;
 import com.example.jsgamesbackendmain.Repository.HelpfulRepository;
@@ -19,7 +20,7 @@ public class HelpfulPostBean {
         Optional<HelpfulDAO> helpfulDAOCheck =
                 helpfulRepository.findByUserIdAndReviewId(userId, reviewId);
         if(helpfulDAOCheck.isPresent()){
-            throw new IllegalArgumentException("이미 존재하는 helpful입니다.");
+            throw new DuplicateException("이미 존재하는 helpful입니다.");
         }
         HelpfulDAO helpfulDAO = new HelpfulDAO();
         helpfulDAO.setUserId(userId);

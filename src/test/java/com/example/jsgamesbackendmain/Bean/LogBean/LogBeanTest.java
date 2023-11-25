@@ -1,6 +1,7 @@
 package com.example.jsgamesbackendmain.Bean.LogBean;
 
 import com.example.jsgamesbackendmain.Bean.MapperBean.MapperBean;
+import com.example.jsgamesbackendmain.Bean.SmallBean.LogBean.LogCatchTopChange;
 import com.example.jsgamesbackendmain.Model.DAO.GameDAO;
 import com.example.jsgamesbackendmain.Model.DAO.LogDAO;
 import com.example.jsgamesbackendmain.Model.DAO.UserDAO;
@@ -21,9 +22,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
@@ -37,6 +39,77 @@ class LogBeanTest {
     private LogRepository logRepository;
     @Autowired
     private MapperBean mapperBean;
+
+
+    @Autowired
+    private LogCatchTopChange logCatchTopChange;
+
+    @Test
+    void LogCatchTopChangeTest() {
+        UserDAO user1 = UserDAO.createTest(1);
+        user1.setUserId("user1");
+
+        UserDAO user2 = UserDAO.createTest(2);
+        user2.setUserId("user2");
+
+        userRepository.save(user1);
+        userRepository.save(user2);
+
+        GameDAO game1 = GameDAO.createTest(1);
+        game1.setUserId(user1.getUserId());
+        game1.setScoreType(ScoreType.INFINITE);
+        gameRepository.save(game1);
+
+
+        for (int i = 1; i <= 50; i++) {
+            LogDAO logDAO = LogDAO.createTest(1);
+            logDAO.setGameId(game1.getGameId());
+            logDAO.setUserId(user1.getUserId());
+            logDAO.setGameScore((double) i);
+            Optional<LogGetByGameIdResponseDTO> preTopLogOpt = logGetByGameIdBean.exec(game1.getGameId(), 0, 1).stream().findAny();
+
+            logRepository.save(logDAO);
+
+            Optional<LogGetByGameIdResponseDTO> nextTopLogOpt = logGetByGameIdBean.exec(game1.getGameId(), 0, 1).stream().findAny();
+
+            Boolean isChange = logCatchTopChange.exec(preTopLogOpt, nextTopLogOpt);
+
+            assertFalse(isChange);
+        }
+
+        for (int i = 51; i <= 100; i++) {
+            LogDAO logDAO = LogDAO.createTest(1);
+            logDAO.setGameId(game1.getGameId());
+            logDAO.setUserId(user2.getUserId());
+            logDAO.setGameScore((double) i);
+
+            Optional<LogGetByGameIdResponseDTO> preTopLogOpt = logGetByGameIdBean.exec(game1.getGameId(), 0, 1).stream().findAny();
+
+            logRepository.save(logDAO);
+
+            Optional<LogGetByGameIdResponseDTO> nextTopLogOpt = logGetByGameIdBean.exec(game1.getGameId(), 0, 1).stream().findAny();
+
+            Boolean isChange = logCatchTopChange.exec(preTopLogOpt, nextTopLogOpt);
+
+            assertFalse(isChange);
+        }
+
+        LogDAO logDAO = LogDAO.createTest(1);
+        logDAO.setGameId(game1.getGameId());
+        logDAO.setUserId(user1.getUserId());
+        logDAO.setGameScore((double) 101);
+
+        Optional<LogGetByGameIdResponseDTO> preTopLogOpt = logGetByGameIdBean.exec(game1.getGameId(), 0, 1).stream().findAny();
+
+        logRepository.save(logDAO);
+
+        Optional<LogGetByGameIdResponseDTO> nextTopLogOpt = logGetByGameIdBean.exec(game1.getGameId(), 0, 1).stream().findAny();
+
+        Boolean isChange = logCatchTopChange.exec(preTopLogOpt, nextTopLogOpt);
+
+        assertTrue(isChange);
+
+    }
 
     @Autowired
     private LogGetByGameIdBean logGetByGameIdBean;

@@ -13,6 +13,9 @@ import java.util.Optional;
 @Repository
 public interface LogRepository extends JpaRepository<LogDAO, Long> {
 
+    // GameId for Count
+    Long countByGameId(Long gameId);
+
     //GameId, UserId 조회
     Page<LogDAO> findByGameIdAndUserId(Long gameId, String userId, Pageable pageable);
 

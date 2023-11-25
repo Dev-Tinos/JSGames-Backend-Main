@@ -31,7 +31,7 @@ public class GameDAO {
         String s = String.valueOf(i);
         GameDAO dao = new GameDAO();
         dao.setGameName(s);
-        dao.setGameImage(s);
+        dao.setGameImage("https://pbs.twimg.com/media/EA9UJBjU4AAdkCm.jpg");
         dao.setGameUrl(s);
         dao.setTargetScore((double) (i * 3 % 100));
         dao.setScoreType(types[i % types.length]);

@@ -52,7 +52,7 @@ public class UserController {
     @Operation(summary = "유저 정보 수정", description = "# userID 제외하면 아무 값도 안들어가도됨" +
             "## 수정할 데이터만 넣으면 그 데이터만 수정")
     @PutMapping("/user")
-    public UserUpdateResponseDTO updateUser(@RequestBody UserUpdateRequestDTO userUpdateRequestDTO) throws IOException {
+    public UserUpdateResponseDTO updateUser(@ModelAttribute UserUpdateRequestDTO userUpdateRequestDTO) throws IOException {
         return userService.updateUser(userUpdateRequestDTO);
     }
 

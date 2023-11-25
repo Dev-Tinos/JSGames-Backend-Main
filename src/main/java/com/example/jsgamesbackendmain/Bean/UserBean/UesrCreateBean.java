@@ -31,8 +31,8 @@ public class UesrCreateBean {
         //ParentMajor set
         userDAO.setParentMajor(majorMapperBean.getParentMajor(userSignUpRequestDTO.getMajor()));
         //ProfileImageURL set
-        if(userSignUpRequestDTO.getImage() != null){
-            userDAO.setProfileImageURL(userImageUploadSmallBean.exec(userSignUpRequestDTO.getEmail(), userSignUpRequestDTO.getImage()));
+        if(userSignUpRequestDTO.getProfileImageURL() != null){
+            userDAO.setProfileImageURL(userImageUploadSmallBean.exec(userSignUpRequestDTO.getEmail(), userSignUpRequestDTO.getProfileImageURL()));
         }
         //UUID set
         userDAO.setUserId(generateVersion5UUID("namespace", "name").toString());

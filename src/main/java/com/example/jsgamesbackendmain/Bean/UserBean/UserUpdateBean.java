@@ -31,24 +31,20 @@ public class UserUpdateBean {
     @Autowired
     private UserImageUpdateSmallBean userImageUpdateBean;
     public UserUpdateResponseDTO updateUser(UserUpdateRequestDTO userUpdateRequestDTO) throws IOException {
-        userEmailDuplicateSmallBean.exec(userUpdateRequestDTO.getEmail());
 
         UserDAO user = userGetSmallBean.getUser(userUpdateRequestDTO.getUserId());
-        if(userUpdateRequestDTO.getEmail() != null) {
-            user.setEmail(userUpdateRequestDTO.getEmail());
-        }
         if(userUpdateRequestDTO.getNickname() != null) {
             user.setNickname(userUpdateRequestDTO.getNickname());
         }
         if(userUpdateRequestDTO.getMajor() != null) {
             user.setMajor(userUpdateRequestDTO.getMajor());
         }
-        if(userUpdateRequestDTO.getImage() != null) {
+        if(userUpdateRequestDTO.getProfileImage() != null) {
             user.setProfileImageURL(
                     userImageUpdateBean.exec(
                             userUpdateRequestDTO.getUserId(),
                             userUpdateRequestDTO.getEmail(),
-                            userUpdateRequestDTO.getImage()));
+                            userUpdateRequestDTO.getProfileImage()));
         }
         return mapperBean.to(userRepository.save(user), UserUpdateResponseDTO.class);
     }

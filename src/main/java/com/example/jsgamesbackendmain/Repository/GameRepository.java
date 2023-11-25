@@ -14,9 +14,9 @@ public interface GameRepository extends JpaRepository<GameDAO, Long> {
     Page<GameDAO> findAllByOrderByViewCountDescGameIdAsc(Pageable pageable);
 
     // GameDAO 의 logDAO중 userId가 일치하는 게임 조회
-    @Query(value = "select * from games where game_id in " +
-            "(select game_id from logs where user_id = ?1) " +
-            "order by games.view_count desc, games.game_id", nativeQuery = true)
+    @Query("select g from GameDAO g where g.gameId in " +
+            "(select l.gameId from LogDAO l where l.userId = ?1) " +
+            "order by g.viewCount desc, g.gameId")
     Page<GameDAO> findAllByPlayedUserOrderByViewCountDescGameIdAsc(String userId, Pageable pageable);
 
     // 게임 전체 페이징 조회

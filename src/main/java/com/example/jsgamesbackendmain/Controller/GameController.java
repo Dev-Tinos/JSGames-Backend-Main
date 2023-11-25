@@ -38,4 +38,12 @@ public class GameController {
     public GameGetByGameIdResponseDTO getGame(@PathVariable Long gameId) {
         return gameService.getGame(gameId);
     }
+
+    @Operation(summary = "특정 유저의 플레이한 게임 리스트 조회", description =
+            "# 특정 유저의 플레이한 게임 리스트 조회"
+    )
+    @GetMapping("/game/user/{userId}")
+    public List<GameListResponseDTO> listGamesByUser(@PathVariable String userId, @Parameter Long page, @Parameter Long size) {
+        return gameService.listGamesByUser(userId, page, size);
+    }
 }

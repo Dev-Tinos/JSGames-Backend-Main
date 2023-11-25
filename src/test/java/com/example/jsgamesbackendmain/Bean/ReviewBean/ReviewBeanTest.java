@@ -65,20 +65,75 @@ class ReviewBeanTest {
             list.add(review);
         }
 
-        List<ReviewDAO> expect = list.stream()
+        Comparator<ReviewDAO> reversed = Comparator.comparing(ReviewDAO::getReviewId).reversed();
+
+        List<ReviewDAO> recent = list.stream()
                 .filter(reviewDAO -> reviewDAO.getGameId() == gameId)
-                .sorted(Comparator.comparing(ReviewDAO::getDateTime).reversed())
+                .sorted(Comparator.comparing(ReviewDAO::getDateTime).reversed()
+                        .thenComparing(reversed)
+                )
                 .limit(10)
                 .collect(Collectors.toList());
 
         //when
-        List<ReviewGetByGameIdResponseDTO> exec = reviewListByGameBean.exec(gameId, 0L, 10L);
+        List<ReviewGetByGameIdResponseDTO> exec = reviewListByGameBean.exec(gameId, 0L, 10L, "recent");
+
+        System.out.println("recent = " + recent);
+        System.out.println("exec = " + exec);
 
         //then
-        assertEquals(expect.size(), exec.size());
-        for(int i = 0; i < expect.size(); i++) {
-            assertEquals(expect.get(i).getReviewId(), exec.get(i).getReviewId());
+        assertEquals(recent.size(), exec.size());
+        for (int i = 0; i < recent.size(); i++) {
+
+            System.out.println("e = " + exec.get(i).getReviewId());
+            System.out.println("r = " + recent.get(i).getReviewId());
+
+            assertEquals(recent.get(i).getReviewId(), exec.get(i).getReviewId());
         }
+
+
+
+        List<ReviewDAO> oldest = list.stream()
+                .filter(reviewDAO -> reviewDAO.getGameId() == gameId)
+                .sorted(Comparator.comparing(ReviewDAO::getDateTime)
+                        .thenComparing(reversed)
+                )
+                .limit(10)
+                .collect(Collectors.toList());
+
+        exec = reviewListByGameBean.exec(gameId, 0L, 10L, "oldest");
+
+        assertEquals(oldest.size(), exec.size());
+        for (int i = 0; i < oldest.size(); i++) {
+            assertEquals(oldest.get(i).getReviewId(), exec.get(i).getReviewId());
+        }
+
+        List<ReviewDAO> star = list.stream()
+                .filter(reviewDAO -> reviewDAO.getGameId() == gameId)
+                .sorted(Comparator.comparing(ReviewDAO::getStar)
+                        .thenComparing(ReviewDAO::getDateTime).reversed()
+                ).limit(10).collect(Collectors.toList());
+
+        exec = reviewListByGameBean.exec(gameId, 0L, 10L, "star");
+
+        assertEquals(star.size(), exec.size());
+        for (int i = 0; i < star.size(); i++) {
+            assertEquals(star.get(i).getReviewId(), exec.get(i).getReviewId());
+        }
+
+        List<ReviewDAO> helpful = list.stream()
+                .filter(reviewDAO -> reviewDAO.getGameId() == gameId)
+                .sorted(Comparator.comparing(ReviewDAO::getHelpful)
+                        .thenComparing(ReviewDAO::getDateTime).reversed()
+                ).limit(10).collect(Collectors.toList());
+
+        exec = reviewListByGameBean.exec(gameId, 0L, 10L, "helpful");
+
+        assertEquals(helpful.size(), exec.size());
+        for (int i = 0; i < helpful.size(); i++) {
+            assertEquals(helpful.get(i).getReviewId(), exec.get(i).getReviewId());
+        }
+
     }
 
     @Autowired
@@ -111,6 +166,7 @@ class ReviewBeanTest {
 
     @Autowired
     private ReviewUpdateBean reviewUpdateBean;
+
     @Test
     void ReviewUpdateBeanTest() {
         //given

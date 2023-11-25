@@ -11,6 +11,6 @@ public interface ReviewRepository extends JpaRepository<ReviewDAO, Long> {
 
     Page<ReviewDAO> findByGameIdOrderByHelpfulDescDateTimeDesc(Long gameId, Pageable pageable);
     Page<ReviewDAO> findByGameIdOrderByStarDescDateTimeDesc(Long gameId, Pageable pageable);
-    Page<ReviewDAO> findByGameIdOrderByDateTimeDesc(Long gameId, Pageable pageable);
-    Page<ReviewDAO> findByGameIdOrderByDateTimeAsc(Long gameId, Pageable pageable);
+    Page<ReviewDAO> findByGameIdOrderByDateTimeDescReviewIdDesc(Long gameId, Pageable pageable);
+    Page<ReviewDAO> findByGameIdOrderByDateTimeAscReviewIdDesc(Long gameId, Pageable pageable);
 }

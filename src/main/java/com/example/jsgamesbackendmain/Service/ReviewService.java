@@ -31,8 +31,8 @@ public class ReviewService {
     }
 
     // 게임 별 리뷰 조회
-    public List<ReviewGetByGameIdResponseDTO> listReviewsByGame(Long gameId, Long page, Long size) {
-        return reviewListByGameBean.exec(gameId, page, size);
+    public List<ReviewGetByGameIdResponseDTO> listReviewsByGame(Long gameId, Long page, Long size, String sort) {
+        return reviewListByGameBean.exec(gameId, page, size, sort);
     }
 
     // 리뷰 수정

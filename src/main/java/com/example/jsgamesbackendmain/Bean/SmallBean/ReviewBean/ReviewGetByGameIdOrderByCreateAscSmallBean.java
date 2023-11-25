@@ -10,15 +10,12 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class ReviewGetByGameIdOrderByCreateSmallBean {
-
+public class ReviewGetByGameIdOrderByCreateAscSmallBean {
     @Autowired
     private ReviewRepository reviewRepository;
 
-    public List<ReviewDAO> exec(Long gameId, Long page, Long size) {
-        PageRequest pageRequest = PageRequest.of(page.intValue(), size.intValue());
-
-        Page<ReviewDAO> order = reviewRepository.findByGameIdOrderByDateTimeDesc(gameId, pageRequest);
+    public List<ReviewDAO> exec(Long gameId, PageRequest pageRequest) {
+        Page<ReviewDAO> order = reviewRepository.findByGameIdOrderByDateTimeAsc(gameId, pageRequest);
 
         return order.toList();
     }

@@ -1,6 +1,6 @@
 package com.example.jsgamesbackendmain.Service;
 
-import com.example.jsgamesbackendmain.Bean.EmailBean.EmailClearBean;
+import com.example.jsgamesbackendmain.Bean.EmailBean.EmailSetBean;
 import com.example.jsgamesbackendmain.Bean.RankBean.RankSetTop100UserBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +11,7 @@ import java.util.Map;
 @Service
 public class TestService {
     @Autowired
-    private EmailClearBean emailClearBean;
+    private EmailSetBean emailClearBean;
 
     @Autowired
     private RankSetTop100UserBean rankSetTop100UserBean;

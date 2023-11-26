@@ -1,9 +1,8 @@
 package com.example.jsgamesbackendmain.Bean.UserBean;
 
 import com.example.jsgamesbackendmain.Bean.MapperBean.MapperBean;
-import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserEmailDuplicateSmallBean;
+import com.example.jsgamesbackendmain.Bean.SmallBean.S3Bean.S3DeleteSmallBeam;
 import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserGetSmallBean;
-import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserImageUpdateSmallBean;
 import com.example.jsgamesbackendmain.Model.DAO.UserDAO;
 import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserUpdateResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.User.Request.UserUpdateRequestDTO;
@@ -23,13 +22,10 @@ public class UserUpdateBean {
     private UserGetSmallBean userGetSmallBean;
 
     @Autowired
-    private UserEmailDuplicateSmallBean userEmailDuplicateSmallBean;
-
-    @Autowired
     private MapperBean mapperBean;
 
     @Autowired
-    private UserImageUpdateSmallBean userImageUpdateBean;
+    private S3DeleteSmallBeam S3DeleteSmallBeam;
     public UserUpdateResponseDTO updateUser(UserUpdateRequestDTO userUpdateRequestDTO) throws IOException {
 
         UserDAO user = userGetSmallBean.getUser(userUpdateRequestDTO.getUserId());
@@ -39,12 +35,10 @@ public class UserUpdateBean {
         if(userUpdateRequestDTO.getMajor() != null) {
             user.setMajor(userUpdateRequestDTO.getMajor());
         }
-        if(userUpdateRequestDTO.getProfileImage() != null) {
+        if(userUpdateRequestDTO.getProfileImageURL() != null) {
+            S3DeleteSmallBeam.exec(user.getProfileImageURL());
             user.setProfileImageURL(
-                    userImageUpdateBean.exec(
-                            userUpdateRequestDTO.getUserId(),
-                            userUpdateRequestDTO.getEmail(),
-                            userUpdateRequestDTO.getProfileImage()));
+                    userUpdateRequestDTO.getProfileImageURL());
         }
         return mapperBean.to(userRepository.save(user), UserUpdateResponseDTO.class);
     }

@@ -2,7 +2,6 @@ package com.example.jsgamesbackendmain.Bean.UserBean;
 
 import com.example.jsgamesbackendmain.Bean.MapperBean.MajorMapperBean;
 import com.example.jsgamesbackendmain.Bean.MapperBean.MapperBean;
-import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserImageUploadSmallBean;
 import com.example.jsgamesbackendmain.Model.DAO.UserDAO;
 import com.example.jsgamesbackendmain.Model.DTO.User.Request.UserSignUpRequestDTO;
 import com.example.jsgamesbackendmain.Repository.UserRepository;
@@ -24,15 +23,13 @@ public class UesrCreateBean {
     private MapperBean mapperBean;
     @Autowired
     private MajorMapperBean majorMapperBean;
-    @Autowired
-    private UserImageUploadSmallBean userImageUploadSmallBean;
     public UserDAO postUser(UserSignUpRequestDTO userSignUpRequestDTO) throws IOException {
         UserDAO userDAO = mapperBean.to(userSignUpRequestDTO, UserDAO.class);
         //ParentMajor set
         userDAO.setParentMajor(majorMapperBean.getParentMajor(userSignUpRequestDTO.getMajor()));
         //ProfileImageURL set
-        if(userSignUpRequestDTO.getProfileImageURL() != null){
-            userDAO.setProfileImageURL(userImageUploadSmallBean.exec(userSignUpRequestDTO.getEmail(), userSignUpRequestDTO.getProfileImageURL()));
+        if(userSignUpRequestDTO.getProfileImageURL() == null){
+            userDAO.setProfileImageURL("https://tinos-images-storage.s3.ap-northeast-2.amazonaws.com/default_user_image.png");
         }
         //UUID set
         userDAO.setUserId(generateVersion5UUID("namespace", "name").toString());

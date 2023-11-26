@@ -11,6 +11,6 @@ public class UserSignUpRequestDTO {
     private String password;
     private String nickname;
     private Major major;
-    private MultipartFile profileImageURL;
+    private String profileImageURL;
     private String code;
 }

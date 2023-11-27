@@ -30,7 +30,6 @@ public class UserBeanTest {
 
     @Autowired
     private UserSignUpBean userSignUpBean;
-
     @Test
     void UserCreateBeanTest() {
         //given
@@ -52,7 +51,6 @@ public class UserBeanTest {
 
     @Autowired
     private UserDeleteBean userDeleteBean;
-
     @Test
     void UserDeleteBean() {
         //given
@@ -69,7 +67,6 @@ public class UserBeanTest {
 
     @Autowired
     private UserGetBean userGetBean;
-
     @Test
     void UserGetBeanTest() {
         //given
@@ -109,7 +106,6 @@ public class UserBeanTest {
 
     @Autowired
     private UserUpdateBean userUpdateBean;
-
     @Test
     void UserUpdateBeanTest() {
         //given

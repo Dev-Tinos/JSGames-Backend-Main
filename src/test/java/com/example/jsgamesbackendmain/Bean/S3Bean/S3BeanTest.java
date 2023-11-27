@@ -20,7 +20,6 @@ public class S3BeanTest {
 
     @Autowired
     private S3UploadImageBean s3UploadImageBean;
-
     @Test
     void S3UploadImageBeanTest() throws Exception {
         // given
@@ -29,7 +28,6 @@ public class S3BeanTest {
     }
     @Autowired
     private S3DeletImageBean s3DeletImageBean;
-
     @Test
     void S3DeletImageBeanTest() throws Exception {
         // given

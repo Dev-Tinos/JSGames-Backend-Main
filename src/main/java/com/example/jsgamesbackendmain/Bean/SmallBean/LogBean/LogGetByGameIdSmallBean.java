@@ -2,6 +2,7 @@ package com.example.jsgamesbackendmain.Bean.SmallBean.LogBean;
 
 
 import com.example.jsgamesbackendmain.Bean.MapperBean.MapperBean;
+import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserGetByIdSmallBean;
 import com.example.jsgamesbackendmain.Bean.UserBean.UserGetBean;
 import com.example.jsgamesbackendmain.Model.DAO.GameDAO;
 import com.example.jsgamesbackendmain.Model.DAO.LogDAO;
@@ -23,7 +24,7 @@ public class LogGetByGameIdSmallBean {
     @Autowired
     private LogRepository logRepository;
     @Autowired
-    private UserGetBean userGetBean;
+    private UserGetByIdSmallBean userGetByIdSmallBean;
     @Autowired
     private MapperBean mapperBean;
 
@@ -45,8 +46,7 @@ public class LogGetByGameIdSmallBean {
 
         return order.toList().stream().map(logDAO -> {
             LogGetByGameIdResponseDTO dto = mapperBean.to(logDAO, LogGetByGameIdResponseDTO.class);
-            UserGetResponseDTO user = userGetBean.getUser(logDAO.getUserId());
-            dto.setUser(mapperBean.to(user, UserLogResponseDTO.class));
+            dto.setUser(mapperBean.to(userGetByIdSmallBean.exec(logDAO.getUserId()), UserLogResponseDTO.class));
             return dto;
         }).collect(Collectors.toList());
     }

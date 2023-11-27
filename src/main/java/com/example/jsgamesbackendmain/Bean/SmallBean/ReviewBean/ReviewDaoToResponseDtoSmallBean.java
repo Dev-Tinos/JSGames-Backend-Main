@@ -1,7 +1,7 @@
 package com.example.jsgamesbackendmain.Bean.SmallBean.ReviewBean;
 
 import com.example.jsgamesbackendmain.Bean.MapperBean.MapperBean;
-import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserGetSmallBean;
+import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserGetByIdSmallBean;
 import com.example.jsgamesbackendmain.Model.DAO.ReviewDAO;
 import com.example.jsgamesbackendmain.Model.DAO.UserDAO;
 import com.example.jsgamesbackendmain.Model.DTO.Review.Response.ReviewGetByGameIdResponseDTO;
@@ -16,12 +16,12 @@ public class ReviewDaoToResponseDtoSmallBean {
     private MapperBean mapperBean;
 
     @Autowired
-    private UserGetSmallBean userGetSmallBean;
+    private UserGetByIdSmallBean userGetByIdSmallBean;
 
     public ReviewGetByGameIdResponseDTO exec(ReviewDAO dao) {
         ReviewGetByGameIdResponseDTO dto = mapperBean.to(dao, ReviewGetByGameIdResponseDTO.class);
 
-        UserDAO user = userGetSmallBean.getUser(dao.getUserId());
+        UserDAO user = userGetByIdSmallBean.exec(dao.getUserId());
 
         UserGetResponseDTO userDTO = mapperBean.to(user, UserGetResponseDTO.class);
 

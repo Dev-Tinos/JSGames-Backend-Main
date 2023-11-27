@@ -1,7 +1,7 @@
 package com.example.jsgamesbackendmain.Model.DAO;
 
 import com.example.jsgamesbackendmain.Bean.MapperBean.MajorMapperBean;
-import com.example.jsgamesbackendmain.Bean.UserBean.UesrCreateBean;
+import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UesrCreateSmallBean;
 import com.example.jsgamesbackendmain.Model.ENUM.Major;
 import com.example.jsgamesbackendmain.Model.ENUM.ParentMajor;
 import lombok.Getter;
@@ -28,7 +28,7 @@ public class UserDAO {
     public static UserDAO createTest(int i) {
         Major[] majors = Major.values();
         MajorMapperBean mapperBean = new MajorMapperBean();
-        String id = UesrCreateBean.generateVersion5UUID("namespace", "name").toString();
+        String id = UesrCreateSmallBean.generateVersion5UUID("namespace", "name").toString();
         String s = String.valueOf(i);
         UserDAO dao = new UserDAO();
         dao.setUserId(id);

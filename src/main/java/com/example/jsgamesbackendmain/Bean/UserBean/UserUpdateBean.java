@@ -1,45 +1,48 @@
 package com.example.jsgamesbackendmain.Bean.UserBean;
 
+import com.example.jsgamesbackendmain.Bean.MapperBean.MajorMapperBean;
 import com.example.jsgamesbackendmain.Bean.MapperBean.MapperBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.S3Bean.S3DeleteSmallBeam;
-import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserGetSmallBean;
+import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserGetByIdSmallBean;
+import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserSaveSmallBean;
 import com.example.jsgamesbackendmain.Model.DAO.UserDAO;
 import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserUpdateResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.User.Request.UserUpdateRequestDTO;
-import com.example.jsgamesbackendmain.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.io.IOException;
 
 @Component
 public class UserUpdateBean {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserSaveSmallBean userSaveSmallBean;
 
     @Autowired
-    private UserGetSmallBean userGetSmallBean;
+    private UserGetByIdSmallBean userGetByIdSmallBean;
 
     @Autowired
     private MapperBean mapperBean;
 
     @Autowired
-    private S3DeleteSmallBeam S3DeleteSmallBeam;
-    public UserUpdateResponseDTO updateUser(UserUpdateRequestDTO userUpdateRequestDTO) throws IOException {
+    private MajorMapperBean majorMapperBean;
 
-        UserDAO user = userGetSmallBean.getUser(userUpdateRequestDTO.getUserId());
+    @Autowired
+    private S3DeleteSmallBeam S3DeleteSmallBeam;
+    public UserUpdateResponseDTO exec(UserUpdateRequestDTO userUpdateRequestDTO) {
+        UserDAO user = userGetByIdSmallBean.exec(userUpdateRequestDTO.getUserId());
+
         if(userUpdateRequestDTO.getNickname() != null) {
             user.setNickname(userUpdateRequestDTO.getNickname());
         }
         if(userUpdateRequestDTO.getMajor() != null) {
             user.setMajor(userUpdateRequestDTO.getMajor());
+            user.setParentMajor(majorMapperBean.getParentMajor(userUpdateRequestDTO.getMajor()));
         }
         if(userUpdateRequestDTO.getProfileImageURL() != null) {
             S3DeleteSmallBeam.exec(user.getProfileImageURL());
             user.setProfileImageURL(
                     userUpdateRequestDTO.getProfileImageURL());
         }
-        return mapperBean.to(userRepository.save(user), UserUpdateResponseDTO.class);
+        return mapperBean.to(userSaveSmallBean.exec(user), UserUpdateResponseDTO.class);
     }
 }

@@ -17,8 +17,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.IOException;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
@@ -48,8 +46,6 @@ public class UserBeanTest {
             //then
             // InvalidException 발생시 통과
             a = 0;
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
         assertEquals(0, a);
     }
@@ -65,7 +61,7 @@ public class UserBeanTest {
         userRepository.save(user);
 
         //when
-        userDeleteBean.deleteUser(user.getUserId());
+        userDeleteBean.exec(user.getUserId());
 
         //then
         assertEquals(0, userRepository.findAll().size());
@@ -82,7 +78,7 @@ public class UserBeanTest {
         UserDAO findDao = userRepository.findById(user.getUserId())
                 .get();
         //when
-        UserGetResponseDTO dto = userGetBean.getUser(user.getUserId());
+        UserGetResponseDTO dto = userGetBean.exec(user.getUserId());
 
         //then
         assertEquals(findDao.getUserId(), dto.getUserId());
@@ -115,7 +111,7 @@ public class UserBeanTest {
     private UserUpdateBean userUpdateBean;
 
     @Test
-    void UserUpdateBeanTest() throws IOException {
+    void UserUpdateBeanTest() {
         //given
         UserDAO user = UserDAO.createTest(0);
         userRepository.save(user);
@@ -125,7 +121,7 @@ public class UserBeanTest {
         requestDTO.setUserId(user.getUserId());
 
         //when
-        UserUpdateResponseDTO responseDTO = userUpdateBean.updateUser(requestDTO);
+        UserUpdateResponseDTO responseDTO = userUpdateBean.exec(requestDTO);
         UserDAO expect = userRepository.findAll().stream().findAny().get();
 
         //then

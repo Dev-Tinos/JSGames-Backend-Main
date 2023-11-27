@@ -40,7 +40,6 @@ class LogBeanTest {
 
     @Autowired
     private LogGetByGameIdBean logGetByGameIdBean;
-
     @Test
     void LogGetByGameIdBeanTest() {
         //given
@@ -119,7 +118,6 @@ class LogBeanTest {
 
     @Autowired
     private LogGetByGamIdUserIdBean logGetByGamIdUserIdBean;
-
     @Test
     void LogGetByGamIdUserIdBeanTest() {
         //given
@@ -178,7 +176,6 @@ class LogBeanTest {
 
     @Autowired
     private LogPostBean logPostBean;
-
     @Test
     void LogPostBeanTest() {
         //given

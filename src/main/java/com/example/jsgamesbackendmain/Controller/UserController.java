@@ -1,5 +1,6 @@
 package com.example.jsgamesbackendmain.Controller;
 
+import com.example.jsgamesbackendmain.Model.DTO.StateResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserGetResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserLoginResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserSignUpResponseDTO;
@@ -61,7 +62,7 @@ public class UserController {
             content = @Content(examples =
             @ExampleObject(value = "{'message': 'Success'}")))
     @DeleteMapping("/user/{userId}")
-    public Map<String, String> deleteUser(@PathVariable String userId) {
+    public StateResponseDTO deleteUser(@PathVariable String userId) {
         return userService.deleteUser(userId);
     }
 }

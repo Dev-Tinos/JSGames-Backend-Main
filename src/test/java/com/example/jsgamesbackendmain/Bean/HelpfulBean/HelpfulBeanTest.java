@@ -1,7 +1,7 @@
 package com.example.jsgamesbackendmain.Bean.HelpfulBean;
 
-import com.example.jsgamesbackendmain.Bean.SmallBean.HelpfulBean.HelpfulDeleteSmallBean;
 import com.example.jsgamesbackendmain.Model.DAO.HelpfulDAO;
+import com.example.jsgamesbackendmain.Model.DAO.ReviewDAO;
 import com.example.jsgamesbackendmain.Model.DTO.Helpful.HelpfulGetReponseDTO;
 import com.example.jsgamesbackendmain.Repository.HelpfulRepository;
 import com.example.jsgamesbackendmain.Repository.ReviewRepository;
@@ -11,7 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
@@ -36,8 +36,8 @@ public class HelpfulBeanTest {
         HelpfulGetReponseDTO helpfulGetReponseDTO1 = helpfulGetBean.exec("test01", 1L);
         HelpfulGetReponseDTO helpfulGetReponseDTO2 = helpfulGetBean.exec("test02", 1L);
         //then
-        assertEquals(true, helpfulGetReponseDTO1.isHelpful());
-        assertEquals(false, helpfulGetReponseDTO2.isHelpful());
+        assertTrue(helpfulGetReponseDTO1.isHelpful());
+        assertFalse(helpfulGetReponseDTO2.isHelpful());
     }
 
     @Autowired
@@ -45,6 +45,9 @@ public class HelpfulBeanTest {
     @Test
     void HelpfulPostBeanTest() {
         //given
+        ReviewDAO newReview = ReviewDAO.createTest(1);
+        reviewRepository.save(newReview);
+
         //when
         helpfulPostBean.exec("test01", 1L);
         helpfulPostBean.exec("test02", 1L);
@@ -60,6 +63,8 @@ public class HelpfulBeanTest {
         //given
         helpfulPostBean.exec("test01", 1L);
         helpfulPostBean.exec("test02", 1L);
+        ReviewDAO newReview = ReviewDAO.createTest(1);
+        reviewRepository.save(newReview);
         //when
         helpfulDeleteBean.exec("test01", 1L);
         helpfulDeleteBean.exec("test02", 1L);

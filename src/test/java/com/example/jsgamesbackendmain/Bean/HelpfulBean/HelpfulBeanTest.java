@@ -47,6 +47,7 @@ public class HelpfulBeanTest {
         //given
         ReviewDAO newReview = ReviewDAO.createTest(1);
         reviewRepository.save(newReview);
+        System.out.println("newReview = " + newReview);
 
         //when
         helpfulPostBean.exec("test01", 1L);
@@ -61,10 +62,10 @@ public class HelpfulBeanTest {
     @Test
     void HelpfulDeleteBeanTest() {
         //given
-        helpfulPostBean.exec("test01", 1L);
-        helpfulPostBean.exec("test02", 1L);
         ReviewDAO newReview = ReviewDAO.createTest(1);
         reviewRepository.save(newReview);
+        helpfulPostBean.exec("test01", 1L);
+        helpfulPostBean.exec("test02", 1L);
         //when
         helpfulDeleteBean.exec("test01", 1L);
         helpfulDeleteBean.exec("test02", 1L);

@@ -24,4 +24,9 @@ public interface ReviewRepository extends JpaRepository<ReviewDAO, Long> {
     @Transactional
     @Query("UPDATE ReviewDAO r SET r.helpful = r.helpful - 1 WHERE r.reviewId = ?1")
     void updateHelpfulMinus(Long reviewId);
+
+    Page<ReviewDAO> findByGameIdOrderByHelpfulDescDateTimeDesc(Long gameId, Pageable pageable);
+    Page<ReviewDAO> findByGameIdOrderByStarDescDateTimeDesc(Long gameId, Pageable pageable);
+    Page<ReviewDAO> findByGameIdOrderByDateTimeDescReviewIdDesc(Long gameId, Pageable pageable);
+    Page<ReviewDAO> findByGameIdOrderByDateTimeAscReviewIdDesc(Long gameId, Pageable pageable);
 }

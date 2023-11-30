@@ -1,14 +1,14 @@
 package com.example.jsgamesbackendmain.Model.DAO;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 
 @Entity
 @Getter @Setter
+@ToString
 @Table(name = "RankTop100")
 public class RankTop100DAO {
     @Id
@@ -16,6 +16,6 @@ public class RankTop100DAO {
     private Long rankId;
 
     private String userId;
-
-    private Long score;
+    private Integer totalRank;
+    private Long rankWeight;
 }

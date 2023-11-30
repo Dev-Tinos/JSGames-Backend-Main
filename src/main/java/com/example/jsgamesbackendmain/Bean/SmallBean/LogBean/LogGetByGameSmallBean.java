@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class LogGetByGameIdSmallBean {
+public class LogGetByGameSmallBean {
     @Autowired
     private LogRepository logRepository;
     @Autowired
@@ -49,5 +49,9 @@ public class LogGetByGameIdSmallBean {
             dto.setUser(mapperBean.to(userGetByIdSmallBean.exec(logDAO.getUserId()), UserLogResponseDTO.class));
             return dto;
         }).collect(Collectors.toList());
+    }
+
+    public Long count(Long gameId) {
+        return logRepository.countByGameId(gameId);
     }
 }

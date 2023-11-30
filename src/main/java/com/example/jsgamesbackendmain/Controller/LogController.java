@@ -21,7 +21,7 @@ public class LogController {
     private LogService logService;
 
     //랭킹 조회 API
-    @Operation(summary = "특정 게임 유저 순위 조회", description =
+    @Operation(summary = "특정 게임 로그 조회", description =
             "# Game의 Log 조회 api  \n\n" +
             "## scoreType이 `INFINITE`인 경우 Log 조회시 점수 내림차순  \n\n" +
             "## scoreType이 `GOAL`인 경우 Log 조회시 targetScore와 가장 가까운 점수 순서대로 조회"
@@ -31,7 +31,6 @@ public class LogController {
         return logService.getLogsByGameId(gameId, page, size);
     }
 
-//    특정 게임 특정 유저 랭킹 조회 API
     @Operation(summary = "특정 게임 특정 유저의 최고 점수 조회", description =
             "# Game의 특정유저의 최고점수 Log 조회 api  \n\n" +
             "## Game의 scoreType이 `INFINITE`인 경우 조회시 가장 높은 점수 조회  \n\n" +

@@ -69,7 +69,8 @@ class ReviewBeanTest {
 
         List<ReviewDAO> recent = list.stream()
                 .filter(reviewDAO -> reviewDAO.getGameId() == gameId)
-                .sorted(Comparator.comparing(ReviewDAO::getDateTime).reversed()
+                .sorted(
+                        Comparator.comparing(ReviewDAO::getDateTime).reversed()
                         .thenComparing(reversed)
                 )
                 .limit(10)

@@ -16,7 +16,7 @@ public class ReviewGetByGameIdOrderByStarDescSmallBean {
 
     public List<ReviewDAO> exec(Long gameId, PageRequest pageRequest) {
 
-        Page<ReviewDAO> order = reviewRepository.findByGameIdOrderByStarDescDateTimeDesc(gameId, pageRequest);
+        Page<ReviewDAO> order = reviewRepository.findByGameIdOrderByStarDescDateTimeDescReviewIdDesc(gameId, pageRequest);
 
         return order.toList();
     }

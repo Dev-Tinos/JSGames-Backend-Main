@@ -11,7 +11,7 @@ public class UserLogResponseDTO {
     private String userId;
     private String nickname;
     private String email;
-    private String imageUrl;
+    private String profileImageURL;
     private ParentMajor parentMajor;
     private Major major;
 }

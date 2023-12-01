@@ -27,7 +27,7 @@ public class ReviewDAO {
     private Float star;
 
     // helpful
-    private Long helpful;
+    private Long helpful = 0L;
 
     @CreationTimestamp
     @Column(updatable = false)

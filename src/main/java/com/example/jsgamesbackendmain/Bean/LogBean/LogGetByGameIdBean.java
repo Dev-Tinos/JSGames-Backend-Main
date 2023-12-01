@@ -2,7 +2,7 @@ package com.example.jsgamesbackendmain.Bean.LogBean;
 
 import com.example.jsgamesbackendmain.Bean.MapperBean.MapperBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.GameBean.GameGetSmallBean;
-import com.example.jsgamesbackendmain.Bean.SmallBean.LogBean.LogGetByGameIdSmallBean;
+import com.example.jsgamesbackendmain.Bean.SmallBean.LogBean.LogGetByGameSmallBean;
 import com.example.jsgamesbackendmain.Model.DAO.GameDAO;
 import com.example.jsgamesbackendmain.Model.DTO.Log.Response.LogGetByGameIdResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ import java.util.List;
 @Component
 public class LogGetByGameIdBean {
     @Autowired
-    private LogGetByGameIdSmallBean logGetByGameIdSmallBean;
+    private LogGetByGameSmallBean logGetByGameSmallBean;
 
     @Autowired
     private GameGetSmallBean gameGetSmallBean;
@@ -25,7 +25,7 @@ public class LogGetByGameIdBean {
 
         GameDAO gameDAO = gameGetSmallBean.exec(gameId);
 
-        return logGetByGameIdSmallBean.exec(gameDAO, page, size);
+        return logGetByGameSmallBean.exec(gameDAO, page, size);
     }
 
 }

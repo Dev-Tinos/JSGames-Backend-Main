@@ -42,7 +42,7 @@ public class TestController {
     @ApiResponse(responseCode = "200", description = "successful operation",
             content = @Content(examples =
             @ExampleObject(value = "{'result': 'success'}")))
-    @PostMapping("/users/top100/set")
+    @PostMapping("/users/rank/set")
     public Map<String,String> setTop100Users() {
         return testService.setRank();
     }

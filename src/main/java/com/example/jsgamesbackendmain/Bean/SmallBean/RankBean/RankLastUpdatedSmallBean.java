@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 @Component
 public class RankLastUpdatedSmallBean {
     private LocalDateTime lastUpdated = LocalDateTime.now();
-    public LocalDateTime exec() {
+    public LocalDateTime getLastUpdated() {
         return lastUpdated;
     }
     public void setLastUpdated() {

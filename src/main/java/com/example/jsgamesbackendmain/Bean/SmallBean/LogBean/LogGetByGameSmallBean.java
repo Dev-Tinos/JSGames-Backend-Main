@@ -2,6 +2,7 @@ package com.example.jsgamesbackendmain.Bean.SmallBean.LogBean;
 
 
 import com.example.jsgamesbackendmain.Bean.MapperBean.MapperBean;
+import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserGetByIdSmallBean;
 import com.example.jsgamesbackendmain.Bean.UserBean.UserGetBean;
 import com.example.jsgamesbackendmain.Model.DAO.GameDAO;
 import com.example.jsgamesbackendmain.Model.DAO.LogDAO;
@@ -19,11 +20,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class LogGetByGameIdSmallBean {
+public class LogGetByGameSmallBean {
     @Autowired
     private LogRepository logRepository;
     @Autowired
-    private UserGetBean userGetBean;
+    private UserGetByIdSmallBean userGetByIdSmallBean;
     @Autowired
     private MapperBean mapperBean;
 
@@ -45,9 +46,12 @@ public class LogGetByGameIdSmallBean {
 
         return order.toList().stream().map(logDAO -> {
             LogGetByGameIdResponseDTO dto = mapperBean.to(logDAO, LogGetByGameIdResponseDTO.class);
-            UserGetResponseDTO user = userGetBean.getUser(logDAO.getUserId());
-            dto.setUser(mapperBean.to(user, UserLogResponseDTO.class));
+            dto.setUser(mapperBean.to(userGetByIdSmallBean.exec(logDAO.getUserId()), UserLogResponseDTO.class));
             return dto;
         }).collect(Collectors.toList());
+    }
+
+    public Long count(Long gameId) {
+        return logRepository.countByGameId(gameId);
     }
 }

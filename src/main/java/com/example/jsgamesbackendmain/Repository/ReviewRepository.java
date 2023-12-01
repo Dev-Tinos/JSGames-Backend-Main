@@ -15,13 +15,11 @@ public interface ReviewRepository extends JpaRepository<ReviewDAO, Long> {
 
     //reviewID 의 helpful +1
     @Modifying
-    @Transactional
     @Query("UPDATE ReviewDAO r SET r.helpful = r.helpful + 1 WHERE r.reviewId = ?1")
     void updateHelpfulPlus(Long reviewId);
 
     //reviewID 의 helpful -1
     @Modifying
-    @Transactional
     @Query("UPDATE ReviewDAO r SET r.helpful = r.helpful - 1 WHERE r.reviewId = ?1")
     void updateHelpfulMinus(Long reviewId);
 

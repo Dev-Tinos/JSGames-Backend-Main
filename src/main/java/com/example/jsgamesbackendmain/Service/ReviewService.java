@@ -8,6 +8,7 @@ import com.example.jsgamesbackendmain.Model.DTO.Review.Request.ReviewUpdateReque
 import com.example.jsgamesbackendmain.Model.DTO.Review.Response.ReviewGetByGameIdResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Review.Response.ReviewUpdateResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Review.ReviewDTO;
+import com.example.jsgamesbackendmain.Model.ENUM.ReviewSort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +32,7 @@ public class ReviewService {
     }
 
     // 게임 별 리뷰 조회
-    public List<ReviewGetByGameIdResponseDTO> listReviewsByGame(Long gameId, Long page, Long size, String sort) {
+    public List<ReviewGetByGameIdResponseDTO> listReviewsByGame(Long gameId, Long page, Long size, ReviewSort sort) {
         return reviewListByGameBean.exec(gameId, page, size, sort);
     }
 

@@ -4,6 +4,7 @@ import com.example.jsgamesbackendmain.Model.DTO.Review.ReviewDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Review.Request.ReviewCreateRequestDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Review.Request.ReviewUpdateRequestDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Review.Response.ReviewGetByGameIdResponseDTO;
+import com.example.jsgamesbackendmain.Model.ENUM.ReviewSort;
 import com.example.jsgamesbackendmain.Service.ReviewService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -41,7 +42,7 @@ public class ReviewController {
             @PathVariable Long gameId,
             @RequestParam Long page,
             @RequestParam Long size,
-            @RequestParam(defaultValue = "recent") String sort) {
+            @RequestParam(defaultValue = "RECENT") ReviewSort sort) {
         return reviewService.listReviewsByGame(gameId, page, size, sort);
     }
 

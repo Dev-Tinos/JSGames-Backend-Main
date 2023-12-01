@@ -9,6 +9,7 @@ import com.example.jsgamesbackendmain.Model.DTO.Review.Request.ReviewUpdateReque
 import com.example.jsgamesbackendmain.Model.DTO.Review.Response.ReviewGetByGameIdResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Review.Response.ReviewUpdateResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Review.ReviewDTO;
+import com.example.jsgamesbackendmain.Model.ENUM.ReviewSort;
 import com.example.jsgamesbackendmain.Repository.GameRepository;
 import com.example.jsgamesbackendmain.Repository.ReviewRepository;
 import com.example.jsgamesbackendmain.Repository.UserRepository;
@@ -77,7 +78,7 @@ class ReviewBeanTest {
                 .collect(Collectors.toList());
 
         //when
-        List<ReviewGetByGameIdResponseDTO> exec = reviewListByGameBean.exec(gameId, 0L, 10L, "recent");
+        List<ReviewGetByGameIdResponseDTO> exec = reviewListByGameBean.exec(gameId, 0L, 10L, ReviewSort.RECENT);
 
         System.out.println("recent = " + recent);
         System.out.println("exec = " + exec);
@@ -102,7 +103,7 @@ class ReviewBeanTest {
                 .limit(10)
                 .collect(Collectors.toList());
 
-        exec = reviewListByGameBean.exec(gameId, 0L, 10L, "oldest");
+        exec = reviewListByGameBean.exec(gameId, 0L, 10L, ReviewSort.OLDEST);
 
         assertEquals(oldest.size(), exec.size());
         for (int i = 0; i < oldest.size(); i++) {
@@ -115,7 +116,7 @@ class ReviewBeanTest {
                         .thenComparing(ReviewDAO::getDateTime).reversed()
                 ).limit(10).collect(Collectors.toList());
 
-        exec = reviewListByGameBean.exec(gameId, 0L, 10L, "star");
+        exec = reviewListByGameBean.exec(gameId, 0L, 10L, ReviewSort.STAR);
 
         assertEquals(star.size(), exec.size());
         for (int i = 0; i < star.size(); i++) {
@@ -128,7 +129,7 @@ class ReviewBeanTest {
                         .thenComparing(ReviewDAO::getDateTime).reversed()
                 ).limit(10).collect(Collectors.toList());
 
-        exec = reviewListByGameBean.exec(gameId, 0L, 10L, "helpful");
+        exec = reviewListByGameBean.exec(gameId, 0L, 10L, ReviewSort.HELPFUL);
 
         assertEquals(helpful.size(), exec.size());
         for (int i = 0; i < helpful.size(); i++) {

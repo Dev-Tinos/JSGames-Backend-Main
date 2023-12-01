@@ -1,7 +1,7 @@
 package com.example.jsgamesbackendmain.Bean.UserBean;
 
 import com.example.jsgamesbackendmain.Bean.MapperBean.MapperBean;
-import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserGetSmallBean;
+import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserGetByIdSmallBean;
 import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserGetResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -9,12 +9,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserGetBean {
     @Autowired
-    private UserGetSmallBean userGetSmallBean;
+    private UserGetByIdSmallBean userGetByIdSmallBean;
 
     @Autowired
     private MapperBean mapperBean;
 
-    public UserGetResponseDTO getUser(String userId) {
-        return mapperBean.to(userGetSmallBean.getUser(userId), UserGetResponseDTO.class);
+    public UserGetResponseDTO exec(String userId) {
+        return mapperBean.to(userGetByIdSmallBean.exec(userId), UserGetResponseDTO.class);
     }
 }

@@ -30,7 +30,6 @@ public class UserBeanTest {
 
     @Autowired
     private UserSignUpBean userSignUpBean;
-
     @Test
     void UserCreateBeanTest() {
         //given
@@ -52,7 +51,6 @@ public class UserBeanTest {
 
     @Autowired
     private UserDeleteBean userDeleteBean;
-
     @Test
     void UserDeleteBean() {
         //given
@@ -61,7 +59,7 @@ public class UserBeanTest {
         userRepository.save(user);
 
         //when
-        userDeleteBean.deleteUser(user.getUserId());
+        userDeleteBean.exec(user.getUserId());
 
         //then
         assertEquals(0, userRepository.findAll().size());
@@ -69,7 +67,6 @@ public class UserBeanTest {
 
     @Autowired
     private UserGetBean userGetBean;
-
     @Test
     void UserGetBeanTest() {
         //given
@@ -78,7 +75,7 @@ public class UserBeanTest {
         UserDAO findDao = userRepository.findById(user.getUserId())
                 .get();
         //when
-        UserGetResponseDTO dto = userGetBean.getUser(user.getUserId());
+        UserGetResponseDTO dto = userGetBean.exec(user.getUserId());
 
         //then
         assertEquals(findDao.getUserId(), dto.getUserId());
@@ -109,7 +106,6 @@ public class UserBeanTest {
 
     @Autowired
     private UserUpdateBean userUpdateBean;
-
     @Test
     void UserUpdateBeanTest() {
         //given
@@ -121,7 +117,7 @@ public class UserBeanTest {
         requestDTO.setUserId(user.getUserId());
 
         //when
-        UserUpdateResponseDTO responseDTO = userUpdateBean.updateUser(requestDTO);
+        UserUpdateResponseDTO responseDTO = userUpdateBean.exec(requestDTO);
         UserDAO expect = userRepository.findAll().stream().findAny().get();
 
         //then

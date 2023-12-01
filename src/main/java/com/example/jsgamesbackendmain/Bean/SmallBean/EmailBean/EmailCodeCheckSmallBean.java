@@ -1,4 +1,4 @@
-package com.example.jsgamesbackendmain.Bean.EmailBean;
+package com.example.jsgamesbackendmain.Bean.SmallBean.EmailBean;
 
 import com.example.jsgamesbackendmain.Controller.ExceptionControll.InvalidException;
 import com.example.jsgamesbackendmain.Model.DAO.EmailCodeDAO;
@@ -7,12 +7,10 @@ import com.example.jsgamesbackendmain.Repository.EmailCodeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 
 @Component
-public class EmailCodeCheckBean {
+public class EmailCodeCheckSmallBean {
 
     @Autowired
     private EmailCodeRepository emailCodeRepository;

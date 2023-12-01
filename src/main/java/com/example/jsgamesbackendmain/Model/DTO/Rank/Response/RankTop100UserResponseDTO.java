@@ -9,5 +9,6 @@ import lombok.Setter;
 public class RankTop100UserResponseDTO {
     private Long rankId ;
     private UserLogResponseDTO user;
-    private Long score;
+    private Long rankWeight;
+    private Integer totalRank;
 }

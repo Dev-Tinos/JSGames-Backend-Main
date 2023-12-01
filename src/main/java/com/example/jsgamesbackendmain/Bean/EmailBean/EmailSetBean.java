@@ -1,5 +1,7 @@
 package com.example.jsgamesbackendmain.Bean.EmailBean;
 
+import com.example.jsgamesbackendmain.Bean.SmallBean.EmailBean.EmailAppendSmallBean;
+import com.example.jsgamesbackendmain.Bean.SmallBean.EmailBean.EmailClearSmallBean;
 import com.example.jsgamesbackendmain.Model.DAO.EmailAccountDAO;
 import com.example.jsgamesbackendmain.Repository.EmailAccountRepository;
 import com.example.jsgamesbackendmain.Repository.EmailCodeRepository;
@@ -8,18 +10,14 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 @Component
-public class EmailClearBean {
+public class EmailSetBean {
     @Autowired
-    private EmailCodeRepository emailCodeRepository;
+    private EmailAppendSmallBean emailAppendSmallBean;
     @Autowired
-    private EmailAccountRepository emailAccountRepository;
+    private EmailClearSmallBean emailClearSmallBean;
     @Scheduled(cron = "0 55 23 * * *")
     public void exec(){
-        emailAccountRepository.deleteAll();
-        emailCodeRepository.deleteAll();
-        EmailAccountDAO emailAccountDAO = new EmailAccountDAO();
-        emailAccountDAO.setSentEmails(0L);
-        emailAccountDAO.setId(0L);
-        emailAccountRepository.save(emailAccountDAO);
+        emailClearSmallBean.exec();
+        emailAppendSmallBean.exec();
     }
 }

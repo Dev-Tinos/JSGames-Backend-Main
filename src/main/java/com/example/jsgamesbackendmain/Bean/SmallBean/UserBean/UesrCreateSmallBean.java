@@ -1,10 +1,9 @@
-package com.example.jsgamesbackendmain.Bean.UserBean;
+package com.example.jsgamesbackendmain.Bean.SmallBean.UserBean;
 
 import com.example.jsgamesbackendmain.Bean.MapperBean.MajorMapperBean;
 import com.example.jsgamesbackendmain.Bean.MapperBean.MapperBean;
 import com.example.jsgamesbackendmain.Model.DAO.UserDAO;
 import com.example.jsgamesbackendmain.Model.DTO.User.Request.UserSignUpRequestDTO;
-import com.example.jsgamesbackendmain.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,20 +14,24 @@ import java.security.NoSuchAlgorithmException;
 import java.util.UUID;
 
 @Component
-public class UesrCreateBean {
+public class UesrCreateSmallBean {
     @Autowired
-    private UserRepository userRepository;
+    private UserSaveSmallBean userSaveSmallBean;
     @Autowired
     private MapperBean mapperBean;
     @Autowired
     private MajorMapperBean majorMapperBean;
-    public UserDAO postUser(UserSignUpRequestDTO userSignUpRequestDTO) {
-        UserDAO userDAO = mapperBean.to(userSignUpRequestDTO, UserDAO.class);
+    public UserDAO exec(UserSignUpRequestDTO userSignUpRequestDTO) {
+        UserDAO user = mapperBean.to(userSignUpRequestDTO, UserDAO.class);
         //ParentMajor set
-        userDAO.setParentMajor(majorMapperBean.getParentMajor(userSignUpRequestDTO.getMajor()));
+        user.setParentMajor(majorMapperBean.getParentMajor(userSignUpRequestDTO.getMajor()));
+        //ProfileImageURL set
+        if(userSignUpRequestDTO.getProfileImageURL() == null){
+            user.setProfileImageURL("https://tinos-images-storage.s3.ap-northeast-2.amazonaws.com/default_user_image.png");
+        }
         //UUID set
-        userDAO.setUserId(generateVersion5UUID("namespace", "name").toString());
-        return userRepository.save(userDAO);
+        user.setUserId(generateVersion5UUID("namespace", "name").toString());
+        return userSaveSmallBean.exec(user);
     }
     public static UUID generateVersion5UUID(String namespace, String name) {
         try {

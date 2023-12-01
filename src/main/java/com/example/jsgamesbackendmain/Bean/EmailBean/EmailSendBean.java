@@ -1,13 +1,11 @@
 package com.example.jsgamesbackendmain.Bean.EmailBean;
 
-import com.example.jsgamesbackendmain.Bean.SmallBean.EmailBean.EmailDomainCheckSmallBean;
-import com.example.jsgamesbackendmain.Bean.SmallBean.EmailBean.EmailDuplicateSmallBean;
-import com.example.jsgamesbackendmain.Bean.SmallBean.EmailBean.EmailMaxCheckSmallBean;
-import com.example.jsgamesbackendmain.Bean.SmallBean.EmailBean.EmailSendSmallBean;
+import com.example.jsgamesbackendmain.Bean.SmallBean.EmailBean.*;
 import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserEmailDuplicateSmallBean;
 import com.example.jsgamesbackendmain.Model.DAO.EmailAccountDAO;
 import com.example.jsgamesbackendmain.Model.DAO.EmailCodeDAO;
 import com.example.jsgamesbackendmain.Model.DTO.Email.EmailSendRequestDTO;
+import com.example.jsgamesbackendmain.Model.DTO.StateResponseDTO;
 import com.example.jsgamesbackendmain.Repository.EmailAccountRepository;
 import com.example.jsgamesbackendmain.Repository.EmailCodeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +15,8 @@ import java.util.Random;
 
 @Component
 public class EmailSendBean {
-
     @Autowired
-    private EmailAccountRepository emailAccountRepository;
-
-    @Autowired
-    private EmailCodeRepository emailCodeRepository;
+    private EmailAccountGetSmallBean emailAccountGetSmallBean;
 
     @Autowired
     private EmailSendSmallBean emailSendSmallBean;
@@ -39,11 +33,15 @@ public class EmailSendBean {
     @Autowired
     private EmailDuplicateSmallBean emailDuplicateSmallBean;
 
-    public String exec(EmailSendRequestDTO emailSendRequestDTO) {
-        EmailAccountDAO account = emailAccountRepository.findById(0L).orElse(null);
-        String Email = emailSendRequestDTO.getEmail();
+    @Autowired
+    private EmailCodeSaveSmallBean emailCodeSaveSmallBean;
 
-        System.out.println("account = " + account);
+    @Autowired
+    private EmailAccoutPlusSmallBean emailAccoutPlusSmallBean;
+
+    public StateResponseDTO exec(EmailSendRequestDTO emailSendRequestDTO) {
+        EmailAccountDAO account = emailAccountGetSmallBean.exec();
+        String Email = emailSendRequestDTO.getEmail();
 
         // 이메일 최대 개수 검사
         emailMaxCheckSmallBean.exec(account);
@@ -60,15 +58,12 @@ public class EmailSendBean {
         emailSendSmallBean.exec(Email, verificationCode);
 
         // 인증 코드 저장
-        EmailCodeDAO newCode = new EmailCodeDAO();
-        newCode.setEmail(Email);
-        newCode.setCode(verificationCode);
-        emailCodeRepository.save(newCode);
+        emailCodeSaveSmallBean.exec(Email, verificationCode);
 
-        // sentEmails 카운트 업데이트
-        account.setSentEmails(account.getSentEmails() + 1);
-        emailAccountRepository.save(account);
+        // 이메일 카운트 증가
+        emailAccoutPlusSmallBean.exec();
 
-        return "Code sent";
+
+        return new StateResponseDTO(true);
     }
 }

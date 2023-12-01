@@ -2,6 +2,7 @@ package com.example.jsgamesbackendmain.Controller;
 
 import com.example.jsgamesbackendmain.Model.DTO.Email.EmailCodeRequestDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Email.EmailSendRequestDTO;
+import com.example.jsgamesbackendmain.Model.DTO.StateResponseDTO;
 import com.example.jsgamesbackendmain.Service.EmailService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class EmailController {
             
     )
     @PostMapping("/email")
-    public String sendEmail(@RequestBody EmailSendRequestDTO emailRequestDTO) {
+    public StateResponseDTO sendEmail(@RequestBody EmailSendRequestDTO emailRequestDTO) {
         return emailService.sendEmail(emailRequestDTO);
     }
 }

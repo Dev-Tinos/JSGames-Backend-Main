@@ -1,6 +1,7 @@
 package com.example.jsgamesbackendmain.Service;
 
 import com.example.jsgamesbackendmain.Bean.UserBean.*;
+import com.example.jsgamesbackendmain.Model.DTO.StateResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.*;
 import com.example.jsgamesbackendmain.Model.DTO.User.Request.UserLoginRequestDTO;
 import com.example.jsgamesbackendmain.Model.DTO.User.Request.UserSignUpRequestDTO;
@@ -29,15 +30,15 @@ public class UserService {
     private UserLoginBean userLoginBean;
 
     public UserGetResponseDTO getUser(String userId) {
-        return userGetBean.getUser(userId);
+        return userGetBean.exec(userId);
     }
 
     public UserUpdateResponseDTO updateUser(UserUpdateRequestDTO userUpdateRequestDTO) {
-        return userUpdateBean.updateUser(userUpdateRequestDTO);
+        return userUpdateBean.exec(userUpdateRequestDTO);
     }
 
-    public Map<String,String> deleteUser(String userId) {
-        return userDeleteBean.deleteUser(userId);
+    public StateResponseDTO deleteUser(String userId) {
+        return userDeleteBean.exec(userId);
     }
 
     public UserSignUpResponseDTO signUpUser(UserSignUpRequestDTO userSignUpRequestDTO) {

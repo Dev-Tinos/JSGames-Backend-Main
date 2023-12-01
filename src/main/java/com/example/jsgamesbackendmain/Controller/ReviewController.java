@@ -28,12 +28,21 @@ public class ReviewController {
 
     // 게임 별 리뷰 조회 API
     @Operation(summary = "리뷰 조회", description =
-            "# 게임 별 리뷰 조회  \n" +
-            "최신 리뷰 -> 이전 리뷰 순서대로 정렬됨"
+            "# 게임 별 리뷰 조회  \n\n " +
+                    "지원되는 정렬 옵션: '최근순', '오래된순', '별점순', '도움 순' \n\n " +
+                    "recent: 최근순 \n\n " +
+                    "oldest: 오래된순 \n\n " +
+                    "star: 별점순 \n\n " +
+                    "helpful: 도움 순 \n\n " +
+                    "기본 정렬은 '최근순'."
     )
     @GetMapping("/review/game/{gameId}")
-    public List<ReviewGetByGameIdResponseDTO> listReviewsByGame(@PathVariable Long gameId, @Parameter Long page, @Parameter Long size) {
-        return reviewService.listReviewsByGame(gameId, page, size);
+    public List<ReviewGetByGameIdResponseDTO> listReviewsByGame(
+            @PathVariable Long gameId,
+            @RequestParam Long page,
+            @RequestParam Long size,
+            @RequestParam(defaultValue = "recent") String sort) {
+        return reviewService.listReviewsByGame(gameId, page, size, sort);
     }
 
     // 리뷰 수정 API

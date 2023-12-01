@@ -40,7 +40,7 @@ public class ReviewDAO {
         dao.setGameId((long) i);
         dao.setReviewContent(s);
         dao.setStar((float) i % 5 + 1);
-        dao.setHelpful((long) 0);
+        dao.setHelpful((long) i);
         return dao;
     }
 }

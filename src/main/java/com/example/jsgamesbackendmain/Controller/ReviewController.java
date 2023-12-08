@@ -8,6 +8,7 @@ import com.example.jsgamesbackendmain.Model.ENUM.ReviewSort;
 import com.example.jsgamesbackendmain.Service.ReviewService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,12 +32,18 @@ public class ReviewController {
     @Operation(summary = "리뷰 조회", description =
             "# 게임 별 리뷰 조회  \n\n " +
                     "지원되는 정렬 옵션: '최근순', '오래된순', '별점순', '도움 순' \n\n " +
-                    "recent: 최근순 \n\n " +
-                    "oldest: 오래된순 \n\n " +
-                    "star: 별점순 \n\n " +
-                    "helpful: 도움 순 \n\n " +
+                    "RECENT: 최근순 \n\n " +
+                    "OLDEST: 오래된순 \n\n " +
+                    "STAR: 별점순 \n\n " +
+                    "HELPFUL: 도움 순 \n\n " +
                     "기본 정렬은 '최근순'."
     )
+    @Parameters({
+            @Parameter(name = "gameId", description = "게임 아이디", required = true),
+            @Parameter(name = "page", description = "페이지 번호", required = true),
+            @Parameter(name = "size", description = "페이지 사이즈", required = true),
+            @Parameter(name = "sort", description = "정렬 옵션", required = true)
+    })
     @GetMapping("/review/game/{gameId}")
     public List<ReviewGetByGameIdResponseDTO> listReviewsByGame(
             @PathVariable Long gameId,

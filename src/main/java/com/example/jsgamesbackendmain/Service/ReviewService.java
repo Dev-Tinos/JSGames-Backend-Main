@@ -1,5 +1,6 @@
 package com.example.jsgamesbackendmain.Service;
 
+import com.example.jsgamesbackendmain.Bean.ReviewBean.ReviewGetMyReview;
 import com.example.jsgamesbackendmain.Bean.ReviewBean.ReviewListByGameBean;
 import com.example.jsgamesbackendmain.Bean.ReviewBean.ReviewPostBean;
 import com.example.jsgamesbackendmain.Bean.ReviewBean.ReviewUpdateBean;
@@ -25,6 +26,14 @@ public class ReviewService {
 
     @Autowired
     private ReviewUpdateBean reviewUpdateBean;
+
+    @Autowired
+    private ReviewGetMyReview reviewGetMyReview;
+
+    // 본인이 작성한 리뷰 조회
+    public ReviewDTO getMyReview(Long gameId, String userId) {
+        return reviewGetMyReview.exec(gameId, userId);
+    }
 
     // 리뷰 작성
     public ReviewDTO postReview(ReviewCreateRequestDTO requestDTO) {

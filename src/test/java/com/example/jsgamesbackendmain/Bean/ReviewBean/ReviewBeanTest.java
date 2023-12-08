@@ -40,6 +40,32 @@ class ReviewBeanTest {
     private MapperBean mapperBean;
 
     @Autowired
+    private ReviewGetMyReviewBean reviewGetMyReviewBean;
+
+    @Test
+    void ReviewGetMyReviewBeanTest() {
+        //given
+        UserDAO user = UserDAO.createTest(0);
+        userRepository.save(user);
+
+        GameDAO game = GameDAO.createTest(0);
+        game.setUserId(user.getUserId());
+        gameRepository.save(game);
+
+        ReviewDAO review = ReviewDAO.createTest(0);
+        review.setGameId(game.getGameId());
+        review.setUserId(user.getUserId());
+        reviewRepository.save(review);
+
+        //when
+        ReviewDTO exec = reviewGetMyReviewBean.exec(game.getGameId(), user.getUserId());
+
+        //then
+        assertEquals(review.getReviewId(), exec.getReviewId());
+    }
+
+
+    @Autowired
     private ReviewListByGameBean reviewListByGameBean;
 
     @Test

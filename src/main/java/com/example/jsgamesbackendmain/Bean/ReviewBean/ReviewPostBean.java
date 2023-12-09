@@ -2,6 +2,7 @@ package com.example.jsgamesbackendmain.Bean.ReviewBean;
 
 import com.example.jsgamesbackendmain.Bean.MapperBean.MapperBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.GameBean.GameGetSmallBean;
+import com.example.jsgamesbackendmain.Bean.SmallBean.ReviewBean.ReviewGetByUserIdAndGameIdSmallBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.ReviewBean.ReviewSaveSmallBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserGetByIdSmallBean;
 import com.example.jsgamesbackendmain.Model.DAO.ReviewDAO;
@@ -18,6 +19,9 @@ public class ReviewPostBean {
     private ReviewSaveSmallBean reviewSaveSmallBean;
     @Autowired
     private UserGetByIdSmallBean userGetByIdSmallBean;
+    @Autowired
+    private ReviewGetByUserIdAndGameIdSmallBean reviewGetByUserIdAndGameIdSmallBean;
+
     @Autowired
     private GameGetSmallBean gameGetSmallBean;
 

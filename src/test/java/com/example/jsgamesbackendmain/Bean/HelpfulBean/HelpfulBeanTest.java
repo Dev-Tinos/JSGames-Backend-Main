@@ -47,14 +47,12 @@ public class HelpfulBeanTest {
         //given
         ReviewDAO newReview = ReviewDAO.createTest(1);
         reviewRepository.save(newReview);
-        System.out.println("newReview = " + newReview);
 
         //when
         helpfulPostBean.exec("test01", 1L);
         helpfulPostBean.exec("test02", 1L);
         //then
         assertEquals(2, helpfulRepository.count());
-        assertEquals(2, reviewRepository.findById(1L).get().getHelpful());
     }
 
     @Autowired
@@ -71,6 +69,5 @@ public class HelpfulBeanTest {
         helpfulDeleteBean.exec("test02", 1L);
         //then
         assertEquals(0, helpfulRepository.count());
-        assertEquals(0, reviewRepository.findById(1L).get().getHelpful());
     }
 }

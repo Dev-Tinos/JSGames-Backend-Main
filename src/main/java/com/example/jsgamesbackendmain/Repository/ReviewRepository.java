@@ -13,6 +13,10 @@ import java.util.Optional;
 @Repository
 public interface ReviewRepository extends JpaRepository<ReviewDAO, Long> {
 
+    //gameId 로 review의 star 평균
+    @Query("SELECT AVG(r.star) FROM ReviewDAO r WHERE r.gameId = ?1")
+    Optional<Double> findAvgStarByGameId(Long gameId);
+
     //userId 와 gameId 로 review 찾기
     Optional<ReviewDAO> findByUserIdAndGameId(String userId, Long gameId);
     //reviewID 의 helpful +1

@@ -1,4 +1,4 @@
-package com.example.jsgamesbackendmain.Bean.S3Bean;
+package com.example.jsgamesbackendmain.Bean.ImageBean;
 
 import com.amazonaws.services.s3.AmazonS3;
 import org.junit.jupiter.api.Test;

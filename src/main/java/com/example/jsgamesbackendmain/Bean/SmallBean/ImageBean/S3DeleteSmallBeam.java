@@ -1,4 +1,4 @@
-package com.example.jsgamesbackendmain.Bean.SmallBean.S3Bean;
+package com.example.jsgamesbackendmain.Bean.SmallBean.ImageBean;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.DeleteObjectRequest;

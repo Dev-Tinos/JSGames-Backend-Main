@@ -1,6 +1,6 @@
-package com.example.jsgamesbackendmain.Bean.S3Bean;
+package com.example.jsgamesbackendmain.Bean.ImageBean;
 
-import com.example.jsgamesbackendmain.Bean.SmallBean.S3Bean.S3UploadSmallBean;
+import com.example.jsgamesbackendmain.Bean.SmallBean.ImageBean.S3UploadSmallBean;
 import com.example.jsgamesbackendmain.Model.DTO.S3.S3UrlResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

@@ -12,6 +12,4 @@ public class ReviewCreateRequestDTO {
     private String reviewContent;
     // 별점
     private Float star;
-    // helpful
-    private Float helpful;
 }

@@ -64,6 +64,14 @@ public class HelpfulBeanTest {
         reviewRepository.save(newReview);
         helpfulPostBean.exec("test01", 1L);
         helpfulPostBean.exec("test02", 1L);
+
+        //2초 대기
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         //when
         helpfulDeleteBean.exec("test01", 1L);
         helpfulDeleteBean.exec("test02", 1L);

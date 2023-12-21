@@ -2,7 +2,7 @@ package com.example.jsgamesbackendmain.Bean.ReviewBean;
 
 import com.example.jsgamesbackendmain.Bean.MapperBean.MapperBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.ReviewBean.ReviewGetByIdSmallBean;
-import com.example.jsgamesbackendmain.Bean.SmallBean.ReviewBean.ReviewSaveSmallBean;
+import com.example.jsgamesbackendmain.Bean.SmallBean.ReviewBean.ReviewUpdateSmallBean;
 import com.example.jsgamesbackendmain.Model.DAO.ReviewDAO;
 import com.example.jsgamesbackendmain.Model.DTO.Review.Request.ReviewUpdateRequestDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Review.Response.ReviewUpdateResponseDTO;
@@ -16,7 +16,7 @@ public class ReviewUpdateBean {
     private ReviewGetByIdSmallBean reviewGetByIdSmallBean;
 
     @Autowired
-    private ReviewSaveSmallBean reviewSaveSmallBean;
+    private ReviewUpdateSmallBean reviewUpdateSmallBean;
 
     @Autowired
     private MapperBean mapperBean;
@@ -25,7 +25,7 @@ public class ReviewUpdateBean {
 
         ReviewDAO dao = reviewGetByIdSmallBean.exec(reviewId);
 
-        dao = reviewSaveSmallBean.exec(dao);
+        dao = reviewUpdateSmallBean.exec(dao);
 
         return mapperBean.to(dao, ReviewUpdateResponseDTO.class);
     }

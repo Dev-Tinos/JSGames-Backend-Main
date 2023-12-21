@@ -17,5 +17,6 @@ public class GameGetByGameIdResponseDTO {
     private ScoreType scoreType;
     private String description;
     private Long viewCount;
+    private Double star;
 }
 

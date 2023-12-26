@@ -1,6 +1,5 @@
 package com.example.jsgamesbackendmain.Bean.LogBean;
 
-import com.example.jsgamesbackendmain.Bean.MapperBean.MapperBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.LogBean.LogCatchTopChange;
 import com.example.jsgamesbackendmain.Model.DAO.GameDAO;
 import com.example.jsgamesbackendmain.Model.DAO.LogDAO;
@@ -37,9 +36,6 @@ class LogBeanTest {
     private GameRepository gameRepository;
     @Autowired
     private LogRepository logRepository;
-    @Autowired
-    private MapperBean mapperBean;
-
 
     @Autowired
     private LogCatchTopChange logCatchTopChange;
@@ -266,9 +262,8 @@ class LogBeanTest {
         logDAO.setGameId(game1.getGameId());
         logRepository.save(logDAO);
 
-        LogPostRequestDTO requestDTO = mapperBean.to(logDAO, LogPostRequestDTO.class);
         //when
-        LogPostResponseDTO exec = logPostBean.exec(requestDTO);
+        LogPostResponseDTO exec = logPostBean.exec(LogPostRequestDTO.of(logDAO));
 
         //then
         assertEquals(logDAO.getGameId(), exec.getGameId());

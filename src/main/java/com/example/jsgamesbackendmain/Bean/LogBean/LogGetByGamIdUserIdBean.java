@@ -1,31 +1,23 @@
 package com.example.jsgamesbackendmain.Bean.LogBean;
 
-import com.example.jsgamesbackendmain.Bean.MapperBean.MapperBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.GameBean.GameGetSmallBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.LogBean.LogGetByGameIdUserIdSmallBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.LogBean.LogGetRankSmallBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserGetByIdSmallBean;
-import com.example.jsgamesbackendmain.Bean.UserBean.UserGetBean;
 import com.example.jsgamesbackendmain.Model.DAO.GameDAO;
 import com.example.jsgamesbackendmain.Model.DAO.LogDAO;
+import com.example.jsgamesbackendmain.Model.DAO.UserDAO;
 import com.example.jsgamesbackendmain.Model.DTO.Log.Response.LogGetByGameIdUserIdResponseDTO;
-import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserLogResponseDTO;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class LogGetByGamIdUserIdBean {
-    @Autowired
-    private GameGetSmallBean gameGetSmallBean;
-    @Autowired
-    private LogGetByGameIdUserIdSmallBean logGetByGameIdUserIdSmallBean;
-    @Autowired
-    private UserGetByIdSmallBean userGetByIdSmallBean;
-    @Autowired
-    private LogGetRankSmallBean logGetRankSmallBean;
-
-    @Autowired
-    private MapperBean mapperBean;
+    private final GameGetSmallBean gameGetSmallBean;
+    private final LogGetByGameIdUserIdSmallBean logGetByGameIdUserIdSmallBean;
+    private final UserGetByIdSmallBean userGetByIdSmallBean;
+    private final LogGetRankSmallBean logGetRankSmallBean;
 
 
     public LogGetByGameIdUserIdResponseDTO exec(Long gameId, String userId) {
@@ -34,7 +26,7 @@ public class LogGetByGamIdUserIdBean {
         GameDAO gameDAO = gameGetSmallBean.exec(gameId);
 
         // UserDAO 조회
-        UserLogResponseDTO userDTO = mapperBean.to(userGetByIdSmallBean.exec(userId), UserLogResponseDTO.class);
+        UserDAO userDAO = userGetByIdSmallBean.exec(userId);
 
         // LogDAO 조회
         LogDAO logDAO = logGetByGameIdUserIdSmallBean.exec(gameDAO, userId);
@@ -43,12 +35,7 @@ public class LogGetByGamIdUserIdBean {
         Long rank = logGetRankSmallBean.exec(gameDAO, logDAO);
 
         // LogDAO -> LogGetByGameIdUserIdResponseDTO 변환
-        LogGetByGameIdUserIdResponseDTO dto = mapperBean.to(logDAO, LogGetByGameIdUserIdResponseDTO.class);
-
         // UserDTO, rank 삽입
-        dto.setUser(userDTO);
-        dto.setRanking(rank);
-
-        return dto;
+        return LogGetByGameIdUserIdResponseDTO.of(logDAO, userDAO, rank);
     }
 }

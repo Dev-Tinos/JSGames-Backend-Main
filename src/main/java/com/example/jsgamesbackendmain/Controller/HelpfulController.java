@@ -4,14 +4,14 @@ import com.example.jsgamesbackendmain.Model.DTO.Helpful.HelpfulGetReponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.StateResponseDTO;
 import com.example.jsgamesbackendmain.Service.HelpfulService;
 import io.swagger.v3.oas.annotations.Operation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequiredArgsConstructor
 @CrossOrigin("*")
 public class HelpfulController {
-    @Autowired
-    private HelpfulService helpfulService;
+    private final HelpfulService helpfulService;
 
     // 특정 유저와 특정 리뷰의 도움이 되었는지 여부 조회 API
     @Operation(summary = "helpful 여부 조회")
@@ -19,6 +19,7 @@ public class HelpfulController {
     public HelpfulGetReponseDTO getHelpful(String userId, Long reviewId) {
         return helpfulService.getHelpful(userId, reviewId);
     }
+
     // 특정 유저와 특정 리뷰의 도움이 되었는지 여부 추가 API
     @Operation(summary = "helpful 추가")
     @PostMapping("/helpful/user/{userId}/review/{reviewId}")

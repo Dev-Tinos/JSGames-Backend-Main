@@ -54,15 +54,21 @@ public class SetTestData {
     private ScoreType[] scoreTypes = ScoreType.values();
     private ObjectMapper objectMapper = new ObjectMapper();
 
+    @Test
+    void Test2() {
+        GameDAO dao = new GameDAO();
+        System.out.println("dao.getGameImage() = " + dao.getGameImage());
 
-//    @Test
-//    @Rollback(value = false)
+    }
+
+    @Test
+    @Rollback(value = false)
     void Test_데이터_넣기() {
-        // all delete
-//        logRepository.deleteAll();
-//        userRepository.deleteAll();
-//        gameRepository.deleteAll();
-//        reviewRepository.deleteAll();
+//         all delete
+        logRepository.deleteAll();
+        userRepository.deleteAll();
+        gameRepository.deleteAll();
+        reviewRepository.deleteAll();
 
         int userSize = 50;
         int gameSize = 50;

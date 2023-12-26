@@ -1,12 +1,11 @@
 package com.example.jsgamesbackendmain.Model.DTO.Log.Response;
 
-import com.example.jsgamesbackendmain.Model.DAO.LogDAO;
 import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 
-@Getter @Setter
-@ToString
+import javax.persistence.MappedSuperclass;
+
+@Getter
+@MappedSuperclass
 public class LogGetResponse {
     private Long logId;
     private Long gameId;

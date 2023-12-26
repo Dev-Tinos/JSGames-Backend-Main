@@ -1,11 +1,14 @@
 package com.example.jsgamesbackendmain.Model.DTO.User.Reponse;
 
+import com.example.jsgamesbackendmain.Model.DAO.UserDAO;
 import com.example.jsgamesbackendmain.Model.ENUM.Major;
 import com.example.jsgamesbackendmain.Model.ENUM.ParentMajor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@Getter @Setter
+@Getter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserGetResponseDTO {
     private String userId;
     private String nickname;
@@ -13,4 +16,15 @@ public class UserGetResponseDTO {
     private String profileImageURL;
     private ParentMajor parentMajor;
     private Major major;
+
+    public static UserGetResponseDTO of(UserDAO userDAO) {
+        return UserGetResponseDTO.builder()
+                .userId(userDAO.getUserId())
+                .nickname(userDAO.getNickname())
+                .email(userDAO.getEmail())
+                .profileImageURL(userDAO.getProfileImageURL())
+                .parentMajor(userDAO.getParentMajor())
+                .major(userDAO.getMajor())
+                .build();
+    }
 }

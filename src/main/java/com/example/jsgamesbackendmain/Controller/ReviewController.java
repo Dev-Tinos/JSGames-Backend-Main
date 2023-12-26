@@ -2,8 +2,9 @@ package com.example.jsgamesbackendmain.Controller;
 
 import com.example.jsgamesbackendmain.Model.DTO.Review.Request.ReviewCreateRequestDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Review.Request.ReviewUpdateRequestDTO;
+import com.example.jsgamesbackendmain.Model.DTO.Review.Response.ReviewCreateResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Review.Response.ReviewGetByGameIdResponseDTO;
-import com.example.jsgamesbackendmain.Model.DTO.Review.ReviewDTO;
+import com.example.jsgamesbackendmain.Model.DTO.Review.Response.ReviewUpdateResponseDTO;
 import com.example.jsgamesbackendmain.Model.ENUM.ReviewSort;
 import com.example.jsgamesbackendmain.Service.ReviewService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -13,18 +14,18 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
 
 @RestController
+@RequiredArgsConstructor
 @CrossOrigin("*")
 public class ReviewController {
 
-    @Autowired
-    private ReviewService reviewService;
+    private final ReviewService reviewService;
 
     // 본인이 작성한 리뷰 조회 API
     @Operation(summary = "본인이 작성한 리뷰 조회", description =
@@ -36,11 +37,11 @@ public class ReviewController {
             @ApiResponse(responseCode = "404", description = "리뷰가 없는경우", content = @Content(schema = @Schema(implementation = Map.class)))
     })
     @Parameters({
-        @Parameter(name = "userId", description = "유저 아이디", required = true),
-        @Parameter(name = "gameId", description = "게임 아이디", required = true)
+            @Parameter(name = "userId", description = "유저 아이디", required = true),
+            @Parameter(name = "gameId", description = "게임 아이디", required = true)
     })
     @GetMapping("/review/game/{gameId}/user/{userId}")
-    public ReviewDTO getMyReview(
+    public ReviewGetByGameIdResponseDTO getMyReview(
             @PathVariable Long gameId,
             @PathVariable String userId
     ) {
@@ -50,7 +51,7 @@ public class ReviewController {
     // 리뷰 작성 API
     @Operation(summary = "리뷰 작성")
     @PostMapping("/review")
-    public ReviewDTO postReview(@RequestBody ReviewCreateRequestDTO reviewCreateRequestDTO) {
+    public ReviewCreateResponseDTO postReview(@RequestBody ReviewCreateRequestDTO reviewCreateRequestDTO) {
         return reviewService.postReview(reviewCreateRequestDTO);
     }
 
@@ -82,7 +83,7 @@ public class ReviewController {
     // 리뷰 수정 API
     @Operation(summary = "리뷰 수정")
     @PutMapping("/review/{reviewId}")
-    public ReviewDTO updateReview(@PathVariable Long reviewId, @RequestBody ReviewUpdateRequestDTO reviewUpdateRequestDTO) {
+    public ReviewUpdateResponseDTO updateReview(@PathVariable Long reviewId, @RequestBody ReviewUpdateRequestDTO reviewUpdateRequestDTO) {
         return reviewService.updateReview(reviewId, reviewUpdateRequestDTO);
     }
 }

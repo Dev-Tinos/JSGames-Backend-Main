@@ -1,15 +1,15 @@
 package com.example.jsgamesbackendmain.Bean.SmallBean.LogBean;
 
 import com.example.jsgamesbackendmain.Model.DTO.Log.Response.LogGetByGameIdResponseDTO;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
 @Component
+@RequiredArgsConstructor
 public class LogCatchTopChange {
-    @Autowired
-    private LogGetByGameSmallBean logGetByGameSmallBean;
+    private final LogGetByGameSmallBean logGetByGameSmallBean;
 
     public Boolean exec(Optional<LogGetByGameIdResponseDTO> preTopLogOpt, Optional<LogGetByGameIdResponseDTO> nextTopLogOpt) {
         //if preTopLog not exist return false

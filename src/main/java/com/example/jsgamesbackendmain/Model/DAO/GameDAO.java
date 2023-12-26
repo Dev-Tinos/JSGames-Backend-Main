@@ -1,12 +1,14 @@
 package com.example.jsgamesbackendmain.Model.DAO;
 
 import com.example.jsgamesbackendmain.Model.ENUM.ScoreType;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "games")
 @Getter @Setter
 public class GameDAO {

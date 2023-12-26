@@ -1,6 +1,5 @@
 package com.example.jsgamesbackendmain.Bean.UesrBean;
 
-import com.example.jsgamesbackendmain.Bean.MapperBean.MapperBean;
 import com.example.jsgamesbackendmain.Bean.UserBean.*;
 import com.example.jsgamesbackendmain.Controller.ExceptionControll.InvalidException;
 import com.example.jsgamesbackendmain.Model.DAO.UserDAO;
@@ -25,8 +24,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class UserBeanTest {
     @Autowired
     private UserRepository userRepository;
-    @Autowired
-    private MapperBean mapperBean;
 
     @Autowired
     private UserSignUpBean userSignUpBean;
@@ -34,7 +31,7 @@ public class UserBeanTest {
     void UserCreateBeanTest() {
         //given
         UserDAO user = UserDAO.createTest(0);
-        UserSignUpRequestDTO requestDTO = mapperBean.to(user, UserSignUpRequestDTO.class);
+        UserSignUpRequestDTO requestDTO = UserSignUpRequestDTO.of(user);
 
         UserSignUpResponseDTO responseDTO = null;
         int a = 1;
@@ -86,10 +83,10 @@ public class UserBeanTest {
     @Test
     void UserLoginBeanTest() {
         //given
-        UserLoginRequestDTO requestDTO = mapperBean.to(UserDAO.createTest(0), UserLoginRequestDTO.class);
-
-        requestDTO.setEmail("1");
-        requestDTO.setPassword("1");
+        UserLoginRequestDTO requestDTO = UserLoginRequestDTO.builder()
+                .email("1")
+                .password("1")
+                .build();
 
         int a = 0;
         //when
@@ -113,8 +110,16 @@ public class UserBeanTest {
         userRepository.save(user);
 
 
-        UserUpdateRequestDTO requestDTO = mapperBean.to(UserDAO.createTest(1), UserUpdateRequestDTO.class);
-        requestDTO.setUserId(user.getUserId());
+        UserDAO userDAO = UserDAO.createTest(1);
+
+        UserUpdateRequestDTO requestDTO = UserUpdateRequestDTO.builder()
+                // userId만 같게 해준다.
+                .userId(user.getUserId())
+                .nickname(userDAO.getNickname())
+                .profileImageURL(userDAO.getProfileImageURL())
+                .major(userDAO.getMajor())
+                .build();
+
 
         //when
         UserUpdateResponseDTO responseDTO = userUpdateBean.exec(requestDTO);

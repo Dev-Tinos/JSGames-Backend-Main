@@ -3,10 +3,8 @@ package com.example.jsgamesbackendmain.Model.DTO.Rank.Request;
 import com.example.jsgamesbackendmain.Model.DAO.RankTop100DAO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
 public class RankGetRequestDTO {
     @JsonProperty("user_id")
     private String userId;
@@ -16,10 +14,10 @@ public class RankGetRequestDTO {
     private Long rankWeight;
 
     public RankTop100DAO toDAO() {
-        RankTop100DAO dao = new RankTop100DAO();
-        dao.setUserId(userId);
-        dao.setTotalRank(totalRank);
-        dao.setRankWeight(rankWeight);
-        return dao;
+        return RankTop100DAO.builder()
+                .userId(userId)
+                .totalRank(totalRank)
+                .rankWeight(rankWeight)
+                .build();
     }
 }

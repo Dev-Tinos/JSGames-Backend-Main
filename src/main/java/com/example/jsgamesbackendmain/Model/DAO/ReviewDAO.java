@@ -1,8 +1,7 @@
 package com.example.jsgamesbackendmain.Model.DAO;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import com.example.jsgamesbackendmain.Model.DTO.Review.Request.ReviewUpdateRequestDTO;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -12,6 +11,9 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "reviews")
 @Getter @Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @ToString
 public class ReviewDAO {
     @Id
@@ -32,6 +34,10 @@ public class ReviewDAO {
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime dateTime;
+
+    public void update(ReviewUpdateRequestDTO request) {
+        this.reviewContent = request.getReviewContent();
+    }
 
     public static ReviewDAO createTest(int i){
         String s = String.valueOf(i);

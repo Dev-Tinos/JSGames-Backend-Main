@@ -6,7 +6,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 @RestController
+@RequiredArgsConstructor
 @CrossOrigin("*")
 @Tag(name = "Test", description = "테스트용 API")
 public class TestController {
 
-    @Autowired
-    private TestService testService;
+    private final TestService testService;
 
     @Operation(summary = "이메일 코드 테이블 데이터 삭제", description =
             "## 또한 자동으로 오후 11시 55분 마다 자동으로 실행됨"

@@ -4,7 +4,7 @@ import com.example.jsgamesbackendmain.Controller.ExceptionControll.ResourceNotFo
 import com.example.jsgamesbackendmain.Model.DAO.GameDAO;
 import com.example.jsgamesbackendmain.Model.DAO.LogDAO;
 import com.example.jsgamesbackendmain.Repository.LogRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
@@ -12,14 +12,15 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
+@RequiredArgsConstructor
 public class LogValidationSmallBean {
-    @Autowired
-    private LogRepository logRepository;
+    private final LogRepository logRepository;
+
     public Optional<LogDAO> exec(GameDAO gameDAO, String userId) {
 
         List<LogDAO> list = logRepository.findByGameIdAndUserId(
                 gameDAO.getGameId(), userId
-                ,PageRequest.of(0,1)
+                , PageRequest.of(0, 1)
         ).toList();
 
         Optional<LogDAO> optional = list.stream().findAny();

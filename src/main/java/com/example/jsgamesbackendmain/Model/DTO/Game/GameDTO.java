@@ -2,10 +2,12 @@ package com.example.jsgamesbackendmain.Model.DTO.Game;
 
 import com.example.jsgamesbackendmain.Model.DAO.GameDAO;
 import com.example.jsgamesbackendmain.Model.ENUM.ScoreType;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@Getter @Setter
+@Getter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class GameDTO {
 
     private Long gameId;
@@ -18,16 +20,15 @@ public class GameDTO {
     private String description;
 
         public static GameDTO of(GameDAO gameDAO) {
-            GameDTO gameDTO = new GameDTO();
-            gameDTO.setGameId(gameDAO.getGameId());
-            gameDTO.setGameName(gameDAO.getGameName());
-            gameDTO.setUserId(gameDAO.getUserId());
-            gameDTO.setImageUrl(gameDAO.getGameImage());
-            gameDTO.setGameUrl(gameDAO.getGameUrl());
-            gameDTO.setTargetScore(gameDAO.getTargetScore());
-            gameDTO.setScoreType(gameDAO.getScoreType());
-            gameDTO.setDescription(gameDAO.getDescription());
-
-            return gameDTO;
+            return GameDTO.builder()
+                    .gameId(gameDAO.getGameId())
+                    .gameName(gameDAO.getGameName())
+                    .userId(gameDAO.getUserId())
+                    .imageUrl(gameDAO.getGameImage())
+                    .gameUrl(gameDAO.getGameUrl())
+                    .targetScore(gameDAO.getTargetScore())
+                    .scoreType(gameDAO.getScoreType())
+                    .description(gameDAO.getDescription())
+                    .build();
         }
 }

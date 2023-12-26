@@ -1,11 +1,15 @@
 package com.example.jsgamesbackendmain.Model.DTO.Log.Request;
 
 import com.example.jsgamesbackendmain.Model.DAO.LogDAO;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
-@Getter @Setter
+@Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class LogPostRequestDTO {
 
     private String userId;
@@ -19,5 +23,13 @@ public class LogPostRequestDTO {
         logDAO.setGameScore(this.getGameScore());
 
         return logDAO;
+    }
+
+    public static LogPostRequestDTO of(LogDAO logDAO) {
+        return LogPostRequestDTO.builder()
+                .userId(logDAO.getUserId())
+                .gameId(logDAO.getGameId())
+                .gameScore(logDAO.getGameScore())
+                .build();
     }
 }

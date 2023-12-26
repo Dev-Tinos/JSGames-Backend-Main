@@ -2,15 +2,15 @@ package com.example.jsgamesbackendmain.Bean.SmallBean.EmailBean;
 
 import com.example.jsgamesbackendmain.Model.DAO.EmailCodeDAO;
 import com.example.jsgamesbackendmain.Repository.EmailCodeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class EmailCodeSaveSmallBean {
-    @Autowired
-    private EmailCodeRepository emailCodeRepository;
+    private final EmailCodeRepository emailCodeRepository;
 
-    public void exec(String Email, String verificationCode){
+    public void exec(String Email, String verificationCode) {
         // 인증 코드 저장
         EmailCodeDAO newCode = new EmailCodeDAO();
         newCode.setEmail(Email);

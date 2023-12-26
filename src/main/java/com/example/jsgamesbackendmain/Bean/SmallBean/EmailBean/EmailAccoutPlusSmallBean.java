@@ -1,15 +1,15 @@
 package com.example.jsgamesbackendmain.Bean.SmallBean.EmailBean;
 
 import com.example.jsgamesbackendmain.Repository.EmailAccountRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class EmailAccoutPlusSmallBean {
-    @Autowired
-    private EmailAccountRepository emailAccountRepository;
+    private final EmailAccountRepository emailAccountRepository;
 
-    public void exec(){
+    public void exec() {
         emailAccountRepository.updateSentEmailsPlus(0L);
     }
 }

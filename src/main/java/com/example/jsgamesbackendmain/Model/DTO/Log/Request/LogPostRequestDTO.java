@@ -17,12 +17,11 @@ public class LogPostRequestDTO {
     private Double gameScore;
 
     public LogDAO toDAO() {
-        LogDAO logDAO = new LogDAO();
-        logDAO.setUserId(this.getUserId());
-        logDAO.setGameId(this.getGameId());
-        logDAO.setGameScore(this.getGameScore());
-
-        return logDAO;
+        return LogDAO.builder()
+                .userId(this.getUserId())
+                .gameId(this.getGameId())
+                .gameScore(this.getGameScore())
+                .build();
     }
 
     public static LogPostRequestDTO of(LogDAO logDAO) {

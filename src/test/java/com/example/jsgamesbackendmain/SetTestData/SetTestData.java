@@ -136,12 +136,14 @@ public class SetTestData {
 
         // Create 450 logs
         for (int i = 0; i < logSize; i++) {
-            LogDAO dao = new LogDAO();
-            dao.setGameId(gameDAOList.get((int) (Math.random() * gameSize)).getGameId());
-            dao.setUserId(userDAOList.get((int) (Math.random() * userSize)).getUserId());
-            dao.setGameScore((double) ((int) (Math.random() * 100)));
+            LogDAO newLog = LogDAO.builder()
+                    .gameScore((double) ((int) (Math.random() * 100)))
+                    .build();
 
-            logRepository.save(dao);
+            newLog.setGameId(gameDAOList.get((int) (Math.random() * gameSize)).getGameId());
+            newLog.setUserId(userDAOList.get((int) (Math.random() * userSize)).getUserId());
+
+            logRepository.save(newLog);
         }
     }
 }

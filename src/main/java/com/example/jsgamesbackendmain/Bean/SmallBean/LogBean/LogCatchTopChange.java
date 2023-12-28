@@ -21,8 +21,6 @@ public class LogCatchTopChange {
         LogGetByGameIdResponseDTO preTopLog = preTopLogOpt.get();
         LogGetByGameIdResponseDTO nextTopLog = nextTopLogOpt.get();
 
-        System.out.println("preTopLog = " + preTopLog);
-
         // get log count
         Long logCount = logGetByGameSmallBean.count(preTopLog.getGameId());
 
@@ -31,10 +29,7 @@ public class LogCatchTopChange {
             return false;
 
         // if preTopLog != nextTopLog and different user return true
-        if (!preTopLog.getLogId().equals(nextTopLog.getLogId())
-                && !preTopLog.getUser().getUserId().equals(nextTopLog.getUser().getUserId()))
-            return true;
-
-        return false;
+        return !preTopLog.getLogId().equals(nextTopLog.getLogId())
+                && !preTopLog.getUser().getUserId().equals(nextTopLog.getUser().getUserId());
     }
 }

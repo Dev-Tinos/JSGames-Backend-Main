@@ -61,7 +61,6 @@ class LogBeanTest {
             LogDAO logDAO = LogDAO.createTest(1);
             logDAO.setGameId(game1.getGameId());
             logDAO.setUserId(user1.getUserId());
-            logDAO.setGameScore((double) i);
             Optional<LogGetByGameIdResponseDTO> preTopLogOpt = logGetByGameIdBean.exec(game1.getGameId(), 0, 1).stream().findAny();
 
             logRepository.save(logDAO);
@@ -74,10 +73,9 @@ class LogBeanTest {
         }
 
         for (int i = 51; i <= 100; i++) {
-            LogDAO logDAO = LogDAO.createTest(1);
+            LogDAO logDAO = LogDAO.createTest(i);
             logDAO.setGameId(game1.getGameId());
             logDAO.setUserId(user2.getUserId());
-            logDAO.setGameScore((double) i);
 
             Optional<LogGetByGameIdResponseDTO> preTopLogOpt = logGetByGameIdBean.exec(game1.getGameId(), 0, 1).stream().findAny();
 
@@ -90,10 +88,9 @@ class LogBeanTest {
             assertFalse(isChange);
         }
 
-        LogDAO logDAO = LogDAO.createTest(1);
+        LogDAO logDAO = LogDAO.createTest(101);
         logDAO.setGameId(game1.getGameId());
         logDAO.setUserId(user1.getUserId());
-        logDAO.setGameScore((double) 101);
 
         Optional<LogGetByGameIdResponseDTO> preTopLogOpt = logGetByGameIdBean.exec(game1.getGameId(), 0, 1).stream().findAny();
 

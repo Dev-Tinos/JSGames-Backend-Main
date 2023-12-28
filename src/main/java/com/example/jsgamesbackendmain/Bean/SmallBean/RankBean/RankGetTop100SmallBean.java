@@ -2,7 +2,7 @@ package com.example.jsgamesbackendmain.Bean.SmallBean.RankBean;
 
 import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserGetByIdSmallBean;
 import com.example.jsgamesbackendmain.Model.DTO.Rank.Response.RankTop100UserResponseDTO;
-import com.example.jsgamesbackendmain.Repository.RankRepository;
+import com.example.jsgamesbackendmain.Repository.RankTop100Repository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 @Component
 @RequiredArgsConstructor
 public class RankGetTop100SmallBean {
-    private final RankRepository rankRepository;
+    private final RankTop100Repository rankRepository;
     private final UserGetByIdSmallBean userGetByIdSmallBean;
 
     public List<RankTop100UserResponseDTO> exec(Long page, Long size) {

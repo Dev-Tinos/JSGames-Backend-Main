@@ -1,11 +1,11 @@
 package com.example.jsgamesbackendmain.Model.DTO.S3;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@Getter @Setter
+@Getter
+@Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class S3UrlResponseDTO {
     private String ImageUrl;
 }

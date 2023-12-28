@@ -6,37 +6,34 @@ import com.example.jsgamesbackendmain.Bean.ReviewBean.ReviewPostBean;
 import com.example.jsgamesbackendmain.Bean.ReviewBean.ReviewUpdateBean;
 import com.example.jsgamesbackendmain.Model.DTO.Review.Request.ReviewCreateRequestDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Review.Request.ReviewUpdateRequestDTO;
+import com.example.jsgamesbackendmain.Model.DTO.Review.Response.ReviewCreateResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Review.Response.ReviewGetByGameIdResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Review.Response.ReviewUpdateResponseDTO;
-import com.example.jsgamesbackendmain.Model.DTO.Review.ReviewDTO;
 import com.example.jsgamesbackendmain.Model.ENUM.ReviewSort;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ReviewService {
 
-    @Autowired
-    private ReviewPostBean reviewCreateBean;
+    private final ReviewPostBean reviewCreateBean;
 
-    @Autowired
-    private ReviewListByGameBean reviewListByGameBean;
+    private final ReviewListByGameBean reviewListByGameBean;
 
-    @Autowired
-    private ReviewUpdateBean reviewUpdateBean;
+    private final ReviewUpdateBean reviewUpdateBean;
 
-    @Autowired
-    private ReviewGetMyReviewBean reviewGetMyReviewBean;
+    private final ReviewGetMyReviewBean reviewGetMyReviewBean;
 
     // 본인이 작성한 리뷰 조회
-    public ReviewDTO getMyReview(Long gameId, String userId) {
+    public ReviewGetByGameIdResponseDTO getMyReview(Long gameId, String userId) {
         return reviewGetMyReviewBean.exec(gameId, userId);
     }
 
     // 리뷰 작성
-    public ReviewDTO postReview(ReviewCreateRequestDTO requestDTO) {
+    public ReviewCreateResponseDTO postReview(ReviewCreateRequestDTO requestDTO) {
         return reviewCreateBean.exec(requestDTO);
     }
 

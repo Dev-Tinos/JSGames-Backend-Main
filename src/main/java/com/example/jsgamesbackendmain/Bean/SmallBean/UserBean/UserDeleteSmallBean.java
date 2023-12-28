@@ -1,15 +1,15 @@
 package com.example.jsgamesbackendmain.Bean.SmallBean.UserBean;
 
 import com.example.jsgamesbackendmain.Repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class UserDeleteSmallBean {
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    public void exec(String userId){
+    public void exec(String userId) {
         userRepository.deleteById(userId);
     }
 }

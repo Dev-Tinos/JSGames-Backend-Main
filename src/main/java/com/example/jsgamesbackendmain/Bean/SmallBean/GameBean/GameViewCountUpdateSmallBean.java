@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class GameViewCountUpdateSmallBean {
     @Transactional
     public Long exec(GameDAO gameDAO) {
-        gameDAO.setViewCount(gameDAO.getViewCount() + 1);
-        return gameDAO.getViewCount();
+        return gameDAO.increaseViewCount();
     }
 }

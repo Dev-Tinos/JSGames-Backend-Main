@@ -1,6 +1,5 @@
 package com.example.jsgamesbackendmain.Bean.LogBean;
 
-import com.example.jsgamesbackendmain.Bean.MapperBean.MapperBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.LogBean.LogCatchTopChange;
 import com.example.jsgamesbackendmain.Model.DAO.GameDAO;
 import com.example.jsgamesbackendmain.Model.DAO.LogDAO;
@@ -37,9 +36,6 @@ class LogBeanTest {
     private GameRepository gameRepository;
     @Autowired
     private LogRepository logRepository;
-    @Autowired
-    private MapperBean mapperBean;
-
 
     @Autowired
     private LogCatchTopChange logCatchTopChange;
@@ -65,7 +61,6 @@ class LogBeanTest {
             LogDAO logDAO = LogDAO.createTest(1);
             logDAO.setGameId(game1.getGameId());
             logDAO.setUserId(user1.getUserId());
-            logDAO.setGameScore((double) i);
             Optional<LogGetByGameIdResponseDTO> preTopLogOpt = logGetByGameIdBean.exec(game1.getGameId(), 0, 1).stream().findAny();
 
             logRepository.save(logDAO);
@@ -78,10 +73,9 @@ class LogBeanTest {
         }
 
         for (int i = 51; i <= 100; i++) {
-            LogDAO logDAO = LogDAO.createTest(1);
+            LogDAO logDAO = LogDAO.createTest(i);
             logDAO.setGameId(game1.getGameId());
             logDAO.setUserId(user2.getUserId());
-            logDAO.setGameScore((double) i);
 
             Optional<LogGetByGameIdResponseDTO> preTopLogOpt = logGetByGameIdBean.exec(game1.getGameId(), 0, 1).stream().findAny();
 
@@ -94,10 +88,9 @@ class LogBeanTest {
             assertFalse(isChange);
         }
 
-        LogDAO logDAO = LogDAO.createTest(1);
+        LogDAO logDAO = LogDAO.createTest(101);
         logDAO.setGameId(game1.getGameId());
         logDAO.setUserId(user1.getUserId());
-        logDAO.setGameScore((double) 101);
 
         Optional<LogGetByGameIdResponseDTO> preTopLogOpt = logGetByGameIdBean.exec(game1.getGameId(), 0, 1).stream().findAny();
 
@@ -266,9 +259,8 @@ class LogBeanTest {
         logDAO.setGameId(game1.getGameId());
         logRepository.save(logDAO);
 
-        LogPostRequestDTO requestDTO = mapperBean.to(logDAO, LogPostRequestDTO.class);
         //when
-        LogPostResponseDTO exec = logPostBean.exec(requestDTO);
+        LogPostResponseDTO exec = logPostBean.exec(LogPostRequestDTO.of(logDAO));
 
         //then
         assertEquals(logDAO.getGameId(), exec.getGameId());

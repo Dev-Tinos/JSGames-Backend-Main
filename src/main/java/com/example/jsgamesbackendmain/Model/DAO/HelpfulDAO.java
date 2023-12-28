@@ -1,7 +1,6 @@
 package com.example.jsgamesbackendmain.Model.DAO;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -9,12 +8,19 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "helpful")
 @Getter
-@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class HelpfulDAO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long helpfulId;
+
+    @Setter
     private String userId;
+    @Setter
     private Long reviewId;
+
+    @Builder.Default
     private LocalDateTime helpfulTime = LocalDateTime.now();
 }

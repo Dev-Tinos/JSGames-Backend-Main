@@ -1,27 +1,30 @@
 package com.example.jsgamesbackendmain.Model.DAO;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "Logs")
-@Getter @Setter
+@Getter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @ToString
 public class LogDAO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long logId;
 
+    @Setter
     private String userId;
+    @Setter
     private Long gameId;
     private Double gameScore;
 
     public static LogDAO createTest(int i) {
-        LogDAO dao = new LogDAO();
-        dao.setGameScore((double) i);
-        return dao;
+        return LogDAO.builder()
+                .gameScore((double) i)
+                .build();
     }
 }

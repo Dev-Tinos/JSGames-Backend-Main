@@ -11,7 +11,6 @@ import com.example.jsgamesbackendmain.Repository.GameRepository;
 import com.example.jsgamesbackendmain.Repository.LogRepository;
 import com.example.jsgamesbackendmain.Repository.ReviewRepository;
 import com.example.jsgamesbackendmain.Repository.UserRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,20 +25,30 @@ import java.util.List;
 @Transactional
 public class SetTestData {
 
-    @Autowired
-    private LogRepository logRepository;
+    private final LogRepository logRepository;
+
+    private final UserRepository userRepository;
+
+    private final GameRepository gameRepository;
+
+    private final ReviewRepository reviewRepository;
+
+    private final MajorMapperBean parentMajors;
 
     @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private GameRepository gameRepository;
-
-    @Autowired
-    private ReviewRepository reviewRepository;
-
-    @Autowired
-    private MajorMapperBean parentMajors;
+    public SetTestData(
+            LogRepository logRepository,
+            UserRepository userRepository,
+            GameRepository gameRepository,
+            ReviewRepository reviewRepository,
+            MajorMapperBean parentMajors
+    ) {
+        this.logRepository = logRepository;
+        this.userRepository = userRepository;
+        this.gameRepository = gameRepository;
+        this.reviewRepository = reviewRepository;
+        this.parentMajors = parentMajors;
+    }
 
     private List<UserDAO> userDAOList = new ArrayList<>();
 
@@ -52,13 +61,11 @@ public class SetTestData {
     private Major[] majors = Major.values();
 
     private ScoreType[] scoreTypes = ScoreType.values();
-    private ObjectMapper objectMapper = new ObjectMapper();
-
 
 //    @Test
-//    @Rollback(value = false)
+//    @Rollback(value = true)
     void Test_데이터_넣기() {
-        // all delete
+//         all delete
 //        logRepository.deleteAll();
 //        userRepository.deleteAll();
 //        gameRepository.deleteAll();
@@ -71,49 +78,49 @@ public class SetTestData {
 
 
         for (int i = 0; i < userSize; i++) {
-            UserDAO dao = new UserDAO();
-            dao.setUserId(String.valueOf(i));
-            dao.setEmail("test" + i + "@test.com");
-            dao.setNickname("nick " + i);
-            dao.setPassword("password " + i);
-            // 각 과에 맞는 학부로 세팅되게 변경
-            Major major = majors[i % majors.length];
-            dao.setMajor(major);
-            dao.setParentMajor(parentMajors.getParentMajor(major));
-            userDAOList.add(dao);
-            userRepository.save(dao);
+            UserDAO newUser = UserDAO.builder()
+                    .userId(String.valueOf(i))
+                    .email("test" + i + "@test.com")
+                    .nickname("nick " + i)
+                    .password("password " + i)
+                    .major(majors[i % majors.length])
+                    // 각 과에 맞는 학부로 세팅되게 변경
+                    .parentMajor(parentMajors.getParentMajor(majors[i % majors.length]))
+                    .build();
 
+            userDAOList.add(newUser);
+            userRepository.save(newUser);
         }
 
         for (int i = 0; i < gameSize; i++) {
-            GameDAO gameDAO = new GameDAO();
-            gameDAO.setGameName("name " + i);
-            gameDAO.setUserId(userDAOList.get((int)(Math.random() * userSize)).getUserId());
-            gameDAO.setGameUrl("gameUrl " + i);
-            gameDAO.setViewCount(((long) i));
             ScoreType scoreType = scoreTypes[i % scoreTypes.length];
-            gameDAO.setScoreType(scoreType);
-            if (scoreType == ScoreType.GOAL) {
-                gameDAO.setTargetScore((double) (int)(Math.random() * 100));
-            }else {
-                gameDAO.setTargetScore((double) -1);
-            }
-            gameDAO.setDescription("description " + i);
-            gameDAO.setViewCount(((long) i));
+
+            GameDAO gameDAO = GameDAO.builder()
+                    .userId(userDAOList.get((int) (Math.random() * userSize)).getUserId())
+                    .gameName(String.valueOf(i))
+                    .gameUrl(String.valueOf(i))
+                    .scoreType(scoreType)
+                    .targetScore(scoreType == ScoreType.GOAL ?
+                            (double) (int) (Math.random() * 100) :
+                            (double) -1
+                    )
+                    .description(String.valueOf(i))
+                    .viewCount(((long) i))
+                    .build();
 
             gameDAOList.add(gameDAO);
             gameRepository.save(gameDAO);
         }
 
         for (int j = 0; j < reviewSize; j++) {
-            ReviewDAO reviewDAO = new ReviewDAO();
-            reviewDAO.setGameId(gameDAOList.get((int)(Math.random() * gameSize)).getGameId());
-            reviewDAO.setUserId(userDAOList.get((int)(Math.random() * gameSize)).getUserId());
-            reviewDAO.setReviewContent("reviewContent " + j);
-            reviewDAO.setStar((float) (j % 5) + 1);
-            LocalDateTime now = LocalDateTime.now();
-            reviewDAO.setDateTime(now.minusDays(j));
-            reviewDAO.setHelpful((long) j);
+            ReviewDAO reviewDAO = ReviewDAO.builder()
+                    .userId(userDAOList.get((int) (Math.random() * userSize)).getUserId())
+                    .gameId(gameDAOList.get((int) (Math.random() * gameSize)).getGameId())
+                    .reviewContent("reviewContent " + j)
+                    .star((float) (j % 5) + 1)
+                    .dateTime(LocalDateTime.now().minusDays(j))
+                    .helpful((long) j)
+                    .build();
 
             reviewDAOList.add(reviewDAO);
             reviewRepository.save(reviewDAO);
@@ -122,12 +129,14 @@ public class SetTestData {
 
         // Create 450 logs
         for (int i = 0; i < logSize; i++) {
-            LogDAO dao = new LogDAO();
-            dao.setGameId(gameDAOList.get((int)(Math.random() * gameSize)).getGameId());
-            dao.setUserId(userDAOList.get((int)(Math.random() * userSize)).getUserId());
-            dao.setGameScore((double) ((int)(Math.random() * 100)));
+            LogDAO newLog = LogDAO.builder()
+                    .gameScore((double) ((int) (Math.random() * 100)))
+                    .build();
 
-            logRepository.save(dao);
+            newLog.setGameId(gameDAOList.get((int) (Math.random() * gameSize)).getGameId());
+            newLog.setUserId(userDAOList.get((int) (Math.random() * userSize)).getUserId());
+
+            logRepository.save(newLog);
         }
     }
 }

@@ -1,13 +1,14 @@
 package com.example.jsgamesbackendmain.Model.DAO;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Getter @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @ToString
 @Table(name = "RankTop100")
 public class RankTop100DAO {

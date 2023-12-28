@@ -1,13 +1,13 @@
 package com.example.jsgamesbackendmain.Bean.SmallBean.RankBean;
 
 import com.example.jsgamesbackendmain.Repository.RankRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class RankTop100ClearSmallBean {
-    @Autowired
-    private RankRepository rankRepository;
+    private final RankRepository rankRepository;
 
     public void exec() {
         // RankTop100DAO를 모두 삭제

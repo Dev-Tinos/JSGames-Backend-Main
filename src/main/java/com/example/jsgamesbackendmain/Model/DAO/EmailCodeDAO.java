@@ -1,14 +1,16 @@
 package com.example.jsgamesbackendmain.Model.DAO;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "email_code")
-@Getter @Setter
+@Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class EmailCodeDAO {
 
     @Id

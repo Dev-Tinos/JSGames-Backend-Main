@@ -1,10 +1,10 @@
 package com.example.jsgamesbackendmain.Bean.SmallBean.UserBean;
 
 import com.example.jsgamesbackendmain.Bean.MapperBean.MajorMapperBean;
-import com.example.jsgamesbackendmain.Bean.MapperBean.MapperBean;
 import com.example.jsgamesbackendmain.Model.DAO.UserDAO;
 import com.example.jsgamesbackendmain.Model.DTO.User.Request.UserSignUpRequestDTO;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.jsgamesbackendmain.Model.ENUM.ParentMajor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.nio.ByteBuffer;
@@ -14,23 +14,17 @@ import java.security.NoSuchAlgorithmException;
 import java.util.UUID;
 
 @Component
-public class UesrCreateSmallBean {
-    @Autowired
-    private UserSaveSmallBean userSaveSmallBean;
-    @Autowired
-    private MapperBean mapperBean;
-    @Autowired
-    private MajorMapperBean majorMapperBean;
+@RequiredArgsConstructor
+public class UserCreateSmallBean {
+    private final UserSaveSmallBean userSaveSmallBean;
+    private final MajorMapperBean majorMapperBean;
     public UserDAO exec(UserSignUpRequestDTO userSignUpRequestDTO) {
-        UserDAO user = mapperBean.to(userSignUpRequestDTO, UserDAO.class);
         //ParentMajor set
-        user.setParentMajor(majorMapperBean.getParentMajor(userSignUpRequestDTO.getMajor()));
-        //ProfileImageURL set
-        if(userSignUpRequestDTO.getProfileImageURL() == null){
-            user.setProfileImageURL("https://tinos-images-storage.s3.ap-northeast-2.amazonaws.com/default_user_image.png");
-        }
+        ParentMajor parentMajor = majorMapperBean.getParentMajor(userSignUpRequestDTO.getMajor());
+        String userId = generateVersion5UUID("namespace", "name").toString();
         //UUID set
-        user.setUserId(generateVersion5UUID("namespace", "name").toString());
+        UserDAO user = userSignUpRequestDTO.toDAO(userId, parentMajor);
+
         return userSaveSmallBean.exec(user);
     }
     public static UUID generateVersion5UUID(String namespace, String name) {

@@ -5,7 +5,7 @@ import com.example.jsgamesbackendmain.Model.DTO.Rank.Response.RankGetResponseDTO
 import com.example.jsgamesbackendmain.Service.RankService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @CrossOrigin("*")
 public class RankController {
-    @Autowired
-    private RankService rankService;
+    private final RankService rankService;
 
     // 전체 Game의 Top100 유저 조회
     @Operation(summary = "Top100 유저 랭크 조회", description =
@@ -38,7 +38,7 @@ public class RankController {
 
     // 게임 목록 조회 API
     @Operation(summary = "게임 랭킹 조회 (페이징) ", description =
-            "# 게임 랭킹 조회  \n"+
+            "# 게임 랭킹 조회  \n" +
                     "## 조회수 순으로 내림차순 정렬됩니다."
     )
     @GetMapping("/games")

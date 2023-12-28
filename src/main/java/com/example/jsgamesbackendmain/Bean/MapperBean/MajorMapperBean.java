@@ -37,10 +37,10 @@ public class MajorMapperBean {
         map.put(Major.미디어디자인학과, ParentMajor.디자인공학부);
         map.put(Major.생명화학공학과, ParentMajor.생명화학공학과);
         map.put(Major.신소재공학과, ParentMajor.신소재공학과);
-        map.put(Major.애너지전기공학과, ParentMajor.애너지전기공학과);
+        map.put(Major.에너지전기공학과, ParentMajor.애너지전기공학과);
         map.put(Major.지식융합학과, ParentMajor.지식융합학과);
         map.put(Major.전자공학과, ParentMajor.전자공학부);
-        map.put(Major.암배디드시스템학과, ParentMajor.전자공학부);
+        map.put(Major.임베디드시스템학과, ParentMajor.전자공학부);
 
         return map;
     }

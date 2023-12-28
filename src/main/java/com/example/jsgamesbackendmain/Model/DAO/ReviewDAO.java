@@ -1,8 +1,7 @@
 package com.example.jsgamesbackendmain.Model.DAO;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import com.example.jsgamesbackendmain.Model.DTO.Review.Request.ReviewUpdateRequestDTO;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -11,14 +10,19 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "reviews")
-@Getter @Setter
+@Getter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @ToString
 public class ReviewDAO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reviewId;
 
+    @Setter
     private String userId;
+    @Setter
     private Long gameId;
     private String reviewContent;
 
@@ -33,14 +37,17 @@ public class ReviewDAO {
     @Column(updatable = false)
     private LocalDateTime dateTime;
 
+    public void update(ReviewUpdateRequestDTO request) {
+        this.reviewContent = request.getReviewContent();
+    }
+
     public static ReviewDAO createTest(int i){
-        String s = String.valueOf(i);
-        ReviewDAO dao = new ReviewDAO();
-        dao.setUserId(""+ i);
-        dao.setGameId((long) i);
-        dao.setReviewContent(s);
-        dao.setStar((float) i % 5 + 1);
-        dao.setHelpful((long) i);
-        return dao;
+        return ReviewDAO.builder()
+                .userId("" + i)
+                .gameId((long) i)
+                .reviewContent(String.valueOf(i))
+                .star((float) i % 5 + 1)
+                .helpful((long) i)
+                .build();
     }
 }

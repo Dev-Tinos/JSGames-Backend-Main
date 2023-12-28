@@ -1,44 +1,62 @@
 package com.example.jsgamesbackendmain.Model.DAO;
 
 import com.example.jsgamesbackendmain.Bean.MapperBean.MajorMapperBean;
-import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UesrCreateSmallBean;
+import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserCreateSmallBean;
+import com.example.jsgamesbackendmain.Model.DTO.User.Request.UserUpdateRequestDTO;
 import com.example.jsgamesbackendmain.Model.ENUM.Major;
 import com.example.jsgamesbackendmain.Model.ENUM.ParentMajor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
-@Getter @Setter
+@Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserDAO {
+    @Setter
     @Id
     @Column(name = "user_id", length = 50)
     private String userId;
     private String nickname;
     private String email;
     private String password;
+    @Builder.Default
     private String profileImageURL = "https://tinos-images-storage.s3.ap-northeast-2.amazonaws.com/default_user_image.png";
     @Enumerated(EnumType.STRING)
     private ParentMajor parentMajor;
     @Enumerated(EnumType.STRING)
     private Major major;
 
+    public UserDAO update(UserUpdateRequestDTO request, ParentMajor parentMajor) {
+        if (request.getNickname() != null) {
+            this.nickname = request.getNickname();
+        }
+        if (request.getMajor() != null) {
+            this.major = request.getMajor();
+            this.parentMajor = parentMajor;
+        }
+
+        if (request.getProfileImageURL() != null) {
+            this.profileImageURL = request.getProfileImageURL();
+        }
+        return this;
+    }
+
     public static UserDAO createTest(int i) {
         Major[] majors = Major.values();
         MajorMapperBean mapperBean = new MajorMapperBean();
-        String id = UesrCreateSmallBean.generateVersion5UUID("namespace", "name").toString();
-        String s = String.valueOf(i);
-        UserDAO dao = new UserDAO();
-        dao.setUserId(id);
-        dao.setNickname(s);
-        dao.setProfileImageURL(s);
-        dao.setMajor(majors[i % majors.length]);
-        dao.setParentMajor(mapperBean.getParentMajor(dao.getMajor()));
-        dao.setEmail(s);
-        dao.setPassword(s);
+        String id = UserCreateSmallBean.generateVersion5UUID("namespace", "name").toString();
 
-        return dao;
+        return UserDAO.builder()
+                .userId(id)
+                .nickname(String.valueOf(i))
+                .major(majors[i % majors.length])
+                .parentMajor(mapperBean.getParentMajor(majors[i % majors.length]))
+                .email(String.valueOf(i))
+                .password(String.valueOf(i))
+                .build();
     }
 }

@@ -13,20 +13,18 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.Map;
 
 
 @RestController
+@RequiredArgsConstructor
 @CrossOrigin("*")
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
     // 특정 유저 조회
     @Operation(summary = "UserId로 유저 조회")
@@ -46,14 +44,14 @@ public class UserController {
 
     @Operation(summary = "유저 로그인")
     @PostMapping("/user/login")
-    public UserLoginResponseDTO loginUser(@RequestBody UserLoginRequestDTO userLoginRequestDTO){
+    public UserLoginResponseDTO loginUser(@RequestBody UserLoginRequestDTO userLoginRequestDTO) {
         return userService.loginUser(userLoginRequestDTO);
     }
 
     @Operation(summary = "유저 정보 수정", description = "# userID 제외하면 아무 값도 안들어가도됨" +
             "## 수정할 데이터만 넣으면 그 데이터만 수정")
     @PutMapping("/user")
-    public UserUpdateResponseDTO updateUser(@ModelAttribute UserUpdateRequestDTO userUpdateRequestDTO) throws IOException {
+    public UserUpdateResponseDTO updateUser(@ModelAttribute UserUpdateRequestDTO userUpdateRequestDTO) {
         return userService.updateUser(userUpdateRequestDTO);
     }
 

@@ -2,27 +2,27 @@ package com.example.jsgamesbackendmain.Service;
 
 import com.example.jsgamesbackendmain.Bean.EmailBean.EmailSetBean;
 import com.example.jsgamesbackendmain.Bean.RankBean.RankSetTop100UserBean;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @Service
+@RequiredArgsConstructor
 public class TestService {
-    @Autowired
-    private EmailSetBean emailClearBean;
+    private final EmailSetBean emailClearBean;
 
-    @Autowired
-    private RankSetTop100UserBean rankSetTop100UserBean;
+    private final RankSetTop100UserBean rankSetTop100UserBean;
 
-    public String emailClear(){
+    public String emailClear() {
         emailClearBean.exec();
         return "success";
     }
-    public Map<String ,String > setRank() {
+
+    public Map<String, String> setRank() {
         rankSetTop100UserBean.exec();
-        HashMap<String , String> map = new HashMap<>();
+        HashMap<String, String> map = new HashMap<>();
         map.put("result", "success");
         return map;
     }

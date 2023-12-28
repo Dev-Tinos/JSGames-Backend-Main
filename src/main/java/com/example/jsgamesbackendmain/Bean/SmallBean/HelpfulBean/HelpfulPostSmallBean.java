@@ -4,27 +4,27 @@ import com.example.jsgamesbackendmain.Controller.ExceptionControll.DuplicateExce
 import com.example.jsgamesbackendmain.Model.DAO.HelpfulDAO;
 import com.example.jsgamesbackendmain.Repository.HelpfulRepository;
 import com.example.jsgamesbackendmain.Repository.ReviewRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
 @Component
+@RequiredArgsConstructor
 public class HelpfulPostSmallBean {
-    @Autowired
-    private HelpfulRepository helpfulRepository;
-    @Autowired
-    private ReviewRepository reviewRepository;
+    private final HelpfulRepository helpfulRepository;
+    private final ReviewRepository reviewRepository;
 
     public void exec(String userId, Long reviewId) {
         Optional<HelpfulDAO> helpfulDAOCheck =
                 helpfulRepository.findByUserIdAndReviewId(userId, reviewId);
-        if(helpfulDAOCheck.isPresent()){
+        if (helpfulDAOCheck.isPresent()) {
             throw new DuplicateException("이미 존재하는 helpful입니다.");
         }
-        HelpfulDAO helpfulDAO = new HelpfulDAO();
+        HelpfulDAO helpfulDAO = HelpfulDAO.builder().build();
         helpfulDAO.setUserId(userId);
         helpfulDAO.setReviewId(reviewId);
+
         helpfulRepository.save(helpfulDAO);
         reviewRepository.updateHelpfulPlus(reviewId);
     }

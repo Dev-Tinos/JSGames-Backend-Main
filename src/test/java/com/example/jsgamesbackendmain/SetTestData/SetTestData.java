@@ -62,15 +62,8 @@ public class SetTestData {
 
     private ScoreType[] scoreTypes = ScoreType.values();
 
-    @Test
-    void Test2() {
-        GameDAO dao = new GameDAO();
-        System.out.println("dao.getGameImage() = " + dao.getGameImage());
-
-    }
-
-    @Test
-    @Rollback(value = true)
+//    @Test
+//    @Rollback(value = true)
     void Test_데이터_넣기() {
 //         all delete
 //        logRepository.deleteAll();
@@ -97,7 +90,6 @@ public class SetTestData {
 
             userDAOList.add(newUser);
             userRepository.save(newUser);
-
         }
 
         for (int i = 0; i < gameSize; i++) {

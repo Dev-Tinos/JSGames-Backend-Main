@@ -1,11 +1,11 @@
 package com.example.jsgamesbackendmain.Model.DTO;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@Getter @Setter
+@Getter
 @AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class StateResponseDTO {
     private boolean state;
 }

@@ -29,7 +29,7 @@ public class HelpfulController {
 
     // 특정 유저와 특정 리뷰의 도움이 되었는지 여부 삭제 API
     @Operation(summary = "helpful 삭제")
-    @DeleteMapping("/helpful/user/{userId}/review/{reviewId}/delete")
+    @DeleteMapping("/helpful/user/{userId}/review/{reviewId}")
     public StateResponseDTO deleteHelpful(String userId, Long reviewId) {
         return helpfulService.deleteHelpful(userId, reviewId);
     }

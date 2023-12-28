@@ -1,9 +1,11 @@
 package com.example.jsgamesbackendmain.Model.DTO.Email;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@Getter @Setter
+@Getter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class EmailSendRequestDTO {
     private String email;
 }

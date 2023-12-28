@@ -8,7 +8,6 @@ import com.example.jsgamesbackendmain.Model.DTO.Review.Request.ReviewUpdateReque
 import com.example.jsgamesbackendmain.Model.DTO.Review.Response.ReviewCreateResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Review.Response.ReviewGetByGameIdResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Review.Response.ReviewUpdateResponseDTO;
-import com.example.jsgamesbackendmain.Model.DTO.Review.ReviewDTO;
 import com.example.jsgamesbackendmain.Model.ENUM.ReviewSort;
 import com.example.jsgamesbackendmain.Repository.GameRepository;
 import com.example.jsgamesbackendmain.Repository.ReviewRepository;

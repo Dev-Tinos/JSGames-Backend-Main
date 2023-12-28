@@ -11,9 +11,10 @@ public class EmailAppendSmallBean {
     private final EmailAccountRepository emailAccountRepository;
 
     public void exec() {
-        EmailAccountDAO emailAccountDAO = new EmailAccountDAO();
-        emailAccountDAO.setSentEmails(1L);
-        emailAccountDAO.setId(0L);
+        EmailAccountDAO emailAccountDAO = EmailAccountDAO.builder()
+                .id(0L)
+                .sentEmails(1L)
+                .build();
         emailAccountRepository.save(emailAccountDAO);
     }
 }

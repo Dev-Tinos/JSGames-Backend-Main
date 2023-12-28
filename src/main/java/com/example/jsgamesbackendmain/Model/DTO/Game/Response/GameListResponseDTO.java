@@ -12,7 +12,7 @@ public class GameListResponseDTO {
     private Long gameId;
     private String gameName;
     private String userId;
-    private String imageUrl;
+    private String gameImage;
     private String gameUrl;
     private Double targetScore;
     private ScoreType scoreType;
@@ -24,7 +24,7 @@ public class GameListResponseDTO {
                 .gameId(gameDAO.getGameId())
                 .gameName(gameDAO.getGameName())
                 .userId(gameDAO.getUserId())
-                .imageUrl(gameDAO.getGameImage())
+                .gameImage(gameDAO.getGameImage())
                 .gameUrl(gameDAO.getGameUrl())
                 .targetScore(gameDAO.getTargetScore())
                 .scoreType(gameDAO.getScoreType())

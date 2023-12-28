@@ -160,7 +160,6 @@ class GameBeanTest {
 
         GameDAO dao = GameDAO.createTest(0);
         dao.setUserId(user.getUserId());
-        dao.setGameId(null);
 
         //when
         GameDTO exec = gamePostBean.exec(GameCreateRequestDTO.of(dao));

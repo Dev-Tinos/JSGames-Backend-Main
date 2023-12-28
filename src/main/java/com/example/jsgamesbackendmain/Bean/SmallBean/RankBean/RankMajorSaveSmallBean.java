@@ -21,7 +21,7 @@ public class RankMajorSaveSmallBean {
     private final RankMajorRepository rankMajorRepository;
     public void exec(Major major) {
         List<RankMajorDAO> list =
-                rankMajorRepository.findAllByOrderByRankWeightDesc(major)
+                rankMajorRepository.findAllByOrderByRankWeightDesc(major.toString())
                         .stream()
                         .map(map -> objectMapper.convertValue(map, RankMajorGetRequestDTO.class).toDAO())
                         .collect(Collectors.toList());

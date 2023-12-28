@@ -11,16 +11,16 @@ import java.util.Map;
 public interface RankMajorRepository extends JpaRepository<RankMajorDAO, Long> {
 
     @Query(value = "SELECT major\n" +
-            "     , SUM(totalRank) AS totalRankSum\n" +
-            "     , SUM(rankWeight) AS rankWeightSum\n" +
-            "FROM RankMajor\n" +
+            "     , SUM(rank_weight) AS rankWeight\n" +
+            "     , RANK() over (order by rankWeight desc) AS totalRank\n" +
+            "FROM rank_major\n" +
             "GROUP BY major\n" +
-            "ORDER BY major;\n", nativeQuery = true)
-    List<RankMajorDAO> findAllByMajorASC();
+            "ORDER BY rankWeight desc;\n", nativeQuery = true)
+    List<Map<String ,String >> findAllByMajorASC();
 
     List<RankMajorDAO> findAllByMajorOrderByTotalRankAsc(Major major);
 
-    @Query(value = "SELECT user_id\n" +
+    @Query(value = "SELECT user_id, major\n" +
             // 모든 게임의 1등부터 100등까지의 가중치를 더함
             "     , sum(CASE\n" +
             "               WHEN num <= 10 THEN 450 - (num - 1) * 20\n" +
@@ -35,7 +35,7 @@ public interface RankMajorRepository extends JpaRepository<RankMajorDAO, Long> {
             "        END) desc) AS total_rank\n" +
             // 서브쿼리
             "from (SELECT l.game_id,\n" +
-            "             l.user_id,\n" +
+            "             l.user_id, u.major,\n" +
             "             ROW_NUMBER() OVER (PARTITION BY l.game_id ORDER BY\n" +
             // 게임의 점수 타입이 INFINITE이면 게임의 점수를 내림차순으로 정렬
             "                 CASE WHEN g.score_type = 'INFINITE' THEN l.game_score END desc,\n" +
@@ -45,16 +45,15 @@ public interface RankMajorRepository extends JpaRepository<RankMajorDAO, Long> {
             "                 ) AS num\n" +
             "      FROM logs l\n" +
             "               join games g on l.game_id = g.game_id\n" +
-            "join users u on l.user_id = u.user_id\n" +
-            "where u.major = ?1\n" +
+            "               join users u on l.user_id = u.user_id\n" +
             ") as n\n" +
             // 100등까지의 게임의 점수를 더함
-            "where num <= 100\n" +
+            "where num <= 100 AND major = ?1\n" +
             // user_id로 그룹화
             "group by user_id\n" +
             // 가중치를 내림차순으로 정렬
             "order by rank_weight desc\n" +
             // 10개만 가져옴
             "limit 10;", nativeQuery = true)
-    List<Map<String ,String >> findAllByOrderByRankWeightDesc(Major major);
+    List<Map<String ,String >> findAllByOrderByRankWeightDesc(String major);
 }

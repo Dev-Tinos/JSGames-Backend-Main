@@ -21,5 +21,6 @@ public class RankMajorDAO {
     private String userId;
     private Integer totalRank;
     private Long rankWeight;
+    @Enumerated(EnumType.STRING)
     private Major major;
 }

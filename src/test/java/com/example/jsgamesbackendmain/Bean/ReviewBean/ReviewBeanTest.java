@@ -208,8 +208,10 @@ class ReviewBeanTest {
         review.setUserId(user.getUserId());
         reviewRepository.save(review);
 
-        ReviewUpdateRequestDTO requestDTO = new ReviewUpdateRequestDTO();
-        requestDTO.setReviewContent("update");
+        ReviewUpdateRequestDTO requestDTO = ReviewUpdateRequestDTO.builder()
+                .reviewContent("update")
+                .build();
+
         //when
         ReviewUpdateResponseDTO exec = reviewUpdateBean.exec(review.getReviewId(), requestDTO);
 

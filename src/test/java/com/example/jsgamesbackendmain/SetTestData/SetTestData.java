@@ -52,8 +52,6 @@ public class SetTestData {
     private Major[] majors = Major.values();
 
     private ScoreType[] scoreTypes = ScoreType.values();
-    private ObjectMapper objectMapper = new ObjectMapper();
-
     @Test
     void Test2() {
         GameDAO dao = new GameDAO();
@@ -65,10 +63,10 @@ public class SetTestData {
     @Rollback(value = false)
     void Test_데이터_넣기() {
 //         all delete
-        logRepository.deleteAll();
-        userRepository.deleteAll();
-        gameRepository.deleteAll();
-        reviewRepository.deleteAll();
+//        logRepository.deleteAll();
+//        userRepository.deleteAll();
+//        gameRepository.deleteAll();
+//        reviewRepository.deleteAll();
 
         int userSize = 50;
         int gameSize = 50;

@@ -120,14 +120,14 @@ public class SetTestData {
         }
 
         for (int j = 0; j < reviewSize; j++) {
-            ReviewDAO reviewDAO = new ReviewDAO();
-            reviewDAO.setGameId(gameDAOList.get((int) (Math.random() * gameSize)).getGameId());
-            reviewDAO.setUserId(userDAOList.get((int) (Math.random() * gameSize)).getUserId());
-            reviewDAO.setReviewContent("reviewContent " + j);
-            reviewDAO.setStar((float) (j % 5) + 1);
-            LocalDateTime now = LocalDateTime.now();
-            reviewDAO.setDateTime(now.minusDays(j));
-            reviewDAO.setHelpful((long) j);
+            ReviewDAO reviewDAO = ReviewDAO.builder()
+                    .userId(userDAOList.get((int) (Math.random() * userSize)).getUserId())
+                    .gameId(gameDAOList.get((int) (Math.random() * gameSize)).getGameId())
+                    .reviewContent("reviewContent " + j)
+                    .star((float) (j % 5) + 1)
+                    .dateTime(LocalDateTime.now().minusDays(j))
+                    .helpful((long) j)
+                    .build();
 
             reviewDAOList.add(reviewDAO);
             reviewRepository.save(reviewDAO);

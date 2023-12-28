@@ -203,6 +203,7 @@ class ReviewBeanTest {
         gameRepository.save(game);
 
         ReviewDAO review = ReviewDAO.createTest(0);
+
         review.setGameId(game.getGameId());
         review.setUserId(user.getUserId());
         reviewRepository.save(review);

@@ -12,9 +12,11 @@ public class EmailCodeSaveSmallBean {
 
     public void exec(String Email, String verificationCode) {
         // 인증 코드 저장
-        EmailCodeDAO newCode = new EmailCodeDAO();
-        newCode.setEmail(Email);
-        newCode.setCode(verificationCode);
+        EmailCodeDAO newCode = EmailCodeDAO.builder()
+                .email(Email)
+                .code(verificationCode)
+                .build();
+
         emailCodeRepository.save(newCode);
     }
 }

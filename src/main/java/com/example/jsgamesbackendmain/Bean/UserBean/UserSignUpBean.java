@@ -1,7 +1,7 @@
 package com.example.jsgamesbackendmain.Bean.UserBean;
 
 import com.example.jsgamesbackendmain.Bean.SmallBean.EmailBean.EmailCodeCheckSmallBean;
-import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UesrCreateSmallBean;
+import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserCreateSmallBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserEmailDuplicateSmallBean;
 import com.example.jsgamesbackendmain.Model.DTO.Email.EmailCodeRequestDTO;
 import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserSignUpResponseDTO;
@@ -17,7 +17,7 @@ public class UserSignUpBean {
 
     private final EmailCodeCheckSmallBean emailCodeCheckBean;
 
-    private final UesrCreateSmallBean uesrCreateSmallBean;
+    private final UserCreateSmallBean userCreateSmallBean;
 
     public UserSignUpResponseDTO signUpUser(UserSignUpRequestDTO userSignUpRequestDTO) {
         // 이메일 중복 확인
@@ -25,6 +25,6 @@ public class UserSignUpBean {
         // 이메일 인증 확인
         emailCodeCheckBean.exec(EmailCodeRequestDTO.of(userSignUpRequestDTO));
 
-        return UserSignUpResponseDTO.of(uesrCreateSmallBean.exec(userSignUpRequestDTO));
+        return UserSignUpResponseDTO.of(userCreateSmallBean.exec(userSignUpRequestDTO));
     }
 }

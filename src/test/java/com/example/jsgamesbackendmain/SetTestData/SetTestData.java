@@ -85,17 +85,18 @@ public class SetTestData {
 
 
         for (int i = 0; i < userSize; i++) {
-            UserDAO dao = new UserDAO();
-            dao.setUserId(String.valueOf(i));
-            dao.setEmail("test" + i + "@test.com");
-            dao.setNickname("nick " + i);
-            dao.setPassword("password " + i);
-            // 각 과에 맞는 학부로 세팅되게 변경
-            Major major = majors[i % majors.length];
-            dao.setMajor(major);
-            dao.setParentMajor(parentMajors.getParentMajor(major));
-            userDAOList.add(dao);
-            userRepository.save(dao);
+            UserDAO newUser = UserDAO.builder()
+                    .userId(String.valueOf(i))
+                    .email("test" + i + "@test.com")
+                    .nickname("nick " + i)
+                    .password("password " + i)
+                    .major(majors[i % majors.length])
+                    // 각 과에 맞는 학부로 세팅되게 변경
+                    .parentMajor(parentMajors.getParentMajor(majors[i % majors.length]))
+                    .build();
+
+            userDAOList.add(newUser);
+            userRepository.save(newUser);
 
         }
 

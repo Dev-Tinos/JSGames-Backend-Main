@@ -24,18 +24,12 @@ public class UserUpdateBean {
     public UserUpdateResponseDTO exec(UserUpdateRequestDTO userUpdateRequestDTO) {
         UserDAO user = userGetByIdSmallBean.exec(userUpdateRequestDTO.getUserId());
 
-        if (userUpdateRequestDTO.getNickname() != null) {
-            user.setNickname(userUpdateRequestDTO.getNickname());
-        }
-        if (userUpdateRequestDTO.getMajor() != null) {
-            user.setMajor(userUpdateRequestDTO.getMajor());
-            user.setParentMajor(majorMapperBean.getParentMajor(userUpdateRequestDTO.getMajor()));
-        }
+        user.update(userUpdateRequestDTO, majorMapperBean.getParentMajor(user.getMajor()));
+
         if (userUpdateRequestDTO.getProfileImageURL() != null) {
             S3DeleteSmallBeam.exec(user.getProfileImageURL());
-            user.setProfileImageURL(
-                    userUpdateRequestDTO.getProfileImageURL());
         }
+
         return UserUpdateResponseDTO.of(userSaveSmallBean.exec(user));
     }
 }

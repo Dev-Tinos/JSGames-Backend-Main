@@ -1,17 +1,24 @@
 package com.example.jsgamesbackendmain.Repository;
 
-import com.example.jsgamesbackendmain.Model.DAO.RankTop100DAO;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import com.example.jsgamesbackendmain.Model.DAO.RankMajorDAO;
+import com.example.jsgamesbackendmain.Model.ENUM.Major;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 import java.util.Map;
 
-public interface RankRepository extends JpaRepository<RankTop100DAO, Long> {
-    // 전체중 Score로 내림차순
-    Page<RankTop100DAO> findAllByOrderByTotalRankAsc(Pageable pageable);
+public interface RankMajorRepository extends JpaRepository<RankMajorDAO, Long> {
+
+    @Query(value = "SELECT major\n" +
+            "     , SUM(totalRank) AS totalRankSum\n" +
+            "     , SUM(rankWeight) AS rankWeightSum\n" +
+            "FROM RankMajor\n" +
+            "GROUP BY major\n" +
+            "ORDER BY major;\n", nativeQuery = true)
+    List<RankMajorDAO> findAllByMajorASC();
+
+    List<RankMajorDAO> findAllByMajorOrderByTotalRankAsc(Major major);
 
     @Query(value = "SELECT user_id\n" +
             // 모든 게임의 1등부터 100등까지의 가중치를 더함
@@ -37,15 +44,17 @@ public interface RankRepository extends JpaRepository<RankTop100DAO, Long> {
             "                 ,l.log_id\n" +
             "                 ) AS num\n" +
             "      FROM logs l\n" +
-            "               join games g on l.game_id = g.game_id) as n\n" +
+            "               join games g on l.game_id = g.game_id\n" +
+            "join users u on l.user_id = u.user_id\n" +
+            "where u.major = ?1\n" +
+            ") as n\n" +
             // 100등까지의 게임의 점수를 더함
             "where num <= 100\n" +
             // user_id로 그룹화
             "group by user_id\n" +
             // 가중치를 내림차순으로 정렬
             "order by rank_weight desc\n" +
-            // 100개만 가져옴
-            "limit 100;", nativeQuery = true)
-    List<Map<String ,String >> findAllByOrderByRankWeightDesc();
-
+            // 10개만 가져옴
+            "limit 10;", nativeQuery = true)
+    List<Map<String ,String >> findAllByOrderByRankWeightDesc(Major major);
 }

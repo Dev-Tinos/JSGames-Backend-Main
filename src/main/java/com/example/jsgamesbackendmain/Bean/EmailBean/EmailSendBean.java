@@ -3,41 +3,32 @@ package com.example.jsgamesbackendmain.Bean.EmailBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.EmailBean.*;
 import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserEmailDuplicateSmallBean;
 import com.example.jsgamesbackendmain.Model.DAO.EmailAccountDAO;
-import com.example.jsgamesbackendmain.Model.DAO.EmailCodeDAO;
 import com.example.jsgamesbackendmain.Model.DTO.Email.EmailSendRequestDTO;
 import com.example.jsgamesbackendmain.Model.DTO.StateResponseDTO;
-import com.example.jsgamesbackendmain.Repository.EmailAccountRepository;
-import com.example.jsgamesbackendmain.Repository.EmailCodeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+
 import java.util.Random;
 
 
 @Component
+@RequiredArgsConstructor
 public class EmailSendBean {
-    @Autowired
-    private EmailAccountGetSmallBean emailAccountGetSmallBean;
+    private final EmailAccountGetSmallBean emailAccountGetSmallBean;
 
-    @Autowired
-    private EmailSendSmallBean emailSendSmallBean;
+    private final EmailSendSmallBean emailSendSmallBean;
 
-    @Autowired
-    private UserEmailDuplicateSmallBean userEmailDuplicateSmallBean;
+    private final UserEmailDuplicateSmallBean userEmailDuplicateSmallBean;
 
-    @Autowired
-    private EmailMaxCheckSmallBean emailMaxCheckSmallBean;
+    private final EmailMaxCheckSmallBean emailMaxCheckSmallBean;
 
-    @Autowired
-    private EmailDomainCheckSmallBean emailDomainCheckSmallBean;
+    private final EmailDomainCheckSmallBean emailDomainCheckSmallBean;
 
-    @Autowired
-    private EmailDuplicateSmallBean emailDuplicateSmallBean;
+    private final EmailDuplicateSmallBean emailDuplicateSmallBean;
 
-    @Autowired
-    private EmailCodeSaveSmallBean emailCodeSaveSmallBean;
+    private final EmailCodeSaveSmallBean emailCodeSaveSmallBean;
 
-    @Autowired
-    private EmailAccoutPlusSmallBean emailAccoutPlusSmallBean;
+    private final EmailAccoutPlusSmallBean emailAccoutPlusSmallBean;
 
     public StateResponseDTO exec(EmailSendRequestDTO emailSendRequestDTO) {
         EmailAccountDAO account = emailAccountGetSmallBean.exec();

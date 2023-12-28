@@ -5,23 +5,22 @@ import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserDeleteSmallBea
 import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserGetByIdSmallBean;
 import com.example.jsgamesbackendmain.Model.DAO.UserDAO;
 import com.example.jsgamesbackendmain.Model.DTO.StateResponseDTO;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class UserDeleteBean {
 
-    @Autowired
-    private UserGetByIdSmallBean UserGetByIdSmallBean;
+    private final UserGetByIdSmallBean UserGetByIdSmallBean;
 
-    @Autowired
-    private UserDeleteSmallBean userDeleteSmallBean;
+    private final UserDeleteSmallBean userDeleteSmallBean;
 
-    @Autowired
-    private S3DeleteSmallBeam s3DeleteSmallBeam;
+    private final S3DeleteSmallBeam s3DeleteSmallBeam;
+
     public StateResponseDTO exec(String userId) {
         UserDAO user = UserGetByIdSmallBean.exec(userId);
-        if(!user.getProfileImageURL().equals("https://tinos-images-storage.s3.ap-northeast-2.amazonaws.com/default_user_image.png")){
+        if (!user.getProfileImageURL().equals("https://tinos-images-storage.s3.ap-northeast-2.amazonaws.com/default_user_image.png")) {
             s3DeleteSmallBeam.exec(user.getProfileImageURL());
         }
         userDeleteSmallBean.exec(userId);

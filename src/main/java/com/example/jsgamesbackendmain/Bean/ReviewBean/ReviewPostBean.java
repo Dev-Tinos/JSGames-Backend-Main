@@ -1,40 +1,31 @@
 package com.example.jsgamesbackendmain.Bean.ReviewBean;
 
-import com.example.jsgamesbackendmain.Bean.MapperBean.MapperBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.GameBean.GameGetSmallBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.ReviewBean.ReviewSaveSmallBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserGetByIdSmallBean;
-import com.example.jsgamesbackendmain.Model.DAO.ReviewDAO;
 import com.example.jsgamesbackendmain.Model.DTO.Review.Request.ReviewCreateRequestDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Review.Response.ReviewCreateResponseDTO;
-import com.example.jsgamesbackendmain.Model.DTO.Review.ReviewDTO;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class ReviewPostBean {
 
-    @Autowired
-    private ReviewSaveSmallBean reviewSaveSmallBean;
-    @Autowired
-    private UserGetByIdSmallBean userGetByIdSmallBean;
+    private final ReviewSaveSmallBean reviewSaveSmallBean;
 
-    @Autowired
-    private GameGetSmallBean gameGetSmallBean;
+    private final UserGetByIdSmallBean userGetByIdSmallBean;
 
-    @Autowired
-    private MapperBean mapperBean;
+    private final GameGetSmallBean gameGetSmallBean;
 
-    public ReviewDTO exec(ReviewCreateRequestDTO requestDTO) {
+    public ReviewCreateResponseDTO exec(ReviewCreateRequestDTO requestDTO) {
 
+        // user validation
         userGetByIdSmallBean.exec(requestDTO.getUserId());
 
+        // game validation
         gameGetSmallBean.exec(requestDTO.getGameId());
 
-        ReviewDAO dao = mapperBean.to(requestDTO, ReviewDAO.class);
-
-        ReviewDAO savedDao = reviewSaveSmallBean.exec(dao);
-
-        return mapperBean.to(savedDao, ReviewCreateResponseDTO.class);
+        return ReviewCreateResponseDTO.of(reviewSaveSmallBean.exec(requestDTO.toDAO()));
     }
 }

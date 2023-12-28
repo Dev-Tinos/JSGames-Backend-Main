@@ -1,48 +1,35 @@
 package com.example.jsgamesbackendmain.Bean.UserBean;
 
 import com.example.jsgamesbackendmain.Bean.MapperBean.MajorMapperBean;
-import com.example.jsgamesbackendmain.Bean.MapperBean.MapperBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.ImageBean.S3DeleteSmallBeam;
 import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserGetByIdSmallBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserSaveSmallBean;
 import com.example.jsgamesbackendmain.Model.DAO.UserDAO;
 import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserUpdateResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.User.Request.UserUpdateRequestDTO;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class UserUpdateBean {
+    private final UserSaveSmallBean userSaveSmallBean;
 
-    @Autowired
-    private UserSaveSmallBean userSaveSmallBean;
+    private final UserGetByIdSmallBean userGetByIdSmallBean;
 
-    @Autowired
-    private UserGetByIdSmallBean userGetByIdSmallBean;
+    private final MajorMapperBean majorMapperBean;
 
-    @Autowired
-    private MapperBean mapperBean;
+    private final S3DeleteSmallBeam S3DeleteSmallBeam;
 
-    @Autowired
-    private MajorMapperBean majorMapperBean;
-
-    @Autowired
-    private S3DeleteSmallBeam S3DeleteSmallBeam;
     public UserUpdateResponseDTO exec(UserUpdateRequestDTO userUpdateRequestDTO) {
         UserDAO user = userGetByIdSmallBean.exec(userUpdateRequestDTO.getUserId());
 
-        if(userUpdateRequestDTO.getNickname() != null) {
-            user.setNickname(userUpdateRequestDTO.getNickname());
-        }
-        if(userUpdateRequestDTO.getMajor() != null) {
-            user.setMajor(userUpdateRequestDTO.getMajor());
-            user.setParentMajor(majorMapperBean.getParentMajor(userUpdateRequestDTO.getMajor()));
-        }
-        if(userUpdateRequestDTO.getProfileImageURL() != null) {
+        user.update(userUpdateRequestDTO, majorMapperBean.getParentMajor(user.getMajor()));
+
+        if (userUpdateRequestDTO.getProfileImageURL() != null) {
             S3DeleteSmallBeam.exec(user.getProfileImageURL());
-            user.setProfileImageURL(
-                    userUpdateRequestDTO.getProfileImageURL());
         }
-        return mapperBean.to(userSaveSmallBean.exec(user), UserUpdateResponseDTO.class);
+
+        return UserUpdateResponseDTO.of(userSaveSmallBean.exec(user));
     }
 }

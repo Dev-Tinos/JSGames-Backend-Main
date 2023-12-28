@@ -11,6 +11,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 @Transactional
@@ -23,6 +24,7 @@ class EmailBeanTest {
 
     @Autowired
     private EmailSetBean emailSetBean;
+
     @Test
     void EmailSetBeanTest() {
         //given
@@ -36,23 +38,25 @@ class EmailBeanTest {
 
     @Autowired
     private EmailSendBean emailSendBean;
+
     @Test
     void EmailSendBeanTest() {
         //given
         String email = "test@tukorea.ac.kr";
-        EmailSendRequestDTO emailSendRequestDTO = new EmailSendRequestDTO();
-        emailSendRequestDTO.setEmail(email);
+        EmailSendRequestDTO newEmailSendRequestDTO
+                = EmailSendRequestDTO.builder()
+                .email(email)
+                .build();
 
         //when
         emailSetBean.exec();
-        StateResponseDTO stateResponseDTO = emailSendBean.exec(emailSendRequestDTO);
+        StateResponseDTO stateResponseDTO = emailSendBean.exec(newEmailSendRequestDTO);
 
         //then
         assertEquals(1, emailCodeRepository.count());
         assertEquals(1, emailAccountRepository.count());
-        assertEquals(true, stateResponseDTO.isState());
+        assertTrue(stateResponseDTO.isState());
     }
-
 
 
 }

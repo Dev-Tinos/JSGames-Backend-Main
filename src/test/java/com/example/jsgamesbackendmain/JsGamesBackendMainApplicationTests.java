@@ -1,28 +1,16 @@
 package com.example.jsgamesbackendmain;
 
 import com.example.jsgamesbackendmain.Bean.UserBean.UserGetBean;
-import com.example.jsgamesbackendmain.Model.DAO.ReviewDAO;
-import com.example.jsgamesbackendmain.Model.DTO.Review.ReviewDTO;
-import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserGetResponseDTO;
-import com.example.jsgamesbackendmain.Repository.ReviewRepository;
 import com.example.jsgamesbackendmain.Repository.GameRepository;
 import com.example.jsgamesbackendmain.Repository.LogRepository;
+import com.example.jsgamesbackendmain.Repository.ReviewRepository;
 import com.example.jsgamesbackendmain.Repository.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDateTime;
-import java.util.Map;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 // MockMvc를 사용하기 위한 어노테이션

@@ -3,25 +3,20 @@ package com.example.jsgamesbackendmain.Bean.ReviewBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.GameBean.GameGetSmallBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.ReviewBean.ReviewGetByUserIdAndGameIdSmallBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserGetByIdSmallBean;
-import com.example.jsgamesbackendmain.Converter.ReviewConverter;
-import com.example.jsgamesbackendmain.Converter.UserConverter;
 import com.example.jsgamesbackendmain.Model.DAO.ReviewDAO;
 import com.example.jsgamesbackendmain.Model.DAO.UserDAO;
-import com.example.jsgamesbackendmain.Model.DTO.Review.ReviewDTO;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.jsgamesbackendmain.Model.DTO.Review.Response.ReviewGetByGameIdResponseDTO;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class ReviewGetMyReviewBean {
-    @Autowired
-    private ReviewGetByUserIdAndGameIdSmallBean reviewGetByUserIdAndGameIdSmallBean;
+    private final ReviewGetByUserIdAndGameIdSmallBean reviewGetByUserIdAndGameIdSmallBean;
+    private final UserGetByIdSmallBean userGetByIdSmallBean;
+    private final GameGetSmallBean gameGetSmallBean;
 
-    @Autowired
-    private UserGetByIdSmallBean userGetByIdSmallBean;
-    @Autowired
-    private GameGetSmallBean gameGetSmallBean;
-
-    public ReviewDTO exec(Long gameId,String userId) {
+    public ReviewGetByGameIdResponseDTO exec(Long gameId, String userId) {
 
         UserDAO user = userGetByIdSmallBean.exec(userId);
 
@@ -29,8 +24,6 @@ public class ReviewGetMyReviewBean {
 
         ReviewDAO dao = reviewGetByUserIdAndGameIdSmallBean.exec(userId, gameId);
 
-        return ReviewConverter.toGetByGameIdResponseDTO(
-                dao,UserConverter.toUserGetResponseDTO(user)
-        );
+        return ReviewGetByGameIdResponseDTO.of(dao, user);
     }
 }

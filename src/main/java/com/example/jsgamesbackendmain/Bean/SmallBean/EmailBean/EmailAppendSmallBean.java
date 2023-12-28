@@ -2,17 +2,19 @@ package com.example.jsgamesbackendmain.Bean.SmallBean.EmailBean;
 
 import com.example.jsgamesbackendmain.Model.DAO.EmailAccountDAO;
 import com.example.jsgamesbackendmain.Repository.EmailAccountRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class EmailAppendSmallBean {
-    @Autowired
-    private EmailAccountRepository emailAccountRepository;
+    private final EmailAccountRepository emailAccountRepository;
+
     public void exec() {
-        EmailAccountDAO emailAccountDAO = new EmailAccountDAO();
-        emailAccountDAO.setSentEmails(1L);
-        emailAccountDAO.setId(0L);
+        EmailAccountDAO emailAccountDAO = EmailAccountDAO.builder()
+                .id(0L)
+                .sentEmails(1L)
+                .build();
         emailAccountRepository.save(emailAccountDAO);
     }
 }

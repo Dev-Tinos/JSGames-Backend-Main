@@ -3,14 +3,15 @@ package com.example.jsgamesbackendmain.Service;
 import com.example.jsgamesbackendmain.Bean.EmailBean.EmailSendBean;
 import com.example.jsgamesbackendmain.Model.DTO.Email.EmailSendRequestDTO;
 import com.example.jsgamesbackendmain.Model.DTO.StateResponseDTO;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class EmailService {
-    @Autowired
-    private EmailSendBean emailSendBean;
-    public StateResponseDTO sendEmail(EmailSendRequestDTO emailSendRequestDTO){
+    private final EmailSendBean emailSendBean;
+
+    public StateResponseDTO sendEmail(EmailSendRequestDTO emailSendRequestDTO) {
         return emailSendBean.exec(emailSendRequestDTO);
     }
 }

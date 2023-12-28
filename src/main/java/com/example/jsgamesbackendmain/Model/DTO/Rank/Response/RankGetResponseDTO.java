@@ -1,15 +1,17 @@
 package com.example.jsgamesbackendmain.Model.DTO.Rank.Response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
-@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class RankGetResponseDTO {
+    @Builder.Default
     private LocalDateTime lastUpdated = LocalDateTime.now();
     private List<RankTop100UserResponseDTO> rankList;
 }

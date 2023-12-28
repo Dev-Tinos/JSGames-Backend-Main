@@ -1,14 +1,13 @@
 package com.example.jsgamesbackendmain.Bean.ReviewBean;
 
-import com.example.jsgamesbackendmain.Bean.MapperBean.MapperBean;
 import com.example.jsgamesbackendmain.Model.DAO.GameDAO;
 import com.example.jsgamesbackendmain.Model.DAO.ReviewDAO;
 import com.example.jsgamesbackendmain.Model.DAO.UserDAO;
 import com.example.jsgamesbackendmain.Model.DTO.Review.Request.ReviewCreateRequestDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Review.Request.ReviewUpdateRequestDTO;
+import com.example.jsgamesbackendmain.Model.DTO.Review.Response.ReviewCreateResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Review.Response.ReviewGetByGameIdResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Review.Response.ReviewUpdateResponseDTO;
-import com.example.jsgamesbackendmain.Model.DTO.Review.ReviewDTO;
 import com.example.jsgamesbackendmain.Model.ENUM.ReviewSort;
 import com.example.jsgamesbackendmain.Repository.GameRepository;
 import com.example.jsgamesbackendmain.Repository.ReviewRepository;
@@ -36,8 +35,6 @@ class ReviewBeanTest {
     private GameRepository gameRepository;
     @Autowired
     private ReviewRepository reviewRepository;
-    @Autowired
-    private MapperBean mapperBean;
 
     @Autowired
     private ReviewGetMyReviewBean reviewGetMyReviewBean;
@@ -58,7 +55,7 @@ class ReviewBeanTest {
         reviewRepository.save(review);
 
         //when
-        ReviewDTO exec = reviewGetMyReviewBean.exec(game.getGameId(), user.getUserId());
+        ReviewGetByGameIdResponseDTO exec = reviewGetMyReviewBean.exec(game.getGameId(), user.getUserId());
 
         //then
         assertEquals(review.getReviewId(), exec.getReviewId());
@@ -181,10 +178,9 @@ class ReviewBeanTest {
         ReviewDAO review = ReviewDAO.createTest(0);
         review.setGameId(game.getGameId());
         review.setUserId(user.getUserId());
-        ReviewCreateRequestDTO requestDTO = mapperBean.to(review, ReviewCreateRequestDTO.class);
 
         //when
-        ReviewDTO exec = reviewPostBean.exec(requestDTO);
+        ReviewCreateResponseDTO exec = reviewPostBean.exec(ReviewCreateRequestDTO.of(review));
 
         //then
         ReviewDAO expect = reviewRepository.findAll().stream().findAny().orElse(new ReviewDAO());
@@ -206,12 +202,15 @@ class ReviewBeanTest {
         gameRepository.save(game);
 
         ReviewDAO review = ReviewDAO.createTest(0);
+
         review.setGameId(game.getGameId());
         review.setUserId(user.getUserId());
         reviewRepository.save(review);
 
-        ReviewUpdateRequestDTO requestDTO = new ReviewUpdateRequestDTO();
-        requestDTO.setReviewContent("update");
+        ReviewUpdateRequestDTO requestDTO = ReviewUpdateRequestDTO.builder()
+                .reviewContent("update")
+                .build();
+
         //when
         ReviewUpdateResponseDTO exec = reviewUpdateBean.exec(review.getReviewId(), requestDTO);
 

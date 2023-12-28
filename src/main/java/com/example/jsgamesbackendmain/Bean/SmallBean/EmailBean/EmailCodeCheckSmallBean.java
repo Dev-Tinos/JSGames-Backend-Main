@@ -4,18 +4,18 @@ import com.example.jsgamesbackendmain.Controller.ExceptionControll.InvalidExcept
 import com.example.jsgamesbackendmain.Model.DAO.EmailCodeDAO;
 import com.example.jsgamesbackendmain.Model.DTO.Email.EmailCodeRequestDTO;
 import com.example.jsgamesbackendmain.Repository.EmailCodeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
 @Component
+@RequiredArgsConstructor
 public class EmailCodeCheckSmallBean {
 
-    @Autowired
-    private EmailCodeRepository emailCodeRepository;
+    private final EmailCodeRepository emailCodeRepository;
 
-    public void exec(EmailCodeRequestDTO emailCodeRequestDTO){
+    public void exec(EmailCodeRequestDTO emailCodeRequestDTO) {
         String email = emailCodeRequestDTO.getEmail();
         String code = emailCodeRequestDTO.getCode();
 

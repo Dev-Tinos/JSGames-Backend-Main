@@ -1,24 +1,29 @@
 package com.example.jsgamesbackendmain.Bean.RankBean;
 
-import com.example.jsgamesbackendmain.Bean.SmallBean.RankBean.RankLastUpdatedSmallBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.RankBean.RankGetTop100SmallBean;
+import com.example.jsgamesbackendmain.Bean.SmallBean.RankBean.RankLastUpdatedSmallBean;
 import com.example.jsgamesbackendmain.Model.DTO.Rank.Response.RankGetResponseDTO;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.jsgamesbackendmain.Model.DTO.Rank.Response.RankTop100UserResponseDTO;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 @Component
+@RequiredArgsConstructor
 public class RankGetBean {
 
-    @Autowired
-    private RankGetTop100SmallBean rankGetTop100SmallBean;
-    @Autowired
-    private RankLastUpdatedSmallBean rankLastUpdatedSmallBean;
-    public RankGetResponseDTO exec(Long page, Long size) {
-        RankGetResponseDTO responseDTO = new RankGetResponseDTO();
-        // RankTop100 DAO to Rank
-        responseDTO.setRankList(rankGetTop100SmallBean.exec(page, size));
-        responseDTO.setLastUpdated(rankLastUpdatedSmallBean.getLastUpdated());
+    private final RankGetTop100SmallBean rankGetTop100SmallBean;
+    private final RankLastUpdatedSmallBean rankLastUpdatedSmallBean;
 
-        return responseDTO;
+    public RankGetResponseDTO exec(Long page, Long size) {
+        // RankTop100 DAO to Rank
+
+        return RankGetResponseDTO
+                .builder()
+                .lastUpdated(rankLastUpdatedSmallBean.getLastUpdated())
+                .rankList(rankGetTop100SmallBean.exec(page, size))
+                .build();
     }
 }

@@ -1,24 +1,24 @@
 package com.example.jsgamesbackendmain.Controller;
 
-import com.example.jsgamesbackendmain.Model.DTO.Game.*;
+import com.example.jsgamesbackendmain.Model.DTO.Game.GameDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Game.Request.GameCreateRequestDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Game.Response.GameGetByGameIdResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Game.Response.GameListResponseDTO;
 import com.example.jsgamesbackendmain.Service.GameService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @CrossOrigin("*")
 public class GameController {
 
-    @Autowired
-    private GameService gameService;
+    private final GameService gameService;
 
     // 게임 추가 API
     @Operation(summary = "게임 추가", description =

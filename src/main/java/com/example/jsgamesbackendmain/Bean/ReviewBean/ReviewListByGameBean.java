@@ -1,11 +1,10 @@
 package com.example.jsgamesbackendmain.Bean.ReviewBean;
 
 import com.example.jsgamesbackendmain.Bean.SmallBean.ReviewBean.*;
-import com.example.jsgamesbackendmain.Controller.ReviewController;
 import com.example.jsgamesbackendmain.Model.DAO.ReviewDAO;
 import com.example.jsgamesbackendmain.Model.DTO.Review.Response.ReviewGetByGameIdResponseDTO;
 import com.example.jsgamesbackendmain.Model.ENUM.ReviewSort;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
@@ -13,19 +12,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
+@RequiredArgsConstructor
 public class ReviewListByGameBean {
 
-    @Autowired
-    private ReviewGetByGameIdOrderByHelpfulSmallBean reviewGetByGameIdOrderByHelpfulSmallBean;
-    @Autowired
-    private ReviewGetByGameIdOrderByCreateDescSmallBean reviewGetByGameIdOrderByCreateDescSmallBean;
-    @Autowired
-    private ReviewGetByGameIdOrderByCreateAscSmallBean reviewGetByGameIdOrderByCreateAscSmallBean;
-    @Autowired
-    private ReviewGetByGameIdOrderByStarDescSmallBean reviewGetByGameIdOrderByStarDescSmallBean;
+    private final ReviewGetByGameIdOrderByHelpfulSmallBean reviewGetByGameIdOrderByHelpfulSmallBean;
+    private final ReviewGetByGameIdOrderByCreateDescSmallBean reviewGetByGameIdOrderByCreateDescSmallBean;
+    private final ReviewGetByGameIdOrderByCreateAscSmallBean reviewGetByGameIdOrderByCreateAscSmallBean;
+    private final ReviewGetByGameIdOrderByStarDescSmallBean reviewGetByGameIdOrderByStarDescSmallBean;
 
-    @Autowired
-    private ReviewDaoToResponseDtoSmallBean reviewDaoToResponseDtoSmallBean;
+    private final ReviewDaoToResponseDtoSmallBean reviewDaoToResponseDtoSmallBean;
 
     public List<ReviewGetByGameIdResponseDTO> exec(Long gameId, Long page, Long size, ReviewSort sort) {
 
@@ -34,7 +29,7 @@ public class ReviewListByGameBean {
 
         List<ReviewDAO> daos = null;
 
-        switch (sort){
+        switch (sort) {
             case RECENT:
                 daos = reviewGetByGameIdOrderByCreateDescSmallBean.exec(gameId, request);
                 break;
@@ -49,6 +44,7 @@ public class ReviewListByGameBean {
                 break;
         }
 
-        return daos.stream().map(dao -> reviewDaoToResponseDtoSmallBean.exec(dao)).collect(Collectors.toList());
+        return daos.stream()
+                .map(dao -> reviewDaoToResponseDtoSmallBean.exec(dao)).collect(Collectors.toList());
     }
 }

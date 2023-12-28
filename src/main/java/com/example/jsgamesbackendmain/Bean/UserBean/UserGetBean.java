@@ -1,20 +1,16 @@
 package com.example.jsgamesbackendmain.Bean.UserBean;
 
-import com.example.jsgamesbackendmain.Bean.MapperBean.MapperBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserGetByIdSmallBean;
 import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserGetResponseDTO;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class UserGetBean {
-    @Autowired
-    private UserGetByIdSmallBean userGetByIdSmallBean;
-
-    @Autowired
-    private MapperBean mapperBean;
+    private final UserGetByIdSmallBean userGetByIdSmallBean;
 
     public UserGetResponseDTO exec(String userId) {
-        return mapperBean.to(userGetByIdSmallBean.exec(userId), UserGetResponseDTO.class);
+        return UserGetResponseDTO.of(userGetByIdSmallBean.exec(userId));
     }
 }

@@ -4,32 +4,24 @@ import com.example.jsgamesbackendmain.Bean.LogBean.LogGetByGamIdUserIdBean;
 import com.example.jsgamesbackendmain.Bean.LogBean.LogGetByGameIdBean;
 import com.example.jsgamesbackendmain.Bean.LogBean.LogGetByUserIdBean;
 import com.example.jsgamesbackendmain.Bean.LogBean.LogPostBean;
-import com.example.jsgamesbackendmain.Model.DAO.LogDAO;
 import com.example.jsgamesbackendmain.Model.DTO.Log.Request.LogPostRequestDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Log.Response.LogGetByGameIdResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Log.Response.LogGetByGameIdUserIdResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Log.Response.LogGetByUserIdResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Log.Response.LogPostResponseDTO;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class LogService {
 
-    @Autowired
-    private LogGetByGameIdBean logGetByGameIdBean;
-    @Autowired
-    private LogGetByUserIdBean logGetByUserIdBean;
-    @Autowired
-    private LogGetByGamIdUserIdBean logGetByGamIdUserIdBean;
-    @Autowired
-    private LogPostBean logPostBean;
-
-    ObjectMapper objectMapper = new ObjectMapper();
+    private final LogGetByGameIdBean logGetByGameIdBean;
+    private final LogGetByUserIdBean logGetByUserIdBean;
+    private final LogGetByGamIdUserIdBean logGetByGamIdUserIdBean;
+    private final LogPostBean logPostBean;
 
     public LogPostResponseDTO postLog(LogPostRequestDTO logPostRequestDTO) {
         return logPostBean.exec(logPostRequestDTO);

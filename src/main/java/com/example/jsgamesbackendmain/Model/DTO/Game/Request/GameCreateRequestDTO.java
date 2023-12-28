@@ -2,14 +2,13 @@ package com.example.jsgamesbackendmain.Model.DTO.Game.Request;
 
 import com.example.jsgamesbackendmain.Model.DAO.GameDAO;
 import com.example.jsgamesbackendmain.Model.ENUM.ScoreType;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
 
 @Getter
-@Setter
+@Builder
 public class GameCreateRequestDTO {
     private String gameName;
     private String userId;
@@ -21,5 +20,29 @@ public class GameCreateRequestDTO {
     private ScoreType scoreType;
 
     private String description;
+
+    public GameDAO toDAO() {
+        return GameDAO.builder()
+                .gameName(this.getGameName())
+                .userId(this.getUserId())
+                .gameImage(this.getImageUrl())
+                .gameUrl(this.getGameUrl())
+                .targetScore(this.getTargetScore())
+                .scoreType(this.getScoreType())
+                .description(this.getDescription())
+                .build();
+    }
+
+    public static GameCreateRequestDTO of(GameDAO gameDAO) {
+        return GameCreateRequestDTO.builder()
+                .gameName(gameDAO.getGameName())
+                .userId(gameDAO.getUserId())
+                .imageUrl(gameDAO.getGameImage())
+                .gameUrl(gameDAO.getGameUrl())
+                .targetScore(gameDAO.getTargetScore())
+                .scoreType(gameDAO.getScoreType())
+                .description(gameDAO.getDescription())
+                .build();
+    }
 
 }

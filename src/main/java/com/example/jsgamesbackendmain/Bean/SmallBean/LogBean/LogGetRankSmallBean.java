@@ -3,13 +3,13 @@ package com.example.jsgamesbackendmain.Bean.SmallBean.LogBean;
 import com.example.jsgamesbackendmain.Model.DAO.GameDAO;
 import com.example.jsgamesbackendmain.Model.DAO.LogDAO;
 import com.example.jsgamesbackendmain.Repository.LogRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class LogGetRankSmallBean {
-    @Autowired
-    private LogRepository logRepository;
+    private final LogRepository logRepository;
 
     public Long exec(GameDAO gameDAO, LogDAO logDAO) {
         Long rank = 0L;

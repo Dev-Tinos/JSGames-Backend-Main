@@ -4,18 +4,17 @@ import com.example.jsgamesbackendmain.Bean.SmallBean.LogBean.LogGetByUserIdSmall
 import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserGetByIdSmallBean;
 import com.example.jsgamesbackendmain.Model.DAO.UserDAO;
 import com.example.jsgamesbackendmain.Model.DTO.Log.Response.LogGetByUserIdResponseDTO;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
+@RequiredArgsConstructor
 public class LogGetByUserIdBean {
-    @Autowired
-    private LogGetByUserIdSmallBean logGetByUserIdSmallBean;
+    private final LogGetByUserIdSmallBean logGetByUserIdSmallBean;
 
-    @Autowired
-    private UserGetByIdSmallBean userValidationSmallBean;
+    private final UserGetByIdSmallBean userValidationSmallBean;
 
     public List<LogGetByUserIdResponseDTO> exec(String userId, Long page, Long size) {
 

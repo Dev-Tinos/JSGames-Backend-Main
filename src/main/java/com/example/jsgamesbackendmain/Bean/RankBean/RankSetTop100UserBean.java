@@ -1,32 +1,20 @@
 package com.example.jsgamesbackendmain.Bean.RankBean;
 
-import com.example.jsgamesbackendmain.Bean.MapperBean.MapperBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.RankBean.RankLastUpdatedSmallBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.RankBean.RankSaveSmallBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.RankBean.RankTop100ClearSmallBean;
-import com.example.jsgamesbackendmain.Model.DAO.RankTop100DAO;
 import com.example.jsgamesbackendmain.Repository.RankRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
 @Component
+@RequiredArgsConstructor
 public class RankSetTop100UserBean {
-    @Autowired
-    private RankTop100ClearSmallBean rankTop100ClearSmallBean;
-    @Autowired
-    private RankLastUpdatedSmallBean rankLastUpdatedSmallBean;
-    @Autowired
-    private RankSaveSmallBean rankSaveSmallBean;
-    @Autowired
-    private RankRepository rankRepository;
-    @Autowired
-    private MapperBean mapperBean;
-
+    private final RankTop100ClearSmallBean rankTop100ClearSmallBean;
+    private final RankLastUpdatedSmallBean rankLastUpdatedSmallBean;
+    private final RankSaveSmallBean rankSaveSmallBean;
+    private final RankRepository rankRepository;
 
     // 매일 오후 11시 40분에 실행
     //게임의 1등 부터 100등까지 가중치를 주어 게임마다 Top100유저들에게 가중치를 부여 하여 연산

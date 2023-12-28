@@ -1,25 +1,20 @@
 package com.example.jsgamesbackendmain.Bean.LogBean;
 
-import com.example.jsgamesbackendmain.Bean.MapperBean.MapperBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.GameBean.GameGetSmallBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.LogBean.LogGetByGameSmallBean;
 import com.example.jsgamesbackendmain.Model.DAO.GameDAO;
 import com.example.jsgamesbackendmain.Model.DTO.Log.Response.LogGetByGameIdResponseDTO;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
+@RequiredArgsConstructor
 public class LogGetByGameIdBean {
-    @Autowired
-    private LogGetByGameSmallBean logGetByGameSmallBean;
+    private final LogGetByGameSmallBean logGetByGameSmallBean;
 
-    @Autowired
-    private GameGetSmallBean gameGetSmallBean;
-
-    @Autowired
-    private MapperBean mapperBean;
+    private final GameGetSmallBean gameGetSmallBean;
 
     public List<LogGetByGameIdResponseDTO> exec(Long gameId, Integer page, Integer size) {
 

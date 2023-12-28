@@ -3,22 +3,21 @@ package com.example.jsgamesbackendmain.Controller;
 import com.example.jsgamesbackendmain.Model.DTO.Log.Request.LogPostRequestDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Log.Response.LogGetByGameIdResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Log.Response.LogGetByGameIdUserIdResponseDTO;
-import com.example.jsgamesbackendmain.Model.DTO.Log.Response.LogGetByUserIdResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Log.Response.LogPostResponseDTO;
 import com.example.jsgamesbackendmain.Service.LogService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @CrossOrigin("*")
 public class LogController {
 
-    @Autowired
-    private LogService logService;
+    private final LogService logService;
 
     //랭킹 조회 API
     @Operation(summary = "특정 게임 로그 조회", description =

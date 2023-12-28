@@ -1,6 +1,5 @@
 package com.example.jsgamesbackendmain.Bean.GameBean;
 
-import com.example.jsgamesbackendmain.Bean.MapperBean.MapperBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.GameBean.GameGetListByPlayedUserSmallBean;
 import com.example.jsgamesbackendmain.Model.DAO.GameDAO;
 import com.example.jsgamesbackendmain.Model.DAO.LogDAO;
@@ -15,7 +14,6 @@ import com.example.jsgamesbackendmain.Repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,9 +35,6 @@ class GameBeanTest {
     private GameRepository gameRepository;
     @Autowired
     private LogRepository logRepository;
-
-    @Autowired
-    private MapperBean mapperBean;
 
     @Autowired
     private GameGetListByPlayedUserSmallBean gameGetListByPlayedUserSmallBean;
@@ -165,12 +160,9 @@ class GameBeanTest {
 
         GameDAO dao = GameDAO.createTest(0);
         dao.setUserId(user.getUserId());
-        dao.setGameId(null);
-
-        GameCreateRequestDTO dto = mapperBean.to(dao, GameCreateRequestDTO.class);
 
         //when
-        GameDTO exec = gamePostBean.exec(dto);
+        GameDTO exec = gamePostBean.exec(GameCreateRequestDTO.of(dao));
 
         //then
         List<GameDAO> all = gameRepository.findAll();

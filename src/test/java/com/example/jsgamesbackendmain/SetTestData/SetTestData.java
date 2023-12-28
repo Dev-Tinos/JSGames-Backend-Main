@@ -70,13 +70,13 @@ public class SetTestData {
     }
 
     @Test
-    @Rollback(value = false)
+    @Rollback(value = true)
     void Test_데이터_넣기() {
 //         all delete
-        logRepository.deleteAll();
-        userRepository.deleteAll();
-        gameRepository.deleteAll();
-        reviewRepository.deleteAll();
+//        logRepository.deleteAll();
+//        userRepository.deleteAll();
+//        gameRepository.deleteAll();
+//        reviewRepository.deleteAll();
 
         int userSize = 50;
         int gameSize = 50;

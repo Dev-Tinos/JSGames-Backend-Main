@@ -21,9 +21,10 @@ public class HelpfulPostSmallBean {
         if (helpfulDAOCheck.isPresent()) {
             throw new DuplicateException("이미 존재하는 helpful입니다.");
         }
-        HelpfulDAO helpfulDAO = new HelpfulDAO();
+        HelpfulDAO helpfulDAO = HelpfulDAO.builder().build();
         helpfulDAO.setUserId(userId);
         helpfulDAO.setReviewId(reviewId);
+
         helpfulRepository.save(helpfulDAO);
         reviewRepository.updateHelpfulPlus(reviewId);
     }

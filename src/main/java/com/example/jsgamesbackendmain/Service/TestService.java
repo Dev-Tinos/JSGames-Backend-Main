@@ -24,11 +24,9 @@ public class TestService {
         return "success";
     }
 
-    public Map<String, String> setRank() {
+    public StateResponseDTO setRank() {
         rankSetTop100UserBean.exec();
-        HashMap<String, String> map = new HashMap<>();
-        map.put("result", "success");
-        return map;
+        return StateResponseDTO.builder().state(true).build();
     }
 
     public StateResponseDTO setMajor() {

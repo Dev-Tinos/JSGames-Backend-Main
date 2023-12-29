@@ -44,7 +44,7 @@ public class TestController {
             content = @Content(examples =
             @ExampleObject(value = "{'result': 'success'}")))
     @PostMapping("/users/rank/set")
-    public Map<String,String> setTop100Users() {
+    public StateResponseDTO setTop100Users() {
         return testService.setRank();
     }
 

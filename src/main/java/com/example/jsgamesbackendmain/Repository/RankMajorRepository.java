@@ -54,6 +54,6 @@ public interface RankMajorRepository extends JpaRepository<RankMajorDAO, Long> {
             // 가중치를 내림차순으로 정렬
             "order by rank_weight desc\n" +
             // 10개만 가져옴
-            "limit 10;", nativeQuery = true)
+            "limit 100;", nativeQuery = true)
     List<Map<String ,String >> findAllByOrderByRankWeightDesc(String major);
 }

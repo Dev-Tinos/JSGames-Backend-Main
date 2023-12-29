@@ -30,7 +30,7 @@ public class LogGetByGameSmallBean {
 
         switch (gameDAO.getScoreType()) {
             case INFINITE:
-                order = logRepository.findByGameIdOrderByGameScoreDesc(gameDAO.getGameId(), pageable);
+                order = logRepository.findByGameOrderByGameScoreDesc(gameDAO.getGameId(), pageable);
                 break;
             case GOAL:
                 order = logRepository.findByGameIdOrderByGameScoreWithTargetScore(gameDAO.getGameId(), gameDAO.getTargetScore(), pageable);
@@ -40,12 +40,12 @@ public class LogGetByGameSmallBean {
         return order.toList().stream().map(logDAO ->
                 LogGetByGameIdResponseDTO.of(
                         logDAO,
-                        userGetByIdSmallBean.exec(logDAO.getUserId())
+                        userGetByIdSmallBean.exec(logDAO.getUser().getUserId())
                 )
         ).collect(Collectors.toList());
     }
 
     public Long count(Long gameId) {
-        return logRepository.countByGameId(gameId);
+        return logRepository.countByGame(gameId);
     }
 }

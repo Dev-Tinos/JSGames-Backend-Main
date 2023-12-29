@@ -8,8 +8,8 @@ import java.util.Optional;
 
 public interface HelpfulRepository extends JpaRepository<HelpfulDAO, Long> {
     //userId, reviewId로 조회
-    Optional<HelpfulDAO> findByUserIdAndReviewId(String userId, Long reviewId);
+    Optional<HelpfulDAO> findByUserAndReview(String userId, Long reviewId);
     //userId, reviewId로 삭제
     @Transactional
-    void deleteByUserIdAndReviewId(String userId, Long reviewId);
+    void deleteByUserAndReview(String userId, Long reviewId);
 }

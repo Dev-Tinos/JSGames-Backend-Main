@@ -18,7 +18,7 @@ public class LogGetByGameIdResponseDTO {
     public static LogGetByGameIdResponseDTO of(LogDAO logDAO, UserDAO userDAO) {
         return LogGetByGameIdResponseDTO.builder()
                 .logId(logDAO.getLogId())
-                .gameId(logDAO.getGameId())
+                .gameId(logDAO.getGame().getGameId())
                 .gameScore(logDAO.getGameScore())
                 .user(UserLogResponseDTO.of(userDAO))
                 .build();

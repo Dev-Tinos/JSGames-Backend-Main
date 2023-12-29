@@ -1,5 +1,6 @@
 package com.example.jsgamesbackendmain.Repository;
 
+import com.example.jsgamesbackendmain.Model.DAO.GameDAO;
 import com.example.jsgamesbackendmain.Model.DAO.ReviewDAO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,11 +15,11 @@ import java.util.Optional;
 public interface ReviewRepository extends JpaRepository<ReviewDAO, Long> {
 
     //gameId 로 review의 star 평균
-    @Query("SELECT AVG(r.star) FROM ReviewDAO r WHERE r.gameId = ?1")
+    @Query("SELECT AVG(r.star) FROM ReviewDAO r WHERE r.game = ?1")
     Optional<Double> findAvgStarByGameId(Long gameId);
 
     //userId 와 gameId 로 review 찾기
-    Optional<ReviewDAO> findByUserIdAndGameId(String userId, Long gameId);
+    Optional<ReviewDAO> findByUserAndGame(String userId, Long gameId);
     //reviewID 의 helpful +1
     @Modifying
     @Query("UPDATE ReviewDAO r SET r.helpful = r.helpful + 1 WHERE r.reviewId = ?1")
@@ -30,8 +31,8 @@ public interface ReviewRepository extends JpaRepository<ReviewDAO, Long> {
     void updateHelpfulMinus(Long reviewId);
 
 
-    Page<ReviewDAO> findByGameIdOrderByHelpfulDescDateTimeDescReviewIdDesc(Long gameId, Pageable pageable);
-    Page<ReviewDAO> findByGameIdOrderByStarDescDateTimeDescReviewIdDesc(Long gameId, Pageable pageable);
-    Page<ReviewDAO> findByGameIdOrderByDateTimeDescReviewIdDesc(Long gameId, Pageable pageable);
-    Page<ReviewDAO> findByGameIdOrderByDateTimeAscReviewIdDesc(Long gameId, Pageable pageable);
+    Page<ReviewDAO> findByGameOrderByHelpfulDescDateTimeDescReviewIdDesc(GameDAO game, Pageable pageable);
+    Page<ReviewDAO> findByGameOrderByStarDescDateTimeDescReviewIdDesc(GameDAO game, Pageable pageable);
+    Page<ReviewDAO> findByGameOrderByDateTimeDescReviewIdDesc(GameDAO game, Pageable pageable);
+    Page<ReviewDAO> findByGameOrderByDateTimeAscReviewIdDesc(GameDAO game, Pageable pageable);
 }

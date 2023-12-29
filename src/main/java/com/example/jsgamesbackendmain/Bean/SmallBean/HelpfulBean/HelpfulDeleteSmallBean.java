@@ -18,14 +18,14 @@ public class HelpfulDeleteSmallBean {
 
     public void exec(String userId, Long reviewId) {
         Optional<HelpfulDAO> helpfulDAOCheck =
-                helpfulRepository.findByUserIdAndReviewId(userId, reviewId);
+                helpfulRepository.findByUserAndReview(userId, reviewId);
         if (!helpfulDAOCheck.isPresent()) {
             throw new DuplicateException("존재하지 않는 helpful입니다.");
         }
         if (helpfulDAOCheck.get().getHelpfulTime().plusNanos(100000000).isAfter(LocalDateTime.now())) {
             throw new DuplicateException("0.1초 이내에는 helpful을 취소할 수 없습니다.");
         }
-        helpfulRepository.deleteByUserIdAndReviewId(userId, reviewId);
+        helpfulRepository.deleteByUserAndReview(userId, reviewId);
         reviewRepository.updateHelpfulMinus(reviewId);
     }
 }

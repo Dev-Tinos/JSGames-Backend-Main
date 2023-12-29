@@ -19,7 +19,7 @@ public class LogGetByUserIdSmallBean {
     public List<LogGetByUserIdResponseDTO> exec(UserDAO user, Long page, Long size) {
         Pageable pageable = PageRequest.of(page.intValue(), size.intValue());
 
-        return logRepository.findByUserIdOrderByGameScoreDesc(user.getUserId(), pageable)
+        return logRepository.findByUserOrderByGameScoreDesc(user.getUserId(), pageable)
                 .stream()
                 .map(logDAO -> LogGetByUserIdResponseDTO.of(logDAO, user))
                 .collect(Collectors.toList());

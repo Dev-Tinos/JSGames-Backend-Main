@@ -29,15 +29,15 @@ public class ReviewGetByGameIdResponseDTO {
 
     private Long gameId;
 
-    public static ReviewGetByGameIdResponseDTO of(ReviewDAO reviewDAO, UserDAO userDAO) {
+    public static ReviewGetByGameIdResponseDTO of(ReviewDAO reviewDAO) {
         return ReviewGetByGameIdResponseDTO.builder()
                 .reviewId(reviewDAO.getReviewId())
                 .reviewContent(reviewDAO.getReviewContent())
                 .star(reviewDAO.getStar())
                 .helpful(reviewDAO.getHelpful())
                 .dateTime(reviewDAO.getDateTime())
-                .user(UserGetResponseDTO.of(userDAO))
-                .gameId(reviewDAO.getGameId())
+                .user(UserGetResponseDTO.of(reviewDAO.getUser()))
+                .gameId(reviewDAO.getGame().getGameId())
                 .build();
     }
 }

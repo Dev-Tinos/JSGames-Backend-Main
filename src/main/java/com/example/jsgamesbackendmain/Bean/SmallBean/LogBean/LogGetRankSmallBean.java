@@ -15,10 +15,10 @@ public class LogGetRankSmallBean {
         Long rank = 0L;
         switch (gameDAO.getScoreType()) {
             case INFINITE:
-                rank = logRepository.getRankInfinite(logDAO.getGameScore(), logDAO.getGameId());
+                rank = logRepository.getRankInfinite(logDAO.getGameScore(), logDAO.getGame().getGameId());
                 break;
             case GOAL:
-                rank = logRepository.getRankGoal(gameDAO.getTargetScore(), logDAO.getGameScore(), logDAO.getGameId());
+                rank = logRepository.getRankGoal(gameDAO.getTargetScore(), logDAO.getGameScore(), logDAO.getGame().getGameId());
                 break;
         }
 

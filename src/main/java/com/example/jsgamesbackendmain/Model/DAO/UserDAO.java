@@ -8,6 +8,8 @@ import com.example.jsgamesbackendmain.Model.ENUM.ParentMajor;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -29,6 +31,18 @@ public class UserDAO {
     private ParentMajor parentMajor;
     @Enumerated(EnumType.STRING)
     private Major major;
+
+    @Builder.Default
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<GameDAO> games = new ArrayList<>();
+
+    @Builder.Default
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<LogDAO> logs = new ArrayList<>();
+
+    @Builder.Default
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<ReviewDAO> reviews = new ArrayList<>();
 
     public UserDAO update(UserUpdateRequestDTO request, ParentMajor parentMajor) {
         if (request.getNickname() != null) {

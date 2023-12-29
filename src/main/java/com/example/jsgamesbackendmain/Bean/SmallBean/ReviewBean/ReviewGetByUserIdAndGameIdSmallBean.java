@@ -14,7 +14,7 @@ public class ReviewGetByUserIdAndGameIdSmallBean {
     private final ReviewRepository reviewRepository;
 
     public ReviewDAO exec(String userId, Long gameId) {
-        Optional<ReviewDAO> optional = reviewRepository.findByUserIdAndGameId(userId, gameId);
+        Optional<ReviewDAO> optional = reviewRepository.findByUserAndGame(userId, gameId);
         // 존재하지 않는다면
         if (!optional.isPresent()) {
             throw new ResourceNotFoundException("Review not found for Game id,UserId :: " + gameId + "," + userId);

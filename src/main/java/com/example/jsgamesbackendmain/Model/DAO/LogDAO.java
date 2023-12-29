@@ -3,6 +3,7 @@ package com.example.jsgamesbackendmain.Model.DAO;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "Logs")
@@ -16,11 +17,33 @@ public class LogDAO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long logId;
 
-    @Setter
-    private String userId;
-    @Setter
-    private Long gameId;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private UserDAO user;
+
+    @ManyToOne
+    @JoinColumn(name = "game_id")
+    private GameDAO game;
+
     private Double gameScore;
+
+    public void setUser(UserDAO user) {
+        this.user = user;
+
+        List<LogDAO> logs = user.getLogs();
+
+        if (!logs.contains(this))
+            logs.add(this);
+    }
+
+    public void setGame(GameDAO game) {
+        this.game = game;
+
+        List<LogDAO> logs = game.getLogs();
+
+        if (!logs.contains(this))
+            logs.add(this);
+    }
 
     public static LogDAO createTest(int i) {
         return LogDAO.builder()

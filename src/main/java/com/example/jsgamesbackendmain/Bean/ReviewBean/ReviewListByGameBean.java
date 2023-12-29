@@ -1,6 +1,11 @@
 package com.example.jsgamesbackendmain.Bean.ReviewBean;
 
-import com.example.jsgamesbackendmain.Bean.SmallBean.ReviewBean.*;
+import com.example.jsgamesbackendmain.Bean.SmallBean.GameBean.GameGetSmallBean;
+import com.example.jsgamesbackendmain.Bean.SmallBean.ReviewBean.ReviewGetByGameIdOrderByCreateAscSmallBean;
+import com.example.jsgamesbackendmain.Bean.SmallBean.ReviewBean.ReviewGetByGameIdOrderByCreateDescSmallBean;
+import com.example.jsgamesbackendmain.Bean.SmallBean.ReviewBean.ReviewGetByGameIdOrderByHelpfulSmallBean;
+import com.example.jsgamesbackendmain.Bean.SmallBean.ReviewBean.ReviewGetByGameIdOrderByStarDescSmallBean;
+import com.example.jsgamesbackendmain.Model.DAO.GameDAO;
 import com.example.jsgamesbackendmain.Model.DAO.ReviewDAO;
 import com.example.jsgamesbackendmain.Model.DTO.Review.Response.ReviewGetByGameIdResponseDTO;
 import com.example.jsgamesbackendmain.Model.ENUM.ReviewSort;
@@ -20,31 +25,35 @@ public class ReviewListByGameBean {
     private final ReviewGetByGameIdOrderByCreateAscSmallBean reviewGetByGameIdOrderByCreateAscSmallBean;
     private final ReviewGetByGameIdOrderByStarDescSmallBean reviewGetByGameIdOrderByStarDescSmallBean;
 
-    private final ReviewDaoToResponseDtoSmallBean reviewDaoToResponseDtoSmallBean;
+    private final GameGetSmallBean gameGetSmallBean;
+
 
     public List<ReviewGetByGameIdResponseDTO> exec(Long gameId, Long page, Long size, ReviewSort sort) {
 
         PageRequest request = PageRequest.of(page.intValue(), size.intValue());
+
+        GameDAO findGame = gameGetSmallBean.exec(gameId);
 
 
         List<ReviewDAO> daos = null;
 
         switch (sort) {
             case RECENT:
-                daos = reviewGetByGameIdOrderByCreateDescSmallBean.exec(gameId, request);
+                daos = reviewGetByGameIdOrderByCreateDescSmallBean.exec(findGame, request);
                 break;
             case OLDEST:
-                daos = reviewGetByGameIdOrderByCreateAscSmallBean.exec(gameId, request);
+                daos = reviewGetByGameIdOrderByCreateAscSmallBean.exec(findGame, request);
                 break;
             case STAR:
-                daos = reviewGetByGameIdOrderByStarDescSmallBean.exec(gameId, request);
+                daos = reviewGetByGameIdOrderByStarDescSmallBean.exec(findGame, request);
                 break;
             case HELPFUL:
-                daos = reviewGetByGameIdOrderByHelpfulSmallBean.exec(gameId, request);
+                daos = reviewGetByGameIdOrderByHelpfulSmallBean.exec(findGame, request);
                 break;
         }
 
         return daos.stream()
-                .map(dao -> reviewDaoToResponseDtoSmallBean.exec(dao)).collect(Collectors.toList());
+                .map(ReviewGetByGameIdResponseDTO::of)
+                .collect(Collectors.toList());
     }
 }

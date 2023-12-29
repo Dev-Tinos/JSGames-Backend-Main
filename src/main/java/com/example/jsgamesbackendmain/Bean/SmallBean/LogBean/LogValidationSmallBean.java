@@ -18,7 +18,7 @@ public class LogValidationSmallBean {
 
     public Optional<LogDAO> exec(GameDAO gameDAO, String userId) {
 
-        List<LogDAO> list = logRepository.findByGameIdAndUserId(
+        List<LogDAO> list = logRepository.findByGameAndUser(
                 gameDAO.getGameId(), userId
                 , PageRequest.of(0, 1)
         ).toList();

@@ -14,7 +14,7 @@ public class HelpfulGetSmallBean {
 
     public boolean exec(String userId, Long reviewId) {
         Optional<HelpfulDAO> helpfulDAO =
-                helpfulRepository.findByUserIdAndReviewId(userId, reviewId);
+                helpfulRepository.findByUserAndReview(userId, reviewId);
         return helpfulDAO.isPresent();
     }
 }

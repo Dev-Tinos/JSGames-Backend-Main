@@ -22,7 +22,7 @@ public class LogGetByGameIdUserIdResponseDTO {
     public static LogGetByGameIdUserIdResponseDTO of(LogDAO logDAO, UserDAO userDAO, Long ranking) {
         return LogGetByGameIdUserIdResponseDTO.builder()
                 .logId(logDAO.getLogId())
-                .gameId(logDAO.getGameId())
+                .gameId(logDAO.getGame().getGameId())
                 .gameScore(logDAO.getGameScore())
                 .user(UserLogResponseDTO.of(userDAO))
                 .ranking(ranking)

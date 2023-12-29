@@ -13,14 +13,14 @@ import java.util.Optional;
 public class ReviewSaveSmallBean {
     private final ReviewRepository reviewRepository;
 
-    public ReviewDAO exec(ReviewDAO dao) {
-        Optional<ReviewDAO> optional = reviewRepository.findByUserIdAndGameId(dao.getUserId(), dao.getGameId());
+    public ReviewDAO exec(ReviewDAO review) {
+        Optional<ReviewDAO> optional = reviewRepository.findByUserAndGame(review.getUser().getUserId(), review.getGame().getGameId());
 
         //존재한다면 이미 존재하는 리뷰 에러
         if (optional.isPresent()) {
-            throw new InvalidException("Review already exists for Game id,UserId :: " + dao.getGameId() + "," + dao.getUserId());
+            throw new InvalidException("Review already exists for Game id,UserId :: " + review.getGame().getGameId() + "," + review.getUser().getUserId());
         }
 
-        return reviewRepository.save(dao);
+        return reviewRepository.save(review);
     }
 }

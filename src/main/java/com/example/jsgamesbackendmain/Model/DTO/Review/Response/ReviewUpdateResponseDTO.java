@@ -33,8 +33,8 @@ public class ReviewUpdateResponseDTO {
                 .star(review.getStar())
                 .helpful(review.getHelpful())
                 .dateTime(review.getDateTime())
-                .userId(review.getUserId())
-                .gameId(review.getGameId())
+                .userId(review.getUser().getUserId())
+                .gameId(review.getGame().getGameId())
                 .build();
     }
 }

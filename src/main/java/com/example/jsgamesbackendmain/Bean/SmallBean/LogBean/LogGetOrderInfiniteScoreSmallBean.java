@@ -14,6 +14,6 @@ public class LogGetOrderInfiniteScoreSmallBean {
     private final LogRepository logRepository;
 
     public Optional<LogDAO> exec(Long gameId, String userId) {
-        return logRepository.findFirstByGameIdAndUserIdOrderByGameScoreDesc(gameId, userId);
+        return logRepository.findFirstByGameAndUserOrderByGameScoreDesc(gameId, userId);
     }
 }

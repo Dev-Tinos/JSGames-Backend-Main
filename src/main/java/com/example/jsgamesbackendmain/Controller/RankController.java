@@ -2,6 +2,9 @@ package com.example.jsgamesbackendmain.Controller;
 
 import com.example.jsgamesbackendmain.Model.DTO.Game.Response.GameListResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Rank.Response.RankGetResponseDTO;
+import com.example.jsgamesbackendmain.Model.DTO.Rank.Response.RankByMajorGetResponseDTO;
+import com.example.jsgamesbackendmain.Model.DTO.Rank.Response.RankMajorGetResponseDTO;
+import com.example.jsgamesbackendmain.Model.ENUM.Major;
 import com.example.jsgamesbackendmain.Service.RankService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -44,5 +47,17 @@ public class RankController {
     @GetMapping("/games")
     public List<GameListResponseDTO> listGames(@Parameter Long page, @Parameter Long size) {
         return rankService.listGames(page, size);
+    }
+
+    @Operation(summary = "학과내 랭킹 조회")
+    @GetMapping("/rank/major")
+    public RankByMajorGetResponseDTO getRankMajor(@RequestParam Major major) {
+        return rankService.rankGetByMajor(major);
+    }
+
+    @Operation(summary = "학과별 랭킹 조회")
+    @GetMapping("/major")
+    public RankMajorGetResponseDTO getMajor() {
+        return rankService.getRankMajor();
     }
 }

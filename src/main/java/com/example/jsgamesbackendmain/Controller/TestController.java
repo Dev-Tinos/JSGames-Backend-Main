@@ -1,5 +1,6 @@
 package com.example.jsgamesbackendmain.Controller;
 
+import com.example.jsgamesbackendmain.Model.DTO.StateResponseDTO;
 import com.example.jsgamesbackendmain.Service.TestService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -45,5 +46,10 @@ public class TestController {
     @PostMapping("/users/rank/set")
     public Map<String,String> setTop100Users() {
         return testService.setRank();
+    }
+
+    @PostMapping("/users/rank/set/major")
+    public StateResponseDTO setMajor() {
+        return testService.setMajor();
     }
 }

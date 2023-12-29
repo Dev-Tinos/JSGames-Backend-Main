@@ -3,7 +3,7 @@ package com.example.jsgamesbackendmain.Bean.RankBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.RankBean.RankLastUpdatedSmallBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.RankBean.RankSaveSmallBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.RankBean.RankTop100ClearSmallBean;
-import com.example.jsgamesbackendmain.Repository.RankRepository;
+import com.example.jsgamesbackendmain.Repository.RankTop100Repository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -14,9 +14,9 @@ public class RankSetTop100UserBean {
     private final RankTop100ClearSmallBean rankTop100ClearSmallBean;
     private final RankLastUpdatedSmallBean rankLastUpdatedSmallBean;
     private final RankSaveSmallBean rankSaveSmallBean;
-    private final RankRepository rankRepository;
+    private final RankTop100Repository rankRepository;
 
-    // 매일 오후 11시 40분에 실행
+    // 매일 오후 11시 50분에 실행
     //게임의 1등 부터 100등까지 가중치를 주어 게임마다 Top100유저들에게 가중치를 부여 하여 연산
     @Scheduled(cron = "0 50 23 * * *")
     public void exec() {

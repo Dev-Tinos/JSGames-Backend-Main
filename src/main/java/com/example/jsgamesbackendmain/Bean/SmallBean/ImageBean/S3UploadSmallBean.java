@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
@@ -23,7 +24,7 @@ public class S3UploadSmallBean {
 
     public S3UrlResponseDTO exec(MultipartFile file) throws IOException {
         File fileObj = convertMultiPartFileToFile(file);
-        String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+        String fileName = System.currentTimeMillis() + "_" + UUID.randomUUID().toString() + getFileExtension(file.getOriginalFilename());
         amazonS3Client.putObject(new PutObjectRequest(bucket, fileName, fileObj));
         String fileUrl = amazonS3Client.getUrl(bucket, fileName).toString();
         fileObj.delete();
@@ -36,5 +37,11 @@ public class S3UploadSmallBean {
             fos.write(file.getBytes());
         }
         return convertedFile;
+    }
+    // 파일 확장자 추출 메소드
+    private String getFileExtension(String fileName) {
+        if(fileName.lastIndexOf(".") != -1 && fileName.lastIndexOf(".") != 0)
+            return fileName.substring(fileName.lastIndexOf("."));
+        else return "";
     }
 }

@@ -15,16 +15,8 @@ public class ReviewUpdateSmallBean {
     private final ReviewRepository reviewRepository;
 
     public ReviewDAO exec(ReviewDAO review, ReviewUpdateRequestDTO request) {
-        Optional<ReviewDAO> optional = reviewRepository.findByUserAndGame(review.getUser().getUserId(), review.getGame().getGameId());
-
-        //존재하지 않는다면 리뷰 업데이트 에러
-        if (!optional.isPresent()) {
-            throw new InvalidException("Review not exists for Game id,UserId :: " + review.getGame().getGameId() + "," + review.getUser().getUserId());
-        }
-
         // 리뷰 내용 업데이트
         review.update(request);
-
         return reviewRepository.save(review);
     }
 

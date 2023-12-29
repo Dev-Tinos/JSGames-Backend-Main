@@ -20,16 +20,16 @@ public class HelpfulPostSmallBean {
     private final UserRepository userRepository;
 
     public void exec(String userId, Long reviewId) {
+        UserDAO findUser = userRepository.findById(userId).get();
+        ReviewDAO findReview = reviewRepository.findById(reviewId).get();
+
+
         Optional<HelpfulDAO> helpfulDAOCheck =
-                helpfulRepository.findByUserAndReview(userId, reviewId);
+                helpfulRepository.findByUserAndReview(findUser, findReview);
 
         if (helpfulDAOCheck.isPresent()) {
             throw new DuplicateException("이미 존재하는 helpful입니다.");
         }
-
-        UserDAO findUser = userRepository.findById(userId).get();
-        ReviewDAO findReview = reviewRepository.findById(reviewId).get();
-
 
         HelpfulDAO helpfulDAO = HelpfulDAO.builder().build();
         helpfulDAO.setUser(findUser);

@@ -17,12 +17,12 @@ public class HelpfulDAO {
     private Long helpfulId;
 
     @Setter
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private UserDAO user;
 
     @Setter
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "review_id")
     private ReviewDAO review;
 

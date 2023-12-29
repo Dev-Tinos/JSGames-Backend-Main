@@ -1,6 +1,7 @@
 package com.example.jsgamesbackendmain.Repository;
 
 import com.example.jsgamesbackendmain.Model.DAO.GameDAO;
+import com.example.jsgamesbackendmain.Model.DAO.UserDAO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,7 +18,7 @@ public interface GameRepository extends JpaRepository<GameDAO, Long> {
     @Query("select g from GameDAO g where g.gameId in " +
             "(select l.game from LogDAO l where l.user = ?1) " +
             "order by g.viewCount desc, g.gameId")
-    Page<GameDAO> findAllByPlayedUserOrderByViewCountDescGameIdAsc(String userId, Pageable pageable);
+    Page<GameDAO> findAllByPlayedUserOrderByViewCountDescGameIdAsc(UserDAO user, Pageable pageable);
 
     // 게임 전체 페이징 조회
     Page<GameDAO> findAll(Pageable pageable);

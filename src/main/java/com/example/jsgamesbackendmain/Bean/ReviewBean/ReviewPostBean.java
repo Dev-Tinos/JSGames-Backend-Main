@@ -3,6 +3,8 @@ package com.example.jsgamesbackendmain.Bean.ReviewBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.GameBean.GameGetSmallBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.ReviewBean.ReviewSaveSmallBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserGetByIdSmallBean;
+import com.example.jsgamesbackendmain.Model.DAO.GameDAO;
+import com.example.jsgamesbackendmain.Model.DAO.UserDAO;
 import com.example.jsgamesbackendmain.Model.DTO.Review.Request.ReviewCreateRequestDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Review.Response.ReviewCreateResponseDTO;
 import lombok.RequiredArgsConstructor;
@@ -21,11 +23,11 @@ public class ReviewPostBean {
     public ReviewCreateResponseDTO exec(ReviewCreateRequestDTO requestDTO) {
 
         // user validation
-        userGetByIdSmallBean.exec(requestDTO.getUserId());
+        UserDAO findUser = userGetByIdSmallBean.exec(requestDTO.getUserId());
 
         // game validation
-        gameGetSmallBean.exec(requestDTO.getGameId());
+        GameDAO findGame = gameGetSmallBean.exec(requestDTO.getGameId());
 
-        return ReviewCreateResponseDTO.of(reviewSaveSmallBean.exec(requestDTO.toDAO()));
+        return ReviewCreateResponseDTO.of(reviewSaveSmallBean.exec(requestDTO.toDAO(), findUser, findGame));
     }
 }

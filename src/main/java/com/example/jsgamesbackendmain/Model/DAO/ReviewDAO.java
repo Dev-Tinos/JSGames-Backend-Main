@@ -22,12 +22,12 @@ public class ReviewDAO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reviewId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private UserDAO user;
 
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "game_id")
     private GameDAO game;
 
@@ -38,6 +38,7 @@ public class ReviewDAO {
     private Float star;
 
     // helpful
+    @Builder.Default
     private Long helpful = 0L;
 
     @CreationTimestamp
@@ -70,7 +71,7 @@ public class ReviewDAO {
         this.reviewContent = request.getReviewContent();
     }
 
-    public static ReviewDAO createTest(UserDAO user, GameDAO game, int i){
+    public static ReviewDAO createTest(int i, GameDAO game, UserDAO user) {
         ReviewDAO newReview = ReviewDAO.builder()
                 .reviewContent(String.valueOf(i))
                 .star((float) i % 5 + 1)

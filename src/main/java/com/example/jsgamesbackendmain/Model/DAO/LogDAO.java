@@ -45,9 +45,14 @@ public class LogDAO {
             logs.add(this);
     }
 
-    public static LogDAO createTest(int i) {
-        return LogDAO.builder()
+    public static LogDAO createTest(int i, GameDAO game, UserDAO user) {
+        LogDAO newLog = LogDAO.builder()
                 .gameScore((double) i)
                 .build();
+
+        newLog.setUser(user);
+        newLog.setGame(game);
+
+        return newLog;
     }
 }

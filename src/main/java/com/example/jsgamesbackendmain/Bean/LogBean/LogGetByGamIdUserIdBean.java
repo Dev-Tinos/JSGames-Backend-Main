@@ -29,7 +29,7 @@ public class LogGetByGamIdUserIdBean {
         UserDAO userDAO = userGetByIdSmallBean.exec(userId);
 
         // LogDAO 조회
-        LogDAO logDAO = logGetByGameIdUserIdSmallBean.exec(gameDAO, userId);
+        LogDAO logDAO = logGetByGameIdUserIdSmallBean.exec(gameDAO, userDAO);
 
         // rank 조회
         Long rank = logGetRankSmallBean.exec(gameDAO, logDAO);

@@ -3,7 +3,9 @@ package com.example.jsgamesbackendmain.Bean.ReviewBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.GameBean.GameGetSmallBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.ReviewBean.ReviewGetByUserIdAndGameIdSmallBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserGetByIdSmallBean;
+import com.example.jsgamesbackendmain.Model.DAO.GameDAO;
 import com.example.jsgamesbackendmain.Model.DAO.ReviewDAO;
+import com.example.jsgamesbackendmain.Model.DAO.UserDAO;
 import com.example.jsgamesbackendmain.Model.DTO.Review.Response.ReviewGetByGameIdResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -17,11 +19,11 @@ public class ReviewGetMyReviewBean {
 
     public ReviewGetByGameIdResponseDTO exec(Long gameId, String userId) {
 
-        userGetByIdSmallBean.exec(userId);
+        UserDAO findUser = userGetByIdSmallBean.exec(userId);
 
-        gameGetSmallBean.exec(gameId);
+        GameDAO findGame = gameGetSmallBean.exec(gameId);
 
-        ReviewDAO findReview = reviewGetByUserIdAndGameIdSmallBean.exec(userId, gameId);
+        ReviewDAO findReview = reviewGetByUserIdAndGameIdSmallBean.exec(findUser, findGame);
 
         return ReviewGetByGameIdResponseDTO.of(findReview);
     }

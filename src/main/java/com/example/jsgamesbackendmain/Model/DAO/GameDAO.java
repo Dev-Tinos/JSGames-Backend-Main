@@ -20,11 +20,12 @@ public class GameDAO {
 
     private String gameName;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private UserDAO user;
 
     @OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
+    @Builder.Default
     private List<ReviewDAO> reviews = new ArrayList<>();
 
     @Builder.Default
@@ -41,6 +42,7 @@ public class GameDAO {
     private Long viewCount = 0L;
 
     @OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
+    @Builder.Default
     private List<LogDAO> logs = new ArrayList<>();
 
     public void setUser(UserDAO user) {
@@ -56,8 +58,8 @@ public class GameDAO {
         return ++viewCount;
     }
 
-    public static GameDAO createTest(int i) {
-        return GameDAO.builder()
+    public static GameDAO createTest(int i, UserDAO user) {
+        GameDAO newGame = GameDAO.builder()
                 .gameName(String.valueOf(i))
                 .gameUrl(String.valueOf(i))
                 .targetScore((double) (i * 3 % 100))
@@ -65,5 +67,9 @@ public class GameDAO {
                 .description(String.valueOf(i))
                 .viewCount(((long) i))
                 .build();
+
+        newGame.setUser(user);
+
+        return newGame;
     }
 }

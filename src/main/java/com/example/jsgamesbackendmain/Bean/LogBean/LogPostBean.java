@@ -38,7 +38,7 @@ public class LogPostBean {
         UserDAO user = userValidationSmallBean.exec(logPostRequestDTO.getUserId());
 
         // get top log
-        Optional<LogGetByGameIdResponseDTO> preTopLog = logGetByGameSmallBean.exec(game, 0, 1).stream().findAny();
+        Optional<LogDAO> preTopLog = logGetByGameSmallBean.exec(game, 0, 1).stream().findAny();
 
         // log save
         LogDAO newLog = logPostRequestDTO.toDAO();
@@ -48,7 +48,7 @@ public class LogPostBean {
         LogDAO savedLogDAO = logSaveSmallBean.exec(newLog);
 
         // get top log
-        Optional<LogGetByGameIdResponseDTO> nextTopLog = logGetByGameSmallBean.exec(game, 0, 1).stream().findAny();
+        Optional<LogDAO> nextTopLog = logGetByGameSmallBean.exec(game, 0, 1).stream().findAny();
 
         // log catch top change
         Boolean isChange = logCatchTopChange.exec(preTopLog, nextTopLog);

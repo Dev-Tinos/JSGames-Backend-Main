@@ -96,7 +96,6 @@ public class SetTestData {
             ScoreType scoreType = scoreTypes[i % scoreTypes.length];
 
             GameDAO gameDAO = GameDAO.builder()
-                    .userId(userDAOList.get((int) (Math.random() * userSize)).getUserId())
                     .gameName(String.valueOf(i))
                     .gameUrl(String.valueOf(i))
                     .scoreType(scoreType)

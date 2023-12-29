@@ -67,7 +67,7 @@ public class HelpfulBeanTest {
 
         //2초 대기
         try {
-            Thread.sleep(2000);
+            Thread.sleep(101);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

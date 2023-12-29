@@ -1,6 +1,7 @@
 package com.example.jsgamesbackendmain.Repository;
 
 import com.example.jsgamesbackendmain.Model.DAO.RankTop100DAO;
+import com.example.jsgamesbackendmain.Model.ENUM.Major;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,7 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 import java.util.Map;
 
-public interface RankRepository extends JpaRepository<RankTop100DAO, Long> {
+public interface RankTop100Repository extends JpaRepository<RankTop100DAO, Long> {
     // 전체중 Score로 내림차순
     Page<RankTop100DAO> findAllByOrderByTotalRankAsc(Pageable pageable);
 

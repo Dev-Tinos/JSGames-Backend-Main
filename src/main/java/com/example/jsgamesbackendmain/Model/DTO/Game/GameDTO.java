@@ -4,6 +4,8 @@ import com.example.jsgamesbackendmain.Model.DAO.GameDAO;
 import com.example.jsgamesbackendmain.Model.ENUM.ScoreType;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Builder
 @AllArgsConstructor
@@ -18,6 +20,7 @@ public class GameDTO {
     private Double targetScore;
     private ScoreType scoreType;
     private String description;
+    private LocalDateTime createdAt;
 
         public static GameDTO of(GameDAO gameDAO) {
             return GameDTO.builder()
@@ -29,6 +32,7 @@ public class GameDTO {
                     .targetScore(gameDAO.getTargetScore())
                     .scoreType(gameDAO.getScoreType())
                     .description(gameDAO.getDescription())
+                    .createdAt(gameDAO.getCreatedAt())
                     .build();
         }
 }

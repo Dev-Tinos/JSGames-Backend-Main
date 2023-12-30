@@ -5,6 +5,7 @@ import com.example.jsgamesbackendmain.Model.ENUM.ScoreType;
 import lombok.*;
 import org.springframework.data.domain.Page;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,6 +22,7 @@ public class GameListResponseDTO {
     private Double targetScore;
     private ScoreType scoreType;
     private String description;
+    private LocalDateTime createdAt;
     private Long viewCount;
 
     public static GameListResponseDTO of(GameDAO gameDAO){
@@ -33,6 +35,7 @@ public class GameListResponseDTO {
                 .targetScore(gameDAO.getTargetScore())
                 .scoreType(gameDAO.getScoreType())
                 .description(gameDAO.getDescription())
+                .createdAt(gameDAO.getCreatedAt())
                 .viewCount(gameDAO.getViewCount())
                 .build();
     }

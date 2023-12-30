@@ -2,8 +2,10 @@ package com.example.jsgamesbackendmain.Model.DAO;
 
 import com.example.jsgamesbackendmain.Model.ENUM.ScoreType;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +42,11 @@ public class GameDAO {
 
     //조회수
     private Long viewCount = 0L;
+
+    //게임 생성일
+    @CreationTimestamp
+    @Column(updatable = false)
+    private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
     @Builder.Default

@@ -4,6 +4,8 @@ import com.example.jsgamesbackendmain.Model.DAO.GameDAO;
 import com.example.jsgamesbackendmain.Model.ENUM.ScoreType;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Builder
 @NoArgsConstructor
@@ -18,6 +20,7 @@ public class GameGetByGameIdResponseDTO {
     private ScoreType scoreType;
     private String description;
     private Long viewCount;
+    private LocalDateTime createdAt;
     private Double star;
 
     public static GameGetByGameIdResponseDTO of(GameDAO gameDAO, Double star){
@@ -31,6 +34,7 @@ public class GameGetByGameIdResponseDTO {
                 .scoreType(gameDAO.getScoreType())
                 .description(gameDAO.getDescription())
                 .viewCount(gameDAO.getViewCount())
+                .createdAt(gameDAO.getCreatedAt())
                 .star(star)
                 .build();
     }

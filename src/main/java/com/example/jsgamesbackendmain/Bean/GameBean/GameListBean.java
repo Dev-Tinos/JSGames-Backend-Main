@@ -1,8 +1,10 @@
 package com.example.jsgamesbackendmain.Bean.GameBean;
 
+import com.example.jsgamesbackendmain.Model.DAO.GameDAO;
 import com.example.jsgamesbackendmain.Model.DTO.Game.Response.GameListResponseDTO;
 import com.example.jsgamesbackendmain.Repository.GameRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
@@ -24,19 +26,12 @@ public class GameListBean {
     public List<GameListResponseDTO> exec(Integer page, Integer size) {
         PageRequest pageRequest = PageRequest.of(page, size);
 
-        return gameRepository.findAllByOrderByViewCountDescGameIdAsc(pageRequest).toList()
-                .stream()
-                .map(GameListResponseDTO::of)
-                .collect(Collectors.toList());
+        return GameListResponseDTO.listOf(gameRepository.findAllByOrderByViewCountDescGameIdAsc(pageRequest));
     }
 
     public List<GameListResponseDTO> exec(Long userId, Integer page, Integer size) {
         PageRequest pageRequest = PageRequest.of(page, size);
 
-        return gameRepository.findAllByOrderByViewCountDescGameIdAsc(pageRequest)
-                .toList()
-                .stream()
-                .map(GameListResponseDTO::of)
-                .collect(Collectors.toList());
+        return GameListResponseDTO.listOf(gameRepository.findAllByOrderByViewCountDescGameIdAsc(pageRequest));
     }
 }

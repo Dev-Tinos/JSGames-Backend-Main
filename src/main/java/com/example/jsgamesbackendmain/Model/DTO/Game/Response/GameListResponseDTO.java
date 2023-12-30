@@ -3,6 +3,10 @@ package com.example.jsgamesbackendmain.Model.DTO.Game.Response;
 import com.example.jsgamesbackendmain.Model.DAO.GameDAO;
 import com.example.jsgamesbackendmain.Model.ENUM.ScoreType;
 import lombok.*;
+import org.springframework.data.domain.Page;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Builder
@@ -31,5 +35,12 @@ public class GameListResponseDTO {
                 .description(gameDAO.getDescription())
                 .viewCount(gameDAO.getViewCount())
                 .build();
+    }
+
+    public static List<GameListResponseDTO> listOf(Page<GameDAO> page){
+        return page.toList()
+                .stream()
+                .map(GameListResponseDTO::of)
+                .collect(Collectors.toList());
     }
 }

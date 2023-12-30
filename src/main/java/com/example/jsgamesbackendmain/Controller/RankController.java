@@ -38,17 +38,6 @@ public class RankController {
         return rankService.rankGet(page, size);
     }
 
-
-    // 게임 목록 조회 API
-    @Operation(summary = "게임 랭킹 조회 (페이징) ", description =
-            "# 게임 랭킹 조회  \n" +
-                    "## 조회수 순으로 내림차순 정렬됩니다."
-    )
-    @GetMapping("/games")
-    public List<GameListResponseDTO> listGames(@Parameter Integer page, @Parameter Integer size) {
-        return rankService.listGames(page, size);
-    }
-
     @Operation(summary = "학과내 랭킹 조회")
     @GetMapping("/rank/major")
     public RankByMajorGetResponseDTO getRankMajor(@RequestParam Major major) {

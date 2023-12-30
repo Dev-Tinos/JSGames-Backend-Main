@@ -35,24 +35,24 @@ public class ReviewListByGameBean {
         GameDAO findGame = gameGetSmallBean.exec(gameId);
 
 
-        List<ReviewDAO> daos = null;
+        List<ReviewDAO> reviewList = null;
 
         switch (sort) {
             case RECENT:
-                daos = reviewGetByGameIdOrderByCreateDescSmallBean.exec(findGame, request);
+                reviewList = reviewGetByGameIdOrderByCreateDescSmallBean.exec(findGame, request);
                 break;
             case OLDEST:
-                daos = reviewGetByGameIdOrderByCreateAscSmallBean.exec(findGame, request);
+                reviewList = reviewGetByGameIdOrderByCreateAscSmallBean.exec(findGame, request);
                 break;
             case STAR:
-                daos = reviewGetByGameIdOrderByStarDescSmallBean.exec(findGame, request);
+                reviewList = reviewGetByGameIdOrderByStarDescSmallBean.exec(findGame, request);
                 break;
             case HELPFUL:
-                daos = reviewGetByGameIdOrderByHelpfulSmallBean.exec(findGame, request);
+                reviewList = reviewGetByGameIdOrderByHelpfulSmallBean.exec(findGame, request);
                 break;
         }
 
-        return daos.stream()
+        return reviewList.stream()
                 .map(ReviewGetByGameIdResponseDTO::of)
                 .collect(Collectors.toList());
     }

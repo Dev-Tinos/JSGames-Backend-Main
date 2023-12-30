@@ -17,8 +17,8 @@ public class GameGetListByPlayedUser {
     private final GameGetListByPlayedUserSmallBean gameGetListByPlayedUserSmallBean;
     private final UserGetByIdSmallBean userGetByIdSmallBean;
 
-    public List<GameListResponseDTO> exec(String userId, Long page, Long size) {
-        PageRequest request = PageRequest.of(page.intValue(), size.intValue());
+    public List<GameListResponseDTO> exec(String userId, Integer page, Integer size) {
+        PageRequest request = PageRequest.of(page, size);
 
         UserDAO findUser = userGetByIdSmallBean.exec(userId);
 

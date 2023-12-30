@@ -43,7 +43,7 @@ public class GameController {
             "# 특정 유저의 플레이한 게임 리스트 조회"
     )
     @GetMapping("/game/user/{userId}")
-    public List<GameListResponseDTO> listGamesByUser(@PathVariable String userId, @Parameter Long page, @Parameter Long size) {
+    public List<GameListResponseDTO> listGamesByUser(@PathVariable String userId, @Parameter Integer page, @Parameter Integer size) {
         return gameService.listGamesByUser(userId, page, size);
     }
 }

@@ -25,12 +25,12 @@ public class RankService {
     private final RankGetRankMajorBean rankGetRankMajor;
 
     @Transactional
-    public RankGetResponseDTO rankGet(Long page, Long size) {
+    public RankGetResponseDTO rankGet(Integer page, Integer size) {
         return rankGetBean.exec(page, size);
     }
 
     @Transactional
-    public List<GameListResponseDTO> listGames(Long page, Long size) {
+    public List<GameListResponseDTO> listGames(Integer page, Integer size) {
         return gameListBean.exec(page, size);
     }
 

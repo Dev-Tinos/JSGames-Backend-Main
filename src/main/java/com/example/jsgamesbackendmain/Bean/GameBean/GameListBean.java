@@ -21,8 +21,8 @@ public class GameListBean {
                 .collect(Collectors.toList());
     }
 
-    public List<GameListResponseDTO> exec(Long page, Long size) {
-        PageRequest pageRequest = PageRequest.of(page.intValue(), size.intValue());
+    public List<GameListResponseDTO> exec(Integer page, Integer size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
 
         return gameRepository.findAllByOrderByViewCountDescGameIdAsc(pageRequest).toList()
                 .stream()
@@ -30,8 +30,8 @@ public class GameListBean {
                 .collect(Collectors.toList());
     }
 
-    public List<GameListResponseDTO> exec(Long userId, Long page, Long size) {
-        PageRequest pageRequest = PageRequest.of(page.intValue(), size.intValue());
+    public List<GameListResponseDTO> exec(Long userId, Integer page, Integer size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
 
         return gameRepository.findAllByOrderByViewCountDescGameIdAsc(pageRequest)
                 .toList()

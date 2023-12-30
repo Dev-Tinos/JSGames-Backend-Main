@@ -34,7 +34,7 @@ public class RankController {
                     "    (10등)270점 ~ (1등)450점"
     )
     @GetMapping("/rank/users")
-    public RankGetResponseDTO getRank(@RequestParam Long page, @RequestParam Long size) {
+    public RankGetResponseDTO getRank(@RequestParam Integer page, @RequestParam Integer size) {
         return rankService.rankGet(page, size);
     }
 
@@ -45,7 +45,7 @@ public class RankController {
                     "## 조회수 순으로 내림차순 정렬됩니다."
     )
     @GetMapping("/games")
-    public List<GameListResponseDTO> listGames(@Parameter Long page, @Parameter Long size) {
+    public List<GameListResponseDTO> listGames(@Parameter Integer page, @Parameter Integer size) {
         return rankService.listGames(page, size);
     }
 

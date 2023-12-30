@@ -42,7 +42,7 @@ public class ReviewService {
 
     // 게임 별 리뷰 조회
     @Transactional
-    public List<ReviewGetByGameIdResponseDTO> listReviewsByGame(Long gameId, Long page, Long size, ReviewSort sort) {
+    public List<ReviewGetByGameIdResponseDTO> listReviewsByGame(Long gameId, Integer page, Integer size, ReviewSort sort) {
         return reviewListByGameBean.exec(gameId, page, size, sort);
     }
 

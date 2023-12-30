@@ -30,7 +30,7 @@ public class GameService {
     }
 
     @Transactional
-    public List<GameListResponseDTO> listGamesByUser(String userId, Long page, Long size) {
+    public List<GameListResponseDTO> listGamesByUser(String userId, Integer page, Integer size) {
         return gameGetListByPlayedUser.exec(userId, page, size);
     }
 }

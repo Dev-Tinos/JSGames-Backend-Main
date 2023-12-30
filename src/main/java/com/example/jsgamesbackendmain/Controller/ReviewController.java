@@ -74,8 +74,8 @@ public class ReviewController {
     @GetMapping("/review/game/{gameId}")
     public List<ReviewGetByGameIdResponseDTO> listReviewsByGame(
             @PathVariable Long gameId,
-            @RequestParam Long page,
-            @RequestParam Long size,
+            @RequestParam Integer page,
+            @RequestParam Integer size,
             @RequestParam(defaultValue = "RECENT") ReviewSort sort) {
         return reviewService.listReviewsByGame(gameId, page, size, sort);
     }

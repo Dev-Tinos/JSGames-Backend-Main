@@ -16,8 +16,8 @@ import java.util.stream.Collectors;
 public class LogGetByUserIdSmallBean {
     private final LogRepository logRepository;
 
-    public List<LogGetByUserIdResponseDTO> exec(UserDAO user, Long page, Long size) {
-        Pageable pageable = PageRequest.of(page.intValue(), size.intValue());
+    public List<LogGetByUserIdResponseDTO> exec(UserDAO user, Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
 
         return logRepository.findByUserOrderByGameScoreDesc(user, pageable)
                 .stream()

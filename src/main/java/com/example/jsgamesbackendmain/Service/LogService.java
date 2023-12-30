@@ -35,7 +35,7 @@ public class LogService {
     }
 
     @Transactional
-    public List<LogGetByUserIdResponseDTO> getLogsByUserId(String userId, Long page, Long size) {
+    public List<LogGetByUserIdResponseDTO> getLogsByUserId(String userId, Integer page, Integer size) {
         return logGetByUserIdBean.exec(userId, page, size);
     }
 

@@ -28,9 +28,9 @@ public class ReviewListByGameBean {
     private final GameGetSmallBean gameGetSmallBean;
 
 
-    public List<ReviewGetByGameIdResponseDTO> exec(Long gameId, Long page, Long size, ReviewSort sort) {
+    public List<ReviewGetByGameIdResponseDTO> exec(Long gameId, Integer page, Integer size, ReviewSort sort) {
 
-        PageRequest request = PageRequest.of(page.intValue(), size.intValue());
+        PageRequest request = PageRequest.of(page, size);
 
         GameDAO findGame = gameGetSmallBean.exec(gameId);
 

@@ -15,13 +15,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.util.List;
 import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
+@Validated
 @CrossOrigin("*")
 public class ReviewController {
 
@@ -74,8 +78,8 @@ public class ReviewController {
     @GetMapping("/review/game/{gameId}")
     public List<ReviewGetByGameIdResponseDTO> listReviewsByGame(
             @PathVariable Long gameId,
-            @RequestParam Integer page,
-            @RequestParam Integer size,
+            @RequestParam @Min(0) Integer page,
+            @RequestParam @Min(0) @Max(10) Integer size,
             @RequestParam(defaultValue = "RECENT") ReviewSort sort) {
         return reviewService.listReviewsByGame(gameId, page, size, sort);
     }

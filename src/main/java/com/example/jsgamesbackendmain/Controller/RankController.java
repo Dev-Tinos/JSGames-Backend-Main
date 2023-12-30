@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.util.List;
 
 @RestController
@@ -34,7 +36,10 @@ public class RankController {
                     "    (10등)270점 ~ (1등)450점"
     )
     @GetMapping("/rank/users")
-    public RankGetResponseDTO getRank(@RequestParam Integer page, @RequestParam Integer size) {
+    public RankGetResponseDTO getRank(
+            @RequestParam @Min(0) Integer page,
+            @RequestParam @Min(0) @Max(10) Integer size
+    ) {
         return rankService.rankGet(page, size);
     }
 

@@ -21,7 +21,7 @@ public class LogGetByUserIdSmallBean {
 
         return logRepository.findByUserOrderByGameScoreDesc(user, pageable)
                 .stream()
-                .map(logDAO -> LogGetByUserIdResponseDTO.of(logDAO, user))
+                .map(LogGetByUserIdResponseDTO::of)
                 .collect(Collectors.toList());
     }
 }

@@ -133,7 +133,7 @@ class GameBeanTest {
                 .limit(10)
                 .collect(Collectors.toList());
         //when
-        List<GameListResponseDTO> exec = gameListBean.exec(0L, 10L);
+        List<GameListResponseDTO> exec = gameListBean.exec(0, 10);
 
         //then
         assertEquals(gameList.size(), exec.size());

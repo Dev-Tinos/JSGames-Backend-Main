@@ -4,8 +4,8 @@ import com.example.jsgamesbackendmain.Bean.SmallBean.GameBean.GameGetListByPlaye
 import com.example.jsgamesbackendmain.Model.DAO.GameDAO;
 import com.example.jsgamesbackendmain.Model.DAO.LogDAO;
 import com.example.jsgamesbackendmain.Model.DAO.UserDAO;
-import com.example.jsgamesbackendmain.Model.DTO.Game.GameDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Game.Request.GameCreateRequestDTO;
+import com.example.jsgamesbackendmain.Model.DTO.Game.Response.GameCreateResultDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Game.Response.GameGetByGameIdResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Game.Response.GameListResponseDTO;
 import com.example.jsgamesbackendmain.Repository.GameRepository;
@@ -154,7 +154,7 @@ class GameBeanTest {
         GameDAO dao = GameDAO.createTest(0, user);
 
         //when
-        GameDTO exec = gamePostBean.exec(GameCreateRequestDTO.of(dao));
+        GameCreateResultDTO exec = gamePostBean.exec(GameCreateRequestDTO.of(dao));
 
         //then
         List<GameDAO> all = gameRepository.findAll();

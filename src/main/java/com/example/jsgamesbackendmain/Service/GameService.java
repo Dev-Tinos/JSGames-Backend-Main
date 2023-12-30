@@ -4,8 +4,8 @@ import com.example.jsgamesbackendmain.Bean.GameBean.GameGetBean;
 import com.example.jsgamesbackendmain.Bean.GameBean.GameGetListByPlayedUser;
 import com.example.jsgamesbackendmain.Bean.GameBean.GameListBean;
 import com.example.jsgamesbackendmain.Bean.GameBean.GamePostBean;
-import com.example.jsgamesbackendmain.Model.DTO.Game.GameDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Game.Request.GameCreateRequestDTO;
+import com.example.jsgamesbackendmain.Model.DTO.Game.Response.GameCreateResultDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Game.Response.GameGetByGameIdResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Game.Response.GameListResponseDTO;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +23,7 @@ public class GameService {
     private final GameGetListByPlayedUser gameGetListByPlayedUser;
 
     @Transactional
-    public GameDTO postGame(GameCreateRequestDTO gameCreateRequestDTO) {
+    public GameCreateResultDTO postGame(GameCreateRequestDTO gameCreateRequestDTO) {
         return gamePostBean.exec(gameCreateRequestDTO);
     }
 

@@ -1,7 +1,7 @@
 package com.example.jsgamesbackendmain.Controller;
 
-import com.example.jsgamesbackendmain.Model.DTO.Game.GameDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Game.Request.GameCreateRequestDTO;
+import com.example.jsgamesbackendmain.Model.DTO.Game.Response.GameCreateResultDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Game.Response.GameGetByGameIdResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Game.Response.GameListResponseDTO;
 import com.example.jsgamesbackendmain.Service.GameService;
@@ -26,7 +26,7 @@ public class GameController {
             "scoreType이 GOAL인 경우 targetScore는 따로 지정하지 않으면 0입니다."
     )
     @PostMapping("/game")
-    public GameDTO postGame(@Valid @RequestBody GameCreateRequestDTO gameCreateRequestDTO) {
+    public GameCreateResultDTO postGame(@Valid @RequestBody GameCreateRequestDTO gameCreateRequestDTO) {
         return gameService.postGame(gameCreateRequestDTO);
     }
 

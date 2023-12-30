@@ -12,6 +12,7 @@ import com.example.jsgamesbackendmain.Model.DTO.Review.Response.ReviewUpdateResp
 import com.example.jsgamesbackendmain.Model.ENUM.ReviewSort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -28,21 +29,25 @@ public class ReviewService {
     private final ReviewGetMyReviewBean reviewGetMyReviewBean;
 
     // 본인이 작성한 리뷰 조회
+    @Transactional
     public ReviewGetByGameIdResponseDTO getMyReview(Long gameId, String userId) {
         return reviewGetMyReviewBean.exec(gameId, userId);
     }
 
     // 리뷰 작성
+    @Transactional
     public ReviewCreateResponseDTO postReview(ReviewCreateRequestDTO requestDTO) {
         return reviewCreateBean.exec(requestDTO);
     }
 
     // 게임 별 리뷰 조회
+    @Transactional
     public List<ReviewGetByGameIdResponseDTO> listReviewsByGame(Long gameId, Long page, Long size, ReviewSort sort) {
         return reviewListByGameBean.exec(gameId, page, size, sort);
     }
 
     // 리뷰 수정
+    @Transactional
     public ReviewUpdateResponseDTO updateReview(Long reviewId, ReviewUpdateRequestDTO requestDTO) {
         return reviewUpdateBean.exec(reviewId, requestDTO);
     }

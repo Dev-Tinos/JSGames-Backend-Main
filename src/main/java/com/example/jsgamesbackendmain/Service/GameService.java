@@ -9,6 +9,7 @@ import com.example.jsgamesbackendmain.Model.DTO.Game.Response.GameGetByGameIdRes
 import com.example.jsgamesbackendmain.Model.DTO.Game.Response.GameListResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -19,15 +20,16 @@ public class GameService {
     private final GameGetBean gameGetBean;
     private final GameGetListByPlayedUser gameGetListByPlayedUser;
 
-
+    @Transactional
     public GameDTO postGame(GameCreateRequestDTO gameCreateRequestDTO) {
         return gamePostBean.exec(gameCreateRequestDTO);
     }
-
+    @Transactional
     public GameGetByGameIdResponseDTO getGame(Long gameId) {
         return gameGetBean.exec(gameId);
     }
 
+    @Transactional
     public List<GameListResponseDTO> listGamesByUser(String userId, Long page, Long size) {
         return gameGetListByPlayedUser.exec(userId, page, size);
     }

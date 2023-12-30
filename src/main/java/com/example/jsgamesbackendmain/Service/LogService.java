@@ -24,14 +24,17 @@ public class LogService {
     private final LogGetByGamIdUserIdBean logGetByGamIdUserIdBean;
     private final LogPostBean logPostBean;
 
+    @Transactional
     public LogPostResponseDTO postLog(LogPostRequestDTO logPostRequestDTO) {
         return logPostBean.exec(logPostRequestDTO);
     }
 
+    @Transactional
     public List<LogGetByGameIdResponseDTO> getLogsByGameId(Long gameId, Integer page, Integer size) {
         return logGetByGameIdBean.exec(gameId, page, size);
     }
 
+    @Transactional
     public List<LogGetByUserIdResponseDTO> getLogsByUserId(String userId, Long page, Long size) {
         return logGetByUserIdBean.exec(userId, page, size);
     }

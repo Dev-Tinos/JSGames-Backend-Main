@@ -23,7 +23,7 @@ public class GameListResponseDTO {
         return GameListResponseDTO.builder()
                 .gameId(gameDAO.getGameId())
                 .gameName(gameDAO.getGameName())
-                .userId(gameDAO.getUserId())
+                .userId(gameDAO.getUser().getUserId())
                 .gameImage(gameDAO.getGameImage())
                 .gameUrl(gameDAO.getGameUrl())
                 .targetScore(gameDAO.getTargetScore())

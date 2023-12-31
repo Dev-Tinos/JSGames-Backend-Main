@@ -15,12 +15,12 @@ public class LogGetByGameIdResponseDTO {
     private Double gameScore;
     private UserLogResponseDTO user;
 
-    public static LogGetByGameIdResponseDTO of(LogDAO logDAO, UserDAO userDAO) {
+    public static LogGetByGameIdResponseDTO of(LogDAO logDAO) {
         return LogGetByGameIdResponseDTO.builder()
                 .logId(logDAO.getLogId())
-                .gameId(logDAO.getGameId())
+                .gameId(logDAO.getGame().getGameId())
                 .gameScore(logDAO.getGameScore())
-                .user(UserLogResponseDTO.of(userDAO))
+                .user(UserLogResponseDTO.of(logDAO.getUser()))
                 .build();
     }
 }

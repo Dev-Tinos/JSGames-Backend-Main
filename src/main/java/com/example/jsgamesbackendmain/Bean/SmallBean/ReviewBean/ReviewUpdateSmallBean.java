@@ -14,18 +14,10 @@ import java.util.Optional;
 public class ReviewUpdateSmallBean {
     private final ReviewRepository reviewRepository;
 
-    public ReviewDAO exec(ReviewDAO dao, ReviewUpdateRequestDTO request) {
-        Optional<ReviewDAO> optional = reviewRepository.findByUserIdAndGameId(dao.getUserId(), dao.getGameId());
-
-        //존재하지 않는다면 리뷰 업데이트 에러
-        if (!optional.isPresent()) {
-            throw new InvalidException("Review not exists for Game id,UserId :: " + dao.getGameId() + "," + dao.getUserId());
-        }
-
+    public ReviewDAO exec(ReviewDAO review, ReviewUpdateRequestDTO request) {
         // 리뷰 내용 업데이트
-        dao.update(request);
-
-        return reviewRepository.save(dao);
+        review.update(request);
+        return reviewRepository.save(review);
     }
 
 }

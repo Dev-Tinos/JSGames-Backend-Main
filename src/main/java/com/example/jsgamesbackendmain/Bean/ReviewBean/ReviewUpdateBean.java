@@ -20,12 +20,12 @@ public class ReviewUpdateBean {
     public ReviewUpdateResponseDTO exec(Long reviewId, ReviewUpdateRequestDTO request) {
 
         // review validation
-        ReviewDAO dao = reviewGetByIdSmallBean.exec(reviewId);
+        ReviewDAO findReview = reviewGetByIdSmallBean.exec(reviewId);
 
         // update
-        reviewUpdateSmallBean.exec(dao, request);
+        reviewUpdateSmallBean.exec(findReview, request);
 
-        return ReviewUpdateResponseDTO.of(dao);
+        return ReviewUpdateResponseDTO.of(findReview);
     }
 }
 

@@ -4,6 +4,8 @@ import com.example.jsgamesbackendmain.Model.ENUM.ScoreType;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Builder
@@ -18,8 +20,13 @@ public class GameDAO {
 
     private String gameName;
 
-    @Setter
-    private String userId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private UserDAO user;
+
+    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
+    @Builder.Default
+    private List<ReviewDAO> reviews = new ArrayList<>();
 
     @Builder.Default
     private String gameImage = "https://pbs.twimg.com/media/EA9UJBjU4AAdkCm.jpg";
@@ -34,12 +41,25 @@ public class GameDAO {
     //조회수
     private Long viewCount = 0L;
 
+    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
+    @Builder.Default
+    private List<LogDAO> logs = new ArrayList<>();
+
+    public void setUser(UserDAO user) {
+        this.user = user;
+
+        List<GameDAO> games = user.getGames();
+
+        if (!games.contains(this))
+            games.add(this);
+    }
+
     public Long increaseViewCount() {
         return ++viewCount;
     }
 
-    public static GameDAO createTest(int i) {
-        return GameDAO.builder()
+    public static GameDAO createTest(int i, UserDAO user) {
+        GameDAO newGame = GameDAO.builder()
                 .gameName(String.valueOf(i))
                 .gameUrl(String.valueOf(i))
                 .targetScore((double) (i * 3 % 100))
@@ -47,5 +67,9 @@ public class GameDAO {
                 .description(String.valueOf(i))
                 .viewCount(((long) i))
                 .build();
+
+        newGame.setUser(user);
+
+        return newGame;
     }
 }

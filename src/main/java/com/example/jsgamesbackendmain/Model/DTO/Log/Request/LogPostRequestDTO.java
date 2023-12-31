@@ -18,16 +18,14 @@ public class LogPostRequestDTO {
 
     public LogDAO toDAO() {
         return LogDAO.builder()
-                .userId(this.getUserId())
-                .gameId(this.getGameId())
                 .gameScore(this.getGameScore())
                 .build();
     }
 
     public static LogPostRequestDTO of(LogDAO logDAO) {
         return LogPostRequestDTO.builder()
-                .userId(logDAO.getUserId())
-                .gameId(logDAO.getGameId())
+                .userId(logDAO.getUser().getUserId())
+                .gameId(logDAO.getGame().getGameId())
                 .gameScore(logDAO.getGameScore())
                 .build();
     }

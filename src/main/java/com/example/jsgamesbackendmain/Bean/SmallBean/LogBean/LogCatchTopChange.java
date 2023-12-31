@@ -1,5 +1,6 @@
 package com.example.jsgamesbackendmain.Bean.SmallBean.LogBean;
 
+import com.example.jsgamesbackendmain.Model.DAO.LogDAO;
 import com.example.jsgamesbackendmain.Model.DTO.Log.Response.LogGetByGameIdResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -11,18 +12,18 @@ import java.util.Optional;
 public class LogCatchTopChange {
     private final LogGetByGameSmallBean logGetByGameSmallBean;
 
-    public Boolean exec(Optional<LogGetByGameIdResponseDTO> preTopLogOpt, Optional<LogGetByGameIdResponseDTO> nextTopLogOpt) {
+    public Boolean exec(Optional<LogDAO> preTopLogOpt, Optional<LogDAO> nextTopLogOpt) {
         //if preTopLog not exist return false
         if (!preTopLogOpt.isPresent())
             return false;
 
 
         // get top log
-        LogGetByGameIdResponseDTO preTopLog = preTopLogOpt.get();
-        LogGetByGameIdResponseDTO nextTopLog = nextTopLogOpt.get();
+        LogDAO preTopLog = preTopLogOpt.get();
+        LogDAO nextTopLog = nextTopLogOpt.get();
 
         // get log count
-        Long logCount = logGetByGameSmallBean.count(preTopLog.getGameId());
+        Long logCount = logGetByGameSmallBean.count(preTopLog.getGame());
 
         // if count <= 100 return false
         if(logCount <= 100)

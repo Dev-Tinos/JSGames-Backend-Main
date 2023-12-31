@@ -1,6 +1,7 @@
 package com.example.jsgamesbackendmain.Bean.LogBean;
 
 import com.example.jsgamesbackendmain.Bean.SmallBean.LogBean.LogCatchTopChange;
+import com.example.jsgamesbackendmain.Bean.SmallBean.LogBean.LogGetByGameSmallBean;
 import com.example.jsgamesbackendmain.Model.DAO.GameDAO;
 import com.example.jsgamesbackendmain.Model.DAO.LogDAO;
 import com.example.jsgamesbackendmain.Model.DAO.UserDAO;
@@ -39,6 +40,8 @@ class LogBeanTest {
 
     @Autowired
     private LogCatchTopChange logCatchTopChange;
+    @Autowired
+    private LogGetByGameSmallBean logGetByGameSmallBean;
 
     @Test
     void LogCatchTopChangeTest() {
@@ -51,54 +54,48 @@ class LogBeanTest {
         userRepository.save(user1);
         userRepository.save(user2);
 
-        GameDAO game1 = GameDAO.createTest(1);
-        game1.setUserId(user1.getUserId());
+        GameDAO game1 = GameDAO.createTest(1, user1);
         game1.setScoreType(ScoreType.INFINITE);
         gameRepository.save(game1);
 
 
         for (int i = 1; i <= 50; i++) {
-            LogDAO logDAO = LogDAO.createTest(1);
-            logDAO.setGameId(game1.getGameId());
-            logDAO.setUserId(user1.getUserId());
-            Optional<LogGetByGameIdResponseDTO> preTopLogOpt = logGetByGameIdBean.exec(game1.getGameId(), 0, 1).stream().findAny();
+            LogDAO newLog = LogDAO.createTest(i, game1, user1);
 
-            logRepository.save(logDAO);
+            Optional<LogDAO> preTopLog = logGetByGameSmallBean.exec(game1, 0, 1).stream().findAny();
 
-            Optional<LogGetByGameIdResponseDTO> nextTopLogOpt = logGetByGameIdBean.exec(game1.getGameId(), 0, 1).stream().findAny();
+            logRepository.save(newLog);
 
-            Boolean isChange = logCatchTopChange.exec(preTopLogOpt, nextTopLogOpt);
+            Optional<LogDAO> nextTopLog = logGetByGameSmallBean.exec(game1, 0, 1).stream().findAny();
+
+            Boolean isChange = logCatchTopChange.exec(preTopLog, nextTopLog);
 
             assertFalse(isChange);
         }
 
         for (int i = 51; i <= 100; i++) {
-            LogDAO logDAO = LogDAO.createTest(i);
-            logDAO.setGameId(game1.getGameId());
-            logDAO.setUserId(user2.getUserId());
+            LogDAO newLog = LogDAO.createTest(i, game1, user2);
 
-            Optional<LogGetByGameIdResponseDTO> preTopLogOpt = logGetByGameIdBean.exec(game1.getGameId(), 0, 1).stream().findAny();
+            Optional<LogDAO> preTopLog = logGetByGameSmallBean.exec(game1, 0, 1).stream().findAny();
 
-            logRepository.save(logDAO);
+            logRepository.save(newLog);
 
-            Optional<LogGetByGameIdResponseDTO> nextTopLogOpt = logGetByGameIdBean.exec(game1.getGameId(), 0, 1).stream().findAny();
+            Optional<LogDAO> nextTopLog = logGetByGameSmallBean.exec(game1, 0, 1).stream().findAny();
 
-            Boolean isChange = logCatchTopChange.exec(preTopLogOpt, nextTopLogOpt);
+            Boolean isChange = logCatchTopChange.exec(preTopLog, nextTopLog);
 
             assertFalse(isChange);
         }
 
-        LogDAO logDAO = LogDAO.createTest(101);
-        logDAO.setGameId(game1.getGameId());
-        logDAO.setUserId(user1.getUserId());
+        Optional<LogDAO> preTopLog = logGetByGameSmallBean.exec(game1, 0, 1).stream().findAny();
 
-        Optional<LogGetByGameIdResponseDTO> preTopLogOpt = logGetByGameIdBean.exec(game1.getGameId(), 0, 1).stream().findAny();
+        LogDAO newLog = LogDAO.createTest(101, game1, user1);
 
-        logRepository.save(logDAO);
+        logRepository.save(newLog);
 
-        Optional<LogGetByGameIdResponseDTO> nextTopLogOpt = logGetByGameIdBean.exec(game1.getGameId(), 0, 1).stream().findAny();
+        Optional<LogDAO> nextTopLog = logGetByGameSmallBean.exec(game1, 0, 1).stream().findAny();
 
-        Boolean isChange = logCatchTopChange.exec(preTopLogOpt, nextTopLogOpt);
+        Boolean isChange = logCatchTopChange.exec(preTopLog, nextTopLog);
 
         assertTrue(isChange);
 
@@ -106,37 +103,32 @@ class LogBeanTest {
 
     @Autowired
     private LogGetByGameIdBean logGetByGameIdBean;
+
     @Test
     void LogGetByGameIdBeanTest() {
         //given
         UserDAO user = UserDAO.createTest(0);
         userRepository.save(user);
 
-        GameDAO game1 = GameDAO.createTest(0);
+        GameDAO game1 = GameDAO.createTest(0, user);
         game1.setScoreType(ScoreType.INFINITE);
-        game1.setUserId(user.getUserId());
         gameRepository.save(game1);
 
-        GameDAO game2 = GameDAO.createTest(3);
-        game2.setUserId(user.getUserId());
+        GameDAO game2 = GameDAO.createTest(3, user);
         game2.setScoreType(ScoreType.GOAL);
         game2.setTargetScore(((double) 5));
         gameRepository.save(game2);
 
         for (int i = 0; i < 12; i++) {
-            LogDAO log1 = LogDAO.createTest(i);
-            log1.setGameId(game1.getGameId());
-            log1.setUserId(user.getUserId());
+            LogDAO log1 = LogDAO.createTest(i, game1, user);
             logRepository.save(log1);
 
-            LogDAO log2 = LogDAO.createTest(i);
-            log2.setGameId(game2.getGameId());
-            log2.setUserId(user.getUserId());
+            LogDAO log2 = LogDAO.createTest(i, game2, user);
             logRepository.save(log2);
         }
 
         List<LogDAO> game1List = logRepository.findAll().stream()
-                .filter(logDAO -> logDAO.getGameId().equals(game1.getGameId()))
+                .filter(logDAO -> logDAO.getGame().getGameId().equals(game1.getGameId()))
                 .sorted(Comparator.comparing(LogDAO::getGameScore).reversed().thenComparing(LogDAO::getLogId))
                 .limit(10)
                 .collect(Collectors.toList());
@@ -144,7 +136,7 @@ class LogBeanTest {
         Double targetScore = game2.getTargetScore();
 
         List<LogDAO> game2List = logRepository.findAll().stream()
-                .filter(logDAO -> logDAO.getGameId().equals(game2.getGameId()))
+                .filter(logDAO -> logDAO.getGame().getGameId().equals(game2.getGameId()))
                 .sorted((o1, o2) -> {
                     double g1 = targetScore - o1.getGameScore();
                     double g2 = targetScore - o2.getGameScore();
@@ -184,44 +176,39 @@ class LogBeanTest {
 
     @Autowired
     private LogGetByGamIdUserIdBean logGetByGamIdUserIdBean;
+
     @Test
     void LogGetByGamIdUserIdBeanTest() {
         //given
         UserDAO user = UserDAO.createTest(0);
         userRepository.save(user);
 
-        GameDAO game1 = GameDAO.createTest(0);
+        GameDAO game1 = GameDAO.createTest(0, user);
         game1.setScoreType(ScoreType.INFINITE);
-        game1.setUserId(user.getUserId());
         gameRepository.save(game1);
 
-        GameDAO game2 = GameDAO.createTest(3);
-        game2.setUserId(user.getUserId());
+        GameDAO game2 = GameDAO.createTest(3, user);
         game2.setScoreType(ScoreType.GOAL);
         game2.setTargetScore(((double) 5));
         gameRepository.save(game2);
 
         for (int i = 0; i < 12; i++) {
-            LogDAO log1 = LogDAO.createTest(i);
-            log1.setGameId(game1.getGameId());
-            log1.setUserId(user.getUserId());
+            LogDAO log1 = LogDAO.createTest(i, game1, user);
             logRepository.save(log1);
 
-            LogDAO log2 = LogDAO.createTest(i);
-            log2.setGameId(game2.getGameId());
-            log2.setUserId(user.getUserId());
+            LogDAO log2 = LogDAO.createTest(i, game2, user);
             logRepository.save(log2);
         }
 
         LogDAO expect1 = logRepository.findAll().stream()
-                .filter(logDAO -> logDAO.getGameId().equals(game1.getGameId()))
+                .filter(logDAO -> logDAO.getGame().getGameId().equals(game1.getGameId()))
                 .sorted(Comparator.comparing(LogDAO::getGameScore).reversed().thenComparing(LogDAO::getLogId))
                 .limit(1).findAny().orElse(new LogDAO());
 
         Double targetScore = game2.getTargetScore();
 
         LogDAO expect2 = logRepository.findAll().stream()
-                .filter(logDAO -> logDAO.getGameId().equals(game2.getGameId()))
+                .filter(logDAO -> logDAO.getGame().getGameId().equals(game2.getGameId()))
                 .sorted((o1, o2) -> {
                     double g1 = targetScore - o1.getGameScore();
                     double g2 = targetScore - o2.getGameScore();
@@ -242,28 +229,26 @@ class LogBeanTest {
 
     @Autowired
     private LogPostBean logPostBean;
+
     @Test
     void LogPostBeanTest() {
         //given
         UserDAO user = UserDAO.createTest(0);
         userRepository.save(user);
 
-        GameDAO game1 = GameDAO.createTest(0);
+        GameDAO game1 = GameDAO.createTest(0, user);
         game1.setScoreType(ScoreType.INFINITE);
-        game1.setUserId(user.getUserId());
         gameRepository.save(game1);
 
 
-        LogDAO logDAO = LogDAO.createTest(0);
-        logDAO.setUserId(user.getUserId());
-        logDAO.setGameId(game1.getGameId());
+        LogDAO logDAO = LogDAO.createTest(0, game1, user);
         logRepository.save(logDAO);
 
         //when
         LogPostResponseDTO exec = logPostBean.exec(LogPostRequestDTO.of(logDAO));
 
         //then
-        assertEquals(logDAO.getGameId(), exec.getGameId());
+        assertEquals(logDAO.getGame().getGameId(), exec.getGameId());
     }
 
     @Test
@@ -272,34 +257,28 @@ class LogBeanTest {
         UserDAO user = UserDAO.createTest(0);
         userRepository.save(user);
 
-        GameDAO game1 = GameDAO.createTest(0);
+        GameDAO game1 = GameDAO.createTest(0, user);
         game1.setScoreType(ScoreType.INFINITE);
-        game1.setUserId(user.getUserId());
         gameRepository.save(game1);
 
-        GameDAO game2 = GameDAO.createTest(3);
-        game2.setUserId(user.getUserId());
+        GameDAO game2 = GameDAO.createTest(3, user);
         game2.setScoreType(ScoreType.GOAL);
         game2.setTargetScore(((double) 5));
         gameRepository.save(game2);
 
         for (int i = 0; i < 12; i++) {
-            LogDAO log1 = LogDAO.createTest(i);
-            log1.setGameId(game1.getGameId());
-            log1.setUserId(user.getUserId());
+            LogDAO log1 = LogDAO.createTest(i, game1, user);
             logRepository.save(log1);
 
-            LogDAO log2 = LogDAO.createTest(i);
-            log2.setGameId(game2.getGameId());
-            log2.setUserId(user.getUserId());
+            LogDAO log2 = LogDAO.createTest(i, game2, user);
             logRepository.save(log2);
         }
 
-        List<LogDAO> expect1 = logRepository.findAll().stream().filter(logDAO -> logDAO.getGameId() == game1.getGameId())
+        List<LogDAO> expect1 = logRepository.findAll().stream().filter(logDAO -> logDAO.getGame().getGameId() == game1.getGameId())
                 .sorted(Comparator.comparing(LogDAO::getGameScore).reversed().thenComparing(LogDAO::getLogId))
                 .collect(Collectors.toList());
 
-        List<LogDAO> expect2 = logRepository.findAll().stream().filter(logDAO -> logDAO.getGameId() == game2.getGameId())
+        List<LogDAO> expect2 = logRepository.findAll().stream().filter(logDAO -> logDAO.getGame().getGameId() == game2.getGameId())
                 .sorted((o1, o2) -> {
                     double g1 = game2.getTargetScore() - o1.getGameScore();
                     double g2 = game2.getTargetScore() - o2.getGameScore();
@@ -309,11 +288,11 @@ class LogBeanTest {
                 }).collect(Collectors.toList());
 
 
-        LogDAO findDAO1 = logRepository.findFirstByGameIdAndUserIdOrderByGameScoreDesc(game1.getGameId(), user.getUserId()).get();
-        LogDAO findDAO2 = logRepository.findByGameIdOrderByGameScoreWithTargetScore(game2.getGameId(), game2.getTargetScore(), PageRequest.of(0, 1)).stream().findAny().get();
+        LogDAO findDAO1 = logRepository.findFirstByGameAndUserOrderByGameScoreDesc(game1, user).get();
+        LogDAO findDAO2 = logRepository.findByGameOrderByGameScoreWithTargetScore(game2, game2.getTargetScore(), PageRequest.of(0, 1)).stream().findAny().get();
 
-        Long rank1 = logRepository.getRankInfinite(findDAO1.getGameScore(), findDAO1.getGameId());
-        Long rank2 = logRepository.getRankGoal(game2.getTargetScore(), findDAO2.getGameScore(), game2.getGameId());
+        Long rank1 = logRepository.getRankInfinite(findDAO1.getGameScore(), findDAO1.getGame());
+        Long rank2 = logRepository.getRankGoal(game2.getTargetScore(), findDAO2.getGameScore(), game2);
 
         long cnt1 = expect1.stream().filter(logDAO -> logDAO.getGameScore() >= findDAO1.getGameScore()).count();
         long cnt2 = expect2.stream().filter(logDAO -> Math.abs(game2.getTargetScore() - logDAO.getGameScore()) <= Math.abs(game2.getTargetScore() - findDAO2.getGameScore())).count();

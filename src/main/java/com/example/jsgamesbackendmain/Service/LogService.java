@@ -11,6 +11,7 @@ import com.example.jsgamesbackendmain.Model.DTO.Log.Response.LogGetByUserIdRespo
 import com.example.jsgamesbackendmain.Model.DTO.Log.Response.LogPostResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -35,6 +36,7 @@ public class LogService {
         return logGetByUserIdBean.exec(userId, page, size);
     }
 
+    @Transactional
     public LogGetByGameIdUserIdResponseDTO getLogByGameIdUserId(Long gameId, String userId) {
         return logGetByGamIdUserIdBean.exec(gameId, userId);
     }

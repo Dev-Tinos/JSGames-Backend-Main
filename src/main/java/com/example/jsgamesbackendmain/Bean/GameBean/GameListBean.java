@@ -1,9 +1,12 @@
 package com.example.jsgamesbackendmain.Bean.GameBean;
 
+import com.example.jsgamesbackendmain.Bean.SmallBean.GameBean.GameListOrderByCreateAtSmallBean;
+import com.example.jsgamesbackendmain.Bean.SmallBean.GameBean.GameListOrderByLogCountDescSmallBean;
+import com.example.jsgamesbackendmain.Bean.SmallBean.GameBean.GameListOrderByReviewCountSmallBean;
+import com.example.jsgamesbackendmain.Bean.SmallBean.GameBean.GameListOrderByViewCountSmallBean;
 import com.example.jsgamesbackendmain.Model.DAO.GameDAO;
 import com.example.jsgamesbackendmain.Model.DTO.Game.Response.GameListResponseDTO;
 import com.example.jsgamesbackendmain.Model.ENUM.GameSort;
-import com.example.jsgamesbackendmain.Repository.GameRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,7 +17,10 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public class GameListBean {
-    private final GameRepository gameRepository;
+    private final GameListOrderByViewCountSmallBean gameListOrderByViewCountSmallBean;
+    private final GameListOrderByLogCountDescSmallBean gameListOrderByLogCountDescSmallBean;
+    private final GameListOrderByCreateAtSmallBean gameListOrderByCreateAtSmallBean;
+    private final GameListOrderByReviewCountSmallBean gameListOrderByReviewCountSmallBean;
 
     public List<GameListResponseDTO> exec(Integer page, Integer size, GameSort sort) {
         PageRequest pageRequest = PageRequest.of(page, size);
@@ -23,16 +29,16 @@ public class GameListBean {
 
         switch (sort) {
             case VIEW_COUNT:
-                gamePageList = gameRepository.findAllByOrderByViewCountDescGameIdAsc(pageRequest);
+                gamePageList = gameListOrderByViewCountSmallBean.exec(pageRequest);
                 break;
             case LOG_COUNT:
-                gamePageList = gameRepository.findAllByOrderByLogCountDescGameIdAsc(pageRequest);
+                gamePageList = gameListOrderByLogCountDescSmallBean.exec(pageRequest);
                 break;
             case RECENT:
-                gamePageList = gameRepository.findAllByOrderByCreatedAtDescGameIdAsc(pageRequest);
+                gamePageList = gameListOrderByCreateAtSmallBean.exec(pageRequest);
                 break;
             case REVIEW_COUNT:
-                gamePageList = gameRepository.findAllByOrderByReviewCountDescGameIdAsc(pageRequest);
+                gamePageList = gameListOrderByReviewCountSmallBean.exec(pageRequest);
                 break;
         }
 

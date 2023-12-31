@@ -8,6 +8,7 @@ import com.example.jsgamesbackendmain.Model.DTO.Game.Request.GameCreateRequestDT
 import com.example.jsgamesbackendmain.Model.DTO.Game.Response.GameCreateResultDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Game.Response.GameGetByGameIdResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Game.Response.GameListResponseDTO;
+import com.example.jsgamesbackendmain.Model.ENUM.GameSort;
 import com.example.jsgamesbackendmain.Repository.GameRepository;
 import com.example.jsgamesbackendmain.Repository.LogRepository;
 import com.example.jsgamesbackendmain.Repository.UserRepository;
@@ -133,7 +134,7 @@ class GameBeanTest {
                 .limit(10)
                 .collect(Collectors.toList());
         //when
-        List<GameListResponseDTO> exec = gameListBean.exec(0, 10);
+        List<GameListResponseDTO> exec = gameListBean.exec(0, 10, GameSort.VIEW_COUNT);
 
         //then
         assertEquals(gameList.size(), exec.size());

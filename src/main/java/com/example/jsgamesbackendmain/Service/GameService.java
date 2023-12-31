@@ -8,6 +8,7 @@ import com.example.jsgamesbackendmain.Model.DTO.Game.Request.GameCreateRequestDT
 import com.example.jsgamesbackendmain.Model.DTO.Game.Response.GameCreateResultDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Game.Response.GameGetByGameIdResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Game.Response.GameListResponseDTO;
+import com.example.jsgamesbackendmain.Model.ENUM.GameSort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,8 +29,8 @@ public class GameService {
     }
 
     @Transactional
-    public List<GameListResponseDTO> listGames(Integer page, Integer size) {
-        return gameListBean.exec(page, size);
+    public List<GameListResponseDTO> listGames(Integer page, Integer size, GameSort sort) {
+        return gameListBean.exec(page, size, sort);
     }
     @Transactional
     public GameGetByGameIdResponseDTO getGame(Long gameId) {

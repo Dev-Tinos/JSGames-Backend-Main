@@ -4,6 +4,7 @@ import com.example.jsgamesbackendmain.Model.DTO.Game.Request.GameCreateRequestDT
 import com.example.jsgamesbackendmain.Model.DTO.Game.Response.GameCreateResultDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Game.Response.GameGetByGameIdResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Game.Response.GameListResponseDTO;
+import com.example.jsgamesbackendmain.Model.ENUM.GameSort;
 import com.example.jsgamesbackendmain.Service.GameService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -44,15 +45,15 @@ public class GameController {
                     "VIEW_COUNT: 조회수 높은 순  \n" +
                     "PLAYED_USER: 플레이한 유저 많은 순  \n" +
                     "RECENT: 최신순  \n" +
-                    "REVIEW_COUNT: 리뷰 많은 순  \n" +
-                    "RANDOM: 랜덤"
+                    "REVIEW_COUNT: 리뷰 많은 순"
     )
     @GetMapping("/games")
     public List<GameListResponseDTO> listGames(
             @RequestParam @Min(0) Integer page,
-            @RequestParam @Min(0) @Max(10) Integer size
-    ) {
-        return gameService.listGames(page, size);
+            @RequestParam @Min(0) @Max(10) Integer size,
+            @RequestParam(defaultValue = "VIEW_COUNT")GameSort sort
+            ) {
+        return gameService.listGames(page, size, sort);
     }
 
     // 특정 게임 조회 API

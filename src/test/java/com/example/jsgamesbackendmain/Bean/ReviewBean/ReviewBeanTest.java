@@ -95,7 +95,7 @@ class ReviewBeanTest {
                 .collect(Collectors.toList());
 
         //when
-        List<ReviewGetByGameIdResponseDTO> exec = reviewListByGameBean.exec(gameId, 0L, 10L, ReviewSort.RECENT);
+        List<ReviewGetByGameIdResponseDTO> exec = reviewListByGameBean.exec(gameId, 0, 10, ReviewSort.RECENT);
 
         System.out.println("recent = " + recent);
         System.out.println("exec = " + exec);
@@ -120,7 +120,7 @@ class ReviewBeanTest {
                 .limit(10)
                 .collect(Collectors.toList());
 
-        exec = reviewListByGameBean.exec(gameId, 0L, 10L, ReviewSort.OLDEST);
+        exec = reviewListByGameBean.exec(gameId, 0, 10, ReviewSort.OLDEST);
 
         assertEquals(oldest.size(), exec.size());
         for (int i = 0; i < oldest.size(); i++) {
@@ -133,7 +133,7 @@ class ReviewBeanTest {
                         .thenComparing(ReviewDAO::getDateTime).reversed()
                 ).limit(10).collect(Collectors.toList());
 
-        exec = reviewListByGameBean.exec(gameId, 0L, 10L, ReviewSort.STAR);
+        exec = reviewListByGameBean.exec(gameId, 0, 10, ReviewSort.STAR);
 
         assertEquals(star.size(), exec.size());
         for (int i = 0; i < star.size(); i++) {
@@ -146,7 +146,7 @@ class ReviewBeanTest {
                         .thenComparing(ReviewDAO::getDateTime).reversed()
                 ).limit(10).collect(Collectors.toList());
 
-        exec = reviewListByGameBean.exec(gameId, 0L, 10L, ReviewSort.HELPFUL);
+        exec = reviewListByGameBean.exec(gameId, 0, 10, ReviewSort.HELPFUL);
 
         assertEquals(helpful.size(), exec.size());
         for (int i = 0; i < helpful.size(); i++) {

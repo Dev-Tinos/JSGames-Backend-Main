@@ -32,29 +32,23 @@ public class LogPostBean {
 
     public LogPostResponseDTO exec(LogPostRequestDTO logPostRequestDTO) {
         // game found
-        GameDAO game = gameGetSmallBean.exec(logPostRequestDTO.getGameId());
+        GameDAO findGame = gameGetSmallBean.exec(logPostRequestDTO.getGameId());
 
         // user found
-        UserDAO user = userValidationSmallBean.exec(logPostRequestDTO.getUserId());
-
-        // get top log
-        Optional<LogDAO> preTopLog = logGetByGameSmallBean.exec(game, 0, 1).stream().findAny();
+        UserDAO findUser = userValidationSmallBean.exec(logPostRequestDTO.getUserId());
 
         // log save
         LogDAO newLog = logPostRequestDTO.toDAO();
-        newLog.setGame(game);
-        newLog.setUser(user);
+        newLog.setGame(findGame);
+        newLog.setUser(findUser);
+        LogDAO savedLog = logSaveSmallBean.exec(newLog);
 
-        LogDAO savedLogDAO = logSaveSmallBean.exec(newLog);
-
-        // get top log
-        Optional<LogDAO> nextTopLog = logGetByGameSmallBean.exec(game, 0, 1).stream().findAny();
 
         // log catch top change
-        Boolean isChange = logCatchTopChange.exec(preTopLog, nextTopLog);
+        Boolean isChange = logCatchTopChange.exec(findGame);
         // 여기서 이벤트 처리하면 됨!!!!!
 
-        return LogPostResponseDTO.of(savedLogDAO);
+        return LogPostResponseDTO.of(savedLog);
     }
 
 }

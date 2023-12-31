@@ -16,8 +16,8 @@ public class RankGetTop100SmallBean {
     private final RankTop100Repository rankRepository;
     private final UserGetByIdSmallBean userGetByIdSmallBean;
 
-    public List<RankTop100UserResponseDTO> exec(Long page, Long size) {
-        PageRequest pageRequest = PageRequest.of(page.intValue(), size.intValue());
+    public List<RankTop100UserResponseDTO> exec(Integer page, Integer size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
         return rankRepository.findAllByOrderByTotalRankAsc(pageRequest).toList()
                 .stream()
                 .map(rankTop100DAO -> RankTop100UserResponseDTO.of(

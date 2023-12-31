@@ -40,9 +40,6 @@ class LogBeanTest {
 
     @Autowired
     private LogCatchTopChange logCatchTopChange;
-    @Autowired
-    private LogGetByGameSmallBean logGetByGameSmallBean;
-
     @Test
     void LogCatchTopChangeTest() {
         UserDAO user1 = UserDAO.createTest(1);
@@ -62,13 +59,9 @@ class LogBeanTest {
         for (int i = 1; i <= 50; i++) {
             LogDAO newLog = LogDAO.createTest(i, game1, user1);
 
-            Optional<LogDAO> preTopLog = logGetByGameSmallBean.exec(game1, 0, 1).stream().findAny();
-
             logRepository.save(newLog);
 
-            Optional<LogDAO> nextTopLog = logGetByGameSmallBean.exec(game1, 0, 1).stream().findAny();
-
-            Boolean isChange = logCatchTopChange.exec(preTopLog, nextTopLog);
+            Boolean isChange = logCatchTopChange.exec(game1);
 
             assertFalse(isChange);
         }
@@ -76,26 +69,18 @@ class LogBeanTest {
         for (int i = 51; i <= 100; i++) {
             LogDAO newLog = LogDAO.createTest(i, game1, user2);
 
-            Optional<LogDAO> preTopLog = logGetByGameSmallBean.exec(game1, 0, 1).stream().findAny();
-
             logRepository.save(newLog);
 
-            Optional<LogDAO> nextTopLog = logGetByGameSmallBean.exec(game1, 0, 1).stream().findAny();
-
-            Boolean isChange = logCatchTopChange.exec(preTopLog, nextTopLog);
+            Boolean isChange = logCatchTopChange.exec(game1);
 
             assertFalse(isChange);
         }
-
-        Optional<LogDAO> preTopLog = logGetByGameSmallBean.exec(game1, 0, 1).stream().findAny();
 
         LogDAO newLog = LogDAO.createTest(101, game1, user1);
 
         logRepository.save(newLog);
 
-        Optional<LogDAO> nextTopLog = logGetByGameSmallBean.exec(game1, 0, 1).stream().findAny();
-
-        Boolean isChange = logCatchTopChange.exec(preTopLog, nextTopLog);
+        Boolean isChange = logCatchTopChange.exec(game1);
 
         assertTrue(isChange);
 

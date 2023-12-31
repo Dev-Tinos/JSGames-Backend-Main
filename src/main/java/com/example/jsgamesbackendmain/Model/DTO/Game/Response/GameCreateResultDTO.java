@@ -2,15 +2,18 @@ package com.example.jsgamesbackendmain.Model.DTO.Game.Response;
 
 import com.example.jsgamesbackendmain.Model.DAO.GameDAO;
 import com.example.jsgamesbackendmain.Model.ENUM.ScoreType;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-@Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class GameGetByGameIdResponseDTO {
+@Getter
+public class GameCreateResultDTO {
     private Long gameId;
     private String gameName;
     private String userId;
@@ -23,8 +26,8 @@ public class GameGetByGameIdResponseDTO {
     private LocalDateTime createdAt;
     private Double star;
 
-    public static GameGetByGameIdResponseDTO of(GameDAO gameDAO, Double star){
-        return GameGetByGameIdResponseDTO.builder()
+    public static GameCreateResultDTO of(GameDAO gameDAO){
+        return GameCreateResultDTO.builder()
                 .gameId(gameDAO.getGameId())
                 .gameName(gameDAO.getGameName())
                 .userId(gameDAO.getUser().getUserId())
@@ -35,8 +38,7 @@ public class GameGetByGameIdResponseDTO {
                 .description(gameDAO.getDescription())
                 .viewCount(gameDAO.getViewCount())
                 .createdAt(gameDAO.getCreatedAt())
-                .star(star)
+                .star(0.0)
                 .build();
     }
 }
-

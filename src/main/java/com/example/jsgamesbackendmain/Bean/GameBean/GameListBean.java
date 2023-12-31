@@ -1,42 +1,47 @@
 package com.example.jsgamesbackendmain.Bean.GameBean;
 
+import com.example.jsgamesbackendmain.Bean.SmallBean.GameBean.GameListOrderByCreateAtSmallBean;
+import com.example.jsgamesbackendmain.Bean.SmallBean.GameBean.GameListOrderByLogCountDescSmallBean;
+import com.example.jsgamesbackendmain.Bean.SmallBean.GameBean.GameListOrderByReviewCountSmallBean;
+import com.example.jsgamesbackendmain.Bean.SmallBean.GameBean.GameListOrderByViewCountSmallBean;
+import com.example.jsgamesbackendmain.Model.DAO.GameDAO;
 import com.example.jsgamesbackendmain.Model.DTO.Game.Response.GameListResponseDTO;
-import com.example.jsgamesbackendmain.Repository.GameRepository;
+import com.example.jsgamesbackendmain.Model.ENUM.GameSort;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
 public class GameListBean {
-    private final GameRepository gameRepository;
+    private final GameListOrderByViewCountSmallBean gameListOrderByViewCountSmallBean;
+    private final GameListOrderByLogCountDescSmallBean gameListOrderByLogCountDescSmallBean;
+    private final GameListOrderByCreateAtSmallBean gameListOrderByCreateAtSmallBean;
+    private final GameListOrderByReviewCountSmallBean gameListOrderByReviewCountSmallBean;
 
-    public List<GameListResponseDTO> exec() {
-        return gameRepository.findAll()
-                .stream()
-                .map(GameListResponseDTO::of)
-                .collect(Collectors.toList());
-    }
+    public List<GameListResponseDTO> exec(Integer page, Integer size, GameSort sort) {
+        PageRequest pageRequest = PageRequest.of(page, size);
 
-    public List<GameListResponseDTO> exec(Long page, Long size) {
-        PageRequest pageRequest = PageRequest.of(page.intValue(), size.intValue());
+        Page<GameDAO> gamePageList = null;
 
-        return gameRepository.findAllByOrderByViewCountDescGameIdAsc(pageRequest).toList()
-                .stream()
-                .map(GameListResponseDTO::of)
-                .collect(Collectors.toList());
-    }
+        switch (sort) {
+            case VIEW_COUNT:
+                gamePageList = gameListOrderByViewCountSmallBean.exec(pageRequest);
+                break;
+            case LOG_COUNT:
+                gamePageList = gameListOrderByLogCountDescSmallBean.exec(pageRequest);
+                break;
+            case RECENT:
+                gamePageList = gameListOrderByCreateAtSmallBean.exec(pageRequest);
+                break;
+            case REVIEW_COUNT:
+                gamePageList = gameListOrderByReviewCountSmallBean.exec(pageRequest);
+                break;
+        }
 
-    public List<GameListResponseDTO> exec(Long userId, Long page, Long size) {
-        PageRequest pageRequest = PageRequest.of(page.intValue(), size.intValue());
-
-        return gameRepository.findAllByOrderByViewCountDescGameIdAsc(pageRequest)
-                .toList()
-                .stream()
-                .map(GameListResponseDTO::of)
-                .collect(Collectors.toList());
+        return GameListResponseDTO.listOf(gamePageList);
     }
 }

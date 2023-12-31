@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.util.List;
 
 @RestController
@@ -34,19 +36,11 @@ public class RankController {
                     "    (10등)270점 ~ (1등)450점"
     )
     @GetMapping("/rank/users")
-    public RankGetResponseDTO getRank(@RequestParam Long page, @RequestParam Long size) {
+    public RankGetResponseDTO getRank(
+            @RequestParam @Min(0) Integer page,
+            @RequestParam @Min(0) @Max(10) Integer size
+    ) {
         return rankService.rankGet(page, size);
-    }
-
-
-    // 게임 목록 조회 API
-    @Operation(summary = "게임 랭킹 조회 (페이징) ", description =
-            "# 게임 랭킹 조회  \n" +
-                    "## 조회수 순으로 내림차순 정렬됩니다."
-    )
-    @GetMapping("/games")
-    public List<GameListResponseDTO> listGames(@Parameter Long page, @Parameter Long size) {
-        return rankService.listGames(page, size);
     }
 
     @Operation(summary = "학과내 랭킹 조회")

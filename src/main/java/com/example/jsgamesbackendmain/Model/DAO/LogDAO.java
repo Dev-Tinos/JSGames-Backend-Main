@@ -1,8 +1,10 @@
 package com.example.jsgamesbackendmain.Model.DAO;
 
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -24,6 +26,10 @@ public class LogDAO {
     @ManyToOne
     @JoinColumn(name = "game_id")
     private GameDAO game;
+
+    @CreationTimestamp
+    @Column(updatable = false)
+    private LocalDateTime createdAt;
 
     private Double gameScore;
 

@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Builder
 @AllArgsConstructor
@@ -15,6 +17,7 @@ public class LogGetByUserIdResponseDTO {
     private Long logId;
     private Long gameId;
     private Double gameScore;
+    private LocalDateTime createdAt;
     private UserLogResponseDTO user;
 
     public static LogGetByUserIdResponseDTO of(LogDAO log) {
@@ -22,6 +25,7 @@ public class LogGetByUserIdResponseDTO {
                 .logId(log.getLogId())
                 .gameId(log.getGame().getGameId())
                 .gameScore(log.getGameScore())
+                .createdAt(log.getCreatedAt())
                 .user(UserLogResponseDTO.of(log.getUser()))
                 .build();
     }

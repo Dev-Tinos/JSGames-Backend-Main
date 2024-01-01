@@ -28,9 +28,6 @@ public interface GameRepository extends JpaRepository<GameDAO, Long> {
     Page<GameDAO> findAllByOrderByReviewCountDescGameIdAsc(Pageable pageable);
 
     // userId가 플레이한 게임 의 log중 가장 최근에 gameId 조회
-    @Query("select l.game.gameId from LogDAO l where l.user = ?1 group by l.game.gameId order by max(l.createdAt) desc, l.game.gameId asc")
-    Page<Long> findAllByPlayedUserOrderByCreatedAtDescGameIdAsc(UserDAO user, Pageable pageable);
-
-    @Query("select g from GameDAO g where g.gameId in (?1)")
-    List<GameDAO> findByGameIdIn(List<Long> gameIds);
+    @Query("select g from GameDAO g left join g.logs l where l.user = ?1 group by g.gameId order by max(l.createdAt) desc, g.gameId asc")
+    Page<GameDAO> findAllByPlayedUserOrderByCreatedAtDescGameIdAsc(UserDAO user, Pageable pageable);
 }

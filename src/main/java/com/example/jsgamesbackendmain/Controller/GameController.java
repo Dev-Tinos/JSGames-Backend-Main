@@ -66,7 +66,8 @@ public class GameController {
     }
 
     @Operation(summary = "특정 유저의 플레이한 게임 리스트 조회", description =
-            "# 특정 유저의 플레이한 게임 리스트 조회"
+            "# 특정 유저의 플레이한 게임 리스트 조회 \n " +
+            "본인이 했던 게임중 최근에 했던 게임부터 조회됩니다."
     )
     @GetMapping("/game/user/{userId}")
     public List<GameListResponseDTO> listGamesByUser(

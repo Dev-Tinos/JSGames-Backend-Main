@@ -38,14 +38,14 @@ public class GameController {
     // 게임 목록 조회 API
     @Operation(summary = "게임 목록 조회 (페이징) ", description =
             "# 게임 목록 조회  \n" +
-                    "## 기본은 조회수 순으로 내림차순 정렬됩니다." +
-                    "### 지원되는 정렬 옵션은 `VIEW_COUNT`, `PLAYED_USER`, `RECENT`, `REVIEW_COUNT`, `RANDOM` 입니다.  \n" +
+                    "## 기본은 조회수 순으로 내림차순 정렬됩니다. \n" +
+                    "### 지원되는 정렬 옵션은 `VIEW_COUNT`, `LOG_COUNT`, `RECENT`, `REVIEW_COUNT` 입니다.  \n" +
                     "### 또한 모든 정렬은 내림차순으로 정렬됩니다." +
                     "정렬 옵션은 `sort` query string으로 전달해주세요.  \n" +
-                    "VIEW_COUNT: 조회수 높은 순  \n" +
-                    "PLAYED_USER: 플레이한 유저 많은 순  \n" +
-                    "RECENT: 최신순  \n" +
-                    "REVIEW_COUNT: 리뷰 많은 순"
+                    "- VIEW_COUNT: 조회수 높은 순  \n" +
+                    "- LOG_COUNT: 로그가 많은 순  \n" +
+                    "- RECENT: 최신순  \n" +
+                    "- REVIEW_COUNT: 리뷰 많은 순"
     )
     @GetMapping("/games")
     public List<GameListResponseDTO> listGames(

@@ -25,8 +25,8 @@ public class RankService {
     }
 
     @Transactional
-    public RankByMajorGetResponseDTO rankGetByMajor(Major major) {
-        return rankGetByMajorBean.exec(major);
+    public RankByMajorGetResponseDTO rankGetByMajor(Integer page, Integer size, Major major) {
+        return rankGetByMajorBean.exec(page, size, major);
     }
 
     @Transactional

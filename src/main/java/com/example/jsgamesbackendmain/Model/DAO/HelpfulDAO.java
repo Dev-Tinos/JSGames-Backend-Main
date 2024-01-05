@@ -17,10 +17,16 @@ public class HelpfulDAO {
     private Long helpfulId;
 
     @Setter
-    private String userId;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private UserDAO user;
+
     @Setter
-    private Long reviewId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "review_id")
+    private ReviewDAO review;
 
     @Builder.Default
     private LocalDateTime helpfulTime = LocalDateTime.now();
+
 }

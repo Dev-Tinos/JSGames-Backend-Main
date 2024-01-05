@@ -17,7 +17,7 @@ public class RankGetBean {
     private final RankGetTop100SmallBean rankGetTop100SmallBean;
     private final RankLastUpdatedSmallBean rankLastUpdatedSmallBean;
 
-    public RankGetResponseDTO exec(Long page, Long size) {
+    public RankGetResponseDTO exec(Integer page, Integer size) {
         // RankTop100 DAO to Rank
 
         return RankGetResponseDTO

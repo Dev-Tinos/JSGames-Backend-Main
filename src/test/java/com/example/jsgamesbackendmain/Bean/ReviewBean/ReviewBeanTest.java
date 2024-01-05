@@ -45,13 +45,10 @@ class ReviewBeanTest {
         UserDAO user = UserDAO.createTest(0);
         userRepository.save(user);
 
-        GameDAO game = GameDAO.createTest(0);
-        game.setUserId(user.getUserId());
+        GameDAO game = GameDAO.createTest(0, user);
         gameRepository.save(game);
 
-        ReviewDAO review = ReviewDAO.createTest(0);
-        review.setGameId(game.getGameId());
-        review.setUserId(user.getUserId());
+        ReviewDAO review = ReviewDAO.createTest(0, game, user);
         reviewRepository.save(review);
 
         //when
@@ -72,8 +69,7 @@ class ReviewBeanTest {
         userRepository.save(user);
 
         for (int i = 0; i < 2; i++) {
-            GameDAO game = GameDAO.createTest(i);
-            game.setUserId(user.getUserId());
+            GameDAO game = GameDAO.createTest(i, user);
             gameRepository.save(game);
         }
         GameDAO game = gameRepository.findAll().stream().findAny().orElse(new GameDAO());
@@ -82,9 +78,7 @@ class ReviewBeanTest {
         List<ReviewDAO> list = new ArrayList<>();
 
         for (int i = 0; i < 12; i++) {
-            ReviewDAO review = ReviewDAO.createTest(i);
-            review.setGameId(gameId);
-            review.setUserId(user.getUserId());
+            ReviewDAO review = ReviewDAO.createTest(i, game, user);
             reviewRepository.save(review);
             list.add(review);
         }
@@ -92,7 +86,7 @@ class ReviewBeanTest {
         Comparator<ReviewDAO> reversed = Comparator.comparing(ReviewDAO::getReviewId).reversed();
 
         List<ReviewDAO> recent = list.stream()
-                .filter(reviewDAO -> reviewDAO.getGameId() == gameId)
+                .filter(reviewDAO -> reviewDAO.getGame().getGameId() == gameId)
                 .sorted(
                         Comparator.comparing(ReviewDAO::getDateTime).reversed()
                         .thenComparing(reversed)
@@ -101,7 +95,7 @@ class ReviewBeanTest {
                 .collect(Collectors.toList());
 
         //when
-        List<ReviewGetByGameIdResponseDTO> exec = reviewListByGameBean.exec(gameId, 0L, 10L, ReviewSort.RECENT);
+        List<ReviewGetByGameIdResponseDTO> exec = reviewListByGameBean.exec(gameId, 0, 10, ReviewSort.RECENT);
 
         System.out.println("recent = " + recent);
         System.out.println("exec = " + exec);
@@ -119,14 +113,14 @@ class ReviewBeanTest {
 
 
         List<ReviewDAO> oldest = list.stream()
-                .filter(reviewDAO -> reviewDAO.getGameId() == gameId)
+                .filter(reviewDAO -> reviewDAO.getGame().getGameId() == gameId)
                 .sorted(Comparator.comparing(ReviewDAO::getDateTime)
                         .thenComparing(reversed)
                 )
                 .limit(10)
                 .collect(Collectors.toList());
 
-        exec = reviewListByGameBean.exec(gameId, 0L, 10L, ReviewSort.OLDEST);
+        exec = reviewListByGameBean.exec(gameId, 0, 10, ReviewSort.OLDEST);
 
         assertEquals(oldest.size(), exec.size());
         for (int i = 0; i < oldest.size(); i++) {
@@ -134,12 +128,12 @@ class ReviewBeanTest {
         }
 
         List<ReviewDAO> star = list.stream()
-                .filter(reviewDAO -> reviewDAO.getGameId() == gameId)
+                .filter(reviewDAO -> reviewDAO.getGame().getGameId() == gameId)
                 .sorted(Comparator.comparing(ReviewDAO::getStar)
                         .thenComparing(ReviewDAO::getDateTime).reversed()
                 ).limit(10).collect(Collectors.toList());
 
-        exec = reviewListByGameBean.exec(gameId, 0L, 10L, ReviewSort.STAR);
+        exec = reviewListByGameBean.exec(gameId, 0, 10, ReviewSort.STAR);
 
         assertEquals(star.size(), exec.size());
         for (int i = 0; i < star.size(); i++) {
@@ -147,12 +141,12 @@ class ReviewBeanTest {
         }
 
         List<ReviewDAO> helpful = list.stream()
-                .filter(reviewDAO -> reviewDAO.getGameId() == gameId)
+                .filter(reviewDAO -> reviewDAO.getGame().getGameId() == gameId)
                 .sorted(Comparator.comparing(ReviewDAO::getHelpful)
                         .thenComparing(ReviewDAO::getDateTime).reversed()
                 ).limit(10).collect(Collectors.toList());
 
-        exec = reviewListByGameBean.exec(gameId, 0L, 10L, ReviewSort.HELPFUL);
+        exec = reviewListByGameBean.exec(gameId, 0, 10, ReviewSort.HELPFUL);
 
         assertEquals(helpful.size(), exec.size());
         for (int i = 0; i < helpful.size(); i++) {
@@ -168,19 +162,22 @@ class ReviewBeanTest {
     void ReviewPostBeanTest() {
         //given
         UserDAO user = UserDAO.createTest(0);
+        user.setUserId("1");
         userRepository.save(user);
 
-        GameDAO game = GameDAO.createTest(0);
-        game.setUserId(user.getUserId());
+        GameDAO game = GameDAO.createTest(0, user);
         gameRepository.save(game);
 
 
-        ReviewDAO review = ReviewDAO.createTest(0);
-        review.setGameId(game.getGameId());
-        review.setUserId(user.getUserId());
+        ReviewCreateRequestDTO request = ReviewCreateRequestDTO.builder()
+                .userId(user.getUserId())
+                .gameId(game.getGameId())
+                .reviewContent("test")
+                .star(5f)
+                .build();
 
         //when
-        ReviewCreateResponseDTO exec = reviewPostBean.exec(ReviewCreateRequestDTO.of(review));
+        ReviewCreateResponseDTO exec = reviewPostBean.exec(request);
 
         //then
         ReviewDAO expect = reviewRepository.findAll().stream().findAny().orElse(new ReviewDAO());
@@ -197,14 +194,11 @@ class ReviewBeanTest {
         UserDAO user = UserDAO.createTest(0);
         userRepository.save(user);
 
-        GameDAO game = GameDAO.createTest(0);
-        game.setUserId(user.getUserId());
+        GameDAO game = GameDAO.createTest(0, user);
         gameRepository.save(game);
 
-        ReviewDAO review = ReviewDAO.createTest(0);
+        ReviewDAO review = ReviewDAO.createTest(0, game, user);
 
-        review.setGameId(game.getGameId());
-        review.setUserId(user.getUserId());
         reviewRepository.save(review);
 
         ReviewUpdateRequestDTO requestDTO = ReviewUpdateRequestDTO.builder()

@@ -9,11 +9,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class GameGetPageSmallBean {
-
+public class GameListOrderByCreateAtSmallBean {
     private final GameRepository gameRepository;
-
     public Page<GameDAO> exec(Pageable pageable) {
-        return gameRepository.findAll(pageable);
+return gameRepository.findAllByOrderByCreatedAtDescGameIdAsc(pageable);
     }
 }

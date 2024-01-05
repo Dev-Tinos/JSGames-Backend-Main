@@ -11,6 +11,7 @@ import com.example.jsgamesbackendmain.Model.DTO.User.Request.UserSignUpRequestDT
 import com.example.jsgamesbackendmain.Model.DTO.User.Request.UserUpdateRequestDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -26,22 +27,27 @@ public class UserService {
 
     private final UserLoginBean userLoginBean;
 
+    @Transactional
     public UserGetResponseDTO getUser(String userId) {
         return userGetBean.exec(userId);
     }
 
+    @Transactional
     public UserUpdateResponseDTO updateUser(UserUpdateRequestDTO userUpdateRequestDTO) {
         return userUpdateBean.exec(userUpdateRequestDTO);
     }
 
+    @Transactional
     public StateResponseDTO deleteUser(String userId) {
         return userDeleteBean.exec(userId);
     }
 
+    @Transactional
     public UserSignUpResponseDTO signUpUser(UserSignUpRequestDTO userSignUpRequestDTO) {
         return userSignUpBean.signUpUser(userSignUpRequestDTO);
     }
 
+    @Transactional
     public UserLoginResponseDTO loginUser(UserLoginRequestDTO userLoginRequestDTO) {
         return userLoginBean.exec(userLoginRequestDTO);
     }

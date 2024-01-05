@@ -8,12 +8,16 @@ import com.example.jsgamesbackendmain.Service.LogService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@Validated
 @CrossOrigin("*")
 public class LogController {
 
@@ -26,7 +30,11 @@ public class LogController {
             "## scoreType이 `GOAL`인 경우 Log 조회시 targetScore와 가장 가까운 점수 순서대로 조회"
     )
     @GetMapping("/logs/game/{gameId}")
-    public List<LogGetByGameIdResponseDTO> getLogsByGameId(@PathVariable Long gameId, @Parameter Integer page, @Parameter Integer size) {
+    public List<LogGetByGameIdResponseDTO> getLogsByGameId(
+            @PathVariable Long gameId,
+            @Parameter @Min(0) Integer page,
+            @Parameter @Min(0) @Max(10) Integer size
+    ) {
         return logService.getLogsByGameId(gameId, page, size);
     }
 

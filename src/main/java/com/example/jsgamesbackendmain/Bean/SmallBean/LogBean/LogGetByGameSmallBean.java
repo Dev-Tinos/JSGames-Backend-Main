@@ -1,10 +1,12 @@
 package com.example.jsgamesbackendmain.Bean.SmallBean.LogBean;
 
 
+import com.example.jsgamesbackendmain.Bean.SmallBean.GameBean.GameGetSmallBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserGetByIdSmallBean;
 import com.example.jsgamesbackendmain.Model.DAO.GameDAO;
 import com.example.jsgamesbackendmain.Model.DAO.LogDAO;
 import com.example.jsgamesbackendmain.Model.DTO.Log.Response.LogGetByGameIdResponseDTO;
+import com.example.jsgamesbackendmain.Repository.GameRepository;
 import com.example.jsgamesbackendmain.Repository.LogRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -20,32 +22,28 @@ import java.util.stream.Collectors;
 public class LogGetByGameSmallBean {
     private final LogRepository logRepository;
     private final UserGetByIdSmallBean userGetByIdSmallBean;
+    private final GameRepository gameRepository;
 
 
     // INFINITE
-    public List<LogGetByGameIdResponseDTO> exec(GameDAO gameDAO, Integer page, Integer size) {
+    public List<LogDAO> exec(GameDAO gameDAO, Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size);
 
         Page<LogDAO> order = null;
 
         switch (gameDAO.getScoreType()) {
             case INFINITE:
-                order = logRepository.findByGameIdOrderByGameScoreDesc(gameDAO.getGameId(), pageable);
+                order = logRepository.findByGameOrderByGameScoreDesc(gameDAO, pageable);
                 break;
             case GOAL:
-                order = logRepository.findByGameIdOrderByGameScoreWithTargetScore(gameDAO.getGameId(), gameDAO.getTargetScore(), pageable);
+                order = logRepository.findByGameOrderByGameScoreWithTargetScore(gameDAO, gameDAO.getTargetScore(), pageable);
                 break;
         }
 
-        return order.toList().stream().map(logDAO ->
-                LogGetByGameIdResponseDTO.of(
-                        logDAO,
-                        userGetByIdSmallBean.exec(logDAO.getUserId())
-                )
-        ).collect(Collectors.toList());
+        return order.toList();
     }
 
-    public Long count(Long gameId) {
-        return logRepository.countByGameId(gameId);
+    public Long count(GameDAO game) {
+        return logRepository.countByGame(game);
     }
 }

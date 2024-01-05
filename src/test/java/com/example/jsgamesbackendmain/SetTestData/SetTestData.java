@@ -96,7 +96,6 @@ public class SetTestData {
             ScoreType scoreType = scoreTypes[i % scoreTypes.length];
 
             GameDAO gameDAO = GameDAO.builder()
-                    .userId(userDAOList.get((int) (Math.random() * userSize)).getUserId())
                     .gameName(String.valueOf(i))
                     .gameUrl(String.valueOf(i))
                     .scoreType(scoreType)
@@ -106,7 +105,11 @@ public class SetTestData {
                     )
                     .description(String.valueOf(i))
                     .viewCount(((long) i))
+                    .createdAt(LocalDateTime.now().minusDays(i))
                     .build();
+
+
+            gameDAO.setUser(userDAOList.get((int) (Math.random() * userSize)));
 
             gameDAOList.add(gameDAO);
             gameRepository.save(gameDAO);
@@ -114,13 +117,14 @@ public class SetTestData {
 
         for (int j = 0; j < reviewSize; j++) {
             ReviewDAO reviewDAO = ReviewDAO.builder()
-                    .userId(userDAOList.get((int) (Math.random() * userSize)).getUserId())
-                    .gameId(gameDAOList.get((int) (Math.random() * gameSize)).getGameId())
                     .reviewContent("reviewContent " + j)
                     .star((float) (j % 5) + 1)
                     .dateTime(LocalDateTime.now().minusDays(j))
                     .helpful((long) j)
                     .build();
+
+            reviewDAO.setUser(userDAOList.get((int) (Math.random() * userSize)));
+            reviewDAO.setGame(gameDAOList.get((int) (Math.random() * gameSize)));
 
             reviewDAOList.add(reviewDAO);
             reviewRepository.save(reviewDAO);
@@ -131,10 +135,11 @@ public class SetTestData {
         for (int i = 0; i < logSize; i++) {
             LogDAO newLog = LogDAO.builder()
                     .gameScore((double) ((int) (Math.random() * 100)))
+                    .createdAt(LocalDateTime.now().minusDays(i))
                     .build();
 
-            newLog.setGameId(gameDAOList.get((int) (Math.random() * gameSize)).getGameId());
-            newLog.setUserId(userDAOList.get((int) (Math.random() * userSize)).getUserId());
+            newLog.setGame(gameDAOList.get((int) (Math.random() * gameSize)));
+            newLog.setUser(userDAOList.get((int) (Math.random() * userSize)));
 
             logRepository.save(newLog);
         }

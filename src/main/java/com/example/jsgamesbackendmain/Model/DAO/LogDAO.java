@@ -1,8 +1,11 @@
 package com.example.jsgamesbackendmain.Model.DAO;
 
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "Logs")
@@ -16,15 +19,46 @@ public class LogDAO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long logId;
 
-    @Setter
-    private String userId;
-    @Setter
-    private Long gameId;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private UserDAO user;
+
+    @ManyToOne
+    @JoinColumn(name = "game_id")
+    private GameDAO game;
+
+    @CreationTimestamp
+    @Column(updatable = false)
+    private LocalDateTime createdAt;
+
     private Double gameScore;
 
-    public static LogDAO createTest(int i) {
-        return LogDAO.builder()
+    public void setUser(UserDAO user) {
+        this.user = user;
+
+        List<LogDAO> logs = user.getLogs();
+
+        if (!logs.contains(this))
+            logs.add(this);
+    }
+
+    public void setGame(GameDAO game) {
+        this.game = game;
+
+        List<LogDAO> logs = game.getLogs();
+
+        if (!logs.contains(this))
+            logs.add(this);
+    }
+
+    public static LogDAO createTest(int i, GameDAO game, UserDAO user) {
+        LogDAO newLog = LogDAO.builder()
                 .gameScore((double) i)
                 .build();
+
+        newLog.setUser(user);
+        newLog.setGame(game);
+
+        return newLog;
     }
 }

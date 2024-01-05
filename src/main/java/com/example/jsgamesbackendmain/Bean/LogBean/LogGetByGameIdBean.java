@@ -3,11 +3,13 @@ package com.example.jsgamesbackendmain.Bean.LogBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.GameBean.GameGetSmallBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.LogBean.LogGetByGameSmallBean;
 import com.example.jsgamesbackendmain.Model.DAO.GameDAO;
+import com.example.jsgamesbackendmain.Model.DAO.LogDAO;
 import com.example.jsgamesbackendmain.Model.DTO.Log.Response.LogGetByGameIdResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -20,7 +22,9 @@ public class LogGetByGameIdBean {
 
         GameDAO gameDAO = gameGetSmallBean.exec(gameId);
 
-        return logGetByGameSmallBean.exec(gameDAO, page, size);
+        return logGetByGameSmallBean.exec(gameDAO, page, size).stream()
+                .map(LogGetByGameIdResponseDTO::of)
+                .collect(Collectors.toList());
     }
 
 }

@@ -1,6 +1,8 @@
 package com.example.jsgamesbackendmain.Bean.SmallBean.LogBean;
 
+import com.example.jsgamesbackendmain.Model.DAO.GameDAO;
 import com.example.jsgamesbackendmain.Model.DAO.LogDAO;
+import com.example.jsgamesbackendmain.Model.DAO.UserDAO;
 import com.example.jsgamesbackendmain.Repository.LogRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -13,9 +15,9 @@ import java.util.Optional;
 public class LogGetOrderTargetSmallBean {
     private final LogRepository logRepository;
 
-    public Optional<LogDAO> exec(Long gameId, String userId, Double targetScore) {
+    public Optional<LogDAO> exec(GameDAO game, UserDAO user, Double targetScore) {
         return logRepository.findFirstByGameIdAndUserIdOrderByGameScoreWithTargetScore(
-                gameId, userId, targetScore, PageRequest.of(0, 1)
+                game, user, targetScore, PageRequest.of(0, 1)
         ).stream().findAny();
     }
 }

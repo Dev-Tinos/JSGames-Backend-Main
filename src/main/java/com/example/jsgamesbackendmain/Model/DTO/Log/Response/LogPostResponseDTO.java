@@ -8,6 +8,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Builder
 @NoArgsConstructor
@@ -16,14 +18,16 @@ public class LogPostResponseDTO {
     private Long logId;
     private Long gameId;
     private Double gameScore;
+    private LocalDateTime createdAt;
     private UserLogResponseDTO user;
 
-    public static LogPostResponseDTO of(LogDAO logDAO, UserDAO userDAO) {
+    public static LogPostResponseDTO of(LogDAO logDAO) {
         return LogPostResponseDTO.builder()
                 .logId(logDAO.getLogId())
-                .gameId(logDAO.getGameId())
+                .gameId(logDAO.getGame().getGameId())
                 .gameScore(logDAO.getGameScore())
-                .user(UserLogResponseDTO.of(userDAO))
+                .createdAt(logDAO.getCreatedAt())
+                .user(UserLogResponseDTO.of(logDAO.getUser()))
                 .build();
     }
 }

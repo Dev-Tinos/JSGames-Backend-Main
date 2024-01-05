@@ -1,35 +1,38 @@
 package com.example.jsgamesbackendmain.Bean.SmallBean.LogBean;
 
+import com.example.jsgamesbackendmain.Bean.LogBean.LogGetByGameIdBean;
+import com.example.jsgamesbackendmain.Model.DAO.GameDAO;
 import com.example.jsgamesbackendmain.Model.DTO.Log.Response.LogGetByGameIdResponseDTO;
+import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserLogResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.Optional;
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
 public class LogCatchTopChange {
     private final LogGetByGameSmallBean logGetByGameSmallBean;
+    private final LogGetByGameIdBean logGetByGameIdBean;
 
-    public Boolean exec(Optional<LogGetByGameIdResponseDTO> preTopLogOpt, Optional<LogGetByGameIdResponseDTO> nextTopLogOpt) {
-        //if preTopLog not exist return false
-        if (!preTopLogOpt.isPresent())
-            return false;
-
-
-        // get top log
-        LogGetByGameIdResponseDTO preTopLog = preTopLogOpt.get();
-        LogGetByGameIdResponseDTO nextTopLog = nextTopLogOpt.get();
-
+    public Boolean exec(GameDAO game) {
         // get log count
-        Long logCount = logGetByGameSmallBean.count(preTopLog.getGameId());
+        Long logCount = logGetByGameSmallBean.count(game);
 
         // if count <= 100 return false
         if(logCount <= 100)
             return false;
 
-        // if preTopLog != nextTopLog and different user return true
-        return !preTopLog.getLogId().equals(nextTopLog.getLogId())
-                && !preTopLog.getUser().getUserId().equals(nextTopLog.getUser().getUserId());
+        List<LogGetByGameIdResponseDTO> logList
+                = logGetByGameIdBean.exec(game.getGameId(), 0, 2);
+
+        LogGetByGameIdResponseDTO firstLog = logList.get(0);
+        UserLogResponseDTO firstLogUser = firstLog.getUser();
+
+        LogGetByGameIdResponseDTO secondLog = logList.get(1);
+        UserLogResponseDTO secondLogUser = secondLog.getUser();
+
+        // 100번째 로그의 유저와 101번째 로그의 유저가 다르면 true
+        return !firstLogUser.getUserId().equals(secondLogUser.getUserId());
     }
 }

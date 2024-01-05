@@ -19,13 +19,13 @@ public class GameGetBean {
 
     public GameGetByGameIdResponseDTO exec(Long gameId) {
 
-        GameDAO gameDAO = gameGetSmallBean.exec(gameId);
+        GameDAO findGame = gameGetSmallBean.exec(gameId);
 
-        gameViewCountUpdateSmallBean.exec(gameDAO);
+        gameViewCountUpdateSmallBean.exec(findGame);
 
         //Review 평균 가져오기
-        Double starAvg = reviewGetAvgStarByGameIdSmallBean.exec(gameDAO.getGameId());
+        Double starAvg = reviewGetAvgStarByGameIdSmallBean.exec(findGame);
 
-        return GameGetByGameIdResponseDTO.of(gameDAO, starAvg);
+        return GameGetByGameIdResponseDTO.of(findGame, starAvg);
     }
 }

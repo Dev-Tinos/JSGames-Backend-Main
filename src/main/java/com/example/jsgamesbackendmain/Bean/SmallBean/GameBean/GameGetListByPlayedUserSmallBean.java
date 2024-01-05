@@ -1,6 +1,7 @@
 package com.example.jsgamesbackendmain.Bean.SmallBean.GameBean;
 
-import com.example.jsgamesbackendmain.Model.DTO.Game.Response.GameListResponseDTO;
+import com.example.jsgamesbackendmain.Model.DAO.GameDAO;
+import com.example.jsgamesbackendmain.Model.DAO.UserDAO;
 import com.example.jsgamesbackendmain.Repository.GameRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -13,10 +14,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class GameGetListByPlayedUserSmallBean {
     private final GameRepository gameRepository;
-    public List<GameListResponseDTO> exec(String userId, PageRequest pageRequest) {
-        return gameRepository.findAllByPlayedUserOrderByViewCountDescGameIdAsc(userId, pageRequest)
-                .toList()
-                .stream().map(GameListResponseDTO::of)
-                .collect(Collectors.toList());
+    public List<GameDAO> exec(UserDAO user, PageRequest pageRequest) {
+        return gameRepository.findAllByPlayedUserOrderByCreatedAtDescGameIdAsc(user, pageRequest).toList();
     }
 }

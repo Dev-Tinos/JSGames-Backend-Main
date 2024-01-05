@@ -19,8 +19,6 @@ public class ReviewCreateRequestDTO {
 
     public ReviewDAO toDAO() {
         return ReviewDAO.builder()
-                .userId(this.getUserId())
-                .gameId(this.getGameId())
                 .reviewContent(this.getReviewContent())
                 .star(this.getStar())
                 .build();
@@ -28,8 +26,8 @@ public class ReviewCreateRequestDTO {
 
     public static ReviewCreateRequestDTO of(ReviewDAO reviewDAO) {
         return ReviewCreateRequestDTO.builder()
-                .userId(reviewDAO.getUserId())
-                .gameId(reviewDAO.getGameId())
+                .userId(reviewDAO.getUser().getUserId())
+                .gameId(reviewDAO.getGame().getGameId())
                 .reviewContent(reviewDAO.getReviewContent())
                 .star(reviewDAO.getStar())
                 .build();

@@ -1,5 +1,6 @@
 package com.example.jsgamesbackendmain.Bean.SmallBean.ReviewBean;
 
+import com.example.jsgamesbackendmain.Model.DAO.GameDAO;
 import com.example.jsgamesbackendmain.Model.DAO.ReviewDAO;
 import com.example.jsgamesbackendmain.Repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,8 +15,8 @@ import java.util.List;
 public class ReviewGetByGameIdOrderByCreateDescSmallBean {
     private final ReviewRepository reviewRepository;
 
-    public List<ReviewDAO> exec(Long gameId, PageRequest pageRequest) {
-        Page<ReviewDAO> order = reviewRepository.findByGameIdOrderByDateTimeDescReviewIdDesc(gameId, pageRequest);
+    public List<ReviewDAO> exec(GameDAO game, PageRequest pageRequest) {
+        Page<ReviewDAO> order = reviewRepository.findByGameOrderByDateTimeDescReviewIdDesc(game, pageRequest);
 
         return order.toList();
     }

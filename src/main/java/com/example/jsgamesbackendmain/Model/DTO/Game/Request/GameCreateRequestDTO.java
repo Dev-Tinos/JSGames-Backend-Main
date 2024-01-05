@@ -24,7 +24,6 @@ public class GameCreateRequestDTO {
     public GameDAO toDAO() {
         return GameDAO.builder()
                 .gameName(this.getGameName())
-                .userId(this.getUserId())
                 .gameImage(this.getImageUrl())
                 .gameUrl(this.getGameUrl())
                 .targetScore(this.getTargetScore())
@@ -36,7 +35,7 @@ public class GameCreateRequestDTO {
     public static GameCreateRequestDTO of(GameDAO gameDAO) {
         return GameCreateRequestDTO.builder()
                 .gameName(gameDAO.getGameName())
-                .userId(gameDAO.getUserId())
+                .userId(gameDAO.getUser().getUserId())
                 .imageUrl(gameDAO.getGameImage())
                 .gameUrl(gameDAO.getGameUrl())
                 .targetScore(gameDAO.getTargetScore())

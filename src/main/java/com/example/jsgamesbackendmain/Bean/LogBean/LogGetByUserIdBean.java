@@ -16,7 +16,7 @@ public class LogGetByUserIdBean {
 
     private final UserGetByIdSmallBean userValidationSmallBean;
 
-    public List<LogGetByUserIdResponseDTO> exec(String userId, Long page, Long size) {
+    public List<LogGetByUserIdResponseDTO> exec(String userId, Integer page, Integer size) {
 
         //userId 유효성 확인
         UserDAO user = userValidationSmallBean.exec(userId);

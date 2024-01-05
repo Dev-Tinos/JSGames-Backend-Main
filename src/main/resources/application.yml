@@ -20,6 +20,8 @@ spring:
     properties:
       hibernate:
         format_sql: true
+        # batch_size: 100
+        default_batch_fetch_size: 100
   datasource:
     driver-class-name: ${DB_DRIVER}
     url: ${DB_URL}

@@ -4,10 +4,11 @@ import com.example.jsgamesbackendmain.Bean.SmallBean.GameBean.GameGetListByPlaye
 import com.example.jsgamesbackendmain.Model.DAO.GameDAO;
 import com.example.jsgamesbackendmain.Model.DAO.LogDAO;
 import com.example.jsgamesbackendmain.Model.DAO.UserDAO;
-import com.example.jsgamesbackendmain.Model.DTO.Game.GameDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Game.Request.GameCreateRequestDTO;
+import com.example.jsgamesbackendmain.Model.DTO.Game.Response.GameCreateResultDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Game.Response.GameGetByGameIdResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Game.Response.GameListResponseDTO;
+import com.example.jsgamesbackendmain.Model.ENUM.GameSort;
 import com.example.jsgamesbackendmain.Repository.GameRepository;
 import com.example.jsgamesbackendmain.Repository.LogRepository;
 import com.example.jsgamesbackendmain.Repository.UserRepository;
@@ -21,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -38,6 +40,7 @@ class GameBeanTest {
 
     @Autowired
     private GameGetListByPlayedUserSmallBean gameGetListByPlayedUserSmallBean;
+
     @Test
     void GameGetListByPlayedUserSmallBeanTest() {
         //given
@@ -47,19 +50,17 @@ class GameBeanTest {
 
         UserDAO user2 = UserDAO.createTest(0);
         user2.setUserId("2");
-        userRepository.save(user1);
+        userRepository.save(user2);
 
         ArrayList<UserDAO> userList = new ArrayList<>();
 
         userList.add(user1);
         userList.add(user2);
 
-        GameDAO game1 = GameDAO.createTest(0);
-        game1.setUserId(user1.getUserId());
+        GameDAO game1 = GameDAO.createTest(0, user1);
         gameRepository.save(game1);
 
-        GameDAO game2 = GameDAO.createTest(0);
-        game2.setUserId(user2.getUserId());
+        GameDAO game2 = GameDAO.createTest(0, user2);
         gameRepository.save(game2);
 
         ArrayList<GameDAO> gameList = new ArrayList<>();
@@ -67,36 +68,34 @@ class GameBeanTest {
         gameList.add(game1);
         gameList.add(game2);
 
-        for (int i = 0; i < 3; i++) {
-            LogDAO log = LogDAO.createTest(0);
-            log.setGameId(game1.getGameId());
-            log.setUserId(user1.getUserId());
-            logRepository.save(log);
+        for (int i = 0; i < 4; i++) {
+            logRepository.save(LogDAO.createTest(0, game1, user1));
         }
 
-        for (int i = 0; i < 2; i++) {
-            LogDAO log = LogDAO.createTest(0);
-            log.setGameId(game2.getGameId());
-            log.setUserId(user2.getUserId());
-            logRepository.save(log);
+        for (int i = 0; i < 6; i++) {
+            logRepository.save(LogDAO.createTest(0, game2, user2));
         }
 
-        ArrayList<LogDAO> logList = new ArrayList<>(logRepository.findAll());
-
+        List<LogDAO> logList = logRepository.findAll();
 
         //when
         PageRequest request = PageRequest.of(0, 10);
 
-        List<GameListResponseDTO> actual  = gameGetListByPlayedUserSmallBean.exec(user1.getUserId(), request);
+        List<GameDAO> actual = gameGetListByPlayedUserSmallBean.exec(user1, request);
 
-        List<Long> gameIdList = logList.stream().filter(logDAO -> logDAO.getUserId() == user1.getUserId())
-                .map(LogDAO::getGameId)
-                .collect(Collectors.toList());
+        // Create Comparator
+        Comparator<LogDAO> createAtDesc = Comparator.comparing(LogDAO::getCreatedAt).reversed();
 
-        List<GameDAO> expect = gameList.stream().filter(gameDAO -> gameIdList.contains(gameDAO.getGameId()))
-                .sorted(Comparator.comparing(GameDAO::getViewCount).reversed()
-                        .thenComparing(GameDAO::getGameId)
-                )
+        // Create Grouping By gameId
+        Map<Long, List<LogDAO>> collect = logList.stream()
+                .filter(logDAO -> logDAO.getUser().getUserId().equals(user1.getUserId()))
+                .collect(Collectors.groupingBy(logDAO -> logDAO.getGame().getGameId()));
+
+
+        // Find Max CreatedAt Logs and Get Games
+        List<GameDAO> expect = collect.keySet().stream()
+                .map(key -> collect.get(key).stream().max(createAtDesc).get().getGame())
+                .sorted(Comparator.comparing(GameDAO::getGameId))
                 .collect(Collectors.toList());
 
         //then
@@ -109,12 +108,13 @@ class GameBeanTest {
 
     @Autowired
     private GameGetBean gameGetBean;
+
     @Test
     void GameGetBeanTest() {
         //given
         UserDAO user = UserDAO.createTest(0);
         userRepository.save(user);
-        GameDAO game = GameDAO.createTest(0);
+        GameDAO game = GameDAO.createTest(0, user);
         gameRepository.save(game);
 
         //when
@@ -125,14 +125,14 @@ class GameBeanTest {
 
     @Autowired
     private GameListBean gameListBean;
+
     @Test
     void GameListBeanTest() {
         //given
         UserDAO user = UserDAO.createTest(0);
         userRepository.save(user);
         for (int i = 0; i < 12; i++) {
-            GameDAO game = GameDAO.createTest(i);
-            game.setUserId(user.getUserId());
+            GameDAO game = GameDAO.createTest(i, user);
             gameRepository.save(game);
         }
 
@@ -141,7 +141,7 @@ class GameBeanTest {
                 .limit(10)
                 .collect(Collectors.toList());
         //when
-        List<GameListResponseDTO> exec = gameListBean.exec(0L,10L);
+        List<GameListResponseDTO> exec = gameListBean.exec(0, 10, GameSort.VIEW_COUNT);
 
         //then
         assertEquals(gameList.size(), exec.size());
@@ -157,12 +157,12 @@ class GameBeanTest {
     void GamePostBeanTest() {
         //given
         UserDAO user = UserDAO.createTest(0);
+        userRepository.save(user);
 
-        GameDAO dao = GameDAO.createTest(0);
-        dao.setUserId(user.getUserId());
+        GameDAO dao = GameDAO.createTest(0, user);
 
         //when
-        GameDTO exec = gamePostBean.exec(GameCreateRequestDTO.of(dao));
+        GameCreateResultDTO exec = gamePostBean.exec(GameCreateRequestDTO.of(dao));
 
         //then
         List<GameDAO> all = gameRepository.findAll();

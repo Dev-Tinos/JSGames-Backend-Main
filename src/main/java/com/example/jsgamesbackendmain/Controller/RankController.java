@@ -45,8 +45,11 @@ public class RankController {
 
     @Operation(summary = "학과내 랭킹 조회")
     @GetMapping("/rank/major")
-    public RankByMajorGetResponseDTO getRankMajor(@RequestParam Major major) {
-        return rankService.rankGetByMajor(major);
+    public RankByMajorGetResponseDTO getRankMajor(
+            @RequestParam @Min(0) Integer page,
+            @RequestParam @Min(0) @Max(10) Integer size,
+            @RequestParam Major major) {
+        return rankService.rankGetByMajor(page, size, major);
     }
 
     @Operation(summary = "학과별 랭킹 조회")

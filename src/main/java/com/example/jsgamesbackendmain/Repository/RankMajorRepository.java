@@ -2,6 +2,8 @@ package com.example.jsgamesbackendmain.Repository;
 
 import com.example.jsgamesbackendmain.Model.DAO.RankMajorDAO;
 import com.example.jsgamesbackendmain.Model.ENUM.Major;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -18,7 +20,7 @@ public interface RankMajorRepository extends JpaRepository<RankMajorDAO, Long> {
             "ORDER BY rankWeight desc;\n", nativeQuery = true)
     List<Map<String ,String >> findAllByMajorASC();
 
-    List<RankMajorDAO> findAllByMajorOrderByTotalRankAsc(Major major);
+    Page<RankMajorDAO> findAllByMajorOrderByTotalRankAsc(Pageable pageable, Major major);
 
     @Query(value = "SELECT user_id, major\n" +
             // 모든 게임의 1등부터 100등까지의 가중치를 더함

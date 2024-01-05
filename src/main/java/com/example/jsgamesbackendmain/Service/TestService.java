@@ -1,6 +1,7 @@
 package com.example.jsgamesbackendmain.Service;
 
 import com.example.jsgamesbackendmain.Bean.EmailBean.EmailSetBean;
+import com.example.jsgamesbackendmain.Bean.ImageBean.S3SetImageBean;
 import com.example.jsgamesbackendmain.Bean.RankBean.RankSetMajorBean;
 import com.example.jsgamesbackendmain.Bean.RankBean.RankSetTop100UserBean;
 import com.example.jsgamesbackendmain.Model.DTO.StateResponseDTO;
@@ -17,6 +18,8 @@ public class TestService {
 
     private final RankSetMajorBean rankSetMajorBean;
 
+    private final S3SetImageBean s3SetImageBean;
+
     @Transactional
     public String emailClear() {
         emailClearBean.exec();
@@ -32,5 +35,10 @@ public class TestService {
     @Transactional
     public StateResponseDTO setMajor() {
         return rankSetMajorBean.exec();
+    }
+
+    @Transactional
+    public StateResponseDTO setImage() {
+        return s3SetImageBean.exec();
     }
 }

@@ -13,11 +13,11 @@ public class RankGetByMajorBean {
     private final RankMajorLastUpdatedSmallBean rankMajorLastUpdatedSmallBean;
     private final RankGetByMajorSmallBean rankGetByMajorSmallBean;
 
-    public RankByMajorGetResponseDTO exec(Major major) {
+    public RankByMajorGetResponseDTO exec(Integer page, Integer size, Major major) {
         return RankByMajorGetResponseDTO
                 .builder()
                 .lastUpdated(rankMajorLastUpdatedSmallBean.getLastUpdated())
-                .rankList(rankGetByMajorSmallBean.exec(major))
+                .rankList(rankGetByMajorSmallBean.exec(page, size, major))
                 .build();
     }
 }

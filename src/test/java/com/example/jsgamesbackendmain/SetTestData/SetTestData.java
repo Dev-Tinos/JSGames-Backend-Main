@@ -105,7 +105,9 @@ public class SetTestData {
                     )
                     .description(String.valueOf(i))
                     .viewCount(((long) i))
+                    .createdAt(LocalDateTime.now().minusDays(i))
                     .build();
+
 
             gameDAO.setUser(userDAOList.get((int) (Math.random() * userSize)));
 
@@ -133,6 +135,7 @@ public class SetTestData {
         for (int i = 0; i < logSize; i++) {
             LogDAO newLog = LogDAO.builder()
                     .gameScore((double) ((int) (Math.random() * 100)))
+                    .createdAt(LocalDateTime.now().minusDays(i))
                     .build();
 
             newLog.setGame(gameDAOList.get((int) (Math.random() * gameSize)));

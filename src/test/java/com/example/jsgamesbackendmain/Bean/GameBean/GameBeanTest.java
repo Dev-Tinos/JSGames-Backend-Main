@@ -22,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -39,6 +40,7 @@ class GameBeanTest {
 
     @Autowired
     private GameGetListByPlayedUserSmallBean gameGetListByPlayedUserSmallBean;
+
     @Test
     void GameGetListByPlayedUserSmallBeanTest() {
         //given
@@ -66,11 +68,11 @@ class GameBeanTest {
         gameList.add(game1);
         gameList.add(game2);
 
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 4; i++) {
             logRepository.save(LogDAO.createTest(0, game1, user1));
         }
 
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 6; i++) {
             logRepository.save(LogDAO.createTest(0, game2, user2));
         }
 
@@ -79,16 +81,21 @@ class GameBeanTest {
         //when
         PageRequest request = PageRequest.of(0, 10);
 
-        List<GameListResponseDTO> actual = gameGetListByPlayedUserSmallBean.exec(user1, request);
+        List<GameDAO> actual = gameGetListByPlayedUserSmallBean.exec(user1, request);
 
-        List<Long> gameIdList = logList.stream().filter(logDAO -> logDAO.getUser().getUserId().equals(user1.getUserId()))
-                .map(log -> log.getGame().getGameId())
-                .collect(Collectors.toList());
+        // Create Comparator
+        Comparator<LogDAO> createAtDesc = Comparator.comparing(LogDAO::getCreatedAt).reversed();
 
-        List<GameDAO> expect = gameList.stream().filter(gameDAO -> gameIdList.contains(gameDAO.getGameId()))
-                .sorted(Comparator.comparing(GameDAO::getViewCount).reversed()
-                        .thenComparing(GameDAO::getGameId)
-                )
+        // Create Grouping By gameId
+        Map<Long, List<LogDAO>> collect = logList.stream()
+                .filter(logDAO -> logDAO.getUser().getUserId().equals(user1.getUserId()))
+                .collect(Collectors.groupingBy(logDAO -> logDAO.getGame().getGameId()));
+
+
+        // Find Max CreatedAt Logs and Get Games
+        List<GameDAO> expect = collect.keySet().stream()
+                .map(key -> collect.get(key).stream().max(createAtDesc).get().getGame())
+                .sorted(Comparator.comparing(GameDAO::getGameId))
                 .collect(Collectors.toList());
 
         //then

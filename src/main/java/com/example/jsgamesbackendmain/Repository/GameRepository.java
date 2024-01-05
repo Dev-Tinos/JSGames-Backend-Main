@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface GameRepository extends JpaRepository<GameDAO, Long> {
 
@@ -25,12 +27,7 @@ public interface GameRepository extends JpaRepository<GameDAO, Long> {
     @Query("select g from GameDAO g order by g.reviews.size desc, g.gameId")
     Page<GameDAO> findAllByOrderByReviewCountDescGameIdAsc(Pageable pageable);
 
-    // GameDAO 의 logDAO중 userId가 일치하는 게임 조회 (userId가 존재하는 게임 조회)
-    @Query("select g from GameDAO g where g.gameId in " +
-            "(select l.game from LogDAO l where l.user = ?1) " +
-            "order by g.viewCount desc, g.gameId")
-    Page<GameDAO> findAllByPlayedUserOrderByViewCountDescGameIdAsc(UserDAO user, Pageable pageable);
-
-    // 게임 전체 페이징 조회
-    Page<GameDAO> findAll(Pageable pageable);
+    // userId가 플레이한 게임 의 log중 가장 최근에 gameId 조회
+    @Query("select g from GameDAO g left join g.logs l where l.user = ?1 group by g.gameId order by max(l.createdAt) desc, g.gameId asc")
+    Page<GameDAO> findAllByPlayedUserOrderByCreatedAtDescGameIdAsc(UserDAO user, Pageable pageable);
 }

@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -22,6 +23,8 @@ public class GameGetListByPlayedUser {
 
         UserDAO findUser = userGetByIdSmallBean.exec(userId);
 
-        return gameGetListByPlayedUserSmallBean.exec(findUser, request);
+        return gameGetListByPlayedUserSmallBean.exec(findUser, request)
+                .stream().map(GameListResponseDTO::of)
+                .collect(Collectors.toList());
     }
 }

@@ -20,7 +20,7 @@ public class UserDeleteBean {
 
     public StateResponseDTO exec(String userId) {
         UserDAO user = UserGetByIdSmallBean.exec(userId);
-        if (!user.getProfileImageURL().equals("https://tinos-images-storage.s3.ap-northeast-2.amazonaws.com/default_user_image.png")) {
+        if (!user.getProfileImageURL().equals(UserDAO.builder().build().getProfileImageURL())) {
             s3DeleteSmallBeam.exec(user.getProfileImageURL());
         }
         userDeleteSmallBean.exec(userId);

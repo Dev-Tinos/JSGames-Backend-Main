@@ -21,6 +21,7 @@ public class ReviewCreateRequestDTO {
         return ReviewDAO.builder()
                 .reviewContent(this.getReviewContent())
                 .star(this.getStar())
+                .helpful(0L)
                 .build();
     }
 

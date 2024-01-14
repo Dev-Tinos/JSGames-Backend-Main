@@ -28,6 +28,7 @@ public class GameCreateRequestDTO {
                 .gameUrl(this.getGameUrl())
                 .targetScore(this.getTargetScore())
                 .scoreType(this.getScoreType())
+                .viewCount(0L)
                 .description(this.getDescription())
                 .build();
     }

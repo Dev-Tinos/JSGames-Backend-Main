@@ -2,6 +2,10 @@ name: Build And Deploy
 
 # when a pull request is merged into main, run this workflow
 on:
+  push:
+    branches:
+      - main
+
   pull_request:
     branches:
       - main
@@ -53,7 +57,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             sudo -i
-            truncate -s 0 /var/lib/docker/containers/*/*-json.log
+#            truncate -s 0 /var/lib/docker/containers/*/*-json.log
             
             docker stop ${{ secrets.REPOSITORY_NAME }} || true
             docker rm ${{ secrets.REPOSITORY_NAME }} || true

@@ -2,8 +2,13 @@ name: Build And Deploy
 
 on:
   push:
-    branches: [ main ]
-
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+    types:
+      - closed
 
 jobs:
   deploy:
@@ -46,13 +51,13 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ubuntu
           key: ${{ secrets.SSH_PRIVATE_KEY }}
+          # truncate -s 0 /var/lib/docker/containers/*/*-json.log
           script: |
-                    sudo -i
-            #            truncate -s 0 /var/lib/docker/containers/*/*-json.log
-                    
-                    docker stop ${{ secrets.REPOSITORY_NAME }} || true
-                    docker rm ${{ secrets.REPOSITORY_NAME }} || true
-                    docker rmi ${{ secrets.DOCKER_USERNAME }}/${{ secrets.REPOSITORY_NAME }}:latest || true
-                    
-                    echo "${{ secrets.SECRET }}" > .env
-                    docker run -d --name ${{ secrets.REPOSITORY_NAME }} -p 8080:8080 --env-file .env ${{ secrets.DOCKER_USERNAME }}/${{ secrets.REPOSITORY_NAME }}:latest
+            sudo -i
+            
+            docker stop ${{ secrets.REPOSITORY_NAME }} || true
+            docker rm ${{ secrets.REPOSITORY_NAME }} || true
+            docker rmi ${{ secrets.DOCKER_USERNAME }}/${{ secrets.REPOSITORY_NAME }}:latest || true
+            
+            echo "${{ secrets.SECRET }}" > .env
+            docker run -d --name ${{ secrets.REPOSITORY_NAME }} -p 8080:8080 --env-file .env ${{ secrets.DOCKER_USERNAME }}/${{ secrets.REPOSITORY_NAME }}:latest

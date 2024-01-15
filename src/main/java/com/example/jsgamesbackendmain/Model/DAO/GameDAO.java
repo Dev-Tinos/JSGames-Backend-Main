@@ -41,6 +41,7 @@ public class GameDAO {
     private String description;
 
     //조회수
+    @Builder.Default
     private Long viewCount = 0L;
 
     //게임 생성일

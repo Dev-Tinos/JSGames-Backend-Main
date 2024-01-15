@@ -1,9 +1,6 @@
 name: Build And Deploy
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
     branches:
       - main
@@ -51,7 +48,6 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ubuntu
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          # truncate -s 0 /var/lib/docker/containers/*/*-json.log
           script: |
             sudo -i
             

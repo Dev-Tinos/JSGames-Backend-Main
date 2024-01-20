@@ -12,18 +12,31 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class UserDeleteBean {
 
-    private final UserGetByIdSmallBean UserGetByIdSmallBean;
+    private final UserGetByIdSmallBean userGetByIdSmallBean;
 
     private final UserDeleteSmallBean userDeleteSmallBean;
 
     private final S3DeleteSmallBeam s3DeleteSmallBeam;
 
     public StateResponseDTO exec(String userId) {
-        UserDAO user = UserGetByIdSmallBean.exec(userId);
-        if (!user.getProfileImageURL().equals(UserDAO.builder().build().getProfileImageURL())) {
-            s3DeleteSmallBeam.exec(user.getProfileImageURL());
+
+        UserDAO findUser = userGetByIdSmallBean.exec(userId);
+
+        // 기본 이미지인지 확인
+        String findUserProfileImageURL = findUser.getProfileImageURL();
+        String defaultProfileImageURL = UserDAO.builder().build().getProfileImageURL();
+
+        // 기본 이미지가 아닐 경우 삭제
+        boolean isEqual = findUserProfileImageURL.equals(defaultProfileImageURL);
+
+        System.out.println("isEqual = " + isEqual);
+
+        if (!isEqual) {
+            s3DeleteSmallBeam.exec(findUserProfileImageURL);
         }
-        userDeleteSmallBean.exec(userId);
+
+        // 유저 삭제
+        userDeleteSmallBean.exec(findUser);
         return new StateResponseDTO(true);
     }
 }

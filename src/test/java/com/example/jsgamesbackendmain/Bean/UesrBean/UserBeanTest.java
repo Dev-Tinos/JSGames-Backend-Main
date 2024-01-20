@@ -2,6 +2,9 @@ package com.example.jsgamesbackendmain.Bean.UesrBean;
 
 import com.example.jsgamesbackendmain.Bean.UserBean.*;
 import com.example.jsgamesbackendmain.Controller.ExceptionControll.InvalidException;
+import com.example.jsgamesbackendmain.Model.DAO.GameDAO;
+import com.example.jsgamesbackendmain.Model.DAO.LogDAO;
+import com.example.jsgamesbackendmain.Model.DAO.ReviewDAO;
 import com.example.jsgamesbackendmain.Model.DAO.UserDAO;
 import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserGetResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserSignUpResponseDTO;
@@ -9,12 +12,17 @@ import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserUpdateResponseD
 import com.example.jsgamesbackendmain.Model.DTO.User.Request.UserLoginRequestDTO;
 import com.example.jsgamesbackendmain.Model.DTO.User.Request.UserSignUpRequestDTO;
 import com.example.jsgamesbackendmain.Model.DTO.User.Request.UserUpdateRequestDTO;
+import com.example.jsgamesbackendmain.Repository.GameRepository;
+import com.example.jsgamesbackendmain.Repository.LogRepository;
+import com.example.jsgamesbackendmain.Repository.ReviewRepository;
 import com.example.jsgamesbackendmain.Repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityManager;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -23,7 +31,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @ActiveProfiles("test")
 public class UserBeanTest {
     @Autowired
+    private EntityManager em;
+
+    @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private GameRepository gameRepository;
+
+    @Autowired
+    private LogRepository logRepository;
+    @Autowired
+    private ReviewRepository reviewRepository;
+
 
     @Autowired
     private UserSignUpBean userSignUpBean;
@@ -51,15 +70,26 @@ public class UserBeanTest {
     @Test
     void UserDeleteBean() {
         //given
-        UserDAO user = UserDAO.createTest(0);
+        UserDAO newUser = UserDAO.createTest(0);
+        newUser = userRepository.save(newUser);
 
-        userRepository.save(user);
+        GameDAO newGame = GameDAO.createTest(0, newUser);
+        gameRepository.save(newGame);
 
-        //when
-        userDeleteBean.exec(user.getUserId());
+        ReviewDAO newReview = ReviewDAO.createTest(0, newGame, newUser);
+        reviewRepository.save(newReview);
+
+        LogDAO newLog = LogDAO.createTest(0, newGame, newUser);
+        logRepository.save(newLog);
+
+        // when
+        userDeleteBean.exec(newUser.getUserId());
 
         //then
         assertEquals(0, userRepository.findAll().size());
+        assertEquals(0, gameRepository.findAll().size());
+        assertEquals(0, reviewRepository.findAll().size());
+        assertEquals(0, logRepository.findAll().size());
     }
 
     @Autowired

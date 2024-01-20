@@ -31,9 +31,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @ActiveProfiles("test")
 public class UserBeanTest {
     @Autowired
-    private EntityManager em;
-
-    @Autowired
     private UserRepository userRepository;
     @Autowired
     private GameRepository gameRepository;

@@ -29,8 +29,6 @@ public class UserDeleteBean {
         // 기본 이미지가 아닐 경우 삭제
         boolean isEqual = findUserProfileImageURL.equals(defaultProfileImageURL);
 
-        System.out.println("isEqual = " + isEqual);
-
         if (!isEqual) {
             s3DeleteSmallBeam.exec(findUserProfileImageURL);
         }

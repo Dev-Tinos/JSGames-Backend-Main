@@ -2,6 +2,7 @@ package com.example.jsgamesbackendmain.Model.DAO;
 
 import com.example.jsgamesbackendmain.Bean.MapperBean.MajorMapperBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserCreateSmallBean;
+import com.example.jsgamesbackendmain.Model.DTO.Token.RefreshTokenDTO;
 import com.example.jsgamesbackendmain.Model.DTO.User.Request.UserUpdateRequestDTO;
 import com.example.jsgamesbackendmain.Model.ENUM.Major;
 import com.example.jsgamesbackendmain.Model.ENUM.ParentMajor;
@@ -31,6 +32,12 @@ public class UserDAO {
     private ParentMajor parentMajor;
     @Enumerated(EnumType.STRING)
     private Major major;
+
+    public void setRefreshToken(RefreshTokenDTO refreshToken) {
+        this.refreshToken = refreshToken.getRefreshToken();
+    }
+
+    private String refreshToken;
 
     @Builder.Default
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)

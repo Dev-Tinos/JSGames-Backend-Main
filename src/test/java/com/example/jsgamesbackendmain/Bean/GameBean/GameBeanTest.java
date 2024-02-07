@@ -45,7 +45,6 @@ class GameBeanTest {
     void GameGetListByPlayedUserSmallBeanTest() {
         //given
         UserDAO user1 = UserDAO.createTest(0);
-        user1.setUserId("1");
         userRepository.save(user1);
 
         UserDAO user2 = UserDAO.createTest(0);

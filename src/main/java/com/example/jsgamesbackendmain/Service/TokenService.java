@@ -33,6 +33,36 @@ public class TokenService {
     public static final int ACCESS_TOKEN_EXPIRED_TIME = 60 * 60 * 2 * 1000; // 2 hours
     public static final int REFRESH_TOKEN_EXPIRED_TIME = 60 * 60 * 24 * 14 * 1000; // 14 days
 
+    public TokenResponseDTO autoLogin(String userId) {
+        String accessToken = getToken("accessToken");
+        String refreshToken = getToken("refreshToken");
+
+        // Access Token 유효성 검사 (서명키)
+        AccessTokenDTO accessTokenDTO = TokenConverter.parseAccessToken(accessToken, key);
+        // Refresh Token 유효성 검사 (서명키)
+        RefreshTokenDTO refreshTokenDTO = TokenConverter.parseRefreshToken(refreshToken, key);
+
+        // 만약 Refresh Token이 만료되었다면 재로그인을 요청하도록 한다.
+        if (refreshTokenDTO.isExpired()) {
+            throw new TokenException("Refresh 토큰이 만료되었습니다.");
+        }
+
+        // 로그인한 userId와 토큰의 userId가 일치 하는지 확인
+        if (!accessTokenDTO.isMatchUserId(userId) || !refreshTokenDTO.isMatchUserId(userId)) {
+            // 로그인한 userId와 토큰의 userId가 일치하지 않는다면, 재로그인을 요청하도록 한다.
+            throw new TokenException("토큰의 유저 정보가 일치하지 않습니다.");
+        }
+
+        // AccessToken 토큰의 만료 시간이 20분 미만이면
+        if (accessTokenDTO.isAlmostExpiredByMinutes(20)) {
+            // AccessToken 재발급
+            accessTokenDTO = createAccessToken(userId);
+        }
+
+        return TokenConverter.createTokenResponseDTO(accessTokenDTO, refreshTokenDTO);
+    }
+
+
 
     public TokenResponseDTO isValidToken(String userId) {
 

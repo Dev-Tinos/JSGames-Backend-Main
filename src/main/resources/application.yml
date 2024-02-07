@@ -61,3 +61,7 @@ cloud:
       auto: false
     s3:
       bucket: tinos-images-storage
+
+# jwt 설정
+jwt:
+  secret: ${JWT_SECRET}

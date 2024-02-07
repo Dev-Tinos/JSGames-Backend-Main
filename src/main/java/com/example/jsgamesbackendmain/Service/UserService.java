@@ -27,6 +27,8 @@ public class UserService {
 
     private final UserLoginBean userLoginBean;
 
+    private final UserAutoLoginBean userAutoLoginBean;
+
     @Transactional
     public UserGetResponseDTO getUser(String userId) {
         return userGetBean.exec(userId);
@@ -50,5 +52,10 @@ public class UserService {
     @Transactional
     public UserLoginResponseDTO loginUser(UserLoginRequestDTO userLoginRequestDTO) {
         return userLoginBean.exec(userLoginRequestDTO);
+    }
+
+    @Transactional
+    public UserLoginResponseDTO autoLoginUser(String userId) {
+        return userAutoLoginBean.exec(userId);
     }
 }

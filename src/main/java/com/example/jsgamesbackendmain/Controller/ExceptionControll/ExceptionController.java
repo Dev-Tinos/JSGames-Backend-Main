@@ -62,6 +62,11 @@ public class ExceptionController {
         return exceptionHandler(e);
     }
 
+    @ExceptionHandler(TokenException.class)
+    public ResponseEntity<Map<String, String>> tokenException(TokenException e) {
+        return exceptionHandler(e);
+    }
+
 
     private ResponseEntity<Map<String, String>> exceptionHandler(Exception e) {
         HashMap<String, String> map = new HashMap<>();

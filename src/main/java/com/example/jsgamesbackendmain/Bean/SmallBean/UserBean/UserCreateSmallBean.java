@@ -15,6 +15,8 @@ import java.util.Date;
 public class UserCreateSmallBean {
     private final UserSaveSmallBean userSaveSmallBean;
     private final MajorMapperBean majorMapperBean;
+    private final HashBean hashBean;
+
     public UserDAO exec(UserSignUpRequestDTO userSignUpRequestDTO) {
         //ParentMajor set
         ParentMajor parentMajor = majorMapperBean.getParentMajor(userSignUpRequestDTO.getMajor());
@@ -22,7 +24,10 @@ public class UserCreateSmallBean {
         // 현재 시간 + 이메일 해시
         String userId = HashBean.createHash((new Date().getTime()) + userSignUpRequestDTO.getEmail());
 
-        UserDAO user = userSignUpRequestDTO.toDAO(userId, parentMajor);
+        // 비밀번호 해싱
+        String password = hashBean.encrypt(userSignUpRequestDTO.getPassword());
+
+        UserDAO user = userSignUpRequestDTO.toDAO(userId, password, parentMajor);
 
         return userSaveSmallBean.exec(user);
     }

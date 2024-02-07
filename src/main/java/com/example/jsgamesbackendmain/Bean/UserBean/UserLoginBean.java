@@ -1,5 +1,6 @@
 package com.example.jsgamesbackendmain.Bean.UserBean;
 
+import com.example.jsgamesbackendmain.Bean.HashBean.HashBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserGetByEmailSmallBean;
 import com.example.jsgamesbackendmain.Controller.ExceptionControll.InvalidException;
 import com.example.jsgamesbackendmain.Model.DAO.UserDAO;
@@ -14,12 +15,16 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class UserLoginBean {
     private final UserGetByEmailSmallBean userGetByEmailSmallBean;
+    private final HashBean hashBean;
     private final TokenService tokenService;
 
     public UserLoginResponseDTO exec(UserLoginRequestDTO userLoginRequestDTO) {
+
+        // 이메일 검증
         UserDAO userDAO = userGetByEmailSmallBean.exec(userLoginRequestDTO.getEmail());
 
-        if (!userDAO.getPassword().equals(userLoginRequestDTO.getPassword())) {
+        // 비밀번호 검증
+        if (!hashBean.isMatch(userLoginRequestDTO.getPassword(), userDAO.getPassword())) {
             throw new InvalidException("잘못된 비밀번호입니다.");
         }
 

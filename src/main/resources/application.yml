@@ -65,3 +65,5 @@ cloud:
 # jwt 설정
 jwt:
   secret: ${JWT_SECRET}
+
+SALT: ${PASS_WORD_SALT}

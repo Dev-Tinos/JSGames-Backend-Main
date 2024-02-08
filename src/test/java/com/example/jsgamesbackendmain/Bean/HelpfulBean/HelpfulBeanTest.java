@@ -36,7 +36,6 @@ public class HelpfulBeanTest {
     @Test
     void HelpfulGetBeanTest() {
         UserDAO newUser1 = UserDAO.createTest(1);
-        newUser1.setUserId("test01");
         userRepository.save(newUser1);
 
         UserDAO newUser2 = UserDAO.createTest(2);
@@ -71,9 +70,7 @@ public class HelpfulBeanTest {
     @Test
     void HelpfulPostBeanTest() {
         UserDAO newUser1 = UserDAO.createTest(1);
-        newUser1.setUserId("test01");
         UserDAO newUser2 = UserDAO.createTest(2);
-        newUser2.setUserId("test02");
         userRepository.save(newUser1);
         userRepository.save(newUser2);
 
@@ -98,11 +95,9 @@ public class HelpfulBeanTest {
     void HelpfulDeleteBeanTest() {
         //given
         UserDAO newUser1 = UserDAO.createTest(1);
-        newUser1.setUserId("test01");
         userRepository.save(newUser1);
 
         UserDAO newUser2 = UserDAO.createTest(2);
-        newUser2.setUserId("test02");
         userRepository.save(newUser2);
 
         GameDAO newGame = GameDAO.createTest(1, newUser1);

@@ -1,7 +1,7 @@
 package com.example.jsgamesbackendmain.Model.DAO;
 
+import com.example.jsgamesbackendmain.Bean.HashBean.HashBean;
 import com.example.jsgamesbackendmain.Bean.MapperBean.MajorMapperBean;
-import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserCreateSmallBean;
 import com.example.jsgamesbackendmain.Model.DTO.Token.RefreshTokenDTO;
 import com.example.jsgamesbackendmain.Model.DTO.User.Request.UserUpdateRequestDTO;
 import com.example.jsgamesbackendmain.Model.ENUM.Major;
@@ -21,7 +21,7 @@ import java.util.List;
 public class UserDAO {
     @Setter
     @Id
-    @Column(name = "user_id", length = 50)
+    @Column(name = "user_id", length = 100, nullable = false, unique = true)
     private String userId;
     private String nickname;
     private String email;
@@ -69,7 +69,7 @@ public class UserDAO {
     public static UserDAO createTest(int i) {
         Major[] majors = Major.values();
         MajorMapperBean mapperBean = new MajorMapperBean();
-        String id = UserCreateSmallBean.generateVersion5UUID("namespace", "name").toString();
+        String id = HashBean.createHash(String.valueOf(i));
 
         return UserDAO.builder()
                 .userId(id)

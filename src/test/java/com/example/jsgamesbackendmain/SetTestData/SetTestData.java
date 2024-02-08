@@ -78,15 +78,7 @@ public class SetTestData {
 
 
         for (int i = 0; i < userSize; i++) {
-            UserDAO newUser = UserDAO.builder()
-                    .userId(String.valueOf(i))
-                    .email("test" + i + "@test.com")
-                    .nickname("nick " + i)
-                    .password("password " + i)
-                    .major(majors[i % majors.length])
-                    // 각 과에 맞는 학부로 세팅되게 변경
-                    .parentMajor(parentMajors.getParentMajor(majors[i % majors.length]))
-                    .build();
+            UserDAO newUser = UserDAO.createTest(i);
 
             userDAOList.add(newUser);
             userRepository.save(newUser);

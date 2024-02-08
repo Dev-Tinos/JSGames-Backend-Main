@@ -6,6 +6,7 @@ import com.example.jsgamesbackendmain.Model.DTO.Token.RefreshTokenDTO;
 import com.example.jsgamesbackendmain.Model.DTO.User.Request.UserUpdateRequestDTO;
 import com.example.jsgamesbackendmain.Model.ENUM.Major;
 import com.example.jsgamesbackendmain.Model.ENUM.ParentMajor;
+import com.example.jsgamesbackendmain.Model.ENUM.UserRole;
 import lombok.*;
 
 import javax.persistence.*;
@@ -26,6 +27,10 @@ public class UserDAO {
     private String nickname;
     private String email;
     private String password;
+    @Builder.Default
+    @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "varchar(15) default 'USER'")
+    private UserRole userRole = UserRole.USER;
     @Builder.Default
     private String profileImageURL = "https://tinos-images-storage.s3.ap-northeast-2.amazonaws.com/default_user_image.png";
     @Enumerated(EnumType.STRING)

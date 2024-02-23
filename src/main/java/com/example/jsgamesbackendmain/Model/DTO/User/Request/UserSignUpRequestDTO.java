@@ -21,7 +21,7 @@ public class UserSignUpRequestDTO {
     private String profileImageURL = "https://tinos-images-storage.s3.ap-northeast-2.amazonaws.com/default_user_image.png";
     private String code;
 
-    public UserDAO toDAO(String userId, ParentMajor parentMajor) {
+    public UserDAO toDAO(String userId, String password, ParentMajor parentMajor) {
         return UserDAO.builder()
                 .userId(userId)
                 .email(email)

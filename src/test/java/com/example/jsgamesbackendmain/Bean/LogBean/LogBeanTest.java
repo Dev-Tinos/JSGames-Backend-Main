@@ -43,10 +43,8 @@ class LogBeanTest {
     @Test
     void LogCatchTopChangeTest() {
         UserDAO user1 = UserDAO.createTest(1);
-        user1.setUserId("user1");
 
         UserDAO user2 = UserDAO.createTest(2);
-        user2.setUserId("user2");
 
         userRepository.save(user1);
         userRepository.save(user2);

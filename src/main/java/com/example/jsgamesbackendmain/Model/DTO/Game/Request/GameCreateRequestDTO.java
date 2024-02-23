@@ -14,6 +14,8 @@ public class GameCreateRequestDTO {
     private String userId;
     private String imageUrl;
     private String gameUrl;
+
+    @Builder.Default
     private Double targetScore = 0.0;
 
     @NotNull(message = "ScoreType는 필수 입력값 입니다.")

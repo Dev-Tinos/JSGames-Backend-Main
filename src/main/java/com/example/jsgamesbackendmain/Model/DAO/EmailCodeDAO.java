@@ -19,6 +19,7 @@ public class EmailCodeDAO {
     private String email;
     private String code;
 
+    @Builder.Default
     private LocalDateTime expiryDate = LocalDateTime.now();
 
     // ... getters & setters

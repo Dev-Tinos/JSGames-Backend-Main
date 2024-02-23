@@ -9,7 +9,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.stream.DoubleStream;
 
 @Repository
 public interface LogRepository extends JpaRepository<LogDAO, Long> {
@@ -42,4 +44,8 @@ public interface LogRepository extends JpaRepository<LogDAO, Long> {
 
     @Query("select count(r) from LogDAO r where abs(?1 - r.gameScore) <= abs(?1 - ?2) and r.game = ?3")
     Long getRankGoal(Double targetScore, Double gameScore, GameDAO game);
+
+    //유저가 플레이한 가장 최근 게임의 시간값 하나
+    @Query("select max(r.createdAt) from LogDAO r where r.user = ?1")
+    LocalDateTime getRecentPlay(UserDAO user);
 }

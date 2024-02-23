@@ -97,38 +97,38 @@ public class FriendBeanTest {
         assertEquals(friendRepository.count(), 2);
     }
 
-//    @Autowired
-//    private FriendRequestRejectionBean friendRequestRejectionBean;
-//    @Test
-//    void FriendRequestRejectionBeanTest() {
-//        //given
-//        UserDAO userDAO = UserDAO.builder()
-//                .userId("1")
-//                .email("email")
-//                .build();
-//        userRepository.save(userDAO);
-//        UserDAO friendDAO = UserDAO.builder()
-//                .userId("2")
-//                .email("friendEmail")
-//                .build();
-//        userRepository.save(friendDAO);
-//
-//
-//        FriendRequestDTO friendRequestDTO = FriendRequestDTO.builder()
-//                .userId("1")
-//                .friendEmail("friendEmail")
-//                .build();
-//        friendRequestBean.exec(friendRequestDTO);
-//        FriendRequestDTO friendRequestDTO2 = FriendRequestDTO.builder()
-//                .userId("3")
-//                .friendEmail("email")
-//                .build();
-//        //when
-//        friendRequestRejectionBean.exec(friendRequestDTO2);
-//
-//        //then
-//        //assertEquals(friendRequestListBean.exec("1", 0, 5).get(0).getFriendStatus(), FriendRequestState.REJECTED);
-//    }
+    @Autowired
+    private FriendRequestRejectionBean friendRequestRejectionBean;
+    @Test
+    void FriendRequestRejectionBeanTest() {
+        //given
+        UserDAO userDAO = UserDAO.builder()
+                .userId("1")
+                .email("email")
+                .build();
+        userRepository.save(userDAO);
+        UserDAO friendDAO = UserDAO.builder()
+                .userId("2")
+                .email("friendEmail")
+                .build();
+        userRepository.save(friendDAO);
+
+
+        FriendRequestDTO friendRequestDTO = FriendRequestDTO.builder()
+                .userId("1")
+                .friendEmail("friendEmail")
+                .build();
+        friendRequestBean.exec(friendRequestDTO);
+        FriendRequestDTO friendRequestDTO2 = FriendRequestDTO.builder()
+                .userId("3")
+                .friendEmail("email")
+                .build();
+        //when
+        friendRequestRejectionBean.exec(friendRequestDTO2);
+
+        //then
+        //assertEquals(friendRequestListBean.exec("1", 0, 5).get(0).getFriendStatus(), FriendRequestState.REJECTED);
+    }
 
     @Autowired
     private FriendRequestDeleteBean friendRequestDeleteBean;
@@ -184,7 +184,7 @@ public class FriendBeanTest {
                 .userId("2")
                 .friendEmail("email")
                 .build();
-        friendRequestAcceptBean.exec(friendRequestDTO);
+        friendRequestAcceptBean.exec(friendRequestDTO2);
         //when
         friendDeleteBean.exec(friendRequestDTO);
         //then

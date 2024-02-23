@@ -1,5 +1,6 @@
 package com.example.jsgamesbackendmain.Bean.FriendBean;
 
+import com.example.jsgamesbackendmain.Bean.SmallBean.FriendBean.FriendFindSmallBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.FriendBean.FriendRequestDeleteSmallBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.FriendBean.FriendSaveSmallBean;
 import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserGetByEmailSmallBean;
@@ -17,11 +18,13 @@ public class FriendRequestAcceptBean {
     private final UserGetByEmailSmallBean userGetByEmailSmallBean;
     private final UserGetByIdSmallBean userGetByIdSmallBean;
     private final FriendSaveSmallBean friendSaveSmallBean;
+    private final FriendFindSmallBean friendFindSmallBean;
 
     public StateResponseDTO exec(FriendRequestDTO friendRequestDTO) {
         UserDAO user = userGetByIdSmallBean.exec(friendRequestDTO.getUserId());
         UserDAO friend = userGetByEmailSmallBean.exec(friendRequestDTO.getFriendEmail());
-        friendRequestDeleteSmallBean.exec(friendRequestDTO.getUserId(), friend.getUserId());
+        friendFindSmallBean.exec(friend.getUserId(), user.getUserId());
+        friendRequestDeleteSmallBean.exec(friend.getUserId(), friendRequestDTO.getUserId());
         friendSaveSmallBean.exec(user, friend);
         friendSaveSmallBean.exec(friend, user);
 

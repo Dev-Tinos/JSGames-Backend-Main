@@ -56,6 +56,14 @@ public class UserDAO {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<ReviewDAO> reviews = new ArrayList<>();
 
+    @Builder.Default
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<FriendDAO> users = new ArrayList<>();
+
+    @Builder.Default
+    @OneToMany(mappedBy = "friend", cascade = CascadeType.ALL)
+    private List<FriendDAO> friends = new ArrayList<>();
+
     public UserDAO update(UserUpdateRequestDTO request, ParentMajor parentMajor) {
         if (request.getNickname() != null) {
             this.nickname = request.getNickname();

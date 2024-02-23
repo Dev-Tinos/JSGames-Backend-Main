@@ -13,7 +13,7 @@ public class FriendRequestRejectionSmallBean {
 
     public StateResponseDTO exec(String userId, String friendId) {
         //FriendRequestDAO의 State를 REJECTED로 변경
-        friendRequestRepository.updateStateByUserIdAndFriendId(userId, friendId, FriendRequestState.REJECTED);
+        friendRequestRepository.updateStateByUserIdAndFriendId(friendId, userId, FriendRequestState.REJECTED);
 
         return StateResponseDTO.builder().state(true).build();
     }

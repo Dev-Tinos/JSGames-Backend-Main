@@ -15,18 +15,18 @@ import java.io.IOException;
 @RequiredArgsConstructor
 @CrossOrigin("*")
 public class ImageController {
-    private final ImageService s3Service;
+    private final ImageService imageService;
 
     @Operation(summary = "사진 업로드")
     @PostMapping(value = "/Image",
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public S3UrlResponseDTO uploadImage(@RequestBody MultipartFile file) throws IOException {
-        return s3Service.uploadImage(file);
+        return imageService.uploadImage(file);
     }
 
     @Operation(summary = "사진 삭제")
     @DeleteMapping("/Image")
     public StateResponseDTO deleteImage(@RequestParam String fileUrl) {
-        return s3Service.deleteImage(fileUrl);
+        return imageService.deleteImage(fileUrl);
     }
 }

@@ -10,6 +10,7 @@ import com.example.jsgamesbackendmain.Model.ENUM.UserRole;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +28,9 @@ public class UserDAO {
     private String nickname;
     private String email;
     private String password;
+
+    private LocalDateTime lastPlayTime;
+
     @Builder.Default
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "varchar(15) default 'USER'")
@@ -79,6 +83,10 @@ public class UserDAO {
         return this;
     }
 
+    public void updateLastPlayTime(LocalDateTime lastPlayTime) {
+        this.lastPlayTime = lastPlayTime;
+    }
+
     public static UserDAO createTest(int i) {
         Major[] majors = Major.values();
         MajorMapperBean mapperBean = new MajorMapperBean();
@@ -90,6 +98,7 @@ public class UserDAO {
                 .major(majors[i % majors.length])
                 .parentMajor(mapperBean.getParentMajor(majors[i % majors.length]))
                 .email(String.valueOf(i))
+                .lastPlayTime(LocalDateTime.now())
                 .password(String.valueOf(i))
                 .build();
     }

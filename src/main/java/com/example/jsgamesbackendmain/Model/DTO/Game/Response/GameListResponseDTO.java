@@ -24,6 +24,7 @@ public class GameListResponseDTO {
     private String description;
     private LocalDateTime createdAt;
     private Long viewCount;
+    private Long reviewCount;
 
     public static GameListResponseDTO of(GameDAO gameDAO){
         return GameListResponseDTO.builder()
@@ -37,6 +38,7 @@ public class GameListResponseDTO {
                 .description(gameDAO.getDescription())
                 .createdAt(gameDAO.getCreatedAt())
                 .viewCount(gameDAO.getViewCount())
+                .reviewCount(((long) gameDAO.getReviews().size()))
                 .build();
     }
 

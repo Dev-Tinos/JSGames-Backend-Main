@@ -1,7 +1,6 @@
 package com.example.jsgamesbackendmain.Bean.LogBean;
 
 import com.example.jsgamesbackendmain.Bean.SmallBean.LogBean.LogCatchTopChange;
-import com.example.jsgamesbackendmain.Bean.SmallBean.LogBean.LogGetByGameSmallBean;
 import com.example.jsgamesbackendmain.Model.DAO.GameDAO;
 import com.example.jsgamesbackendmain.Model.DAO.LogDAO;
 import com.example.jsgamesbackendmain.Model.DAO.UserDAO;
@@ -20,9 +19,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -31,6 +30,9 @@ import static org.junit.jupiter.api.Assertions.*;
 @Transactional
 @ActiveProfiles("test")
 class LogBeanTest {
+
+    @Autowired
+    private EntityManager em;
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -40,6 +42,7 @@ class LogBeanTest {
 
     @Autowired
     private LogCatchTopChange logCatchTopChange;
+
     @Test
     void LogCatchTopChangeTest() {
         UserDAO user1 = UserDAO.createTest(1);
@@ -230,8 +233,19 @@ class LogBeanTest {
         //when
         LogPostResponseDTO exec = logPostBean.exec(LogPostRequestDTO.of(logDAO));
 
+        em.flush();
+
+        UserDAO findUser = userRepository.findById(user.getUserId()).get();
+
+        System.out.println("user.getLastPlayTime() = " + user.getLastPlayTime());
+        System.out.println("findUser.getLastPlayTime() = " + findUser.getLastPlayTime());
+
+
         //then
         assertEquals(logDAO.getGame().getGameId(), exec.getGameId());
+
+        // then LastPlayTime is updated
+        assertNotEquals(user.getLastPlayTime(), findUser.getLastPlayTime());
     }
 
     @Test

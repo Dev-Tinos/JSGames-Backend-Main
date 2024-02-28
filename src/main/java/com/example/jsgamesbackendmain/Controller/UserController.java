@@ -5,7 +5,6 @@ import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.*;
 import com.example.jsgamesbackendmain.Model.DTO.User.Request.UserLoginRequestDTO;
 import com.example.jsgamesbackendmain.Model.DTO.User.Request.UserSignUpRequestDTO;
 import com.example.jsgamesbackendmain.Model.DTO.User.Request.UserUpdateRequestDTO;
-import com.example.jsgamesbackendmain.Service.TokenService;
 import com.example.jsgamesbackendmain.Service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -15,7 +14,6 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.util.List;
 
 
@@ -25,7 +23,7 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
-    private final TokenService tokenService;
+//    private final TokenService tokenService;
 
     // 특정 유저 조회
     @Operation(summary = "UserId로 유저 조회")
@@ -49,7 +47,7 @@ public class UserController {
             "## 유저 사진 스웨거로 불가능 \n" +
             "## 유저 사진 업로드를 하지 않으면 기본 이미지로 설정 \n")
     @PostMapping("/user")
-    public UserSignUpResponseDTO signUpUser(@RequestBody UserSignUpRequestDTO userSignUpRequestDTO) throws IOException {
+    public UserSignUpResponseDTO signUpUser(@RequestBody UserSignUpRequestDTO userSignUpRequestDTO) {
 
         return userService.signUpUser(userSignUpRequestDTO);
     }

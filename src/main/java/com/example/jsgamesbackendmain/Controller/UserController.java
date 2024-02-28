@@ -1,10 +1,7 @@
 package com.example.jsgamesbackendmain.Controller;
 
 import com.example.jsgamesbackendmain.Model.DTO.StateResponseDTO;
-import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserGetResponseDTO;
-import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserLoginResponseDTO;
-import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserSignUpResponseDTO;
-import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserUpdateResponseDTO;
+import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.*;
 import com.example.jsgamesbackendmain.Model.DTO.User.Request.UserLoginRequestDTO;
 import com.example.jsgamesbackendmain.Model.DTO.User.Request.UserSignUpRequestDTO;
 import com.example.jsgamesbackendmain.Model.DTO.User.Request.UserUpdateRequestDTO;
@@ -19,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 
 
 @RestController
@@ -34,6 +32,16 @@ public class UserController {
     @GetMapping("/user/{userId}")
     public UserGetResponseDTO getUser(@PathVariable String userId) {
         return userService.getUser(userId);
+    }
+
+    @Operation(summary = "사용자 검색 목록 조회")
+    @GetMapping("/user/search")
+    public List<UserSearchByNicknameResponseDTO> getUsers(
+            @RequestParam String nickname,
+            @RequestParam Integer page,
+            @RequestParam Integer size
+    ) {
+        return userService.searchUserByNickname(nickname, page, size);
     }
 
     @Operation(summary = "유저 회원가입", description = "# 이메일로 받은 코드도 같이 전송해야함 \n" +

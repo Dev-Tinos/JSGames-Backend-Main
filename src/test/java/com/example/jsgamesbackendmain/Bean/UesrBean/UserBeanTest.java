@@ -7,6 +7,7 @@ import com.example.jsgamesbackendmain.Model.DAO.LogDAO;
 import com.example.jsgamesbackendmain.Model.DAO.ReviewDAO;
 import com.example.jsgamesbackendmain.Model.DAO.UserDAO;
 import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserGetResponseDTO;
+import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserSearchByNicknameResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserSignUpResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserUpdateResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.User.Request.UserLoginRequestDTO;
@@ -23,6 +24,9 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -30,6 +34,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Transactional
 @ActiveProfiles("test")
 public class UserBeanTest {
+    @Autowired
+    private EntityManager em;
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -43,6 +49,7 @@ public class UserBeanTest {
 
     @Autowired
     private UserSignUpBean userSignUpBean;
+
     @Test
     void UserCreateBeanTest() {
         //given
@@ -64,6 +71,7 @@ public class UserBeanTest {
 
     @Autowired
     private UserDeleteBean userDeleteBean;
+
     @Test
     void UserDeleteBean() {
         //given
@@ -91,6 +99,7 @@ public class UserBeanTest {
 
     @Autowired
     private UserGetBean userGetBean;
+
     @Test
     void UserGetBeanTest() {
         //given
@@ -107,6 +116,7 @@ public class UserBeanTest {
 
     @Autowired
     private UserLoginBean userLoginBean;
+
     @Test
     void UserLoginBeanTest() {
         //given
@@ -119,7 +129,7 @@ public class UserBeanTest {
         //when
         try {
             userLoginBean.exec(requestDTO);
-        }catch (InvalidException e){
+        } catch (InvalidException e) {
             //then
             // InvalidException 발생시 통과
             a = 1;
@@ -130,6 +140,7 @@ public class UserBeanTest {
 
     @Autowired
     private UserUpdateBean userUpdateBean;
+
     @Test
     void UserUpdateBeanTest() {
         //given
@@ -154,5 +165,58 @@ public class UserBeanTest {
 
         //then
         assertEquals(expect.getEmail(), responseDTO.getEmail());
+    }
+
+    @Autowired
+    private UserSearchByNicknameBean userSearchByNicknameBean;
+
+    @Test
+    void UserSearchByNicknameBeanTest() {
+        //given
+        UserDAO user1 = UserDAO.createTest(0);
+        user1.update(UserUpdateRequestDTO.builder()
+                .nickname("1")
+                .build(), null);
+        userRepository.save(user1);
+
+        UserDAO user2 = UserDAO.createTest(2);
+        user2.update(UserUpdateRequestDTO.builder()
+                .nickname("2")
+                .build(), null);
+        userRepository.save(user2);
+
+        UserDAO user3 = UserDAO.createTest(11);
+        user3.update(UserUpdateRequestDTO.builder()
+                .nickname("11")
+                .build(), null);
+        userRepository.save(user3);
+
+        em.flush();
+
+        //when
+        List<UserSearchByNicknameResponseDTO> exec = userSearchByNicknameBean.exec(user1.getNickname(), 0, 10);
+
+        List<UserSearchByNicknameResponseDTO> expect = exec.stream()
+                .sorted(
+                        Comparator.comparing(UserSearchByNicknameResponseDTO::getLastPlayTime)
+                                .thenComparing(UserSearchByNicknameResponseDTO::getUserId)
+                ).collect(Collectors.toList());
+
+        em.flush();
+
+        List<UserDAO> actual = userRepository.findAll()
+                .stream()
+                .filter(user -> user.getNickname().contains(user1.getNickname()))
+                .collect(Collectors.toList());
+
+
+        int size = exec.size();
+
+        //then
+        assertEquals(2, size);
+        // comparing order expect list and actual list
+        for (int i = 0; i < size; i++) {
+            assertEquals(expect.get(i).getUserId(), actual.get(i).getUserId());
+        }
     }
 }

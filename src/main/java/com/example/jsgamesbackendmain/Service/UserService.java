@@ -2,10 +2,7 @@ package com.example.jsgamesbackendmain.Service;
 
 import com.example.jsgamesbackendmain.Bean.UserBean.*;
 import com.example.jsgamesbackendmain.Model.DTO.StateResponseDTO;
-import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserGetResponseDTO;
-import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserLoginResponseDTO;
-import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserSignUpResponseDTO;
-import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserUpdateResponseDTO;
+import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.*;
 import com.example.jsgamesbackendmain.Model.DTO.User.Request.UserLoginRequestDTO;
 import com.example.jsgamesbackendmain.Model.DTO.User.Request.UserSignUpRequestDTO;
 import com.example.jsgamesbackendmain.Model.DTO.User.Request.UserUpdateRequestDTO;
@@ -13,11 +10,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
 
     private final UserGetBean userGetBean;
+
+    private final UserSearchByNicknameBean userSearchByNicknameBean;
 
     private final UserUpdateBean userUpdateBean;
 
@@ -57,5 +58,10 @@ public class UserService {
     @Transactional
     public UserLoginResponseDTO autoLoginUser(String userId) {
         return userAutoLoginBean.exec(userId);
+    }
+
+    @Transactional
+    public List<UserSearchByNicknameResponseDTO> searchUserByNickname(String nickname, Integer page, Integer size) {
+        return userSearchByNicknameBean.exec(nickname, page, size);
     }
 }

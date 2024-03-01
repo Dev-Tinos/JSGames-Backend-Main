@@ -5,6 +5,8 @@ import com.example.jsgamesbackendmain.Model.DAO.UserDAO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -14,4 +16,8 @@ public interface FriendRepository extends JpaRepository<FriendDAO, Long> {
 
     //findByUserIdOrderByCreatedAtDesc
     Page<FriendDAO> findByUserOrderByCreatedAtDesc(UserDAO user, Pageable pageable);
+
+    @Query("SELECT f FROM FriendDAO f WHERE f.user.userId = :userId ORDER BY f.friend.lastPlayTime DESC")
+    Page<FriendDAO> findFriendsByUserIdSortedByLastPlayTime(String userId, Pageable pageable);
+
 }

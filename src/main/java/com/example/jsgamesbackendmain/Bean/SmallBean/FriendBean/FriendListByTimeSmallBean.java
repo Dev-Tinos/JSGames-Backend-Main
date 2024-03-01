@@ -1,6 +1,5 @@
 package com.example.jsgamesbackendmain.Bean.SmallBean.FriendBean;
 
-import com.example.jsgamesbackendmain.Bean.SmallBean.UserBean.UserRecentPlayTimeSmallBean;
 import com.example.jsgamesbackendmain.Model.DAO.FriendDAO;
 import com.example.jsgamesbackendmain.Model.DAO.UserDAO;
 import com.example.jsgamesbackendmain.Model.DTO.Friend.Response.FriendListResponseDTO;
@@ -16,7 +15,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class FriendListByTimeSmallBean {
     private final FriendRepository friendRepository;
-    private final UserRecentPlayTimeSmallBean userRecentPlayTimeSmallBean;
 
     public List<FriendListResponseDTO> exec(UserDAO user, Integer page, Integer size) {
         List<FriendDAO> friendDAOS = friendRepository.findByUserOrderByCreatedAtDesc(user, PageRequest.of(page, size)).toList();
@@ -28,7 +26,7 @@ public class FriendListByTimeSmallBean {
                 .parentMajor(friendDAO.getFriend().getParentMajor())
                 .major(friendDAO.getFriend().getMajor())
                 .createdAt(friendDAO.getCreatedAt())
-                .recentPlay(userRecentPlayTimeSmallBean.exec(friendDAO.getFriend()))
+                .recentPlay(friendDAO.getFriend().getLastPlayTime())
                 .build()).collect(Collectors.toList());
     }
 }

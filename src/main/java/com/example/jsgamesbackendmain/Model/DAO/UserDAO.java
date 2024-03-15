@@ -46,6 +46,7 @@ public class UserDAO {
         this.refreshToken = refreshToken.getRefreshToken();
     }
 
+    @Column(length = 512)
     private String refreshToken;
 
     @Builder.Default

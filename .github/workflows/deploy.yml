@@ -42,18 +42,18 @@ jobs:
           
           ./gradlew jib -Djib.to.image=${{secrets.DOCKER_USERNAME}}/${{secrets.REPOSITORY_NAME}} -Djib.to.tags=${{ github.event.pull_request.number }},latest
 
-      - name: Deploy
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.HOST }}
-          username: ubuntu
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
+      # - name: Deploy
+      #   uses: appleboy/ssh-action@master
+      #   with:
+      #     host: ${{ secrets.HOST }}
+      #     username: ubuntu
+      #     key: ${{ secrets.SSH_PRIVATE_KEY }}
+      #     script: |
 
-            sudo sh -c 'truncate -s 0 /var/lib/docker/containers/*/*-json.log'
+      #       sudo sh -c 'truncate -s 0 /var/lib/docker/containers/*/*-json.log'
             
-            sudo echo "${{ secrets.SECRET }}" > .env
-            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.REPOSITORY_NAME }}:latest
-            sudo docker stop ${{ secrets.REPOSITORY_NAME }} || true
-            sudo docker rm ${{ secrets.REPOSITORY_NAME }} || true
-            sudo docker run -d --name ${{ secrets.REPOSITORY_NAME }} -p 8080:8080 --env-file .env ${{ secrets.DOCKER_USERNAME }}/${{ secrets.REPOSITORY_NAME }}:latest
+      #       sudo echo "${{ secrets.SECRET }}" > .env
+      #       sudo docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.REPOSITORY_NAME }}:latest
+      #       sudo docker stop ${{ secrets.REPOSITORY_NAME }} || true
+      #       sudo docker rm ${{ secrets.REPOSITORY_NAME }} || true
+      #       sudo docker run -d --name ${{ secrets.REPOSITORY_NAME }} -p 8080:8080 --env-file .env ${{ secrets.DOCKER_USERNAME }}/${{ secrets.REPOSITORY_NAME }}:latest

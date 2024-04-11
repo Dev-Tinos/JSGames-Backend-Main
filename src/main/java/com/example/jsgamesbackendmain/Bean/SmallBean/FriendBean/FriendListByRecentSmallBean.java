@@ -27,6 +27,7 @@ public class FriendListByRecentSmallBean {
 
         // 각 친구의 최근 게임 플레이 시간을 찾고 정렬하기
         return friendDAOS.stream().map(friendDAO -> FriendListResponseDTO.builder()
+                .friendId(friendDAO.getFriend().getUserId())
                 .friendEmail(friendDAO.getFriend().getEmail())
                 .friendName(friendDAO.getFriend().getNickname())
                 .friendProfile(friendDAO.getFriend().getProfileImageURL())

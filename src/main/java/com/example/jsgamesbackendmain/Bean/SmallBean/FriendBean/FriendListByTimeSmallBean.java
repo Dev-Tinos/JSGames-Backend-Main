@@ -20,6 +20,7 @@ public class FriendListByTimeSmallBean {
         List<FriendDAO> friendDAOS = friendRepository.findByUserOrderByCreatedAtDesc(user, PageRequest.of(page, size)).toList();
 
         return friendDAOS.stream().map(friendDAO -> FriendListResponseDTO.builder()
+                .friendId(friendDAO.getFriend().getUserId())
                 .friendEmail(friendDAO.getFriend().getEmail())
                 .friendName(friendDAO.getFriend().getNickname())
                 .friendProfile(friendDAO.getFriend().getProfileImageURL())

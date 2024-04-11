@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @Getter
 @Builder
 public class FriendListResponseDTO {
+    private String friendId;
     private String friendEmail;
     private String friendName;
     private String friendProfile;

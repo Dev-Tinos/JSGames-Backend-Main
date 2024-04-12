@@ -1,6 +1,6 @@
 package com.example.jsgamesbackendmain.Bean.SmallBean.LogBean;
 
-import com.example.jsgamesbackendmain.Bean.LogBean.LogGetByGameIdBean;
+import com.example.jsgamesbackendmain.Bean.LogBean.GetLogsByGameId;
 import com.example.jsgamesbackendmain.Model.DAO.GameDAO;
 import com.example.jsgamesbackendmain.Model.DTO.Log.Response.LogGetByGameIdResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.User.Reponse.UserLogResponseDTO;
@@ -13,7 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class LogCatchTopChange {
     private final LogGetByGameSmallBean logGetByGameSmallBean;
-    private final LogGetByGameIdBean logGetByGameIdBean;
+    private final GetLogsByGameId logGetByGameIdBean;
 
     public Boolean exec(GameDAO game) {
         // get log count

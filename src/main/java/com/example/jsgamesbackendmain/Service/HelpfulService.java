@@ -1,8 +1,8 @@
 package com.example.jsgamesbackendmain.Service;
 
-import com.example.jsgamesbackendmain.Bean.HelpfulBean.HelpfulDeleteBean;
-import com.example.jsgamesbackendmain.Bean.HelpfulBean.HelpfulGetBean;
-import com.example.jsgamesbackendmain.Bean.HelpfulBean.HelpfulPostBean;
+import com.example.jsgamesbackendmain.Bean.HelpfulBean.DeleteHelpful;
+import com.example.jsgamesbackendmain.Bean.HelpfulBean.GetHelpful;
+import com.example.jsgamesbackendmain.Bean.HelpfulBean.PostHelpful;
 import com.example.jsgamesbackendmain.Model.DTO.Helpful.HelpfulGetResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.StateResponseDTO;
 import lombok.RequiredArgsConstructor;
@@ -12,9 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class HelpfulService {
-    private final HelpfulGetBean helpfulGetBean;
-    private final HelpfulPostBean helpfulPostBean;
-    private final HelpfulDeleteBean helpfulDeleteBean;
+    private final GetHelpful helpfulGetBean;
+    private final PostHelpful helpfulPostBean;
+    private final DeleteHelpful helpfulDeleteBean;
 
     // 특정 유저와 특정 리뷰의 도움이 되었는지 여부 조회 API
     @Transactional

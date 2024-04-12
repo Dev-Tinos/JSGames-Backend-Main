@@ -1,6 +1,6 @@
 package com.example.jsgamesbackendmain;
 
-import com.example.jsgamesbackendmain.Bean.UserBean.UserGetBean;
+import com.example.jsgamesbackendmain.Bean.UserBean.GetUserByUserId;
 import com.example.jsgamesbackendmain.Repository.GameRepository;
 import com.example.jsgamesbackendmain.Repository.LogRepository;
 import com.example.jsgamesbackendmain.Repository.ReviewRepository;
@@ -38,7 +38,7 @@ class JsGamesBackendMainApplicationTests {
     private MockMvc mockMvc;
 
     @Autowired
-    private UserGetBean userGetBean;
+    private GetUserByUserId userGetBean;
 
 //    @Test
 //    void ObjectMapper_예시코드() throws Exception {

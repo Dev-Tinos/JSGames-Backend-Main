@@ -28,18 +28,18 @@ public class UserController {
     // 특정 유저 조회
     @Operation(summary = "UserId로 유저 조회")
     @GetMapping("/user/{userId}")
-    public UserGetResponseDTO getUser(@PathVariable String userId) {
-        return userService.getUser(userId);
+    public UserGetResponseDTO getByIdUser(@PathVariable String userId) {
+        return userService.getByIdUser(userId);
     }
 
     @Operation(summary = "사용자 검색 목록 조회")
     @GetMapping("/user/search")
-    public List<UserSearchByNicknameResponseDTO> getUsers(
+    public List<UserSearchByNicknameResponseDTO> getByNameUsers(
             @RequestParam String nickname,
             @RequestParam Integer page,
             @RequestParam Integer size
     ) {
-        return userService.searchUserByNickname(nickname, page, size);
+        return userService.getByNameUsers(nickname, page, size);
     }
 
     @Operation(summary = "유저 회원가입", description = "# 이메일로 받은 코드도 같이 전송해야함 \n" +
@@ -47,15 +47,15 @@ public class UserController {
             "## 유저 사진 스웨거로 불가능 \n" +
             "## 유저 사진 업로드를 하지 않으면 기본 이미지로 설정 \n")
     @PostMapping("/user")
-    public UserSignUpResponseDTO signUpUser(@RequestBody UserSignUpRequestDTO userSignUpRequestDTO) {
+    public UserSignUpResponseDTO signUp(@RequestBody UserSignUpRequestDTO userSignUpRequestDTO) {
 
-        return userService.signUpUser(userSignUpRequestDTO);
+        return userService.signUp(userSignUpRequestDTO);
     }
 
     @Operation(summary = "유저 로그인")
     @PostMapping("/user/login")
-    public UserLoginResponseDTO loginUser(@RequestBody UserLoginRequestDTO userLoginRequestDTO) {
-        return userService.loginUser(userLoginRequestDTO);
+    public UserLoginResponseDTO login(@RequestBody UserLoginRequestDTO userLoginRequestDTO) {
+        return userService.login(userLoginRequestDTO);
     }
 
     @Operation(
@@ -63,10 +63,10 @@ public class UserController {
             security = {@SecurityRequirement(name = "accessToken"), @SecurityRequirement(name = "refreshToken")}
     )
     @GetMapping("/user/{userId}/auto/login")
-    public UserLoginResponseDTO autoLoginUser(
+    public UserLoginResponseDTO autoLogin(
             @PathVariable String userId
     ) {
-        return userService.autoLoginUser(userId);
+        return userService.autoLogin(userId);
     }
 
 

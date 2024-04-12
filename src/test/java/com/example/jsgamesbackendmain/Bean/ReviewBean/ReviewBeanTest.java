@@ -37,7 +37,7 @@ class ReviewBeanTest {
     private ReviewRepository reviewRepository;
 
     @Autowired
-    private ReviewGetMyReviewBean reviewGetMyReviewBean;
+    private GetReviewByGameIdAndUserId reviewGetMyReviewBean;
 
     @Test
     void ReviewGetMyReviewBeanTest() {
@@ -60,7 +60,7 @@ class ReviewBeanTest {
 
 
     @Autowired
-    private ReviewListByGameBean reviewListByGameBean;
+    private GetReviewsByGameId reviewListByGameBean;
 
     @Test
     void ReviewListByGameBeanTest() {
@@ -156,7 +156,7 @@ class ReviewBeanTest {
     }
 
     @Autowired
-    private ReviewPostBean reviewPostBean;
+    private PostReview reviewPostBean;
 
     @Test
     void ReviewPostBeanTest() {
@@ -186,7 +186,7 @@ class ReviewBeanTest {
     }
 
     @Autowired
-    private ReviewUpdateBean reviewUpdateBean;
+    private UpdateReview reviewUpdateBean;
 
     @Test
     void ReviewUpdateBeanTest() {

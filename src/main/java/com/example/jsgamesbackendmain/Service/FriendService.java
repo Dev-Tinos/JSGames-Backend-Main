@@ -16,14 +16,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class FriendService {
 
-    private final FriendRequestBean friendRequestBean;
-    private final FriendRequestListBean friendRequestListBean;
-    private final FriendRequestedListBean friendRequestedListBean;
-    private final FriendRequestDeleteBean friendRequestDeleteBean;
-    private final FriendRequestRejectionBean friendRequestRejectionBean;
-    private final FriendRequestAcceptBean friendRequestAcceptBean;
-    private final FriendDeleteBean friendDeleteBean;
-    private final FriendListBean friendListBean;
+    private final SendFriendRequest friendRequestBean;
+    private final GetSentFriendRequests friendRequestListBean;
+    private final GetReceivedFriendRequests friendRequestedListBean;
+    private final DeleteFriendRequest friendRequestDeleteBean;
+    private final RejectionFriendRequest friendRequestRejectionBean;
+    private final AcceptFriendRequest friendRequestAcceptBean;
+    private final DeleteFriend friendDeleteBean;
+    private final GetFriends friendListBean;
 
     @Transactional
     public StateResponseDTO requestFriend(FriendRequestDTO friendRequestDTO) {

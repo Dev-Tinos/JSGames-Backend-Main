@@ -1,9 +1,9 @@
 package com.example.jsgamesbackendmain.Service;
 
-import com.example.jsgamesbackendmain.Bean.LogBean.LogGetByGamIdUserIdBean;
-import com.example.jsgamesbackendmain.Bean.LogBean.LogGetByGameIdBean;
-import com.example.jsgamesbackendmain.Bean.LogBean.LogGetByUserIdBean;
-import com.example.jsgamesbackendmain.Bean.LogBean.LogPostBean;
+import com.example.jsgamesbackendmain.Bean.LogBean.GetLogsByGamIdAndUserId;
+import com.example.jsgamesbackendmain.Bean.LogBean.GetLogsByGameId;
+import com.example.jsgamesbackendmain.Bean.LogBean.GetLogsByUserId;
+import com.example.jsgamesbackendmain.Bean.LogBean.PostLog;
 import com.example.jsgamesbackendmain.Model.DTO.Log.Request.LogPostRequestDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Log.Response.LogGetByGameIdResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Log.Response.LogGetByGameIdUserIdResponseDTO;
@@ -19,10 +19,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class LogService {
 
-    private final LogGetByGameIdBean logGetByGameIdBean;
-    private final LogGetByUserIdBean logGetByUserIdBean;
-    private final LogGetByGamIdUserIdBean logGetByGamIdUserIdBean;
-    private final LogPostBean logPostBean;
+    private final GetLogsByGameId logGetByGameIdBean;
+    private final GetLogsByUserId logGetByUserIdBean;
+    private final GetLogsByGamIdAndUserId logGetByGamIdUserIdBean;
+    private final PostLog logPostBean;
 
     @Transactional
     public LogPostResponseDTO postLog(LogPostRequestDTO logPostRequestDTO) {

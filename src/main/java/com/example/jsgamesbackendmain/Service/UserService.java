@@ -16,52 +16,52 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserService {
 
-    private final UserGetBean userGetBean;
+    private final GetUserByUserId getUserByUserId;
 
-    private final UserSearchByNicknameBean userSearchByNicknameBean;
+    private final GetUsersByName getUsersByName;
 
-    private final UserUpdateBean userUpdateBean;
+    private final UpdateUser updateUser;
 
-    private final UserDeleteBean userDeleteBean;
+    private final DeleteUser deleteUser;
 
-    private final UserSignUpBean userSignUpBean;
+    private final SignUp signUp;
 
-    private final UserLoginBean userLoginBean;
+    private final Login login;
 
-    private final UserAutoLoginBean userAutoLoginBean;
+    private final AutoLogin autoLogin;
 
     @Transactional
-    public UserGetResponseDTO getUser(String userId) {
-        return userGetBean.exec(userId);
+    public UserGetResponseDTO getByIdUser(String userId) {
+        return getUserByUserId.exec(userId);
     }
 
     @Transactional
     public UserUpdateResponseDTO updateUser(UserUpdateRequestDTO userUpdateRequestDTO) {
-        return userUpdateBean.exec(userUpdateRequestDTO);
+        return updateUser.exec(userUpdateRequestDTO);
     }
 
     @Transactional
     public StateResponseDTO deleteUser(String userId) {
-        return userDeleteBean.exec(userId);
+        return deleteUser.exec(userId);
     }
 
     @Transactional
-    public UserSignUpResponseDTO signUpUser(UserSignUpRequestDTO userSignUpRequestDTO) {
-        return userSignUpBean.signUpUser(userSignUpRequestDTO);
+    public UserSignUpResponseDTO signUp(UserSignUpRequestDTO userSignUpRequestDTO) {
+        return signUp.exec(userSignUpRequestDTO);
     }
 
     @Transactional
-    public UserLoginResponseDTO loginUser(UserLoginRequestDTO userLoginRequestDTO) {
-        return userLoginBean.exec(userLoginRequestDTO);
+    public UserLoginResponseDTO login(UserLoginRequestDTO userLoginRequestDTO) {
+        return login.exec(userLoginRequestDTO);
     }
 
     @Transactional
-    public UserLoginResponseDTO autoLoginUser(String userId) {
-        return userAutoLoginBean.exec(userId);
+    public UserLoginResponseDTO autoLogin(String userId) {
+        return autoLogin.exec(userId);
     }
 
     @Transactional
-    public List<UserSearchByNicknameResponseDTO> searchUserByNickname(String nickname, Integer page, Integer size) {
-        return userSearchByNicknameBean.exec(nickname, page, size);
+    public List<UserSearchByNicknameResponseDTO> getByNameUsers(String nickname, Integer page, Integer size) {
+        return getUsersByName.exec(nickname, page, size);
     }
 }

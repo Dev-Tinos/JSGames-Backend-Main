@@ -1,10 +1,7 @@
 package com.example.jsgamesbackendmain.Bean.FriendBean;
 
-import com.example.jsgamesbackendmain.Model.DAO.FriendRequestDAO;
 import com.example.jsgamesbackendmain.Model.DAO.UserDAO;
 import com.example.jsgamesbackendmain.Model.DTO.Friend.Request.FriendRequestDTO;
-import com.example.jsgamesbackendmain.Model.DTO.Friend.Response.FriendRequestListResponseDTO;
-import com.example.jsgamesbackendmain.Model.ENUM.FriendRequestState;
 import com.example.jsgamesbackendmain.Repository.FriendRepository;
 import com.example.jsgamesbackendmain.Repository.FriendRequestRepository;
 import com.example.jsgamesbackendmain.Repository.UserRepository;
@@ -28,14 +25,14 @@ public class FriendBeanTest {
     @Autowired
     private FriendRequestRepository friendRequestRepository;
     @Autowired
-    private FriendRequestListBean friendRequestListBean;
+    private GetSentFriendRequests friendRequestListBean;
     @Autowired
-    private FriendRequestedListBean friendRequestedListBean;
+    private GetReceivedFriendRequests friendRequestedListBean;
     @Autowired
-    private FriendListBean friendListBean;
+    private GetFriends friendListBean;
 
     @Autowired
-    private FriendRequestBean friendRequestBean;
+    private SendFriendRequest friendRequestBean;
     @Test
     void FriendRequestBeanTest() {
         //given
@@ -62,7 +59,7 @@ public class FriendBeanTest {
     }
 
     @Autowired
-    private FriendRequestAcceptBean friendRequestAcceptBean;
+    private AcceptFriendRequest friendRequestAcceptBean;
     @Test
     void FriendRequestAcceptBeanTest() {
         //given
@@ -98,7 +95,7 @@ public class FriendBeanTest {
     }
 
     @Autowired
-    private FriendRequestRejectionBean friendRequestRejectionBean;
+    private RejectionFriendRequest friendRequestRejectionBean;
     @Test
     void FriendRequestRejectionBeanTest() {
         //given
@@ -131,7 +128,7 @@ public class FriendBeanTest {
     }
 
     @Autowired
-    private FriendRequestDeleteBean friendRequestDeleteBean;
+    private DeleteFriendRequest friendRequestDeleteBean;
     @Test
     void FriendRequestDeleteBeanTest() {
         //given
@@ -159,7 +156,7 @@ public class FriendBeanTest {
     }
 
     @Autowired
-    private FriendDeleteBean friendDeleteBean;
+    private DeleteFriend friendDeleteBean;
     @Test
     void FriendDeleteBeanTest() {
         //given

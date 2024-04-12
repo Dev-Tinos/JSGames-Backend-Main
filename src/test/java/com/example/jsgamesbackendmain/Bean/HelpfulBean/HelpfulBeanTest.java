@@ -31,7 +31,7 @@ public class HelpfulBeanTest {
     private GameRepository gameRepository;
 
     @Autowired
-    private HelpfulGetBean helpfulGetBean;
+    private GetHelpful helpfulGetBean;
 
     @Test
     void HelpfulGetBeanTest() {
@@ -65,7 +65,7 @@ public class HelpfulBeanTest {
     }
 
     @Autowired
-    private HelpfulPostBean helpfulPostBean;
+    private PostHelpful helpfulPostBean;
 
     @Test
     void HelpfulPostBeanTest() {
@@ -89,7 +89,7 @@ public class HelpfulBeanTest {
     }
 
     @Autowired
-    private HelpfulDeleteBean helpfulDeleteBean;
+    private DeleteHelpful helpfulDeleteBean;
 
     @Test
     void HelpfulDeleteBeanTest() {

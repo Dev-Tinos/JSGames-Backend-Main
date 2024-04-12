@@ -48,7 +48,7 @@ public class UserBeanTest {
 
 
     @Autowired
-    private UserSignUpBean userSignUpBean;
+    private SignUp userSignUpBean;
 
     @Test
     void UserCreateBeanTest() {
@@ -60,7 +60,7 @@ public class UserBeanTest {
         int a = 1;
         //when
         try {
-            responseDTO = userSignUpBean.signUpUser(requestDTO);
+            responseDTO = userSignUpBean.exec(requestDTO);
         } catch (InvalidException e) {
             //then
             // InvalidException 발생시 통과
@@ -70,7 +70,7 @@ public class UserBeanTest {
     }
 
     @Autowired
-    private UserDeleteBean userDeleteBean;
+    private DeleteUser userDeleteBean;
 
     @Test
     void UserDeleteBean() {
@@ -98,7 +98,7 @@ public class UserBeanTest {
     }
 
     @Autowired
-    private UserGetBean userGetBean;
+    private GetUserByUserId userGetBean;
 
     @Test
     void UserGetBeanTest() {
@@ -115,7 +115,7 @@ public class UserBeanTest {
     }
 
     @Autowired
-    private UserLoginBean userLoginBean;
+    private Login userLoginBean;
 
     @Test
     void UserLoginBeanTest() {
@@ -139,7 +139,7 @@ public class UserBeanTest {
     }
 
     @Autowired
-    private UserUpdateBean userUpdateBean;
+    private UpdateUser userUpdateBean;
 
     @Test
     void UserUpdateBeanTest() {
@@ -168,7 +168,7 @@ public class UserBeanTest {
     }
 
     @Autowired
-    private UserSearchByNicknameBean userSearchByNicknameBean;
+    private GetUsersByName userSearchByNicknameBean;
 
     @Test
     void UserSearchByNicknameBeanTest() {

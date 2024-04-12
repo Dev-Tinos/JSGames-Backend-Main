@@ -106,7 +106,7 @@ class GameBeanTest {
 
 
     @Autowired
-    private GameGetBean gameGetBean;
+    private GetGame gameGetBean;
 
     @Test
     void GameGetBeanTest() {
@@ -123,7 +123,7 @@ class GameBeanTest {
     }
 
     @Autowired
-    private GameListBean gameListBean;
+    private GetGames gameListBean;
 
     @Test
     void GameListBeanTest() {
@@ -150,7 +150,7 @@ class GameBeanTest {
     }
 
     @Autowired
-    private GamePostBean gamePostBean;
+    private PostGame gamePostBean;
 
     @Test
     void GamePostBeanTest() {

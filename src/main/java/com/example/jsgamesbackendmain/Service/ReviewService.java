@@ -1,9 +1,9 @@
 package com.example.jsgamesbackendmain.Service;
 
-import com.example.jsgamesbackendmain.Bean.ReviewBean.ReviewGetMyReviewBean;
-import com.example.jsgamesbackendmain.Bean.ReviewBean.ReviewListByGameBean;
-import com.example.jsgamesbackendmain.Bean.ReviewBean.ReviewPostBean;
-import com.example.jsgamesbackendmain.Bean.ReviewBean.ReviewUpdateBean;
+import com.example.jsgamesbackendmain.Bean.ReviewBean.GetReviewByGameIdAndUserId;
+import com.example.jsgamesbackendmain.Bean.ReviewBean.GetReviewsByGameId;
+import com.example.jsgamesbackendmain.Bean.ReviewBean.PostReview;
+import com.example.jsgamesbackendmain.Bean.ReviewBean.UpdateReview;
 import com.example.jsgamesbackendmain.Model.DTO.Review.Request.ReviewCreateRequestDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Review.Request.ReviewUpdateRequestDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Review.Response.ReviewCreateResponseDTO;
@@ -20,13 +20,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ReviewService {
 
-    private final ReviewPostBean reviewCreateBean;
+    private final PostReview reviewCreateBean;
 
-    private final ReviewListByGameBean reviewListByGameBean;
+    private final GetReviewsByGameId reviewListByGameBean;
 
-    private final ReviewUpdateBean reviewUpdateBean;
+    private final UpdateReview reviewUpdateBean;
 
-    private final ReviewGetMyReviewBean reviewGetMyReviewBean;
+    private final GetReviewByGameIdAndUserId reviewGetMyReviewBean;
 
     // 본인이 작성한 리뷰 조회
     @Transactional

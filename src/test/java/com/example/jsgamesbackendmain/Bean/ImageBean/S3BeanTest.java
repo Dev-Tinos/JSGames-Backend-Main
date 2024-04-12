@@ -19,7 +19,7 @@ public class S3BeanTest {
     private String bucket;
 
     @Autowired
-    private S3UploadImageBean s3UploadImageBean;
+    private UploadImageInS3 s3UploadImageBean;
     @Test
     void S3UploadImageBeanTest() throws Exception {
         // given
@@ -27,7 +27,7 @@ public class S3BeanTest {
         // then
     }
     @Autowired
-    private S3DeletImageBean s3DeletImageBean;
+    private DeleteImageInS3 s3DeletImageBean;
     @Test
     void S3DeletImageBeanTest() throws Exception {
         // given

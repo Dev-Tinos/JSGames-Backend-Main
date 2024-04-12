@@ -1,9 +1,9 @@
 package com.example.jsgamesbackendmain.Service;
 
-import com.example.jsgamesbackendmain.Bean.GameBean.GameGetBean;
-import com.example.jsgamesbackendmain.Bean.GameBean.GameGetListByPlayedUser;
-import com.example.jsgamesbackendmain.Bean.GameBean.GameListBean;
-import com.example.jsgamesbackendmain.Bean.GameBean.GamePostBean;
+import com.example.jsgamesbackendmain.Bean.GameBean.GetGame;
+import com.example.jsgamesbackendmain.Bean.GameBean.GetGamesByUser;
+import com.example.jsgamesbackendmain.Bean.GameBean.GetGames;
+import com.example.jsgamesbackendmain.Bean.GameBean.PostGame;
 import com.example.jsgamesbackendmain.Model.DTO.Game.Request.GameCreateRequestDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Game.Response.GameCreateResultDTO;
 import com.example.jsgamesbackendmain.Model.DTO.Game.Response.GameGetByGameIdResponseDTO;
@@ -18,10 +18,10 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class GameService {
-    private final GamePostBean gamePostBean;
-    private final GameListBean gameListBean;
-    private final GameGetBean gameGetBean;
-    private final GameGetListByPlayedUser gameGetListByPlayedUser;
+    private final PostGame gamePostBean;
+    private final GetGames gameListBean;
+    private final GetGame gameGetBean;
+    private final GetGamesByUser gameGetListByPlayedUser;
 
     @Transactional
     public GameCreateResultDTO postGame(GameCreateRequestDTO gameCreateRequestDTO) {

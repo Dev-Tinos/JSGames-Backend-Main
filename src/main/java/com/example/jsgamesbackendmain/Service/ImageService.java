@@ -1,7 +1,7 @@
 package com.example.jsgamesbackendmain.Service;
 
-import com.example.jsgamesbackendmain.Bean.ImageBean.S3DeletImageBean;
-import com.example.jsgamesbackendmain.Bean.ImageBean.S3UploadImageBean;
+import com.example.jsgamesbackendmain.Bean.ImageBean.DeleteImageInS3;
+import com.example.jsgamesbackendmain.Bean.ImageBean.UploadImageInS3;
 import com.example.jsgamesbackendmain.Model.DTO.S3.S3UrlResponseDTO;
 import com.example.jsgamesbackendmain.Model.DTO.StateResponseDTO;
 import lombok.RequiredArgsConstructor;
@@ -14,9 +14,9 @@ import java.io.IOException;
 @Service
 @RequiredArgsConstructor
 public class ImageService {
-    private final S3UploadImageBean s3UploadImageBean;
+    private final UploadImageInS3 s3UploadImageBean;
 
-    private final S3DeletImageBean s3DeletImageBean;
+    private final DeleteImageInS3 s3DeletImageBean;
 
     @Transactional
     public S3UrlResponseDTO uploadImage(MultipartFile file) throws IOException {

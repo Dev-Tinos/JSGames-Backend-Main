@@ -23,7 +23,7 @@ class EmailBeanTest {
     private EmailAccountRepository emailAccountRepository;
 
     @Autowired
-    private EmailSetBean emailSetBean;
+    private SetEmail emailSetBean;
 
     @Test
     void EmailSetBeanTest() {
@@ -37,7 +37,7 @@ class EmailBeanTest {
     }
 
     @Autowired
-    private EmailSendBean emailSendBean;
+    private SendEmail emailSendBean;
 
     @Test
     void EmailSendBeanTest() {

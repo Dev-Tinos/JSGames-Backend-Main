@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 public class SetEmail {
     private final EmailAppendSmallBean emailAppendSmallBean;
     private final EmailClearSmallBean emailClearSmallBean;
-    @Scheduled(cron = "0 55 23 * * *")
     public void exec(){
         emailClearSmallBean.exec();
         emailAppendSmallBean.exec();

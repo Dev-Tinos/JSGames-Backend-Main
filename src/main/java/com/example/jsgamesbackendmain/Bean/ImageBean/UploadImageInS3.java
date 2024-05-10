@@ -10,7 +10,7 @@ import java.io.IOException;
 
 @Component
 @RequiredArgsConstructor
-public class S3UploadImageBean {
+public class UploadImageInS3 {
     private final S3UploadSmallBean s3UploadSmallBean;
 
     public S3UrlResponseDTO exec(MultipartFile file) throws IOException {

@@ -25,6 +25,7 @@ public class AcceptFriendRequest {
         UserDAO friend = userGetByEmailSmallBean.exec(friendRequestDTO.getFriendEmail());
         friendFindSmallBean.exec(friend.getUserId(), user.getUserId());
         friendRequestDeleteSmallBean.exec(friend.getUserId(), friendRequestDTO.getUserId());
+        friendRequestDeleteSmallBean.exec(friendRequestDTO.getUserId(), friend.getUserId());
         friendSaveSmallBean.exec(user, friend);
         friendSaveSmallBean.exec(friend, user);
 

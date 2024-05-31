@@ -21,6 +21,7 @@ public class GetReceivedFriendRequests {
 
         return friendRequestDAOS.stream()
                 .map(friendRequestDAO -> FriendRequestListResponseDTO.builder()
+                        .friendId(friendRequestDAO.getUserId())
                         .friendEmail(userGetByIdSmallBean.exec(friendRequestDAO.getUserId()).getEmail())
                         .friendName(userGetByIdSmallBean.exec(friendRequestDAO.getUserId()).getNickname())
                         .friendProfile(userGetByIdSmallBean.exec(friendRequestDAO.getUserId()).getProfileImageURL())

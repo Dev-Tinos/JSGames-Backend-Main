@@ -20,4 +20,6 @@ public interface FriendRepository extends JpaRepository<FriendDAO, Long> {
     @Query("SELECT f FROM FriendDAO f WHERE f.user.userId = :userId ORDER BY f.friend.lastPlayTime DESC")
     Page<FriendDAO> findFriendsByUserIdSortedByLastPlayTime(String userId, Pageable pageable);
 
+    boolean existsByUserAndFriend(UserDAO user, UserDAO friend);
+
 }

@@ -26,7 +26,7 @@ public class HashBean {
 
     // 비밀번호 일치 여부 확인
     public boolean isMatch(String origin, String hashed) {
-        return createHash(origin).equals(hashed);
+        return encrypt(origin).equals(hashed);
     }
 
     // 암호화

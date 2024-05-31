@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @Builder
 public class UserSearchByNicknameResponseDTO {
     private String userId;
+    private String email;
     private String nickname;
     private String profileImageURL;
     private ParentMajor parentMajor;
@@ -23,6 +24,7 @@ public class UserSearchByNicknameResponseDTO {
     public static UserSearchByNicknameResponseDTO of(UserDAO userDAO) {
         return UserSearchByNicknameResponseDTO.builder()
                 .userId(userDAO.getUserId())
+                .email(userDAO.getEmail())
                 .nickname(userDAO.getNickname())
                 .profileImageURL(userDAO.getProfileImageURL())
                 .parentMajor(userDAO.getParentMajor())

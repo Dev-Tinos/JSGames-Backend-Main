@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -28,5 +29,6 @@ public interface FriendRequestRepository extends JpaRepository<FriendRequestDAO,
     @Query("UPDATE FriendRequestDAO fr SET fr.state = :state WHERE fr.userId = :userId AND fr.friendId = :friendId")
     void updateStateByUserIdAndFriendId(@Param("userId") String userId, @Param("friendId") String friendId, @Param("state") FriendRequestState state);
 
-    Optional<FriendRequestDAO> findByUserIdAndFriendId(String userId, String friendId);
+    List<FriendRequestDAO> findByUserIdAndFriendId(String userId, String friendId);
+
 }

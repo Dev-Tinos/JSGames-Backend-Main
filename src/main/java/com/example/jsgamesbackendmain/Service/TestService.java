@@ -6,6 +6,7 @@ import com.example.jsgamesbackendmain.Bean.RankBean.SetRankByMajor;
 import com.example.jsgamesbackendmain.Bean.RankBean.SetRankTop100Users;
 import com.example.jsgamesbackendmain.Model.DTO.StateResponseDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,18 +21,21 @@ public class TestService {
 
     private final SetImageInS3 s3SetImageBean;
 
+    @Scheduled(cron = "0 55 23 * * *")
     @Transactional
     public String emailClear() {
         emailClearBean.exec();
         return "success";
     }
 
+    @Scheduled(cron = "0 55 23 * * *")
     @Transactional
     public StateResponseDTO setRank() {
         rankSetTop100UserBean.exec();
         return StateResponseDTO.builder().state(true).build();
     }
 
+    @Scheduled(cron = "0 55 23 * * *")
     @Transactional
     public StateResponseDTO setMajor() {
         return rankSetMajorBean.exec();

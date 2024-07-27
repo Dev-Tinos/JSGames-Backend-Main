@@ -1,7 +1,8 @@
 package com.example.jsgamesbackendmain.Model.DTO.Review.Request;
 
-import com.example.jsgamesbackendmain.Model.DAO.ReviewDAO;
 import lombok.*;
+
+import javax.validation.constraints.Max;
 
 @Getter
 @Builder
@@ -9,4 +10,6 @@ import lombok.*;
 @NoArgsConstructor
 public class ReviewUpdateRequestDTO {
     private String reviewContent;
+    @Max(5)
+    private Float star;
 }

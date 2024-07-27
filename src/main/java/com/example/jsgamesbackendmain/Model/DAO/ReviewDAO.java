@@ -69,6 +69,7 @@ public class ReviewDAO {
 
     public void update(ReviewUpdateRequestDTO request) {
         this.reviewContent = request.getReviewContent();
+        this.star = request.getStar();
     }
 
     public static ReviewDAO createTest(int i, GameDAO game, UserDAO user) {

@@ -10,6 +10,7 @@ springDoc:
     path: /api/api-docs
   swagger-ui:
     path: /api/swagger
+    enabled: false
 
 
 spring:

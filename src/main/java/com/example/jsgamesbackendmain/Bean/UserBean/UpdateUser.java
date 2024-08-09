@@ -24,7 +24,7 @@ public class UpdateUser {
     public UserUpdateResponseDTO exec(UserUpdateRequestDTO userUpdateRequestDTO) {
         UserDAO user = userGetByIdSmallBean.exec(userUpdateRequestDTO.getUserId());
 
-        if (userUpdateRequestDTO.getProfileImageURL() != null &&
+      if (userUpdateRequestDTO.getProfileImageURL() != null &&
                 !user.getProfileImageURL().equals("https://tinos-images-storage.s3.ap-northeast-2.amazonaws.com/default_user_image.png")&&
                 !user.getProfileImageURL().equals(userUpdateRequestDTO.getProfileImageURL())) {
             S3DeleteSmallBeam.exec(user.getProfileImageURL());
